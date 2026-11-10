@@ -1,0 +1,9 @@
+{
+  "name": "Postmark",
+  "short_name": "Postmark",
+  "description": "Stamp the world, one city at a time.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#FFF3D6",
+  "theme_color": "#1B1F4B"
+}
