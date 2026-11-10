@@ -1153,6 +1153,17 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
 .fcard .ftop{padding-right:30px}.fcard .rm{position:absolute;top:6px;right:6px;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--ink-soft)}
 .fcard{position:relative}
 .ftag{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;background:var(--stamp-gold-wash);border:1.5px solid var(--stamp-gold);font:800 9px var(--font-body);letter-spacing:.06em;vertical-align:middle}
+
+/* ---------- location switch ---------- */
+.locrow{display:flex;align-items:center;gap:12px;padding:10px 12px;border:2px solid var(--ink-navy);border-radius:12px;background:var(--paper-cream)}
+.locrow .lt{flex:1;min-width:0}
+.locrow .lt b{display:block;font-size:13px;font-weight:800;color:var(--ink-navy)}
+.locrow .lt span{display:block;font-size:11px;line-height:1.35;color:var(--ink-soft)}
+.locrow.ok{border-color:#2FBF71;background:#E9F9F0}.locrow.bad{border-color:#FFB020;background:#FFF4DC}
+.sw{flex-shrink:0;position:relative;width:52px;height:30px;border-radius:999px;border:2px solid var(--ink-navy);background:var(--paper-card);transition:background .2s}
+.sw::after{content:'';position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:var(--ink-navy);transition:transform .2s}
+.sw.on{background:#2FBF71}.sw.on::after{transform:translateX(22px);background:#fff}
+.locnote .row button.loc{background:#2FBF71;color:#fff;border-color:var(--ink-navy)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}}
 .banner h2.long{font-size:30px}
 </style>
@@ -2295,10 +2306,10 @@ function cardHTML(id){
     <div class="acts">
       <button class="btn navy" id="tripBtn">${!activeTrip?L(LU.plane,18)+'Plan a trip with this city':inTrip(id)?L(LU.check,18)+'In '+esc(T(activeTrip).name):L(LU.plus,18)+'Add to '+esc(T(activeTrip).name)}</button>
       ${v && isPast(id) ? `<div class="upgrade"><b>Back in ${C.name}?</b><span>This is a past visit, so it has the blue memory stamp. Stamp here while you’re in ${C.name} to unlock the full ${C.lmName} stamp.</span><button class="btn red" id="hereBtn">${L(LU.pin,18)}Stamp here</button>
-        ${locMsg&&locMsg.id===id?`<div class="locnote" role="status">${esc(locMsg.text)}${locMsg.busy?'<span class="spin"></span>':(DEMO?`<div class="row"><button class="pri" id="pretendBtn">Pretend I’m here (demo)</button></div>`:'')}</div>`:''}</div>`:''}
+        ${locMsg&&locMsg.id===id?`<div class="locnote" role="status">${esc(locMsg.text)}${locMsg.busy?'<span class="spin"></span>':`${locMsg.fix?`<div class="row"><button class="loc" id="locFix" data-fix="${locMsg.fix}">${locMsg.fix==='on'?'Turn location on':'Try again'}</button></div>`:''}${DEMO?`<div class="row"><button class="pri" id="pretendBtn">Pretend I’m here (demo)</button></div>`:''}`}</div>`:''}</div>`:''}
       ${v ? `<button class="btn line" id="postBtn">${L(LU.mail,18)}Send a postcard</button><button class="btn red" disabled>${L(LU.check,18)}${isPast(id)?'Been there '+pastLabel(v):'Visited on '+dLong(v)}</button><button class="undo" id="undoBtn">Undo stamp</button>`
           : `<div class="hereacts"><button class="btn red" id="hereBtn">${L(LU.pin,18)}Stamp here</button>
-             ${locMsg&&locMsg.id===id?`<div class="locnote" role="status">${esc(locMsg.text)}${locMsg.busy?'<span class="spin"></span>':(DEMO?`<div class="row"><button class="pri" id="pretendBtn">Pretend I’m here (demo)</button></div>`:'')}</div>`:''}
+             ${locMsg&&locMsg.id===id?`<div class="locnote" role="status">${esc(locMsg.text)}${locMsg.busy?'<span class="spin"></span>':`${locMsg.fix?`<div class="row"><button class="loc" id="locFix" data-fix="${locMsg.fix}">${locMsg.fix==='on'?'Turn location on':'Try again'}</button></div>`:''}${DEMO?`<div class="row"><button class="pri" id="pretendBtn">Pretend I’m here (demo)</button></div>`:''}`}</div>`:''}
              ${pastOpen===id?`<div class="pastform"><b>Been here before?</b><span>Past visits get a <b style="font:inherit;color:var(--memory)">blue memory stamp</b>. Red stamps are for places you stamp while you’re there.</span>
                  <label class="fld">Roughly when?<input type="month" id="pastDate" max="${today().slice(0,7)}" value="${today().slice(0,7)}"></label>
                  <button class="btn blue" id="markBtn">${L(LU.cal,18)}Add past visit</button></div>`
@@ -2313,23 +2324,68 @@ function secretHTML(id){
   if(quizOpen!==id) return `<div class="lockbox"><div class="lk">${L(LU.lock,18)}</div><div><b>Local secret locked</b><span>Answer one quick question to unlock it.</span></div><button class="unl" id="unlockBtn">Unlock</button></div>`;
   return `<div class="lockbox quiz"><b class="q">${Q[0]}</b><div class="opts">${Q[1].map((o,i)=>`<button data-ans="${i}">${o}</button>`).join('')}</div><span class="qhint">Hint: the answer is somewhere on this card.</span></div>`;
 }
+/* Location is a setting the traveller controls. It stays on once switched on (the browser may still ask once per visit). */
+const LOC={on:true, state:'unknown', acc:null, at:null, near:null, checking:false};
+try{ LOC.on=localStorage.getItem('pm-loc')!=='0'; }catch(e){}
+/* 'blocked-frame' = the page Postmark is embedded in doesn't pass location through; 'denied' = the browser said no. */
+function locFramed(){ try{ const fp=document.permissionsPolicy||document.featurePolicy; if(fp && fp.allowsFeature && !fp.allowsFeature('geolocation')) return true; }catch(e){} return false; }
+async function locRefreshState(){
+  if(!navigator.geolocation) LOC.state='unsupported';
+  else if(locFramed()) LOC.state='blocked-frame';
+  else { try{ const p=await navigator.permissions.query({name:'geolocation'}); LOC.state={granted:'granted', denied:'denied', prompt:'prompt'}[p.state]||'unknown'; p.onchange=()=>{ locRefreshState().then(paintLoc); }; }catch(e){ if(LOC.state!=='granted'&&LOC.state!=='denied') LOC.state='unknown'; } }
+  return LOC.state;
+}
+/* Ask for a position: precise first, then a quicker, rougher fix if the precise one times out or isn't available. */
+function locGet(){
+  return new Promise((res,rej)=>{
+    if(!navigator.geolocation) return rej({code:0});
+    let settled=false; const ok=p=>{ if(settled) return; settled=true; LOC.state='granted'; LOC.acc=p.coords.accuracy||0; LOC.at=Date.now(); LOC.pos=[p.coords.latitude,p.coords.longitude]; res(p); };
+    const hard=setTimeout(()=>{ if(!settled){ settled=true; rej({code:3}); } }, 20000);
+    const rough=()=>navigator.geolocation.getCurrentPosition(p=>{ clearTimeout(hard); ok(p); }, e=>{ clearTimeout(hard); if(!settled){ settled=true; if(e.code===1) LOC.state=locFramed()?'blocked-frame':'denied'; rej(e); } }, {enableHighAccuracy:false, timeout:9000, maximumAge:300000});
+    try{ navigator.geolocation.getCurrentPosition(p=>{ clearTimeout(hard); ok(p); }, e=>{ if(e.code===1){ clearTimeout(hard); if(!settled){ settled=true; LOC.state=locFramed()?'blocked-frame':'denied'; rej(e); } } else rough(); }, {enableHighAccuracy:true, timeout:9000, maximumAge:60000}); }
+    catch(e){ clearTimeout(hard); rej({code:0}); }
+  });
+}
+const locWhy = code => LOC.state==='blocked-frame' ? 'This view of Postmark isn’t allowed to use location. Open Postmark in its own browser tab, or use the standalone app.'
+  : LOC.state==='unsupported' ? 'This browser doesn’t offer location.'
+  : code===1 ? 'Location is blocked for this page. Allow it in your browser’s site settings (the padlock or “aA” next to the address), then switch it on again.'
+  : code===3 ? 'Your device took too long to find a position. Check that Location Services are on, then try again.'
+  : 'Your device couldn’t find a position just now. Check that Location Services are on, then try again.';
+function nearestCity(pos){ let best=null, bd=1e9; for(const id in CITY_LL){ if(!CITIES[id]) continue; const d=km(pos, CITY_LL[id]); if(d<bd){ bd=d; best=id; } } return best?{id:best, km:bd}:null; }
+async function locTest(announce){
+  LOC.checking=true; paintLoc();
+  try{ const p=await locGet(); LOC.near=nearestCity(LOC.pos); LOC.err=null; if(announce) toast('Location is on'); }
+  catch(e){ LOC.err=locWhy(e&&e.code); if(announce) toast('Location couldn’t be turned on'); }
+  LOC.checking=false; paintLoc(); if(openId) refreshCard();
+}
+function setLoc(on){ LOC.on=on; try{ localStorage.setItem('pm-loc', on?'1':'0'); }catch(e){} if(on) locTest(true); else { LOC.err=null; paintLoc(); if(openId) refreshCard(); toast('Location is off'); } }
+function locRowHTML(){
+  const bad = LOC.on && (LOC.err || ['denied','blocked-frame','unsupported'].includes(LOC.state));
+  const sub = !LOC.on ? 'Off. “Stamp here” can’t verify stamps until you switch it on.'
+    : LOC.checking ? 'Finding you…'
+    : bad ? (LOC.err || locWhy(1))
+    : LOC.at ? `On · accurate to about ${LOC.acc<1000?Math.max(5,Math.round(LOC.acc))+' m':Math.round(LOC.acc/1000)+' km'}${LOC.near?` · nearest city: ${CITIES[LOC.near.id].name} (${fmtKm(LOC.near.km)})`:''}`
+    : LOC.state==='granted' ? 'On and allowed.' : 'On. Your browser will ask the first time you stamp.';
+  return `<div class="locrow ${!LOC.on?'':bad?'bad':(LOC.at||LOC.state==='granted')?'ok':''}" id="locRow"><div class="lt"><b>Location for “Stamp here”</b><span>${esc(sub)}</span></div><button class="sw ${LOC.on?'on':''}" id="locSw" role="switch" aria-checked="${LOC.on}" aria-label="Use my location"></button></div>`;
+}
+function paintLoc(){ const el=document.getElementById('locRow'); if(el) el.outerHTML=locRowHTML(); }
 /* How close counts as "in the city": most cities 25 km; spread-out places get a little more. */
 const CITY_RADIUS = {uluru:30, cappadocia:40, santorini:20, jeju:40, goa:60, phuket:35, cairns:30, losangeles:45, orlando:35, zermatt:15, lucerne:15, oxford:15, cambridge:15, kandy:15, galle:15, luxor:20};
 const cityRadius = id => CITY_RADIUS[id] || 25;
 function tryHere(id){
-  const C=CITIES[id], fail=t=>{ locMsg={id, text:t}; refreshCard(); };
+  const C=CITIES[id], fail=(t,fix)=>{ locMsg={id, text:t, fix}; refreshCard(); };
+  if(!LOC.on) return fail('Location is switched off, so this stamp can’t be verified.', 'on');
   if(!navigator.geolocation) return fail('Location isn’t available in this view. “Stamp here” checks that you’re really in '+C.name+'.');
   locMsg={id, text:'Checking where you are…', busy:true}; refreshCard();
-  const stuck=setTimeout(()=>{ if(locMsg&&locMsg.id===id&&locMsg.busy) fail('Your browser hasn’t shared a location. Check the location permission, or add a past visit below.'); }, 14000);
-  const done=f=>(...a)=>{ clearTimeout(stuck); if(!locMsg||locMsg.id!==id) return; f(...a); };
-  try{
-    navigator.geolocation.getCurrentPosition(done(p=>{
-      const d=km([p.coords.latitude,p.coords.longitude], CITY_LL[id]), acc=p.coords.accuracy||0, r=cityRadius(id);
-      if(acc>5000) return fail(`Your location is only accurate to about ${Math.round(acc/1000)} km, which isn’t enough to check a stamp. Turn on precise location or step outside, then try again.`);
-      if(d<=r){ locMsg=null; toast(`You’re in ${C.name}. Verified stamp!`); markVisited(id,{verified:{m:'gps', at:new Date().toISOString(), acc:Math.round(acc), km:+d.toFixed(1)}}); }
-      else fail(`You’re about ${fmtKm(d)} from ${C.name}. “Stamp here” works within ${r} km of the city.`);
-    }), done(err=>fail(err.code===1?'Location permission was declined, so we can’t verify this stamp.':'We couldn’t find your location just now.')), {enableHighAccuracy:true, timeout:12000, maximumAge:60000});
-  }catch(e){ fail('Location isn’t available in this view.'); }
+  locGet().then(p=>{
+    if(!locMsg||locMsg.id!==id) return;
+    const d=km([p.coords.latitude,p.coords.longitude], CITY_LL[id]), acc=p.coords.accuracy||0, r=cityRadius(id);
+    LOC.near=nearestCity(LOC.pos); LOC.err=null;
+    /* a rough fix is fine when even its error margin keeps you inside the city; otherwise ask for a better one */
+    if(d<=r && acc<=30000){ locMsg=null; toast(`You’re in ${C.name}. Verified stamp!`); return markVisited(id,{verified:{m:'gps', at:new Date().toISOString(), acc:Math.round(acc), km:+d.toFixed(1)}}); }
+    if(d<=r) return fail(`Your location is only accurate to about ${Math.round(acc/1000)} km, which is too rough to check a stamp. Turn on precise location or Wi-Fi, then try again.`, 'retry');
+    fail(`You’re about ${fmtKm(d)} from ${C.name}${LOC.near&&LOC.near.id!==id&&LOC.near.km<=cityRadius(LOC.near.id)?` (it looks like you’re in ${CITIES[LOC.near.id].name})`:''}. “Stamp here” works within ${r} km of the city.`);
+  }).catch(e=>{ if(!locMsg||locMsg.id!==id) return; LOC.err=locWhy(e&&e.code); fail(LOC.err, LOC.state==='blocked-frame'||LOC.state==='unsupported'?null:'retry'); });
 }
 function openCard(id){ quizOpen=null; openId=id; pastOpen=null; if(locMsg && locMsg.id!==id) locMsg=null; $('#sheetScroll').innerHTML=cardHTML(id); $('#sheetScroll').scrollTop=0; $('#sheet').classList.add('on'); }
 function refreshCard(){ if(openId){ const y=$('#sheetScroll').scrollTop; $('#sheetScroll').innerHTML=cardHTML(openId); $('#sheetScroll').scrollTop=y; } }
@@ -2344,6 +2400,7 @@ $('#sheet').addEventListener('click', e=>{
   if(e.target.closest('#pastOpen')){ pastOpen=openId; refreshCard(); const sc=$('#sheetScroll'); sc.scrollTop=sc.scrollHeight; return; }
   if(e.target.closest('#markBtn')){ let m=($('#pastDate')&&$('#pastDate').value)||today().slice(0,7); let d = m>=today().slice(0,7) ? today() : m+'-01'; locMsg=null; pastOpen=null; return markVisited(openId,{date:d}); }
   if(e.target.closest('#hereBtn')) return tryHere(openId);
+  const lf=e.target.closest('#locFix'); if(lf){ if(lf.dataset.fix==='on'){ LOC.on=true; try{ localStorage.setItem('pm-loc','1'); }catch(err){} } return tryHere(openId); }
   if(e.target.closest('#pretendBtn')){ if(!DEMO) return; locMsg=null; return markVisited(openId,{verified:'demo'}); }
   if(e.target.closest('#postBtn')) return openPostcard(openId);
   if(e.target.closest('#unlockBtn')){ quizOpen=openId; return refreshCard(); }
@@ -3489,6 +3546,7 @@ function accountHTML(){
   return `<section class="acct" aria-label="Account"><div class="who"><span class="face">${avatarSVG(AVA,48)}</span><div><small>ACCOUNT</small><b id="acctName">${on?(ACCT.name?'Signed in as '+esc(ACCT.name):'Signed in'):'Not signed in'}</b><span class="s">${on?'Your passport follows you to any device':'Saved on this device only'}</span></div></div>
     <div class="rows"><div>${L(st==='synced'?LU.cloudok:LU.cloud,14)}<span>${on?{loading:'Connecting…', saving:'Saving…', synced:'Backed up'+(SYNC.at?' · '+SYNC.at.toLocaleString([], {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):''), offline:'Offline. Changes are kept here and sync when you’re back online.', error:'Couldn’t reach your account. Changes are kept on this device.', local:'Saved on this device'}[st]:'Open Postmark while signed in to Claude to back up your passport and use it on other devices.'}</span></div>
       <div>${L(LU.shield,14)}<span>${n} stamp${n===1?'':'s'} · ${v} verified by location</span></div></div>
+    ${locRowHTML()}
     <div class="btns">${on?`<button id="syncNow">${L(LU.cloud,14)}Sync now</button>`:''}<button id="obOpen">${L(LU.star,14)}Getting started</button><button id="resetMe" class="danger ${resetArm?'sure':''}">${resetArm?'Tap again to erase everything':'Reset my passport'}</button></div></section>`;
 }
 function syncPillHTML(){
@@ -3570,6 +3628,7 @@ $('#passport').addEventListener('click', e=>{
   if(e.target.closest('#verTap')){ const now=Date.now(); verTaps=(now-verT<2500?verTaps:0)+1; verT=now;
     if(verTaps>=5){ verTaps=0; setDemo(!DEMO); } return; }
   if(e.target.closest('#demoOff')) return setDemo(false);
+  if(e.target.closest('#locSw')) return setLoc(!LOC.on);
   if(e.target.closest('#syncNow')){ SYNC.dirty=true; lastStateStr=''; saveState(); pushState(); return toast('Syncing…'); }
   if(e.target.closest('#obOpen')) return openOnboard(true);
   if(e.target.closest('#resetMe')){ if(!resetArm){ resetArm=true; renderPassport(); setTimeout(()=>{ if(resetArm){ resetArm=false; if(!$('#passport').hidden) renderPassport(); } }, 4000); return; }
@@ -3642,7 +3701,7 @@ try{ if(localStorage.getItem('pm-pal')!=='classic') document.documentElement.cla
 loadLocalState();
 renderAll();
 $('#art-world').classList.add('on'); $('#ui-world').classList.add('on');
-checkUnlocks(); renderFriends(); showSplash(); initSync(); if(MAPSTYLE==='real') loadReal();
+checkUnlocks(); renderFriends(); showSplash(); initSync(); locRefreshState().then(st=>{ if(LOC.on && st==='granted') locTest(false); else paintLoc(); }); if(MAPSTYLE==='real') loadReal();
 </script>
 
 </body>
