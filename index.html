@@ -51,6 +51,9 @@ body{margin:0;background:var(--surround);color:var(--ink-navy);font-family:var(-
 #stage.full{padding:0}
 #phone.full{border-radius:0;box-shadow:none}
 #phone.full #status>*{visibility:hidden}
+#phone.short .bcard .bkeys{display:none}
+#phone.short .hint{display:none}
+#phone.short .bcard{padding:12px 14px;gap:8px;margin-bottom:10px}
 body:has(#stage.full){background:var(--map-ocean)}
 #phone *{box-sizing:border-box}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
@@ -3878,11 +3881,11 @@ function fit(){
   st.classList.toggle('full', full); ph.classList.toggle('full', full);
   if(full){
     let s=vw/390, H=vh/s;
-    if(H<800){ s=vh/800; H=800; }           /* shorter screens: keep map pins clear of the bottom panel */
-    H=Math.min(H, 1100);
+    /* always edge to edge; on shorter screens the bottom panel slims down so map pins stay clear of it */
+    ph.classList.toggle('short', H<800);
     ph.style.height=H.toFixed(1)+'px'; ph.style.setProperty('--s', s.toFixed(4)); ph.classList.remove('bare'); return;
   }
-  ph.style.height='';
+  ph.style.height=''; ph.classList.remove('short');
   const cs=getComputedStyle(st);
   const w=st.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight), h=st.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
   const roomy = w>=560 && h>=700, pad = roomy ? 20 : 4;
