@@ -3477,7 +3477,7 @@ $('#friends').addEventListener('click', async e=>{
   if(q('#fSend')){ return openPostcard(pickPostcardCity(), null, false, friendView); }
   const fo=q('[data-fopen]'); if(fo) return openCard(fo.dataset.fopen);
   const ib=q('[data-inbox]'); if(ib){ const m=inbox[+ib.dataset.inbox]; m.read=true; renderFriends(); return viewPostcard(m); }
-  if(q('#fInvite')){ const text=`Join me on Postmark and let’s compare passports. My friend code is ${myCode()}.`;
+  if(q('#fInvite')){ const text=`Join me on Postmark and let’s compare passports. My friend code is ${myCode()}.${STANDALONE?' '+location.origin+location.pathname:''}`;
     try{ if(navigator.share){ await navigator.share({text}); return; } }catch(err){ if(err&&err.name==='AbortError') return; }
     try{ await navigator.clipboard.writeText(text); toast('Invite copied'); }catch(err){ toast(`Your friend code is ${myCode()}`); } }
 });
@@ -3538,12 +3538,38 @@ function supaRef(c, uid){
     onSnapshot(next){ const h=()=>{ if(document.visibilityState==='visible') get().then(next).catch(()=>{}); }; document.addEventListener('visibilitychange',h); const iv=setInterval(h,45000);
       return ()=>{ document.removeEventListener('visibilitychange',h); clearInterval(iv); }; }};
 }
+/* Friends in the standalone app: the same doc / collection calls the Claude-page database answers, backed by two tables.
+   Profiles are read through two database functions (by friend code, or by ids you already hold); postcards are visible only to the person they were sent to. */
+function supaSocial(c, uid){
+  const card=r=>({code:r.code, given:r.given, home:r.home, av:r.av, cities:r.cities});
+  const snap=(id,row)=>({id, exists:!!row, data:()=>row||undefined});
+  return {
+    doc(path){ const i=path.indexOf('/'), col=path.slice(0,i), id=path.slice(i+1);
+      if(col==='people') return {
+        set:async d=>{ const {error}=await c.from('profiles').upsert({user_id:id, code:d.code, given:d.given, home:d.home, av:d.av, cities:d.cities, updated_at:new Date().toISOString()}); if(error) throw error; },
+        get:async()=>{ const {data,error}=await c.rpc('profiles_by_ids',{p_ids:[id]}); if(error) throw error; const r=(data||[])[0]; return snap(id, r&&card(r)); } };
+      return { delete:async()=>{ const {error}=await c.from('postcards').delete().eq('id',id); if(error) throw error; } };
+    },
+    collection(col){
+      if(col==='people') return { where(f,o,v){ return { limit(){ return this; },
+        get:async()=>{ const {data,error}=await c.rpc('profile_by_code',{p_code:v}); if(error) throw error; const docs=(data||[]).map(r=>snap(r.user_id, card(r))); return {docs, empty:!docs.length, size:docs.length}; } }; } };
+      return {
+        add:async d=>{ const {error}=await c.from('postcards').insert({to_user:d.to, from_user:d.from, city:d.city, msg:d.msg, sent_on:d.date, env:d.env}); if(error) throw error; },
+        where(f,o,v){ return { onSnapshot(next){
+          const pull=()=>{ if(document.visibilityState!=='visible') return;
+            c.from('postcards').select('id,from_user,city,msg,sent_on').eq('to_user',v).then(({data,error})=>{ if(error) return; const rows=data||[];
+              next({docs:rows.map(r=>snap(String(r.id),{from:r.from_user, city:r.city, msg:r.msg, date:r.sent_on})), empty:!rows.length}); }); };
+          pull(); const iv=setInterval(pull,30000); document.addEventListener('visibilitychange',pull);
+          return ()=>{ clearInterval(iv); document.removeEventListener('visibilitychange',pull); }; } }; } };
+    } };
+}
 async function authChanged(session){
   const u=session&&session.user||null;
   if(u && AUTH.user && AUTH.user.id===u.id) return;
   if(SYNC.unsub){ try{ SYNC.unsub(); }catch(e){} SYNC.unsub=null; }
   AUTH.user=u;
-  if(!u){ SYNC.ref=null; SYNC.status='local'; ACCT.signedIn=false; ACCT.name=''; renderSync(); if(!$('#passport').hidden) renderPassport(); renderFriends(); return; }
+  if(SOC.unsub){ try{ SOC.unsub(); }catch(e){} SOC.unsub=null; }
+  if(!u){ SOC.db=null; SOC.uid=null; SOC.lastCard=''; SYNC.ref=null; SYNC.status='local'; ACCT.signedIn=false; ACCT.name=''; renderSync(); if(!$('#passport').hidden) renderPassport(); renderFriends(); return; }
   ACCT.signedIn=true; ACCT.name=u.email||''; SYNC.ref=supaRef(AUTH.client, u.id); SYNC.status='loading'; renderSync();
   if($('#auth').classList.contains('on')){ closeAuth(); toast('Signed in. Your passport is backed up.'); setTimeout(()=>openOnboard(), 1200); }
   try{
@@ -3552,6 +3578,8 @@ async function authChanged(session){
     if(remote && remote.state && (remote.savedAt||'')>localAt){ takeRemote(remote); toast('Passport loaded from your account'); } else await pushState();
     SYNC.unsub=SYNC.ref.onSnapshot(sn=>{ const d=sn.exists?sn.data():null; if(!d||!d.state||d.dev===DEVID||(d.savedAt||'')<=SYNC.lastAt||SYNC.saving||stamping) return; takeRemote(d); toast('Passport updated from your other device'); });
   }catch(e){ SYNC.status=navigator.onLine?'error':'offline'; SYNC.dirty=true; renderSync(); }
+  SOC.db=supaSocial(AUTH.client, u.id); SOC.uid=u.id; SOC.lastCard=''; SOC.loadedAt=0;
+  publishCard(); loadFriends(true); startPostbox();
   if(!$('#passport').hidden) renderPassport(); renderFriends();
 }
 async function initAuth(){
