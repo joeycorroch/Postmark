@@ -5,8 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Postmark</title>
 <meta name="description" content="Stamp the world, one city at a time.">
-<meta name="theme-color" content="#1B1F4B">
+<meta name="theme-color" content="#6FD3F0">
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Postmark">
 <style>html,body{margin:0;height:100%}*,*::before,*::after{box-sizing:border-box}</style>
 <script src="config.js"></script>
 </head>
@@ -42,6 +48,10 @@ body{margin:0;background:var(--surround);color:var(--ink-navy);font-family:var(-
 #stage{position:relative;height:100%;box-sizing:border-box;padding-block:16px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 #phone{position:absolute;left:50%;top:50%;width:390px;height:844px;transform:translate(-50%,-50%) scale(var(--s,1));transform-origin:center;background:var(--map-ocean);overflow:hidden;border-radius:44px;box-shadow:0 0 0 10px var(--frame),0 30px 60px -20px rgba(31,42,68,.45)}
 #phone.bare{border-radius:20px;box-shadow:0 0 0 2px var(--frame)}
+#stage.full{padding:0}
+#phone.full{border-radius:0;box-shadow:none}
+#phone.full #status>*{visibility:hidden}
+body:has(#stage.full){background:var(--map-ocean)}
 #phone *{box-sizing:border-box}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
 button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--stamp-red);outline-offset:2px}
@@ -3861,13 +3871,25 @@ $('#tMap').onclick=()=>tab('map'); $('#tPass').onclick=()=>tab('passport'); $('#
 
 /* ---------- fit the 390×844 canvas to the viewer ---------- */
 function fit(){
-  const st=$('#stage'), cs=getComputedStyle(st);
+  const st=$('#stage'), ph=$('#phone');
+  /* On a phone-sized screen the app fills the whole screen: full width, and as tall as the screen allows. */
+  const vw=document.documentElement.clientWidth, vh=window.innerHeight;
+  const full = vw<560 && vh>vw;
+  st.classList.toggle('full', full); ph.classList.toggle('full', full);
+  if(full){
+    let s=vw/390, H=vh/s;
+    if(H<800){ s=vh/800; H=800; }           /* shorter screens: keep map pins clear of the bottom panel */
+    H=Math.min(H, 1100);
+    ph.style.height=H.toFixed(1)+'px'; ph.style.setProperty('--s', s.toFixed(4)); ph.classList.remove('bare'); return;
+  }
+  ph.style.height='';
+  const cs=getComputedStyle(st);
   const w=st.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight), h=st.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
   const roomy = w>=560 && h>=700, pad = roomy ? 20 : 4;
   const s = Math.min(1, (w-pad)/390, (h-pad)/844);
-  $('#phone').style.setProperty('--s', s.toFixed(4)); $('#phone').classList.toggle('bare', !roomy);
+  ph.style.setProperty('--s', s.toFixed(4)); ph.classList.toggle('bare', !roomy);
 }
-addEventListener('resize', fit); fit();
+addEventListener('resize', fit); addEventListener('orientationchange', fit); if(window.visualViewport) visualViewport.addEventListener('resize', fit); fit();
 
 try{ if(localStorage.getItem('pm-pal')!=='classic') document.documentElement.classList.add('bright'); }catch(e){ document.documentElement.classList.add('bright'); }
 loadLocalState();
