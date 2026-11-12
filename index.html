@@ -8,6 +8,7 @@
 <meta name="theme-color" content="#1B1F4B">
 <link rel="manifest" href="manifest.webmanifest">
 <style>html,body{margin:0;height:100%}*,*::before,*::after{box-sizing:border-box}</style>
+<script src="config.js"></script>
 </head>
 <body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1164,6 +1165,35 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
 .locsw::after{content:'';position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:var(--ink-navy);transition:transform .2s}
 .locsw.on{background:#2FBF71}.locsw.on::after{transform:translateX(22px);background:#fff}
 .locnote .row button.loc{background:#2FBF71;color:#fff;border-color:var(--ink-navy)}
+
+/* ---------- sign-in ---------- */
+#auth{position:absolute;inset:0;z-index:74;display:none;flex-direction:column;background:linear-gradient(180deg,#6FD3F0 0%,#BFEAF7 32%,#FFF3D6 60%);overflow-y:auto}
+#auth.on{display:flex;animation:up .35s cubic-bezier(.3,.7,.2,1) both}
+#auth>*{flex-shrink:0}
+#auth .ax{position:absolute;top:52px;right:16px}
+#auth .ahero{display:flex;flex-direction:column;align-items:center;padding:64px 24px 6px;text-align:center}
+#auth .ahero .aicon{display:block;transform:rotate(-6deg);filter:drop-shadow(4px 5px 0 rgba(27,31,75,.35))}#auth .ahero .aicon svg{display:block;border-radius:22px}
+#auth .ahero h1{margin:8px 0 2px;font:900 30px/1.05 var(--font-display);color:var(--ink-navy)}
+#auth .ahero p{margin:0;font-size:14px;color:var(--ink-soft)}
+#auth .abox{margin:14px 20px 0;padding:16px;background:var(--paper-card);background-image:var(--grain);border:2px solid var(--ink-navy);border-radius:18px;box-shadow:5px 5px 0 var(--ink-navy);display:flex;flex-direction:column;gap:10px}
+#auth .prov{height:48px;border:2px solid var(--ink-navy);border-radius:12px;background:#fff;font:800 15px var(--font-body);color:var(--ink-navy);display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:3px 3px 0 var(--ink-navy)}
+#auth .prov.apple{background:var(--ink-navy);color:#fff;box-shadow:3px 3px 0 var(--city-kyoto)}
+#auth .prov .dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:900 13px var(--font-display)}
+#auth .or{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:800;letter-spacing:.12em;color:var(--ink-soft);margin:2px 0}
+#auth .or::before,#auth .or::after{content:'';flex:1;height:2px;background:var(--map-land-edge)}
+#auth label{display:flex;flex-direction:column;gap:4px;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--stamp-red)}
+#auth input{height:46px;border:2px solid var(--ink-navy);border-radius:12px;padding:0 12px;font:500 16px var(--font-body);color:var(--ink-navy);background:#fff;text-transform:none;letter-spacing:0}
+#auth input:focus{outline:3px solid var(--city-lisbon);outline-offset:1px}
+#auth .go{height:50px;border-radius:12px;background:var(--stamp-red);color:#fff;font:800 16px var(--font-body);box-shadow:3px 3px 0 var(--ink-navy);display:flex;align-items:center;justify-content:center;gap:8px}
+#auth .go[disabled],#auth .prov[disabled]{opacity:.55}
+#auth .links{display:flex;justify-content:space-between;gap:8px;font-size:13px;font-weight:700}
+#auth .links button{color:#2A5FD6;text-decoration:underline;background:none;border:0;padding:6px 0}
+#auth .amsg{padding:10px 12px;border-radius:10px;font-size:13px;line-height:1.4;font-weight:600}
+#auth .amsg.err{background:#FDE7E4;border:2px solid var(--stamp-red);color:#8E1F14}
+#auth .amsg.ok{background:#DDF7E8;border:2px solid #2FBF71;color:#14603A}
+#auth .amsg.setup{background:#FFF4DC;border:2px dashed #FFB020;color:#7A4A00}
+#auth .skip{margin:14px auto 26px;font-size:14px;font-weight:700;color:var(--ink-soft);background:none;border:0;height:40px;text-decoration:underline}
+#auth .fine{margin:0 26px;font-size:11px;line-height:1.4;color:var(--ink-soft);text-align:center}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}}
 .banner h2.long{font-size:30px}
 </style>
@@ -1190,6 +1220,7 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
     <div id="recap" role="dialog" aria-label="Trip recap"></div>
     <div id="yir" role="dialog" aria-label="Year in review"></div>
     <div id="onboard" role="dialog" aria-modal="true" aria-label="Getting started"></div>
+    <div id="auth" role="dialog" aria-modal="true" aria-label="Sign in"></div>
     <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><filter id="fade" x="0" y="0" width="1" height="1"><feColorMatrix type="saturate" values=".38"/><feComponentTransfer><feFuncR type="linear" slope=".62" intercept=".38"/><feFuncG type="linear" slope=".62" intercept=".37"/><feFuncB type="linear" slope=".62" intercept=".36"/></feComponentTransfer></filter><filter id="rough" filterUnits="userSpaceOnUse" x="-100" y="-100" width="590" height="1044"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="30" xChannelSelector="R" yChannelSelector="G"/></filter><pattern id="foil" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><line x1="0" y1="0" x2="0" y2="7" stroke="#FFFFFF" stroke-width="2.2" opacity=".3"/></pattern><filter id="ink" x="-6%" y="-6%" width="112%" height="112%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.2" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="2" seed="9" result="b"/><feColorMatrix in="b" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.75 0 0 0 1.2" result="m"/><feComposite in="d" in2="m" operator="in"/></filter></defs></svg>
   </div>
 </div>
@@ -3160,7 +3191,9 @@ function showSplash(){
 }
 $('#splash').addEventListener('click', e=>{ if(!e.target.closest('#startBtn')) return;
   thud(90,.35); stampSound('PT'); const sp=$('#splash'); sp.classList.add('off');
-  setTimeout(()=>{ sp.classList.add('gone'); sp.innerHTML=''; renderLevel('world'); setTimeout(()=>{ if(!openOnboard()) toast('26 countries on 6 continents are playable'); }, 900); }, 560); });
+  setTimeout(()=>{ sp.classList.add('gone'); sp.innerHTML=''; renderLevel('world'); setTimeout(()=>{ let skip=false; try{ skip=localStorage.getItem('pm-noacct')==='1'; }catch(e){}
+      if(STANDALONE && AUTH.configured && !AUTH.user && !skip && !DEMO) return openAuth('in');
+      if(!openOnboard()) toast('26 countries on 6 continents are playable'); }, 900); }, 560); });
 
 
 /* ---------- trip planner helpers ---------- */
@@ -3411,7 +3444,7 @@ function renderFriends(){ saveState();
     $('#friends').innerHTML=`<div id="fscroll"><div class="thead"><div><span class="eyebrow">Postmark</span><h1>Friends</h1><p>${friendIds.length} friend${friendIds.length===1?'':'s'}${DEMO?' · plus sample friends (demo mode)':''}</p></div></div>
       <div class="codecard"><span class="face">${avatarSVG(AVA,52)}</span><div><small>YOUR FRIEND CODE</small><b>${SOC.uid?myCode():'Sign in to get one'}</b></div>${SOC.uid?`<button id="fInvite">${L(LU.copy,14)}Invite</button>`:''}</div>
       ${SOC.uid?`<form class="addfriend" id="fAdd"><input id="fCode" maxlength="9" autocomplete="off" autocapitalize="characters" placeholder="Enter a friend’s code" aria-label="Friend code"><button type="submit">${L(LU.plus,16)}Add</button></form>
-      <p class="fnote">Anyone with your code can add you and send you postcards. Friends see your first name, home city, avatar and stamped cities.</p>`:`<p class="fnote" style="margin-top:-8px">Friend codes work when you’re signed in and Postmark can save to your account.</p>`}
+      <p class="fnote">Anyone with your code can add you and send you postcards. Friends see your first name, home city, avatar and stamped cities.</p>`:`<p class="fnote" style="margin-top:-8px">${STANDALONE?'Friend codes and postcards between friends arrive in a coming update of the app.':'Friend codes work when you’re signed in and Postmark can save to your account.'}</p>`}
       <div class="tsec" style="margin-bottom:6px"><h3>Mailbox <span>${unread?unread+' new':inbox.length+' postcards'}</span></h3></div>
       ${inbox.length?`<div class="mailshelf" aria-label="Envelopes">${inbox.map((m,i)=>{const fr=friendById(m.from); return `<button class="${m.read?'':'unread'}" data-inbox="${i}" aria-label="${m.read?'':'New '}postcard from ${esc(fr.name)}">${m.read?'':'<span class="nb">NEW</span>'}${miniEnv(envTheme(CITIES[m.id].c), !m.read)}<span class="who"><span class="face">${ffaceSVG(fr,20)}</span>${esc(fr.name)}</span></button>`;}).join('')}</div>`:''}
       ${inbox.length?'':'<span class="tmeta" style="padding:0 20px">No postcards yet</span>'}
@@ -3474,8 +3507,102 @@ async function pushState(){
   catch(e){ SYNC.status=(e&&e.code==='unavailable')||!navigator.onLine?'offline':'error'; SYNC.dirty=true; }
   SYNC.saving=false; renderSync(); if(SYNC.dirty && SYNC.status==='synced') pushState();
 }
+/* Outside the Claude page, accounts come from the project's own backend. config.js supplies its address and public key. */
+const CFG = window.POSTMARK_CONFIG || {};
+const STANDALONE = !(window.claude && window.claude.use);
+const AUTH = {client:null, user:null, mode:'in', busy:false, msg:null, configured:!!(CFG.supabaseUrl && CFG.supabaseKey)};
+async function supaClient(){
+  if(AUTH.client || !AUTH.configured) return AUTH.client;
+  const m=await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm');
+  AUTH.client=m.createClient(CFG.supabaseUrl, CFG.supabaseKey, {auth:{persistSession:true, autoRefreshToken:true, detectSessionInUrl:true}});
+  return AUTH.client;
+}
+/* the same get / set / onSnapshot shape the Claude-page database uses, backed by one row per traveller */
+function supaRef(c, uid){
+  const get=async()=>{ const {data,error}=await c.from('passports').select('state,saved_at,dev').eq('user_id',uid).maybeSingle(); if(error) throw error;
+    return {exists:!!data, data:()=>data?{state:data.state, savedAt:data.saved_at, dev:data.dev}:undefined}; };
+  return {get, set:async d=>{ const {error}=await c.from('passports').upsert({user_id:uid, state:d.state, saved_at:d.savedAt, dev:d.dev}); if(error) throw error; },
+    onSnapshot(next){ const h=()=>{ if(document.visibilityState==='visible') get().then(next).catch(()=>{}); }; document.addEventListener('visibilitychange',h); const iv=setInterval(h,45000);
+      return ()=>{ document.removeEventListener('visibilitychange',h); clearInterval(iv); }; }};
+}
+async function authChanged(session){
+  const u=session&&session.user||null;
+  if(u && AUTH.user && AUTH.user.id===u.id) return;
+  if(SYNC.unsub){ try{ SYNC.unsub(); }catch(e){} SYNC.unsub=null; }
+  AUTH.user=u;
+  if(!u){ SYNC.ref=null; SYNC.status='local'; ACCT.signedIn=false; ACCT.name=''; renderSync(); if(!$('#passport').hidden) renderPassport(); return; }
+  ACCT.signedIn=true; ACCT.name=u.email||''; SYNC.ref=supaRef(AUTH.client, u.id); SYNC.status='loading'; renderSync();
+  if($('#auth').classList.contains('on')){ closeAuth(); toast('Signed in. Your passport is backed up.'); setTimeout(()=>openOnboard(), 1200); }
+  try{
+    const snap=await SYNC.ref.get(); let localAt=''; try{ localAt=(JSON.parse(localStorage.getItem('pm-state')||'{}').savedAt)||''; }catch(e){}
+    const remote=snap.exists?snap.data():null;
+    if(remote && remote.state && (remote.savedAt||'')>localAt){ takeRemote(remote); toast('Passport loaded from your account'); } else await pushState();
+    SYNC.unsub=SYNC.ref.onSnapshot(sn=>{ const d=sn.exists?sn.data():null; if(!d||!d.state||d.dev===DEVID||(d.savedAt||'')<=SYNC.lastAt||SYNC.saving||stamping) return; takeRemote(d); toast('Passport updated from your other device'); });
+  }catch(e){ SYNC.status=navigator.onLine?'error':'offline'; SYNC.dirty=true; renderSync(); }
+  if(!$('#passport').hidden) renderPassport();
+}
+async function initAuth(){
+  if(!AUTH.configured) return renderSync();
+  try{ const c=await supaClient(); const {data}=await c.auth.getSession(); c.auth.onAuthStateChange((ev,sess)=>{ authChanged(sess); }); await authChanged(data&&data.session); }
+  catch(e){ AUTH.msg={t:'err', text:'Couldn’t reach the sign-in service. Check your connection and try again.'}; renderSync(); }
+}
+const authErr = e => { const m=String(e&&e.message||'').toLowerCase();
+  return m.includes('invalid login')?'That email and password don’t match. Try again, or reset your password.'
+    : m.includes('already registered')?'There’s already an account with that email. Sign in instead.'
+    : m.includes('password')&&m.includes('6')?'Passwords need at least 6 characters.'
+    : m.includes('email not confirmed')?'Please confirm your email first. Check your inbox for the link.'
+    : m.includes('provider is not enabled')||m.includes('unsupported provider')?'That sign-in option isn’t switched on yet.'
+    : m.includes('rate')?'Too many tries. Wait a minute and try again.'
+    : 'That didn’t work. Check your details and connection, then try again.'; };
+function renderAuth(){
+  const up=AUTH.mode==='up', rs=AUTH.mode==='reset', dis=AUTH.busy?'disabled':'';
+  const keep={e:($('#auEmail')||{}).value||'', p:($('#auPass')||{}).value||''};
+  $('#auth').innerHTML=`<button class="xbtn ax" id="auX" aria-label="Close">${L(LU.x,20)}</button>
+    <div class="ahero"><span class="aicon">${ICON(92,'au')}</span><h1>${rs?'Reset your password':up?'Create your account':'Sign in to Postmark'}</h1><p>${rs?'We’ll email you a link to choose a new one.':'Keep your passport safe and take it to any device.'}</p></div>
+    <div class="abox">
+      ${AUTH.configured?'':`<div class="amsg setup">Sign-in isn’t connected yet. It will work as soon as Postmark’s database is set up.</div>`}
+      ${AUTH.msg?`<div class="amsg ${AUTH.msg.t}" role="status">${esc(AUTH.msg.text)}</div>`:''}
+      ${rs?'':`<button class="prov" data-prov="google" ${dis}><span class="dot" style="background:#fff;border:2px solid var(--ink-navy)">G</span>Continue with Google</button>
+      <button class="prov apple" data-prov="apple" ${dis}><span class="dot" style="background:#fff;color:var(--ink-navy)">A</span>Continue with Apple</button>
+      <div class="or">OR</div>`}
+      <form id="auForm" style="display:flex;flex-direction:column;gap:10px" novalidate>
+        <label>Email<input id="auEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="you@example.com" value="${esc(keep.e)}"></label>
+        ${rs?'':`<label>Password<input id="auPass" type="password" autocomplete="${up?'new-password':'current-password'}" placeholder="${up?'At least 6 characters':'Your password'}" value="${esc(keep.p)}"></label>`}
+        <button class="go" type="submit" ${dis}>${AUTH.busy?'One moment…':rs?'Email me a reset link':up?'Create account':'Sign in'}</button>
+      </form>
+      <div class="links">${rs?`<button data-amode="in">Back to sign in</button><span></span>`:`<button data-amode="${up?'in':'up'}">${up?'I already have an account':'Create an account'}</button>${up?'<span></span>':`<button data-amode="reset">Forgot password?</button>`}`}</div>
+    </div>
+    <button class="skip" id="auSkip">Continue without an account</button>
+    <p class="fine">Without an account your passport is saved on this device only. You can sign in later from the Passport tab.</p><div style="height:24px"></div>`;
+}
+function openAuth(mode){ AUTH.mode=mode||'in'; AUTH.msg=null; AUTH.busy=false; renderAuth(); $('#auth').classList.add('on'); $('#auth').scrollTop=0; }
+function closeAuth(){ $('#auth').classList.remove('on'); $('#auth').innerHTML=''; }
+async function authRun(fn){
+  if(!AUTH.configured){ AUTH.msg={t:'setup', text:'Sign-in isn’t connected yet, so nothing was sent. Your passport is still saved on this device.'}; return renderAuth(); }
+  AUTH.busy=true; AUTH.msg=null; renderAuth();
+  try{ const c=await supaClient(); const out=await fn(c); if(out&&out.error) throw out.error; AUTH.busy=false; return out; }
+  catch(e){ AUTH.busy=false; AUTH.msg={t:'err', text:authErr(e)}; renderAuth(); return null; }
+}
+$('#auth').addEventListener('click', async e=>{
+  if(e.target.closest('#auX')) return closeAuth();
+  if(e.target.closest('#auSkip')){ try{ localStorage.setItem('pm-noacct','1'); }catch(err){} closeAuth(); if(!openOnboard()) toast('You can sign in any time from the Passport tab'); return; }
+  const md=e.target.closest('[data-amode]'); if(md){ AUTH.mode=md.dataset.amode; AUTH.msg=null; return renderAuth(); }
+  const pv=e.target.closest('[data-prov]'); if(pv){ const provider=pv.dataset.prov; saveState();
+    return authRun(c=>c.auth.signInWithOAuth({provider, options:{redirectTo:location.origin+location.pathname}})); }
+});
+$('#auth').addEventListener('submit', async e=>{
+  if(e.target.id!=='auForm') return; e.preventDefault();
+  const email=($('#auEmail').value||'').trim(), pass=($('#auPass')||{}).value||'';
+  if(!/^\S+@\S+\.\S+$/.test(email)){ AUTH.msg={t:'err', text:'Enter your email address, like you@example.com.'}; return renderAuth(); }
+  if(AUTH.mode==='reset'){ const r=await authRun(c=>c.auth.resetPasswordForEmail(email, {redirectTo:location.origin+location.pathname})); if(r){ AUTH.msg={t:'ok', text:'If there’s an account for that email, a reset link is on its way.'}; renderAuth(); } return; }
+  if(pass.length<6){ AUTH.msg={t:'err', text:'Passwords need at least 6 characters.'}; return renderAuth(); }
+  if(AUTH.mode==='up'){ const r=await authRun(c=>c.auth.signUp({email, password:pass, options:{emailRedirectTo:location.origin+location.pathname}}));
+    if(r && r.data && !r.data.session){ AUTH.mode='in'; AUTH.msg={t:'ok', text:'Almost there. Check your email and tap the link to confirm your account, then sign in.'}; renderAuth(); } return; }
+  await authRun(c=>c.auth.signInWithPassword({email, password:pass}));
+});
+async function signOut(){ try{ const c=await supaClient(); if(c) await c.auth.signOut(); }catch(e){} await authChanged(null); toast('Signed out. Your passport stays on this device.'); }
 async function initSync(){
-  if(!(window.claude && window.claude.use)) return renderSync();
+  if(STANDALONE) return initAuth();
   SYNC.status='loading'; renderSync();
   try{
     const [db,user]=await Promise.all([window.claude.use('db').catch(()=>null), window.claude.use('user').catch(()=>null)]);
@@ -3544,10 +3671,10 @@ let resetArm=false;
 function accountHTML(){
   const st=SYNC.status, on=ACCT.signedIn, n=Object.keys(visited).length, v=Object.keys(visited).filter(id=>verified[id]).length;
   return `<section class="acct" aria-label="Account"><div class="who"><span class="face">${avatarSVG(AVA,48)}</span><div><small>ACCOUNT</small><b id="acctName">${on?(ACCT.name?'Signed in as '+esc(ACCT.name):'Signed in'):'Not signed in'}</b><span class="s">${on?'Your passport follows you to any device':'Saved on this device only'}</span></div></div>
-    <div class="rows"><div>${L(st==='synced'?LU.cloudok:LU.cloud,14)}<span>${on?{loading:'Connecting…', saving:'Saving…', synced:'Backed up'+(SYNC.at?' · '+SYNC.at.toLocaleString([], {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):''), offline:'Offline. Changes are kept here and sync when you’re back online.', error:'Couldn’t reach your account. Changes are kept on this device.', local:'Saved on this device'}[st]:'Open Postmark while signed in to Claude to back up your passport and use it on other devices.'}</span></div>
+    <div class="rows"><div>${L(st==='synced'?LU.cloudok:LU.cloud,14)}<span>${on?{loading:'Connecting…', saving:'Saving…', synced:'Backed up'+(SYNC.at?' · '+SYNC.at.toLocaleString([], {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):''), offline:'Offline. Changes are kept here and sync when you’re back online.', error:'Couldn’t reach your account. Changes are kept on this device.', local:'Saved on this device'}[st]:(STANDALONE?'Sign in to back up your passport and use it on other devices.':'Open Postmark while signed in to Claude to back up your passport and use it on other devices.')}</span></div>
       <div>${L(LU.shield,14)}<span>${n} stamp${n===1?'':'s'} · ${v} verified by location</span></div></div>
     ${locRowHTML()}
-    <div class="btns">${on?`<button id="syncNow">${L(LU.cloud,14)}Sync now</button>`:''}<button id="obOpen">${L(LU.star,14)}Getting started</button><button id="resetMe" class="danger ${resetArm?'sure':''}">${resetArm?'Tap again to erase everything':'Reset my passport'}</button></div></section>`;
+    <div class="btns">${STANDALONE&&!on?`<button id="authOpen" style="background:var(--stamp-red);color:#fff">${L(LU.shield,14)}Sign in</button><button id="authNew">Create account</button>`:''}${on?`<button id="syncNow">${L(LU.cloud,14)}Sync now</button>`:''}${STANDALONE&&on?`<button id="signOut">Sign out</button>`:''}<button id="obOpen">${L(LU.star,14)}Getting started</button><button id="resetMe" class="danger ${resetArm?'sure':''}">${resetArm?'Tap again to erase everything':'Reset my passport'}</button></div></section>`;
 }
 function syncPillHTML(){
   const st=SYNC.status, ago=SYNC.at?Math.round((Date.now()-SYNC.at)/60000):null;
@@ -3629,6 +3756,9 @@ $('#passport').addEventListener('click', e=>{
     if(verTaps>=5){ verTaps=0; setDemo(!DEMO); } return; }
   if(e.target.closest('#demoOff')) return setDemo(false);
   if(e.target.closest('#locSw')) return setLoc(!LOC.on);
+  if(e.target.closest('#authOpen')) return openAuth('in');
+  if(e.target.closest('#authNew')) return openAuth('up');
+  if(e.target.closest('#signOut')) return signOut();
   if(e.target.closest('#syncNow')){ SYNC.dirty=true; lastStateStr=''; saveState(); pushState(); return toast('Syncing…'); }
   if(e.target.closest('#obOpen')) return openOnboard(true);
   if(e.target.closest('#resetMe')){ if(!resetArm){ resetArm=true; renderPassport(); setTimeout(()=>{ if(resetArm){ resetArm=false; if(!$('#passport').hidden) renderPassport(); } }, 4000); return; }
