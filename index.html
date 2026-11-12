@@ -1216,6 +1216,28 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
 .fsign .fsb button{flex:1;height:44px;border:2px solid var(--ink-navy);border-radius:12px;font-size:14px;font-weight:800;background:var(--paper-cream);display:flex;align-items:center;justify-content:center;gap:6px}
 .fsign .fsb button.pri{background:var(--stamp-red);color:#fff;box-shadow:3px 3px 0 var(--ink-navy)}
 .codecard[hidden]{display:none}
+/* ---------- search ---------- */
+.search{cursor:pointer}
+#srch{position:absolute;inset:0;z-index:60;display:none;flex-direction:column;background:var(--paper-cream);background-image:var(--grain)}
+#srch.on{display:flex;animation:up .25s cubic-bezier(.3,.7,.2,1) both}
+#srch .sbar{display:flex;gap:8px;align-items:center;padding:58px 16px 10px}
+#srch .sin{flex:1;display:flex;align-items:center;gap:10px;height:48px;padding:0 14px;background:var(--paper-card);border:2px solid var(--ink-navy);border-radius:999px;box-shadow:3px 3px 0 var(--ink-navy);color:var(--ink-soft)}
+#srch .sin input{flex:1;min-width:0;border:0;outline:0;background:none;font:500 16px var(--font-body);color:var(--ink-navy)}
+#srch .sin{min-width:0}#srch .sin button{color:var(--ink-soft);display:flex;flex-shrink:0}#srch .sin button[hidden]{display:none}#srch .scancel{flex-shrink:0}
+#srch .scancel{height:44px;padding:0 6px;font-size:14px;font-weight:800;color:var(--ink-navy)}
+#srch .sres{flex:1;overflow-y:auto;padding:4px 16px 24px}
+#srch h4{margin:14px 4px 6px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--stamp-red)}
+#srch .sr{width:100%;display:flex;align-items:center;gap:12px;padding:8px;border-radius:12px;text-align:left}
+#srch .sr:active{background:var(--stamp-gold-wash)}
+#srch .sr .ic{flex-shrink:0;width:44px;height:44px;border:2px solid var(--ink-navy);border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--paper-card)}
+#srch .sr .ic.round{border-radius:50%}#srch .sr .ic.round svg{width:100%;height:100%}
+#srch .sr b{display:block;font:900 16px/1.2 var(--font-display);color:var(--ink-navy)}
+#srch .sr span.d{font-size:12px;color:var(--ink-soft)}
+#srch .sr .tg{margin-left:auto;flex-shrink:0;font-size:10px;font-weight:800;letter-spacing:.06em;padding:3px 8px;border-radius:999px;border:1.5px solid var(--ink-soft);color:var(--ink-soft)}
+#srch .sr .tg.got{border-color:var(--stamp-red);color:var(--stamp-red)}#srch .sr .tg.past{border-color:var(--memory);color:#2A5FD6}
+#srch .snone{margin:30px 20px;text-align:center;font-size:14px;line-height:1.5;color:var(--ink-soft)}
+#srch .snone b{display:block;font:900 18px var(--font-display);color:var(--ink-navy);margin-bottom:4px}
+#srch mark{background:var(--stamp-gold-wash);color:inherit;border-radius:3px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}}
 .banner h2.long{font-size:30px}
 </style>
@@ -1243,6 +1265,7 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
     <div id="yir" role="dialog" aria-label="Year in review"></div>
     <div id="onboard" role="dialog" aria-modal="true" aria-label="Getting started"></div>
     <div id="auth" role="dialog" aria-modal="true" aria-label="Sign in"></div>
+    <div id="srch" role="dialog" aria-modal="true" aria-label="Search"></div>
     <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><filter id="fade" x="0" y="0" width="1" height="1"><feColorMatrix type="saturate" values=".38"/><feComponentTransfer><feFuncR type="linear" slope=".62" intercept=".38"/><feFuncG type="linear" slope=".62" intercept=".37"/><feFuncB type="linear" slope=".62" intercept=".36"/></feComponentTransfer></filter><filter id="rough" filterUnits="userSpaceOnUse" x="-100" y="-100" width="590" height="1044"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="30" xChannelSelector="R" yChannelSelector="G"/></filter><pattern id="foil" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><line x1="0" y1="0" x2="0" y2="7" stroke="#FFFFFF" stroke-width="2.2" opacity=".3"/></pattern><filter id="ink" x="-6%" y="-6%" width="112%" height="112%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.2" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="2" seed="9" result="b"/><feColorMatrix in="b" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.75 0 0 0 1.2" result="m"/><feComposite in="d" in2="m" operator="in"/></filter></defs></svg>
   </div>
 </div>
@@ -2297,7 +2320,54 @@ function backTo(p){ go(p,195,300,'out'); }
 
 function centerOf(el){ const r=el.getBoundingClientRect(), pr=$('#phone').getBoundingClientRect(), s=pr.width/390; return [(r.left+r.width/2-pr.left)/s,(r.top+r.height/2-pr.top)/s]; }
 
+/* ---------- search: cities, countries and regions ---------- */
+const sNorm = t => String(t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+const SALIAS = {uk:'UK', britain:'UK', england:'UK', scotland:'UK', usa:'US', america:'US', states:'US', turkey:'TR', holland:'NL', korea:'KR', emirates:'AE', uae:'AE', oz:'AU', nyc:'newyork', la:'losangeles', sf:'sanfrancisco', hk:'hongkong', bombay:'mumbai', peking:'beijing', joburg:'johannesburg', 'ayers rock':'uluru'};
+let sScope=null;
+function sScore(name, q){ const n=sNorm(name); if(!q) return 1; if(n===q) return 100; if(n.startsWith(q)) return 80; if(n.split(' ').some(w=>w.startsWith(q))) return 60; if(n.includes(q)) return 40; return 0; }
+const sHi = (name, q) => { if(!q) return esc(name); const n=name.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); const i=n.indexOf(q); if(i<0 || n.length!==name.length) return esc(name); return esc(name.slice(0,i))+'<mark>'+esc(name.slice(i,i+q.length))+'</mark>'+esc(name.slice(i+q.length)); };
+function searchResults(raw){
+  const q=sNorm(raw), al=SALIAS[q];
+  const cities=Object.keys(CITIES).map(id=>{ const C=CITIES[id], K=COUNTRIES[C.c];
+    let sc=Math.max(sScore(C.name,q), sScore(C.lmName,q)*.6, q.length>=3?sScore(K.name,q)*.5:0, q.length>=4&&C.tags.some(t=>sNorm(t).startsWith(q))?25:0);
+    if(al===id) sc=120; if(al===C.c) sc=Math.max(sc,50);
+    if(sScope && sc && (K.level===sScope || K.region===sScope)) sc+=5;
+    return {id, sc}; }).filter(x=>x.sc>0).sort((a,b)=>b.sc-a.sc || CITIES[a.id].name.localeCompare(CITIES[b.id].name));
+  const countries=Object.keys(COUNTRIES).map(c=>({c, sc:al===c?120:sScore(COUNTRIES[c].name,q)})).filter(x=>x.sc>0).sort((a,b)=>b.sc-a.sc || COUNTRIES[a.c].name.localeCompare(COUNTRIES[b.c].name));
+  const regions=REGIONS.map(r=>({r, sc:sScore(r.name,q)})).filter(x=>x.sc>0).sort((a,b)=>b.sc-a.sc);
+  return {q, cities, countries, regions};
+}
+function renderSearch(){
+  const raw=($('#sQ')||{}).value||'', {q,cities,countries,regions}=searchResults(raw);
+  const scopeC = !q && sScope ? cities.filter(x=>{ const K=COUNTRIES[CITIES[x.id].c]; return K.level===sScope || K.region===sScope; }) : null;
+  const cityRow=({id})=>{ const C=CITIES[id], K=COUNTRIES[C.c], v=visited[id];
+    return `<button class="sr" data-scity="${id}"><span class="ic" style="background:${K.color}">${lm(C.icon,'on').replace('<svg','<svg width="34" height="34"')}</span><span><b>${sHi(C.name,q)}</b><span class="d">${esc(K.name)} · ${esc(C.lmName)}</span></span>${v?`<span class="tg ${isPast(id)?'past':'got'}">${isPast(id)?'BEEN THERE':'STAMPED'}</span>`:''}</button>`; };
+  const list = scopeC && scopeC.length ? scopeC : cities;
+  const body = (q && !cities.length && !countries.length && !regions.length)
+    ? `<div class="snone"><b>Nothing found for “${esc(raw.trim())}”</b>Postmark has ${Object.keys(CITIES).length} cities in ${Object.keys(COUNTRIES).length} countries so far. Try a city, a country or a landmark.</div>`
+    : `${q&&regions.length?`<h4>Regions</h4>${regions.map(({r})=>`<button class="sr" data-sregion="${r.id}"><span class="ic round" style="background:var(--map-ocean)">${L(LU.map,22)}</span><span><b>${sHi(r.name,q)}</b><span class="d">${countryCount(r.id)} countries stamped</span></span></button>`).join('')}`:''}
+       ${q&&countries.length?`<h4>Countries</h4>${countries.slice(0,8).map(({c})=>`<button class="sr" data-scountry="${c}"><span class="ic round">${flagSVG(c)}</span><span><b>${sHi(COUNTRIES[c].name,q)}</b><span class="d">${got(c).length} of ${COUNTRIES[c].cities.length} key cities stamped</span></span></button>`).join('')}`:''}
+       ${list.length?`<h4>${q?'Cities':scopeC&&scopeC.length?'Cities here':'All cities'}</h4>${list.slice(0,q?30:200).map(cityRow).join('')}`:''}`;
+  $('#sRes').innerHTML=body; $('#sClear').hidden=!raw;
+}
+function openSearch(scope){
+  sScope=scope||null;
+  $('#srch').innerHTML=`<div class="sbar"><label class="sin">${L(LU.search,20)}<input id="sQ" type="text" inputmode="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="City, country or landmark" aria-label="Search"><button id="sClear" type="button" aria-label="Clear" hidden>${L(LU.x,18)}</button></label><button class="scancel" id="sCancel">Cancel</button></div><div class="sres" id="sRes"></div>`;
+  $('#srch').classList.add('on'); renderSearch(); setTimeout(()=>{ const i=$('#sQ'); if(i){ try{ i.focus({preventScroll:true}); }catch(e){ i.focus(); } } $('#phone').scrollTop=0; $('#srch').scrollTop=0; }, 260);
+}
+function closeSearch(){ const i=$('#sQ'); if(i) i.blur(); $('#srch').classList.remove('on'); $('#srch').innerHTML=''; }
+$('#srch').addEventListener('input', e=>{ if(e.target.id==='sQ'){ renderSearch(); $('#sRes').scrollTop=0; } });
+$('#phone').addEventListener('scroll', ()=>{ if($('#phone').scrollTop) $('#phone').scrollTop=0; });
+$('#srch').addEventListener('keydown', e=>{ if(e.key==='Escape') return closeSearch(); if(e.key==='Enter' && e.target.id==='sQ'){ const f=$('#sRes .sr'); if(f) f.click(); } });
+$('#srch').addEventListener('click', e=>{
+  if(e.target.closest('#sCancel')) return closeSearch();
+  if(e.target.closest('#sClear')){ $('#sQ').value=''; renderSearch(); try{ $('#sQ').focus({preventScroll:true}); }catch(err){} return; }
+  const c=e.target.closest('[data-scity]'); if(c){ const id=c.dataset.scity; closeSearch(); if(showHint){ showHint=false; } jumpTo(COUNTRIES[CITIES[id].c].level); return setTimeout(()=>openCard(id), 450); }
+  const k=e.target.closest('[data-scountry]'); if(k){ closeSearch(); if(showHint){ showHint=false; } return jumpTo(COUNTRIES[k.dataset.scountry].level); }
+  const r=e.target.closest('[data-sregion]'); if(r){ closeSearch(); if(showHint){ showHint=false; } return jumpTo(r.dataset.sregion); }
+});
 $('#phone').addEventListener('click', e=>{
+  if(e.target.closest('.search')){ if(stamping) return; return openSearch(level==='world'?null:level); }
   if(e.target.closest('#mailBtn')) return openDaily();
   const t = e.target.closest('[data-region],[data-country],[data-city],[data-back]'); if(!t) return;
   if(t.dataset.back) return backTo(t.dataset.back);
