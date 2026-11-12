@@ -1194,6 +1194,15 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
 #auth .amsg.setup{background:#FFF4DC;border:2px dashed #FFB020;color:#7A4A00}
 #auth .skip{margin:14px auto 26px;font-size:14px;font-weight:700;color:var(--ink-soft);background:none;border:0;height:40px;text-decoration:underline}
 #auth .fine{margin:0 26px;font-size:11px;line-height:1.4;color:var(--ink-soft);text-align:center}
+.fsign{margin:0 20px 18px;padding:14px;border:2px solid var(--ink-navy);border-radius:16px;background:var(--paper-card);background-image:var(--grain);box-shadow:4px 4px 0 var(--city-kyoto);display:flex;flex-direction:column;gap:12px}
+.fsign .fst{display:flex;align-items:center;gap:12px}
+.fsign .face{width:52px;height:52px;border-radius:50%;overflow:hidden;border:2px solid var(--ink-navy);flex-shrink:0;display:block}
+.fsign b{display:block;font:900 18px/1.15 var(--font-display)}
+.fsign .fst span:not(.face){font-size:12px;line-height:1.35;color:var(--ink-soft)}
+.fsign .fsb{display:flex;gap:8px}
+.fsign .fsb button{flex:1;height:44px;border:2px solid var(--ink-navy);border-radius:12px;font-size:14px;font-weight:800;background:var(--paper-cream);display:flex;align-items:center;justify-content:center;gap:6px}
+.fsign .fsb button.pri{background:var(--stamp-red);color:#fff;box-shadow:3px 3px 0 var(--ink-navy)}
+.codecard[hidden]{display:none}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}}
 .banner h2.long{font-size:30px}
 </style>
@@ -3442,9 +3451,11 @@ function renderFriends(){ saveState();
       <div class="tsec"><button class="btn navy big" style="width:100%" id="fSend">${L(LU.mail,18)}Send ${esc(f.name)} a postcard</button></div></div>`;
   } else {
     $('#friends').innerHTML=`<div id="fscroll"><div class="thead"><div><span class="eyebrow">Postmark</span><h1>Friends</h1><p>${friendIds.length} friend${friendIds.length===1?'':'s'}${DEMO?' · plus sample friends (demo mode)':''}</p></div></div>
-      <div class="codecard"><span class="face">${avatarSVG(AVA,52)}</span><div><small>YOUR FRIEND CODE</small><b>${SOC.uid?myCode():'Sign in to get one'}</b></div>${SOC.uid?`<button id="fInvite">${L(LU.copy,14)}Invite</button>`:''}</div>
+      ${STANDALONE&&!ACCT.signedIn?`<div class="fsign"><div class="fst"><span class="face">${avatarSVG(AVA,52)}</span><div><b>Sign in to connect with friends</b><span>An account keeps your passport safe and lets friends find you.</span></div></div>
+        <div class="fsb"><button class="pri" id="fSignIn">${L(LU.shield,16)}Sign in</button><button id="fSignUp">Create account</button></div></div>`:''}
+      <div class="codecard" ${STANDALONE&&!ACCT.signedIn?'hidden':''}><span class="face">${avatarSVG(AVA,52)}</span><div><small>YOUR FRIEND CODE</small><b>${SOC.uid?myCode():STANDALONE?'Coming soon':'Sign in to get one'}</b></div>${SOC.uid?`<button id="fInvite">${L(LU.copy,14)}Invite</button>`:''}</div>
       ${SOC.uid?`<form class="addfriend" id="fAdd"><input id="fCode" maxlength="9" autocomplete="off" autocapitalize="characters" placeholder="Enter a friend’s code" aria-label="Friend code"><button type="submit">${L(LU.plus,16)}Add</button></form>
-      <p class="fnote">Anyone with your code can add you and send you postcards. Friends see your first name, home city, avatar and stamped cities.</p>`:`<p class="fnote" style="margin-top:-8px">${STANDALONE?'Friend codes and postcards between friends arrive in a coming update of the app.':'Friend codes work when you’re signed in and Postmark can save to your account.'}</p>`}
+      <p class="fnote">Anyone with your code can add you and send you postcards. Friends see your first name, home city, avatar and stamped cities.</p>`:`<p class="fnote" style="margin-top:-8px">${STANDALONE?(ACCT.signedIn?'You’re signed in. Friend codes and postcards between friends arrive in a coming update.':'Friend codes and postcards between friends arrive in a coming update.'):'Friend codes work when you’re signed in and Postmark can save to your account.'}</p>`}
       <div class="tsec" style="margin-bottom:6px"><h3>Mailbox <span>${unread?unread+' new':inbox.length+' postcards'}</span></h3></div>
       ${inbox.length?`<div class="mailshelf" aria-label="Envelopes">${inbox.map((m,i)=>{const fr=friendById(m.from); return `<button class="${m.read?'':'unread'}" data-inbox="${i}" aria-label="${m.read?'':'New '}postcard from ${esc(fr.name)}">${m.read?'':'<span class="nb">NEW</span>'}${miniEnv(envTheme(CITIES[m.id].c), !m.read)}<span class="who"><span class="face">${ffaceSVG(fr,20)}</span>${esc(fr.name)}</span></button>`;}).join('')}</div>`:''}
       ${inbox.length?'':'<span class="tmeta" style="padding:0 20px">No postcards yet</span>'}
@@ -3458,6 +3469,8 @@ function pickPostcardCity(){ return lastCity() || Object.keys(CITIES)[0]; }
 $('#friends').addEventListener('click', async e=>{
   const q=s2=>e.target.closest(s2);
   if(q('#fBack')){ friendView=null; return renderFriends(); }
+  if(q('#fSignIn')) return openAuth('in');
+  if(q('#fSignUp')) return openAuth('up');
   const rm=q('[data-frm]'); if(rm){ const id=rm.dataset.frm, nm=friendById(id).name; friendIds=friendIds.filter(x=>x!==id); renderFriends(); return toast(`${nm} removed from your friends`); }
   const fr=q('[data-friend]'); if(fr){ friendView=fr.dataset.friend; renderFriends(); $('#fscroll').scrollTop=0; return; }
   const fs=q('[data-fsend]'); if(fs){ const id=pickPostcardCity(); return openPostcard(id, null, false, fs.dataset.fsend); }
@@ -3530,7 +3543,7 @@ async function authChanged(session){
   if(u && AUTH.user && AUTH.user.id===u.id) return;
   if(SYNC.unsub){ try{ SYNC.unsub(); }catch(e){} SYNC.unsub=null; }
   AUTH.user=u;
-  if(!u){ SYNC.ref=null; SYNC.status='local'; ACCT.signedIn=false; ACCT.name=''; renderSync(); if(!$('#passport').hidden) renderPassport(); return; }
+  if(!u){ SYNC.ref=null; SYNC.status='local'; ACCT.signedIn=false; ACCT.name=''; renderSync(); if(!$('#passport').hidden) renderPassport(); renderFriends(); return; }
   ACCT.signedIn=true; ACCT.name=u.email||''; SYNC.ref=supaRef(AUTH.client, u.id); SYNC.status='loading'; renderSync();
   if($('#auth').classList.contains('on')){ closeAuth(); toast('Signed in. Your passport is backed up.'); setTimeout(()=>openOnboard(), 1200); }
   try{
@@ -3539,7 +3552,7 @@ async function authChanged(session){
     if(remote && remote.state && (remote.savedAt||'')>localAt){ takeRemote(remote); toast('Passport loaded from your account'); } else await pushState();
     SYNC.unsub=SYNC.ref.onSnapshot(sn=>{ const d=sn.exists?sn.data():null; if(!d||!d.state||d.dev===DEVID||(d.savedAt||'')<=SYNC.lastAt||SYNC.saving||stamping) return; takeRemote(d); toast('Passport updated from your other device'); });
   }catch(e){ SYNC.status=navigator.onLine?'error':'offline'; SYNC.dirty=true; renderSync(); }
-  if(!$('#passport').hidden) renderPassport();
+  if(!$('#passport').hidden) renderPassport(); renderFriends();
 }
 async function initAuth(){
   if(!AUTH.configured) return renderSync();
