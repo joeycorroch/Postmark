@@ -1160,9 +1160,9 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
 .locrow .lt b{display:block;font-size:13px;font-weight:800;color:var(--ink-navy)}
 .locrow .lt span{display:block;font-size:11px;line-height:1.35;color:var(--ink-soft)}
 .locrow.ok{border-color:#2FBF71;background:#E9F9F0}.locrow.bad{border-color:#FFB020;background:#FFF4DC}
-.sw{flex-shrink:0;position:relative;width:52px;height:30px;border-radius:999px;border:2px solid var(--ink-navy);background:var(--paper-card);transition:background .2s}
-.sw::after{content:'';position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:var(--ink-navy);transition:transform .2s}
-.sw.on{background:#2FBF71}.sw.on::after{transform:translateX(22px);background:#fff}
+.locsw{flex-shrink:0;position:relative;width:52px;height:30px;border-radius:999px;border:2px solid var(--ink-navy);background:var(--paper-card);transition:background .2s}
+.locsw::after{content:'';position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:var(--ink-navy);transition:transform .2s}
+.locsw.on{background:#2FBF71}.locsw.on::after{transform:translateX(22px);background:#fff}
 .locnote .row button.loc{background:#2FBF71;color:#fff;border-color:var(--ink-navy)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}}
 .banner h2.long{font-size:30px}
@@ -2366,7 +2366,7 @@ function locRowHTML(){
     : bad ? (LOC.err || locWhy(1))
     : LOC.at ? `On · accurate to about ${LOC.acc<1000?Math.max(5,Math.round(LOC.acc))+' m':Math.round(LOC.acc/1000)+' km'}${LOC.near?` · nearest city: ${CITIES[LOC.near.id].name} (${fmtKm(LOC.near.km)})`:''}`
     : LOC.state==='granted' ? 'On and allowed.' : 'On. Your browser will ask the first time you stamp.';
-  return `<div class="locrow ${!LOC.on?'':bad?'bad':(LOC.at||LOC.state==='granted')?'ok':''}" id="locRow"><div class="lt"><b>Location for “Stamp here”</b><span>${esc(sub)}</span></div><button class="sw ${LOC.on?'on':''}" id="locSw" role="switch" aria-checked="${LOC.on}" aria-label="Use my location"></button></div>`;
+  return `<div class="locrow ${!LOC.on?'':bad?'bad':(LOC.at||LOC.state==='granted')?'ok':''}" id="locRow"><div class="lt"><b>Location for “Stamp here”</b><span>${esc(sub)}</span></div><button class="locsw ${LOC.on?'on':''}" id="locSw" role="switch" aria-checked="${LOC.on}" aria-label="Use my location"></button></div>`;
 }
 function paintLoc(){ const el=document.getElementById('locRow'); if(el) el.outerHTML=locRowHTML(); }
 /* How close counts as "in the city": most cities 25 km; spread-out places get a little more. */
