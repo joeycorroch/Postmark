@@ -3026,7 +3026,7 @@ const mrzName = t => (t||'').toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g,'
 function mrzLines(){
   const b=AVA.bio, l1=('P<PMK'+(mrzName(b.sur)||'TRAVELLER')+'<<'+(mrzName(b.given)||'POSTMARK')).padEnd(44,'<').slice(0,44);
   const dob=b.dob?b.dob.slice(2).replace(/-/g,''):'<<<<<<', sex=b.sex||'<', iss=(firstStampISO()||today()).slice(2).replace(/-/g,'');
-  const l2=(AVA.no.padEnd(9,'<')+'7PMK'+dob+'4'+sex+iss+'2'+'STAMPS'+String(Object.keys(visited).length).padStart(2,'0')).padEnd(44,'<').slice(0,44);
+  const l2=(myCode().replace('-','').padEnd(9,'<')+'7PMK'+dob+'4'+sex+iss+'2'+'STAMPS'+String(Object.keys(visited).length).padStart(2,'0')).padEnd(44,'<').slice(0,44);
   return esc(l1)+'\n'+esc(l2);
 }
 const firstStampISO = () => Object.values(visited).sort()[0];
@@ -3106,7 +3106,7 @@ function bioHTML(){
     <div class="biohd"><span>POSTMARK PASSPORT</span><span>PASSEPORT · PASAPORTE</span></div>
     <div class="biorow"><button class="photo ${photoStamped?'stamped':''} ${AVA.frame&&AVA.frame!=='none'?'f-'+AVA.frame:''}" id="editAv" aria-label="Edit your passport photo and details">${avatarSVG(AVA,104)}<span class="holo"></span>${AVA.made?'':'<span class="tapme">Tap to make yours</span>'}<span class="pen">${L(LU.pen,14)}</span></button>
       <dl>
-        <div><dt>Type <i>/ Type</i></dt><dd>P</dd></div><div><dt>Passport no.</dt><dd>${AVA.no}</dd></div>
+        <div><dt>Type <i>/ Type</i></dt><dd>P</dd></div><div><dt>Passport no.</dt><dd>${myCode()}</dd></div>
         <div class="w"><dt>Surname <i>/ Nom</i></dt>${v(b.sur,'Add your surname')}</div>
         <div class="w"><dt>Given names <i>/ Prénoms</i></dt>${v(b.given,'Add your name')}</div>
         <div><dt>Date of birth</dt>${v(fmtDob(b.dob),'Optional')}</div><div><dt>Sex</dt>${v(b.sex,'Optional')}</div>
@@ -3449,7 +3449,8 @@ const ffaceSVG = (f,w) => avatarSVG(fav(f), w);
 let inbox = FRESH ? [] : [{from:'mia', id:'venice', msg:'Wish you were here! The gondolier sang the whole way.', date:'2025-06-10', read:false}];
 let friendView = null;
 const codeOf = uid => { let h=2166136261; for(const ch of uid){ h^=ch.charCodeAt(0); h=Math.imul(h,16777619)>>>0; } let h2=h^0x9e3779b9; const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let out=''; for(let i=0;i<6;i++){ out+=A[(i<3?h:h2)>>>(i%3*5)&31]; } return 'PM-'+out; };
-const myCode = () => SOC.uid ? codeOf(SOC.uid) : 'PM-'+(AVA.no||'PM0000000').slice(-4);
+/* One number everywhere: the passport number is the friend code. */
+const myCode = () => codeOf(SOC.uid || AVA.no || 'guest');
 function friendStats(f){ const ids=Object.keys(f.visited).filter(i=>CITIES[i]), cs=new Set(ids.map(i=>CITIES[i].c)); const mine=Object.keys(visited);
   return {n:ids.length, countries:cs.size, both:ids.filter(i=>mine.includes(i)), theirs:ids.filter(i=>!mine.includes(i)), mineOnly:mine.filter(i=>!ids.includes(i))}; }
 const cityChip = id => `<button data-fopen="${id}">${miniFlag(CITIES[id].c)}${CITIES[id].name}</button>`;
@@ -3671,7 +3672,7 @@ async function initSync(){
     ACCT.signedIn=true; user.name().then(n=>{ ACCT.name=n||''; renderSync(); }).catch(()=>{});
     if(remote && remote.state && (remote.savedAt||'') > localAt){ takeRemote(remote); toast('Passport loaded from your account'); }
     else { await pushState(); }
-    publishCard(); loadFriends(true); startPostbox(); renderFriends();
+    publishCard(); loadFriends(true); startPostbox(); renderFriends(); if(!$('#passport').hidden) renderPassport();
     /* live: a stamp made on another device shows up here without a reload */
     if(!SYNC.unsub) SYNC.unsub=SYNC.ref.onSnapshot(sn=>{ const d=sn.exists?sn.data():null;
       if(!d || !d.state || d.dev===DEVID || (d.savedAt||'')<=SYNC.lastAt || SYNC.saving || stamping) return;
