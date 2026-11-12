@@ -3586,7 +3586,9 @@ $('#auth').addEventListener('click', async e=>{
   if(e.target.closest('#auX')) return closeAuth();
   if(e.target.closest('#auSkip')){ try{ localStorage.setItem('pm-noacct','1'); }catch(err){} closeAuth(); if(!openOnboard()) toast('You can sign in any time from the Passport tab'); return; }
   const md=e.target.closest('[data-amode]'); if(md){ AUTH.mode=md.dataset.amode; AUTH.msg=null; return renderAuth(); }
-  const pv=e.target.closest('[data-prov]'); if(pv){ const provider=pv.dataset.prov; saveState();
+  const pv=e.target.closest('[data-prov]'); if(pv){ const provider=pv.dataset.prov;
+    if(AUTH.configured && provider==='google' && !CFG.googleSignIn){ AUTH.msg={t:'setup', text:'Google sign-in is coming soon. For now, use your email and a password.'}; return renderAuth(); }
+    saveState();
     return authRun(c=>c.auth.signInWithOAuth({provider, options:{redirectTo:location.origin+location.pathname}})); }
 });
 $('#auth').addEventListener('submit', async e=>{

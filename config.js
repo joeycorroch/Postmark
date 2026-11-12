@@ -5,5 +5,7 @@
    Never put the "service_role" / "secret" key here. */
 window.POSTMARK_CONFIG = {
   supabaseUrl: "https://xnpdpzweodopmtphivxd.supabase.co",
-  supabaseKey: "sb_publishable_K0tepihCAcx9Cox6VAf3bA_FlGZRcr4"
+  supabaseKey: "sb_publishable_K0tepihCAcx9Cox6VAf3bA_FlGZRcr4",
+  /* Set to true once Google is enabled under Authentication -> Sign In / Providers in Supabase. */
+  googleSignIn: false
 };
