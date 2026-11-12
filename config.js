@@ -5,5 +5,5 @@
    Never put the "service_role" / "secret" key here. */
 window.POSTMARK_CONFIG = {
   supabaseUrl: "https://xnpdpzweodopmtphivxd.supabase.co",
-  supabaseKey: ""
+  supabaseKey: "sb_publishable_K0tepihCAcx9Cox6VAf3bA_FlGZRcr4"
 };
