@@ -3563,7 +3563,6 @@ function renderAuth(){
       ${AUTH.configured?'':`<div class="amsg setup">Sign-in isn’t connected yet. It will work as soon as Postmark’s database is set up.</div>`}
       ${AUTH.msg?`<div class="amsg ${AUTH.msg.t}" role="status">${esc(AUTH.msg.text)}</div>`:''}
       ${rs?'':`<button class="prov" data-prov="google" ${dis}><span class="dot" style="background:#fff;border:2px solid var(--ink-navy)">G</span>Continue with Google</button>
-      <button class="prov apple" data-prov="apple" ${dis}><span class="dot" style="background:#fff;color:var(--ink-navy)">A</span>Continue with Apple</button>
       <div class="or">OR</div>`}
       <form id="auForm" style="display:flex;flex-direction:column;gap:10px" novalidate>
         <label>Email<input id="auEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="you@example.com" value="${esc(keep.e)}"></label>

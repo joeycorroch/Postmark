@@ -4,6 +4,6 @@
    The "anon" / "publishable" key is designed to be public, so it is safe in this file.
    Never put the "service_role" / "secret" key here. */
 window.POSTMARK_CONFIG = {
-  supabaseUrl: "",
+  supabaseUrl: "https://xnpdpzweodopmtphivxd.supabase.co",
   supabaseKey: ""
 };
