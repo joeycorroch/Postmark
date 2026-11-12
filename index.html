@@ -3585,20 +3585,22 @@ async function authChanged(session){
   if(SOC.unsub){ try{ SOC.unsub(); }catch(e){} SOC.unsub=null; }
   if(!u){ SOC.db=null; SOC.uid=null; SOC.lastCard=''; SYNC.ref=null; SYNC.status='local'; ACCT.signedIn=false; ACCT.name=''; renderSync(); if(!$('#passport').hidden) renderPassport(); renderFriends(); return; }
   ACCT.signedIn=true; ACCT.name=u.email||''; SYNC.ref=supaRef(AUTH.client, u.id); SYNC.status='loading'; renderSync();
+  SOC.db=supaSocial(AUTH.client, u.id); SOC.uid=u.id; SOC.lastCard=''; SOC.loadedAt=0; renderFriends(); if(!$('#passport').hidden) renderPassport();
   if($('#auth').classList.contains('on')){ closeAuth(); toast('Signed in. Your passport is backed up.'); setTimeout(()=>openOnboard(), 1200); }
   try{
-    const snap=await SYNC.ref.get(); let localAt=''; try{ localAt=(JSON.parse(localStorage.getItem('pm-state')||'{}').savedAt)||''; }catch(e){}
+    const snap=await Promise.race([SYNC.ref.get(), new Promise((_,rej)=>setTimeout(()=>rej({code:'unavailable'}),12000))]);
+    if(!AUTH.user || AUTH.user.id!==u.id) return;
+    let localAt=''; try{ localAt=(JSON.parse(localStorage.getItem('pm-state')||'{}').savedAt)||''; }catch(e){}
     const remote=snap.exists?snap.data():null;
     if(remote && remote.state && (remote.savedAt||'')>localAt){ takeRemote(remote); toast('Passport loaded from your account'); } else await pushState();
     SYNC.unsub=SYNC.ref.onSnapshot(sn=>{ const d=sn.exists?sn.data():null; if(!d||!d.state||d.dev===DEVID||(d.savedAt||'')<=SYNC.lastAt||SYNC.saving||stamping) return; takeRemote(d); toast('Passport updated from your other device'); });
   }catch(e){ SYNC.status=navigator.onLine?'error':'offline'; SYNC.dirty=true; renderSync(); }
-  SOC.db=supaSocial(AUTH.client, u.id); SOC.uid=u.id; SOC.lastCard=''; SOC.loadedAt=0;
   publishCard(); loadFriends(true); startPostbox();
   if(!$('#passport').hidden) renderPassport(); renderFriends();
 }
 async function initAuth(){
   if(!AUTH.configured) return renderSync();
-  try{ const c=await supaClient(); const {data}=await c.auth.getSession(); c.auth.onAuthStateChange((ev,sess)=>{ authChanged(sess); }); await authChanged(data&&data.session); }
+  try{ const c=await supaClient(); const {data}=await c.auth.getSession(); c.auth.onAuthStateChange((ev,sess)=>{ setTimeout(()=>authChanged(sess), 0); }); await authChanged(data&&data.session); }
   catch(e){ AUTH.msg={t:'err', text:'Couldn’t reach the sign-in service. Check your connection and try again.'}; renderSync(); }
 }
 const authErr = e => { const m=String(e&&e.message||'').toLowerCase();
