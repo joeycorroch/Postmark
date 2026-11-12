@@ -6,6 +6,10 @@ Stamp the world, one city at a time. A playful travel app: explore a hand-drawn 
 
 Phase 1 of the standalone app plan. `index.html` is the working prototype as a single self-contained page, so the site can be published straight away. Later phases split it into a structured project with its own sign-in, database and server-side location checks.
 
+## Live site
+
+Published automatically by Vercel each time `main` changes.
+
 ## Running it
 
 Open `index.html` in a browser, or publish the repository as a static site (no build step).
