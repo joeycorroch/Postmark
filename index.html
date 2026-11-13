@@ -1244,6 +1244,13 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
 .regions.min .rrow{display:none}
 .regions.min{padding-bottom:14px}
 .me.here u{display:block;width:8px;height:8px;margin-top:2px;border-radius:50%;background:var(--stamp-red);border:2px solid #fff;box-shadow:0 0 0 2px var(--ink-navy)}
+.wpan{position:absolute;left:0;top:0;width:0;height:100%;will-change:transform}
+.wtile{position:absolute;top:0;width:0;height:100%}
+.art .wtile svg.map{inset:auto;left:0}
+.wtile .bub{width:38px;height:38px;font-size:16px}
+#art-world{touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+#art-world.drag{cursor:grabbing}#art-world.drag .bub{pointer-events:none}
+.bubble.swipe{transform:translateX(-50%);animation:none;font-size:13px;padding:7px 12px}.bubble.swipe::after{display:none}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}}
 .banner h2.long{font-size:30px}
 </style>
@@ -2241,7 +2248,47 @@ async function loadReal(){
   if(!topo || !topo.objects || !topo.objects.countries){ MAPSTYLE='drawn'; try{ localStorage.setItem('pm-mapstyle','drawn'); }catch(e){} renderAll(); if(!$('#passport').hidden) renderPassport(); return toast('Couldn’t load real map data here, so the hand-drawn maps are back.'); }
   REAL=topoFeatures(topo); renderAll(); if(!$('#passport').hidden) renderPassport(); toast('Real maps on');
 }
-function artHTML(lv){ return meMarker(lv) + artBase(lv).replace(/<svg class="map" viewBox="0 0 390 844" aria-hidden="true">([\s\S]*?)<\/svg>/, (m,inner)=>{
+/* ---------- world map: a flat globe you swipe left and right; it wraps round, and grows to fill the space above the region panel ---------- */
+const WTURN = 388.8;                      /* 360° of longitude in the world art's own units */
+let worldPan = null, WG = {z:1.9, oy:0, w:WTURN*1.9};
+function worldGeom(){
+  const H=parseFloat($('#phone').style.height)||844, top=116, bottom = REG_MIN ? H-158 : Math.max(top+190, H-452);
+  const z=Math.max(1.35, Math.min(3.1, (bottom-top)/141*.96)), cy=(top+bottom)/2;
+  return WG={z, oy:cy-206.5*z, w:WTURN*z};
+}
+const wrapPan = p => { const w=WG.w; return ((p % w) - w) % w; };      /* keeps the middle copy's left edge in (-w, 0] */
+function worldHome(){ let lon=15; if(LOC.on && LOC.pos) lon=LOC.pos[1]; else { const id=lastCity(); if(id && CITY_LL[id]) lon=CITY_LL[id][1]; } return wrapPan(195-(1.08*lon+195.5)*WG.z); }
+function worldArtHTML(){
+  const prevW=WG.w, g=worldGeom();
+  worldPan = worldPan===null ? worldHome() : wrapPan(worldPan/prevW*g.w + 195*(1-g.w/prevW));   /* keep the same spot centred when the size changes */
+  const svg = artBase('world').match(/<svg class="map"[\s\S]*?<\/svg>/)[0].replace(/<svg class="map" viewBox="0 0 390 844" aria-hidden="true">([\s\S]*?)<\/svg>/, (m,inner)=>{
+    if(MAPSTYLE==='real' && REAL) inner = realInner('world');
+    return scratchSvg('world',inner); }).replace('<svg class="map"', `<svg class="map" style="width:${(390*g.z).toFixed(1)}px;height:${(844*g.z).toFixed(1)}px;top:${g.oy.toFixed(1)}px"`);
+  const at=(x,y)=>[x*g.z, y*g.z+g.oy];
+  const bubs = REGIONS.map(r=>{ const n=regionCount(r), [cx,cy]=at(r.x+15,r.y+15); return `<button class="bub mk ${n?'hot':''}" data-region="${r.id}" style="left:${(cx-19).toFixed(1)}px;top:${(cy-19).toFixed(1)}px" aria-label="${r.name}, ${n} stamped">${n}</button>`; }).join('');
+  let me='';
+  if(LOC.on && LOC.pos){ const [ax,bx,ay,by]=lvAff('world'), [X,Y]=at(ax*LOC.pos[1]+bx, ay*LOC.pos[0]+by); me=`<div class="me here" style="left:${(X-24).toFixed(1)}px;top:${(Y-58).toFixed(1)}px" aria-hidden="true">${face(40)}<i>YOU</i><u></u></div>`; }
+  else { const id=lastCity(); if(id){ const r=REGIONS.find(r=>r.id===COUNTRIES[CITIES[id].c].region), [X,Y]=at(r.x+15,r.y+15); me=`<div class="me" style="left:${(X-24).toFixed(1)}px;top:${(Y-80).toFixed(1)}px" aria-hidden="true">${face(40)}<i>YOU</i></div>`; } }
+  const tile=k=>`<div class="wtile" style="left:${(k*g.w).toFixed(1)}px" ${k?'aria-hidden="true"':''}>${svg}${bubs}${me}</div>`;
+  return `<div class="wpan" id="wpan" style="transform:translateX(${worldPan.toFixed(1)}px)">${tile(-1)}${tile(0)}${tile(1)}</div>`;
+}
+(function(){
+  let d=null, moved=false, vel=0, raf=0; const el=()=>$('#art-world');
+  const apply=()=>{ const p=$('#wpan'); if(p) p.style.transform=`translateX(${worldPan.toFixed(1)}px)`; };
+  const scale=()=>$('#phone').getBoundingClientRect().width/390;
+  addEventListener('pointerdown', e=>{ if(level!=='world' || busy || !e.target.closest('#art-world')) return; cancelAnimationFrame(raf); d={x:e.clientX, p:worldPan, t:performance.now(), lx:e.clientX}; moved=false; vel=0; });
+  addEventListener('pointermove', e=>{ if(!d) return; const dx=(e.clientX-d.x)/scale(); if(!moved && Math.abs(dx)<7) return;
+    if(!moved){ moved=true; el().classList.add('drag'); if(showHint){ showHint=false; const h=$('#hint'); if(h) h.remove(); } }
+    const now=performance.now(); vel=.7*vel+.3*((e.clientX-d.lx)/scale())/Math.max(1,now-d.t)*16; d.lx=e.clientX; d.t=now;
+    worldPan=wrapPan(d.p+dx); apply(); });
+  const end=()=>{ if(!d) return; d=null; el().classList.remove('drag'); if(!moved) return;
+    const glide=()=>{ vel*=.94; if(Math.abs(vel)<.25 || level!=='world') return; worldPan=wrapPan(worldPan+vel); apply(); raf=requestAnimationFrame(glide); };
+    if(!reduced()) raf=requestAnimationFrame(glide); setTimeout(()=>{ moved=false; }, 60); };
+  addEventListener('pointerup', end); addEventListener('pointercancel', end);
+  /* a swipe that started on a region bubble shouldn't count as tapping it */
+  addEventListener('click', e=>{ if(moved && e.target.closest('#art-world')){ e.stopPropagation(); e.preventDefault(); } }, true);
+})();
+function artHTML(lv){ if(lv==='world') return worldArtHTML(); return meMarker(lv) + artBase(lv).replace(/<svg class="map" viewBox="0 0 390 844" aria-hidden="true">([\s\S]*?)<\/svg>/, (m,inner)=>{
   if(MAPSTYLE==='real' && REAL) inner = realInner(lv) + (inner.match(/<line[^>]*\/?>/g)||[]).join('');
   return scratchSvg(lv,inner); }); }
 function artBase(lv){
@@ -2292,7 +2339,7 @@ function regionCard(name, n, of, hint){
 }
 function uiHTML(lv){
   const back = p => `<button class="chip" data-back="${p}">${L(LU.left,18)}<span>${LVNAME[p]}</span></button>`;
-  if(lv==='world') return `${showHint?`<div class="hint" id="hint"><div class="bubble" style="left:40px;top:278px">Tap Europe to start stamping</div><div class="hintav" style="left:132px;top:334px">${avatarSVG(AVA,70)}</div></div>`:''}<div class="toprow" style="margin-top:8px"><div class="search">${L(LU.search,20)}<span>Search a city or region</span></div><button class="mailbtn ${mailSeen()?'':'new'}" id="mailBtn" aria-label="Today’s postcard${mailSeen()?'':', unread'}">${L(LU.mail,20)}<i></i></button></div>
+  if(lv==='world') return `${showHint?`<div class="hint" id="hint"><div class="bubble swipe" style="left:50%;top:112px">Swipe the map, then tap a number</div></div>`:''}<div class="toprow" style="margin-top:8px"><div class="search">${L(LU.search,20)}<span>Search a city or region</span></div><button class="mailbtn ${mailSeen()?'':'new'}" id="mailBtn" aria-label="Today’s postcard${mailSeen()?'':', unread'}">${L(LU.mail,20)}<i></i></button></div>
     <div class="regions ${REG_MIN?'min':''}" id="regions"><button class="regtog" id="regTog" aria-expanded="${!REG_MIN}"><h2>Pick a region</h2><span class="chev">${L(LU.right,20,2.6)}</span></button>
     ${REGIONS.map(r=>`<button class="rrow ${r.open?'':'off'}" data-region="${r.id}">${r.name}<span>${regionCount(r)} stamped ${L(LU.right,18)}</span></button>`).join('')}</div>`;
   if(lv==='europe') return `<div class="toprow">${back('world')}<div class="search">${L(LU.search,18)}<span>Search in Europe</span></div></div>${regionCard('Europe',countryCount('europe'),11,'Tap a country stamp to zoom in and see its cities.')}`;
@@ -2382,7 +2429,7 @@ $('#srch').addEventListener('click', e=>{
 });
 $('#phone').addEventListener('click', e=>{
   if(e.target.closest('.search')){ if(stamping) return; return openSearch(level==='world'?null:level); }
-  if(e.target.closest('#regTog')){ REG_MIN=!REG_MIN; try{ localStorage.setItem('pm-regmin', REG_MIN?'1':'0'); }catch(err){} const el=$('#regions'); el.classList.toggle('min', REG_MIN); $('#regTog').setAttribute('aria-expanded', String(!REG_MIN)); return; }
+  if(e.target.closest('#regTog')){ REG_MIN=!REG_MIN; try{ localStorage.setItem('pm-regmin', REG_MIN?'1':'0'); }catch(err){} const el=$('#regions'); el.classList.toggle('min', REG_MIN); $('#regTog').setAttribute('aria-expanded', String(!REG_MIN)); $('#art-world').innerHTML=artHTML('world'); return; }
   if(e.target.closest('#mailBtn')) return openDaily();
   const t = e.target.closest('[data-region],[data-country],[data-city],[data-back]'); if(!t) return;
   if(t.dataset.back) return backTo(t.dataset.back);
@@ -2390,7 +2437,8 @@ $('#phone').addEventListener('click', e=>{
     if(showHint){ showHint=false; const h=$('#hint'); if(h) h.remove(); }
     const r=REGIONS.find(r=>r.id===t.dataset.region);
     if(!r.open) return toast(`${r.name} opens in a later build`);
-    const [x,y] = t.classList.contains('bub') ? centerOf(t) : [r.x+15, r.y+15];
+    const vis=[...document.querySelectorAll(`#art-world .bub[data-region="${r.id}"]`)].map(centerOf).find(([cx,cy])=>cx>10&&cx<380);
+    const [x,y] = t.classList.contains('bub') ? centerOf(t) : (vis || [195, 300]);
     return go(r.id, x, y);
   }
   if(t.dataset.country){
@@ -2495,7 +2543,7 @@ async function locTest(announce){
   try{ const p=await locGet(); LOC.near=nearestCity(LOC.pos); LOC.err=null; if(announce) toast('Location is on'); }
   catch(e){ LOC.err=locWhy(e&&e.code); if(announce) toast('Location couldn’t be turned on'); }
   LOC.checking=false; paintLoc(); if(openId) refreshCard();
-  if(LOC.pos){ const k=LOC.pos.map(v=>v.toFixed(1)).join(','); if(k!==LOC.drawn){ LOC.drawn=k; if(!openId && !stamping && $('#passport').hidden && $('#trips').hidden && $('#friends').hidden) renderAll(); } }
+  if(LOC.pos){ const k=LOC.pos.map(v=>v.toFixed(1)).join(','); if(k!==LOC.drawn){ if(!LOC.drawn) worldPan=null; LOC.drawn=k; if(!openId && !stamping && $('#passport').hidden && $('#trips').hidden && $('#friends').hidden) renderAll(); } }
 }
 function setLoc(on){ LOC.on=on; try{ localStorage.setItem('pm-loc', on?'1':'0'); }catch(e){} if(on) locTest(true); else { LOC.err=null; paintLoc(); if(openId) refreshCard(); toast('Location is off'); } }
 function locRowHTML(){
@@ -3981,7 +4029,7 @@ function fit(){
   const s = Math.min(1, (w-pad)/390, (h-pad)/844);
   ph.style.setProperty('--s', s.toFixed(4)); ph.classList.toggle('bare', !roomy);
 }
-addEventListener('resize', fit); addEventListener('orientationchange', fit); if(window.visualViewport) visualViewport.addEventListener('resize', fit); fit();
+addEventListener('resize', ()=>{ fit(); if(typeof level!=='undefined' && level==='world' && $('#wpan')) $('#art-world').innerHTML=artHTML('world'); }); addEventListener('orientationchange', fit); if(window.visualViewport) visualViewport.addEventListener('resize', fit); fit();
 
 try{ if(localStorage.getItem('pm-pal')!=='classic') document.documentElement.classList.add('bright'); }catch(e){ document.documentElement.classList.add('bright'); }
 loadLocalState();
