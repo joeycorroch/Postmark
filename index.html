@@ -1238,6 +1238,12 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
 #srch .snone{margin:30px 20px;text-align:center;font-size:14px;line-height:1.5;color:var(--ink-soft)}
 #srch .snone b{display:block;font:900 18px var(--font-display);color:var(--ink-navy);margin-bottom:4px}
 #srch mark{background:var(--stamp-gold-wash);color:inherit;border-radius:3px}
+.regtog{display:flex;align-items:center;justify-content:space-between;width:100%;padding:0;margin:0;background:none;border:0;text-align:left;color:inherit}
+.regtog .chev{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border:2px solid var(--ink-navy);border-radius:50%;background:var(--paper-cream);transform:rotate(90deg);transition:transform .25s}
+.regions.min .chev{transform:rotate(-90deg)}
+.regions.min .rrow{display:none}
+.regions.min{padding-bottom:14px}
+.me.here u{display:block;width:8px;height:8px;margin-top:2px;border-radius:50%;background:var(--stamp-red);border:2px solid #fff;box-shadow:0 0 0 2px var(--ink-navy)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}}
 .banner h2.long{font-size:30px}
 </style>
@@ -2176,7 +2182,15 @@ function scratchSvg(lv, inner){
     `<g mask="url(#mk-${lv})"><rect width="390" height="844" style="fill:var(--map-ocean)"/>${inner}</g></svg>`;
 }
 function lastCity(){ if(lastStamped && visited[lastStamped]) return lastStamped; return Object.keys(visited).sort((a,b)=>visited[a]<visited[b]?-1:visited[a]>visited[b]?1:0).pop(); }
+let REG_MIN=false; try{ REG_MIN=localStorage.getItem('pm-regmin')==='1'; }catch(e){}
 function meMarker(lv){
+  /* On the world and region maps the avatar sits where the phone says you are; without a location it falls back to your latest stamp. */
+  if(LOC.on && LOC.pos && (lv==='world' || REGIONS.some(r=>r.id===lv))){
+    const [ax,bx,ay,by]=lvAff(lv), gx=ax*LOC.pos[1]+bx, gy=ay*LOC.pos[0]+by;
+    if(lv==='world' || (gx>=0 && gx<=390 && gy>=110 && gy<=640))
+      return `<div class="me here" style="left:${Math.max(4,Math.min(gx-24,338)).toFixed(0)}px;top:${Math.max(70,gy-58).toFixed(0)}px" aria-hidden="true">${face(40)}<i>YOU</i><u></u></div>`;
+    if(lv!=='world') return '';
+  }
   const id=lastCity(); if(!id) return ''; const c=CITIES[id].c, K=COUNTRIES[c];
   let x,y;
   if(lv==='world'){ const r=REGIONS.find(r=>r.id===K.region); x=r.x-6; y=r.y-58; }
@@ -2279,7 +2293,7 @@ function regionCard(name, n, of, hint){
 function uiHTML(lv){
   const back = p => `<button class="chip" data-back="${p}">${L(LU.left,18)}<span>${LVNAME[p]}</span></button>`;
   if(lv==='world') return `${showHint?`<div class="hint" id="hint"><div class="bubble" style="left:40px;top:278px">Tap Europe to start stamping</div><div class="hintav" style="left:132px;top:334px">${avatarSVG(AVA,70)}</div></div>`:''}<div class="toprow" style="margin-top:8px"><div class="search">${L(LU.search,20)}<span>Search a city or region</span></div><button class="mailbtn ${mailSeen()?'':'new'}" id="mailBtn" aria-label="Today’s postcard${mailSeen()?'':', unread'}">${L(LU.mail,20)}<i></i></button></div>
-    <div class="regions"><h2>Pick a region</h2>
+    <div class="regions ${REG_MIN?'min':''}" id="regions"><button class="regtog" id="regTog" aria-expanded="${!REG_MIN}"><h2>Pick a region</h2><span class="chev">${L(LU.right,20,2.6)}</span></button>
     ${REGIONS.map(r=>`<button class="rrow ${r.open?'':'off'}" data-region="${r.id}">${r.name}<span>${regionCount(r)} stamped ${L(LU.right,18)}</span></button>`).join('')}</div>`;
   if(lv==='europe') return `<div class="toprow">${back('world')}<div class="search">${L(LU.search,18)}<span>Search in Europe</span></div></div>${regionCard('Europe',countryCount('europe'),11,'Tap a country stamp to zoom in and see its cities.')}`;
   if(lv==='asia') return `<div class="toprow">${back('world')}<div class="search">${L(LU.search,18)}<span>Search in Asia</span></div></div>${regionCard('Asia',countryCount('asia'),8,'Tap a country stamp to zoom in and see its cities.')}`;
@@ -2368,6 +2382,7 @@ $('#srch').addEventListener('click', e=>{
 });
 $('#phone').addEventListener('click', e=>{
   if(e.target.closest('.search')){ if(stamping) return; return openSearch(level==='world'?null:level); }
+  if(e.target.closest('#regTog')){ REG_MIN=!REG_MIN; try{ localStorage.setItem('pm-regmin', REG_MIN?'1':'0'); }catch(err){} const el=$('#regions'); el.classList.toggle('min', REG_MIN); $('#regTog').setAttribute('aria-expanded', String(!REG_MIN)); return; }
   if(e.target.closest('#mailBtn')) return openDaily();
   const t = e.target.closest('[data-region],[data-country],[data-city],[data-back]'); if(!t) return;
   if(t.dataset.back) return backTo(t.dataset.back);
@@ -2480,6 +2495,7 @@ async function locTest(announce){
   try{ const p=await locGet(); LOC.near=nearestCity(LOC.pos); LOC.err=null; if(announce) toast('Location is on'); }
   catch(e){ LOC.err=locWhy(e&&e.code); if(announce) toast('Location couldn’t be turned on'); }
   LOC.checking=false; paintLoc(); if(openId) refreshCard();
+  if(LOC.pos){ const k=LOC.pos.map(v=>v.toFixed(1)).join(','); if(k!==LOC.drawn){ LOC.drawn=k; if(!openId && !stamping && $('#passport').hidden && $('#trips').hidden && $('#friends').hidden) renderAll(); } }
 }
 function setLoc(on){ LOC.on=on; try{ localStorage.setItem('pm-loc', on?'1':'0'); }catch(e){} if(on) locTest(true); else { LOC.err=null; paintLoc(); if(openId) refreshCard(); toast('Location is off'); } }
 function locRowHTML(){
