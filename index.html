@@ -1288,6 +1288,28 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
 .crewbtn{width:100%;height:44px;border:2px solid var(--ink-navy);border-radius:12px;font-size:14px;font-weight:800;background:var(--city-lisbon);box-shadow:3px 3px 0 var(--ink-navy);display:flex;align-items:center;justify-content:center;gap:8px}
 .crewbtn[disabled]{opacity:.5}
 .tnote{font-size:12px;line-height:1.4;color:var(--ink-soft)}
+
+/* ---------- trip: add a stop (search + country dropdown) ---------- */
+.addbar{display:flex;flex-direction:column;gap:8px}
+.addq{display:flex;align-items:center;gap:8px;height:44px;padding:0 12px;border:2px solid var(--ink-navy);border-radius:12px;background:var(--paper-card)}
+.addq svg{flex-shrink:0;color:var(--ink-soft)}
+.addq input{flex:1;min-width:0;height:100%;border:0;background:none;font:600 15px/1 var(--font-body,inherit);color:var(--ink-navy);outline:none}
+.addq input::-webkit-search-cancel-button{display:none}
+.addq .clr{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--paper-cream);color:var(--ink-navy)}
+.addsel{position:relative}
+.addsel select{appearance:none;-webkit-appearance:none;width:100%;height:42px;padding:0 36px 0 12px;border:2px solid var(--ink-navy);border-radius:12px;background:var(--paper-cream);font:700 14px/1 inherit;color:var(--ink-navy)}
+.addsel svg{position:absolute;right:12px;top:50%;transform:translateY(-50%);pointer-events:none}
+.addres{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.addres small{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:4px 2px 0}
+.addres button{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;border:2px solid var(--ink-navy);border-radius:12px;background:var(--paper-card);text-align:left}
+.addres button:active{transform:translate(1px,1px)}
+.addres button .miniflag{width:22px;height:22px;flex-shrink:0}
+.addres button b{display:block;font-size:14px;font-weight:800;color:var(--ink-navy)}
+.addres button span.d{display:block;font-size:12px;color:var(--ink-soft)}
+.addres button .tx{flex:1;min-width:0}
+.addres button .pl{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--ink-navy);color:var(--paper-cream);display:flex;align-items:center;justify-content:center}
+.addres p{margin:4px 2px;font-size:13px;line-height:1.4;color:var(--ink-soft)}
+.addres .more{justify-content:center;border-style:dashed;background:none;font-weight:800;font-size:13px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}}
 .banner h2.long{font-size:30px}
 </style>
@@ -4211,6 +4233,32 @@ function tripFormHTML(){
     ${TOG.sb&&friendIds.length?`<div class="fld">Plan with friends <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--ink-soft)">(optional)</span><div class="pickf" style="margin-top:6px">${friendIds.map(id=>`<button data-tfpick="${id}" class="${TOG.form.has(id)?'on':''}"><span class="face">${ffaceSVG(realFriend(id),26)}</span>${esc(realFriend(id).name)}</button>`).join('')}</div></div>`:''}
     <div class="trow2"><button class="btn line" id="tfCancel">Cancel</button><button class="btn navy" id="tfCreate">${L(LU.plus,18)}${TOG.sb&&TOG.form.size?'Create and invite':'Create trip'}</button></div></div>`;
 }
+/* Add a stop: search by city, landmark, country or nickname, or browse one country from the dropdown. */
+let addQ='', addC='', addAll=false, addFor=null;
+const addRow = (id,t) => { const C=CITIES[id], last=t.cities[t.cities.length-1], d=last&&CITY_LL[last]&&CITY_LL[id]?km(CITY_LL[last],CITY_LL[id]):null;
+  return `<button data-add="${id}">${miniFlag(C.c)}<span class="tx"><b>${C.name}</b><span class="d">${COUNTRIES[C.c].name}${d!==null?` · ${fmtKm(d)} from ${CITIES[last].name}`:''}${visited[id]?' · stamped':''}</span></span><span class="pl">${L(LU.plus,16)}</span></button>`; };
+function addResultsHTML(t){
+  const free=id=>!t.cities.includes(id), q=addQ.trim();
+  let ids, head='';
+  if(q){ const rs=searchResults(q).cities, top=rs.length?rs[0].sc:0; ids=rs.filter(x=>x.sc>=Math.min(40,top*.5)).map(x=>x.id).filter(free); if(addC) ids=ids.filter(id=>CITIES[id].c===addC);
+    if(!ids.length) return `<p>No cities match “${esc(q)}”${addC?` in ${COUNTRIES[addC].name}`:''}. Try a country name, or check the spelling.</p>`; }
+  else if(addC){ ids=COUNTRIES[addC].cities.filter(free); head=`${COUNTRIES[addC].name}`;
+    if(!ids.length) return `<p>Every ${COUNTRIES[addC].name} city is already on this trip.</p>`; }
+  else if(t.cities.length){ const last=t.cities[t.cities.length-1], cs=new Set(t.cities.map(id=>CITIES[id].c));
+    ids=Object.keys(CITIES).filter(free).filter(id=>CITY_LL[id]&&CITY_LL[last]).sort((a,b)=>(cs.has(CITIES[b].c)-cs.has(CITIES[a].c)) || km(CITY_LL[last],CITY_LL[a])-km(CITY_LL[last],CITY_LL[b]));
+    head=`Near ${CITIES[last].name}`; }
+  else return `<p>Type a city or country above, or pick a country from the list to see its cities.</p>`;
+  const cap=addAll?ids.length:8, more=ids.length-cap;
+  return `${head?`<small>${esc(head)}</small>`:''}${ids.slice(0,cap).map(id=>addRow(id,t)).join('')}${more>0?`<button class="more" id="addMore">Show ${more} more</button>`:''}`;
+}
+function addStopHTML(t){
+  if(addFor!==t.id){ addQ=''; addC=''; addAll=false; addFor=t.id; }
+  const regs=REGIONS.map(r=>({r, cs:Object.keys(COUNTRIES).filter(c=>COUNTRIES[c].region===r.id).sort((a,b)=>COUNTRIES[a].name.localeCompare(COUNTRIES[b].name))})).filter(x=>x.cs.length);
+  return `<div class="addbar"><label class="addq">${L(LU.search,18)}<input id="addQ" type="search" enterkeyhint="search" autocomplete="off" placeholder="Search cities, countries, landmarks" value="${esc(addQ)}" aria-label="Search cities to add">${addQ?`<button class="clr" id="addClr" aria-label="Clear search">${L(LU.x,14)}</button>`:''}</label>
+    <div class="addsel"><select id="addC" aria-label="Browse by country"><option value="">All countries</option>${regs.map(({r,cs})=>`<optgroup label="${r.name}">${cs.map(c=>`<option value="${c}" ${addC===c?'selected':''}>${COUNTRIES[c].name} (${COUNTRIES[c].cities.length})</option>`).join('')}</optgroup>`).join('')}</select>${L(LU.down,16)}</div></div>
+    <div class="addres" id="addRes">${addResultsHTML(t)}</div>`;
+}
+function paintAdd(){ const t=T(tripView), el=$('#addRes'); if(t&&el) el.innerHTML=addResultsHTML(t); }
 function tripDetail(t){
   const n=t.cities.filter(id=>visited[id]).length, cd=countdown(t), others=Object.keys(CITIES).filter(id=>!t.cities.includes(id)), packed=t.pack.filter(p=>p[1]).length;
   return `<div class="toprow" style="margin:6px 20px 12px"><button class="chip" id="tBack">${L(LU.left,18)}<span>All trips</span></button></div>
@@ -4227,13 +4275,17 @@ function tripDetail(t){
         <span class="wx">${L(w.rain?LU.rain:w.t>=27?LU.sun:LU.cloud,13)}About ${w.t}°C${w.rain?', rainy season':''} in ${MONL[+t.start.slice(5,7)-1]}</span>
         ${g===null?'':`<span class="timing ${g?'good':'meh'}">${g?'Great timing':'Off season'} · best ${C.best.replace(/\.$/,'')}</span>`}</button>
       <div class="rbtns"><button class="grip" data-grip="${i}" aria-label="Drag to reorder ${C.name}">${L(LU.grip,16)}</button><button data-mv="${i}:-1" ${i?'':'disabled'} aria-label="Move up">${L(LU.up,16)}</button><button data-mv="${i}:1" ${i<t.cities.length-1?'':'disabled'} aria-label="Move down">${L(LU.down,16)}</button><button data-rm="${id}" aria-label="Remove ${C.name}">${L(LU.x,14)}</button></div></div>`; }).join('')}</div></div>
-  <div class="tsec"><h3>Add a stop</h3><div class="addcities">${others.map(id=>`<button data-add="${id}">${miniFlag(CITIES[id].c)}${CITIES[id].name}</button>`).join('')}</div></div>
+  <div class="tsec"><h3>Add a stop <span>${others.length} cities</span></h3>${addStopHTML(t)}</div>
   <div class="tsec"><h3>Packing list <span>${packed} of ${t.pack.length} packed</span></h3><div class="pack">${t.pack.map((p,i)=>`<label class="${p[1]?'ok':''}"><input type="checkbox" data-pk="${i}" ${p[1]?'checked':''}><span>${esc(p[0])}</span></label>`).join('')}
     <div class="packadd"><input id="packIn" maxlength="40" placeholder="Add something to pack"><button id="packAdd" aria-label="Add item">${L(LU.plus,18)}</button></div></div>
     ${(()=>{ const sg=packSuggest(t).filter(x=>!t.pack.some(p=>p[0].toLowerCase()===x[0].toLowerCase())); return sg.length?`<div class="sugg"><h4>${L(LU.spark,14)}Suggested for this trip</h4><div class="sgchips">${sg.map(([n,why])=>`<button data-sug="${esc(n)}" title="${esc(why)}">${L(LU.plus,13)}${esc(n)}<em>${esc(why)}</em></button>`).join('')}</div></div>`:''; })()}</div>
   ${crewHTML(t)}
   <div class="tsec">${activeTrip===t.id?'':`<button class="btn navy" style="width:100%" id="tActive">${L(LU.star,18)}Make this my active trip</button>`}<button class="tdel" id="tDel">${t.sid&&t.owner!==TOG.uid?'Leave this trip':t.sid?'Delete this trip for everyone':'Delete this trip'}</button></div>`;
 }
+$('#trips').addEventListener('input', e=>{ if(e.target.id==='addQ'){ addQ=e.target.value; addAll=false; paintAdd();
+  const lb=e.target.closest('.addq'); if(lb){ const has=!!lb.querySelector('.clr'); if(!!addQ!==has){ if(addQ) lb.insertAdjacentHTML('beforeend',`<button class="clr" id="addClr" aria-label="Clear search">${L(LU.x,14)}</button>`); else lb.querySelector('.clr').remove(); } } } });
+$('#trips').addEventListener('change', e=>{ if(e.target.id==='addC'){ addC=e.target.value; addAll=false; paintAdd(); } });
+$('#trips').addEventListener('keydown', e=>{ if(e.target.id==='addQ' && e.key==='Enter'){ e.preventDefault(); e.target.blur(); } });
 function renderTrips(){ saveState();
   const y=$('#tscroll')?.scrollTop||0, t=tripView&&T(tripView);
   $('#trips').innerHTML = `<div id="tscroll">${t ? tripDetail(t) : `<div class="thead"><div><span class="eyebrow">Postmark</span><h1>Your trips</h1><p>${trips.length?`${trips.length} ${trips.length>1?'trips':'trip'} planned`:'Nothing planned yet'}</p></div><button class="newtrip" id="tNew">${L(LU.plus,18)}Plan</button></div>
@@ -4264,6 +4316,8 @@ $('#trips').addEventListener('click', async e=>{
   const op=q('[data-open]'); if(op){ return openCard(op.dataset.open); }
   const mv=q('[data-mv]'); if(mv){ const [i,d]=mv.dataset.mv.split(':').map(Number), j=i+d; [t.cities[i],t.cities[j]]=[t.cities[j],t.cities[i]]; saveTrips(); return renderTrips(); }
   const rm=q('[data-rm]'); if(rm){ t.cities=t.cities.filter(x=>x!==rm.dataset.rm); saveTrips(); renderTrips(); return toast(`${CITIES[rm.dataset.rm].name} removed`); }
+  if(q('#addClr')){ addQ=''; addAll=false; renderTrips(); const i=$('#addQ'); if(i) i.focus(); return; }
+  if(q('#addMore')){ addAll=true; return paintAdd(); }
   const ad=q('[data-add]'); if(ad){ t.cities.push(ad.dataset.add); saveTrips(); renderTrips(); tone(0,'triangle',740,.1,.1,990); return toast(`${CITIES[ad.dataset.add].name} added to ${t.name}`); }
   const sg=q('[data-sug]'); if(sg){ t.pack.push([sg.dataset.sug,false]); saveTrips(); renderTrips(); return toast(`${sg.dataset.sug} added to your packing list`); }
   if(q('#tRecap')) return openRecap(t);
