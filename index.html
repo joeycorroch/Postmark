@@ -525,7 +525,8 @@ button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--stamp-red)
 .dice:active{transform:translate(3px,3px);box-shadow:none}
 .avside small{font-size:12px;color:var(--ink-soft);max-width:150px;line-height:1.35}
 .avtabs{display:flex;gap:6px;margin:16px 20px 0;padding:4px;border:2px solid var(--ink-navy);border-radius:999px;background:var(--paper-card)}
-.avtabs button{flex:1;height:34px;border-radius:999px;font-size:12px;font-weight:700;color:var(--ink-soft)}
+.avtabs button{flex:1;min-width:0;height:34px;padding:0 2px;border-radius:999px;font-size:11.5px;font-weight:700;color:var(--ink-soft);white-space:nowrap}
+.avtabs{gap:3px!important}
 .avtabs button.on{background:var(--ink-navy);color:var(--paper-cream)}
 .avpane{flex:1;overflow-y:auto;padding:12px 20px 16px;display:flex;flex-direction:column;gap:14px}
 .grp{display:flex;flex-direction:column;gap:7px}
@@ -3012,16 +3013,22 @@ let hasDL=false;
 
 
 /* ---------- passport photo avatar ---------- */
-const SKIN=['#FFE0C7','#F7C59F','#E8A878','#C98552','#9A5E34','#6B3E22'];
-const HAIRC=['#1E1B24','#5A3A22','#A0612D','#F0B84A','#E5533D','#FF7EB6','#7A6BFF','#2EC4C9','#F2F0EA'];
-const EYEC=['#5A3A22','#3D7BFF','#2FA36B','#9A7A3A','#6B6F7A','#9D4EFF'];
+const SKIN=['#FFE0C7','#F7C59F','#E8A878','#C98552','#9A5E34','#6B3E22','#FFF0E3','#EDBB8E','#B5733F','#4A2A17'];
+const HAIRC=['#1E1B24','#5A3A22','#A0612D','#F0B84A','#E5533D','#FF7EB6','#7A6BFF','#2EC4C9','#F2F0EA','#3B2A1E','#C9692E','#F7E2A6','#9AA0A8','#3D7BFF','#2FBF71','#FF8A3D'];
+const EYEC=['#5A3A22','#3D7BFF','#2FA36B','#9A7A3A','#6B6F7A','#9D4EFF','#1E1B24','#2EC4C9','#C68A2E'];
 const BGC=['#6FD3F0','#FFB3C7','#FFE38A','#A8E6CF','#D4C2FF','#FFFCF2'];
-const TOPC=['#1B1F4B','#FF4F6E','#FFC21F','#009C94','#9D4EFF','#FFFFFF'];
+const TOPC=['#1B1F4B','#FF4F6E','#FFC21F','#009C94','#9D4EFF','#FFFFFF','#3D7BFF','#2FBF71','#FF8A3D','#6FD3F0','#E8382A','#6B4A2E','#9AA0A8','#FFB3C7','#1E1B24'];
 const AV_OPTS={
-  hair:[['short','Short'],['spiky','Spiky'],['curly','Curly'],['bob','Bob'],['long','Long'],['bun','Bun'],['pony','Ponytail'],['afro','Afro'],['bald','Bald']],
-  expr:[['smile','Smile'],['grin','Big grin'],['smirk','Smirk'],['wow','Wow']],
-  facial:[['none','None'],['tache','Moustache'],['beard','Beard']],
-  freckles:[['n','None'],['y','Freckles']],
+  body:[['m','Male'],['f','Female']],
+  hair:[['short','Short'],['buzz','Buzz cut'],['side','Side part'],['quiff','Quiff'],['spiky','Spiky'],['mohawk','Mohawk'],['curtains','Curtains'],['mullet','Mullet'],['curly','Curly'],['afro','Afro'],['pixie','Pixie'],['bob','Bob'],['long','Long'],['waves','Long waves'],['pony','Ponytail'],['bun','Bun'],['spacebuns','Space buns'],['braids','Braids'],['locs','Locs'],['bald','Bald']],
+  eyeS:[['round','Round'],['almond','Almond'],['dots','Dots'],['sleepy','Sleepy'],['happy','Happy'],['wink','Wink']],
+  lashes:[['n','None'],['y','Lashes']],
+  brows:[['soft','Soft'],['thick','Thick'],['thin','Thin'],['arched','Arched'],['straight','Straight'],['raised','Raised']],
+  nose:[['curve','Curve'],['button','Button'],['pointy','Pointy'],['wide','Wide'],['tiny','Tiny']],
+  expr:[['smile','Smile'],['grin','Big grin'],['laugh','Laugh'],['teeth','Toothy'],['smirk','Smirk'],['calm','Calm'],['tongue','Cheeky'],['kiss','Kiss'],['lips','Lipstick'],['wow','Wow']],
+  facial:[['none','None'],['stubble','Stubble'],['tache','Moustache'],['handlebar','Handlebar'],['goatee','Goatee'],['beard','Full beard']],
+  freckles:[['n','None'],['y','Freckles'],['rosy','Rosy cheeks'],['mole','Beauty mark']],
+  outfit:[['tee','T-shirt'],['stripes','Stripy tee'],['tank','Tank top'],['scoop','Scoop top'],['shirt','Collared shirt'],['hoodie','Hoodie'],['sweater','Knit jumper'],['jacket','Jacket'],['overalls','Overalls'],['jersey','Sports jersey']],
   hat:[['none','None'],['beanie','Beanie'],['cap','Cap'],['sunhat','Sun hat'],['beret','Beret'],['party','Party'],['tram','Conductor'],['chef','Chef'],['explorer','Explorer'],['halo','Halo'],['crown','Crown'],['propeller','Propeller']],
   glasses:[['none','None'],['round','Round'],['shades','Shades'],['hearts','Hearts'],['neon','Neon stars'],['pixel','Pixel shades']],
   neck:[['none','None'],['chain','Chain'],['pearls','Pearls'],['scarf','Scarf'],['lei','Flower lei'],['medal','Gold medal']],
@@ -3031,7 +3038,7 @@ const AV_OPTS={
   frame:[['none','None'],['gold','Gold'],['holo','Holo']]
 };
 const NUMK=['skin','eyes','hairC','top','bg'];
-const AV_DEFAULT={skin:1, eyes:0, hair:'short', hairC:1, expr:'smile', freckles:'n', facial:'none', hat:'none', glasses:'none', neck:'none', ears:'none', top:0, bg:0, aura:'none', bgx:'none', frame:'none', made:false,
+const AV_DEFAULT={body:'m', skin:1, eyes:0, eyeS:'round', lashes:'n', brows:'soft', nose:'curve', hair:'short', hairC:1, expr:'smile', freckles:'n', facial:'none', outfit:'tee', hat:'none', glasses:'none', neck:'none', ears:'none', top:0, bg:0, aura:'none', bgx:'none', frame:'none', made:false,
   no:'PM'+String(Math.floor(1e6+Math.random()*8.9e6)), bio:{given:'', sur:'', dob:'', sex:'', nat:'', home:''}};
 let AVA = JSON.parse(JSON.stringify(AV_DEFAULT));
 try{ const saved=JSON.parse(localStorage.getItem('pm-av')||'null'); if(saved) AVA={...AVA, ...saved, bio:{...AVA.bio, ...(saved.bio||{})}}; }catch(e){}
@@ -3049,6 +3056,20 @@ const HAIR = {
         front:(c)=>`<path d="M32 62 Q30 32 60 31 Q90 32 88 62 Q80 44 60 42 Q42 44 32 62Z" fill="${c}"/><circle cx="87" cy="50" r="4" fill="#FFC21F"/>`},
   afro:{back:(c,d)=>`<circle cx="60" cy="56" r="41" fill="${c}"/><g fill="${d}" opacity=".25"><circle cx="38" cy="36" r="6"/><circle cx="80" cy="34" r="5"/><circle cx="92" cy="62" r="5"/></g>`,
         front:(c)=>`<path d="M34 60 Q36 38 60 37 Q84 38 86 60 Q74 48 60 48 Q46 48 34 60Z" fill="${c}"/>`},
+  buzz:{front:(c,d)=>`<path d="M33 62 Q31 36 60 35 Q89 36 87 62 Q84 47 60 45 Q36 47 33 62Z" fill="${c}" opacity=".85"/><g fill="${d}" opacity=".35">${[[42,44],[50,40],[60,38],[70,40],[78,44],[46,48],[56,44],[64,44],[74,48]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="1"/>`).join('')}</g>`},
+  side:{front:(c,d)=>`<path d="M31 66 Q28 33 60 31 Q92 32 89 64 Q86 47 74 43 Q58 40 45 49 Q36 55 31 66Z" fill="${c}"/><path d="M68 32 Q65 37 69 43" stroke="${d}" stroke-width="1.6" fill="none"/>`},
+  quiff:{front:(c,d)=>`<path d="M31 64 Q28 38 40 33 Q44 22 60 21 Q80 19 86 30 Q91 42 89 64 Q85 50 74 45 Q62 50 47 46 Q36 52 31 64Z" fill="${c}"/><path d="M46 30 Q60 22 80 27" stroke="${d}" stroke-width="1.6" fill="none" opacity=".6"/><path d="M58 24 Q66 30 76 30" stroke="${d}" stroke-width="1.4" fill="none" opacity=".45"/>`},
+  mohawk:{front:(c,d)=>`<path d="M34 60 Q34 40 60 39 Q86 40 86 60 Q74 48 60 47 Q46 48 34 60Z" fill="${d}" opacity=".3"/><path d="M51 46 L48 20 L55 28 L60 10 L65 28 L72 20 L69 46 Q60 41 51 46Z" fill="${c}"/>`},
+  curtains:{front:(c,d)=>`<path d="M29 76 Q25 32 60 31 Q95 32 91 76 Q88 56 80 49 Q70 44 62 42 L60 47 L58 42 Q50 44 40 49 Q32 56 29 76Z" fill="${c}"/><path d="M60 33 V45" stroke="${d}" stroke-width="1.4" opacity=".5"/>`},
+  mullet:{back:(c,d)=>`<path d="M30 60 L26 106 Q34 112 44 102 L76 102 Q86 112 94 106 L90 60Z" fill="${d}"/>`,
+          front:(c)=>`<path d="M31 68 Q28 33 60 32 Q92 33 89 68 Q86 50 76 46 L70 52 L64 45 L56 52 L50 45 L44 51 Q34 52 31 68Z" fill="${c}"/>`},
+  pixie:{front:(c,d)=>`<path d="M31 64 Q29 32 60 31 Q91 32 89 62 Q86 46 74 46 Q64 50 54 46 Q44 52 38 58 L36 72 Q31 70 31 64Z" fill="${c}"/><path d="M84 54 L88 74 L90 58Z" fill="${c}"/>`},
+  waves:{back:(c,d)=>`<path d="M24 70 Q20 28 60 27 Q100 28 96 70 Q104 84 96 98 Q104 112 96 126 L24 126 Q16 112 24 98 Q16 84 24 70Z" fill="${d}"/>`,
+         front:(c)=>`<path d="M28 104 Q23 94 29 84 Q24 74 28 64 Q28 31 60 30 Q92 31 92 64 Q96 74 91 84 Q97 94 92 104 Q87 108 82 104 Q86 92 82 82 Q85 70 80 60 Q72 47 60 46 Q48 47 40 60 Q35 70 38 82 Q34 92 38 104 Q33 108 28 104Z" fill="${c}"/>`},
+  braids:{front:(c,d)=>`<path d="M31 66 Q29 32 60 31 Q91 32 89 66 Q84 46 62 44 L60 48 L58 44 Q36 46 31 66Z" fill="${c}"/>`+[30,90].map(x=>[80,90,100,110,120].map(y=>`<ellipse cx="${x}" cy="${y}" rx="5.4" ry="6" fill="${c}"/><path d="M${x-4} ${y+1} Q${x} ${y+5} ${x+4} ${y+1}" stroke="${d}" stroke-width="1.2" fill="none"/>`).join('')+`<rect x="${x-3.5}" y="125" width="7" height="4" rx="2" fill="#FF4F6E"/><path d="M${x-3} 129 L${x} 137 L${x+3} 129Z" fill="${c}"/>`).join('')},
+  spacebuns:{front:(c,d)=>`<circle cx="37" cy="33" r="12" fill="${c}"/><circle cx="83" cy="33" r="12" fill="${c}"/><path d="M31 35 Q37 29 43 35 M77 35 Q83 29 89 35" stroke="${d}" stroke-width="1.4" fill="none"/><path d="M31 64 Q29 34 60 34 Q91 34 89 64 Q84 46 60 44 Q36 46 31 64Z" fill="${c}"/>`},
+  locs:{back:(c,d)=>[26,34,42,78,86,94].map(x=>`<rect x="${x-4.5}" y="44" width="9" height="${x<60?70+x%7:70+(120-x)%7}" rx="4.5" fill="${d}"/>`).join(''),
+        front:(c,d)=>`<path d="M31 64 Q29 32 60 31 Q91 32 89 64 Q82 46 60 45 Q38 46 31 64Z" fill="${c}"/>`+[32,88].map(x=>`<rect x="${x-3.5}" y="48" width="7" height="50" rx="3.5" fill="${c}"/>`+[58,70,82,94].map(y=>`<path d="M${x-3} ${y} h6" stroke="${d}" stroke-width="1.2"/>`).join('')).join('')},
   bald:{front:()=>`<ellipse cx="50" cy="44" rx="7" ry="3.5" fill="#fff" opacity=".35" transform="rotate(-20 50 44)"/>`}
 };
 const HATS_AV = {
@@ -3082,8 +3103,55 @@ const MOUTH = {
   smile:`<path d="M52 84 Q60 91 68 84" fill="none" stroke="#5A2A1A" stroke-width="2.6" stroke-linecap="round"/>`,
   grin:`<path d="M50 83 Q60 97 70 83Z" fill="#5A2A1A"/><path d="M51.5 83.6 H68.5 L67.4 86 H52.6Z" fill="#fff"/><path d="M55 90 Q60 87 65 90 Q60 94 55 90Z" fill="#FF7A8A"/>`,
   smirk:`<path d="M52 87 Q62 89 69 82" fill="none" stroke="#5A2A1A" stroke-width="2.6" stroke-linecap="round"/>`,
-  wow:`<ellipse cx="60" cy="87" rx="3.6" ry="4.6" fill="#5A2A1A"/>`
+  wow:`<ellipse cx="60" cy="87" rx="3.6" ry="4.6" fill="#5A2A1A"/>`,
+  laugh:`<path d="M49 82 Q60 101 71 82Z" fill="#5A2A1A"/><path d="M50.5 82.6 H69.5 L68 85.6 H52Z" fill="#fff"/><path d="M54 92 Q60 87 66 92 Q60 97 54 92Z" fill="#FF7A8A"/><path d="M41 63 l-3 -2 M79 63 l3 -2" stroke="#5A2A1A" stroke-width="1.6" stroke-linecap="round" opacity=".5"/>`,
+  teeth:`<path d="M50 83 Q60 93 70 83Z" fill="#fff" stroke="#5A2A1A" stroke-width="2.2" stroke-linejoin="round"/><path d="M55 83.5 v4.5 M60 83.5 v6 M65 83.5 v4.5" stroke="#C9B9A6" stroke-width="1"/>`,
+  calm:`<path d="M54 86 Q60 87.6 66 86" fill="none" stroke="#5A2A1A" stroke-width="2.6" stroke-linecap="round"/>`,
+  tongue:`<path d="M58 87 Q57 95 61.5 95 Q66 95 64.5 87Z" fill="#FF7A8A" stroke="#5A2A1A" stroke-width="1.4"/><path d="M52 84 Q60 91 68 84" fill="none" stroke="#5A2A1A" stroke-width="2.6" stroke-linecap="round"/>`,
+  kiss:`<path d="M58 82 Q64 83.5 60 86 Q64 88.5 58 90" fill="none" stroke="#5A2A1A" stroke-width="2.4" stroke-linecap="round"/><path d="M75.2 86 l-2.6 -2.6 a1.8 1.8 0 0 1 2.6 -2.6 a1.8 1.8 0 0 1 2.6 2.6z" fill="#FF4F6E"/>`,
+  lips:`<path d="M51 84 Q55 80.5 60 82.6 Q65 80.5 69 84 Q60 93 51 84Z" fill="#E0436A"/><path d="M52 84 Q60 86.5 68 84" stroke="#A82850" stroke-width="1.2" fill="none"/><ellipse cx="56" cy="87" rx="2" ry=".9" fill="#fff" opacity=".5"/>`
 };
+/* eye shapes, brows, noses and clothes */
+const EYES = {
+  round:(x,ec)=>`<ellipse cx="${x}" cy="68" rx="5.2" ry="5.8" fill="#fff"/><circle cx="${x}" cy="68.6" r="3.5" fill="${ec}"/><circle cx="${x}" cy="68.8" r="1.6" fill="#111"/><circle cx="${x+1.2}" cy="67.2" r="1" fill="#fff"/>`,
+  almond:(x,ec)=>`<path d="M${x-6.2} 68.5 Q${x} 62 ${x+6.2} 68.5 Q${x} 73 ${x-6.2} 68.5Z" fill="#fff"/><circle cx="${x}" cy="68.3" r="3.2" fill="${ec}"/><circle cx="${x}" cy="68.4" r="1.5" fill="#111"/><circle cx="${x+1.1}" cy="67.2" r=".9" fill="#fff"/><path d="M${x-6.4} 68.4 Q${x} 61.6 ${x+6.4} 68.4" fill="none" stroke="#2A1A14" stroke-width="1.6" stroke-linecap="round"/>`,
+  dots:(x)=>`<ellipse cx="${x}" cy="68.5" rx="3" ry="3.6" fill="#1E1B24"/><circle cx="${x+1}" cy="67.3" r="1" fill="#fff"/>`,
+  sleepy:(x,ec,sk)=>`<ellipse cx="${x}" cy="68" rx="5.2" ry="5.2" fill="#fff"/><circle cx="${x}" cy="69.4" r="3.3" fill="${ec}"/><circle cx="${x}" cy="69.6" r="1.5" fill="#111"/><path d="M${x-6} 68.6 Q${x} 61 ${x+6} 68.6 L${x+6} 61 L${x-6} 61Z" fill="${sk}"/><path d="M${x-5.6} 68.4 Q${x} 66.4 ${x+5.6} 68.4" fill="none" stroke="#2A1A14" stroke-width="1.6" stroke-linecap="round"/>`,
+  happy:(x)=>`<path d="M${x-5} 69.5 Q${x} 63 ${x+5} 69.5" fill="none" stroke="#2A1A14" stroke-width="2.6" stroke-linecap="round"/>`,
+  wink:(x,ec,sk)=>x<60?EYES.round(x,ec):EYES.happy(x)
+};
+const lashSVG = (x,shape) => { const s=x<60?-1:1, closed=shape==='happy'||(shape==='wink'&&x>60), y=closed?67.4:shape==='almond'?66:shape==='dots'?66:64.6, ox=x+s*(closed?4.6:4.8);
+  return `<path d="M${ox} ${y} l${s*2.8} -1.4 M${ox-s*1.6} ${y-2} l${s*2} -2.2" stroke="#2A1A14" stroke-width="1.5" stroke-linecap="round"/>`; };
+const BROWS = {
+  soft:['M44 58 q6 -4 12 0 M64 58 q6 -4 12 0',2.8], thick:['M43 58 q7 -5 13 -.5 M64 57.5 q6 -4.5 13 .5',4.6], thin:['M44 58 q6 -3.4 12 0 M64 58 q6 -3.4 12 0',1.5],
+  arched:['M44 59 q5 -8 12 -2 M64 57 q7 -6 12 2',2.6], straight:['M44 57 h12 M64 57 h12',3], raised:['M44 54 q6 -5 12 -1 M64 53 q6 -4 12 1',2.6]
+};
+const NOSES = {
+  curve:sd=>`<path d="M60 70 q-3.5 7 0 9" fill="none" stroke="${sd}" stroke-width="2.2" stroke-linecap="round"/>`,
+  button:sd=>`<ellipse cx="60" cy="77" rx="3.6" ry="2.8" fill="${sd}" opacity=".8"/><ellipse cx="59" cy="76" rx="1.1" ry=".7" fill="#fff" opacity=".45"/>`,
+  pointy:sd=>`<path d="M60 67 L56 78 Q58.5 79.5 61.5 78.5" fill="none" stroke="${sd}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>`,
+  wide:sd=>`<path d="M54.5 76 Q53 79.6 57 79.2 Q60 81 63 79.2 Q67 79.6 65.5 76" fill="none" stroke="${sd}" stroke-width="2.2" stroke-linecap="round"/>`,
+  tiny:sd=>`<circle cx="58.3" cy="77.6" r="1.1" fill="${sd}"/><circle cx="61.7" cy="77.6" r="1.1" fill="${sd}"/>`
+};
+const BODY = { m:'M8 150 Q12 112 60 106 Q108 112 112 150Z', f:'M17 150 Q19 117 60 108 Q101 117 103 150Z' };
+const lumOf = h => { const n=parseInt(h.slice(1),16); return (.299*(n>>16)+.587*((n>>8)&255)+.114*(n&255))/255; };
+function outfitSVG(a,tc,sk,id){
+  const B=BODY[a.body]||BODY.m, td=shade(tc,-.22), ac=lumOf(tc)>.78?'#1B1F4B':'#FFFCF2', f=a.body==='f', clip=`clip-path="url(#${id}b)"`;
+  const base=`<clipPath id="${id}b"><path d="${B}"/></clipPath><path d="${B}" fill="${tc}"/>`;
+  const crew=`<path d="M47 106 Q60 118 73 106 Q60 112 47 106Z" fill="${td}"/>`;
+  switch(a.outfit){
+    case 'stripes': return base+`<g ${clip} fill="${ac}" opacity=".85">${[116,126,136,146].map(y=>`<rect x="0" y="${y}" width="120" height="4.5"/>`).join('')}</g>`+crew;
+    case 'tank': return `<path d="${B}" fill="${sk}"/><path d="${B}" fill="#000" opacity=".06"/><path d="M${f?38:34} 150 Q${f?38:34} 122 ${f?44:42} 110 Q60 126 ${f?76:78} 110 Q${f?82:86} 122 ${f?82:86} 150Z" fill="${tc}"/><path d="M${f?44:42} 110 Q60 126 ${f?76:78} 110" fill="none" stroke="${td}" stroke-width="2"/>`;
+    case 'scoop': return base+`<path d="M44 107 Q60 128 76 107Z" fill="${sk}"/><path d="M44 107 Q60 128 76 107" fill="none" stroke="${td}" stroke-width="2.4"/><g ${clip} fill="${ac}" opacity=".5">${[[30,128],[46,140],[80,136],[94,126],[64,146],[24,146]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="2.4"/>`).join('')}</g>`;
+    case 'shirt': return base+`<path d="M50 106 L60 122 L70 106Z" fill="${sk}"/><path d="M46 104 L55 120 L60 112Z M74 104 L65 120 L60 112Z" fill="${ac}" stroke="${td}" stroke-width="1.4" stroke-linejoin="round"/><path d="M60 120 V150" stroke="${td}" stroke-width="1.6"/>${[128,138,148].map(y=>`<circle cx="63" cy="${y}" r="1.6" fill="${ac}"/>`).join('')}`;
+    case 'hoodie': return base+`<path d="M34 114 Q36 98 60 98 Q84 98 86 114 Q74 104 60 108 Q46 104 34 114Z" fill="${td}"/><path d="M54 112 v15 M66 112 v15" stroke="${ac}" stroke-width="1.8" stroke-linecap="round"/><circle cx="54" cy="128" r="1.8" fill="${ac}"/><circle cx="66" cy="128" r="1.8" fill="${ac}"/><path d="M42 150 L45 138 H75 L78 150" fill="${td}" opacity=".6"/>`;
+    case 'sweater': return base+`<g ${clip}><path d="M0 128 l8 -6 8 6 8 -6 8 6 8 -6 8 6 8 -6 8 6 8 -6 8 6 8 -6 8 6 8 -6 8 6 8 -6" fill="none" stroke="${ac}" stroke-width="2.6" stroke-linejoin="round"/><path d="M0 138 l8 -6 8 6 8 -6 8 6 8 -6 8 6 8 -6 8 6 8 -6 8 6 8 -6 8 6 8 -6 8 6 8 -6" fill="none" stroke="${td}" stroke-width="2.6" stroke-linejoin="round"/></g><path d="M46 106 Q60 120 74 106 L72 110 Q60 122 48 110Z" fill="${td}"/>`;
+    case 'jacket': return base+`<path d="M49 107 L60 150 L71 107 Q60 114 49 107Z" fill="${ac}"/><path d="M45 105 L54 128 L49 108Z M75 105 L66 128 L71 108Z" fill="${td}"/><rect x="${f?80:84}" y="128" width="10" height="3" rx="1.5" fill="${td}"/>`;
+    case 'overalls': return `<path d="${B}" fill="${ac==='#FFFCF2'?'#FFFCF2':'#E9E4D8'}"/><path d="M47 106 Q60 118 73 106 Q60 112 47 106Z" fill="#C9C3B5"/><path d="M42 150 V126 H78 V150Z" fill="${tc}"/><path d="M44 127 L40 110 M76 127 L80 110" stroke="${tc}" stroke-width="5" stroke-linecap="round"/><circle cx="46" cy="129" r="2" fill="#FFC21F"/><circle cx="74" cy="129" r="2" fill="#FFC21F"/><rect x="53" y="132" width="14" height="10" rx="2" fill="${td}"/>`;
+    case 'jersey': return base+`<g ${clip}><path d="M0 110 L26 112 L22 150 L0 150Z M120 110 L94 112 L98 150 L120 150Z" fill="${ac}" opacity=".9"/></g><path d="M48 106 L60 118 L72 106" fill="none" stroke="${ac}" stroke-width="3"/><text x="60" y="144" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="900" font-size="20" fill="${ac}">7</text>`;
+    default: return base+crew;
+  }
+}
 let avGid=0;
 function auraSVG(a,id){
   if(a.aura==='glow') return `<radialGradient id="${id}g"><stop offset="0" stop-color="#FFF6B0" stop-opacity=".95"/><stop offset=".55" stop-color="#FFC21F" stop-opacity=".55"/><stop offset="1" stop-color="#FFC21F" stop-opacity="0"/></radialGradient><circle cx="60" cy="64" r="60" fill="url(#${id}g)"/>`;
@@ -3099,24 +3167,30 @@ function bgSVG(a,id){
 }
 function avatarSVG(a, w){
   const id='av'+(++avGid);
-  const sk=SKIN[a.skin], sd=shade(sk,-.16), hc=HAIRC[a.hairC], hd=shade(hc,-.28), ec=EYEC[a.eyes], tc=TOPC[a.top], bg=BGC[a.bg], H=HAIR[a.hair]||HAIR.short;
-  const eye=x=>`<ellipse cx="${x}" cy="68" rx="5.2" ry="5.8" fill="#fff"/><circle cx="${x}" cy="68.6" r="3.5" fill="${ec}"/><circle cx="${x}" cy="68.8" r="1.6" fill="#111"/><circle cx="${x+1.2}" cy="67.2" r="1" fill="#fff"/>`;
+  a={...AV_DEFAULT, ...a};
+  const sk=SKIN[a.skin]||SKIN[1], sd=shade(sk,-.16), hc=HAIRC[a.hairC]||HAIRC[1], hd=shade(hc,-.28), ec=EYEC[a.eyes]||EYEC[0], tc=TOPC[a.top]||TOPC[0], H=HAIR[a.hair]||HAIR.short;
+  const E=EYES[a.eyeS]||EYES.round, eye=x=>E(x,ec,sk)+(a.lashes==='y'?lashSVG(x,a.eyeS):''), BR=BROWS[a.brows]||BROWS.soft, fem=a.body==='f';
+  const jaw=[[40,88],[44,92],[48,95],[53,97],[58,98],[63,98],[68,96],[73,94],[77,91],[81,87],[42,84],[79,84],[50,92],[56,94],[64,94],[70,92],[45,88],[75,88]];
   const hide = a.glasses==='shades'||a.glasses==='hearts';
   return `<svg viewBox="0 0 120 150" width="${w}" height="${Math.round(w*1.25)}" aria-hidden="true">
   ${bgSVG(a,id)}${auraSVG(a,id)}
   ${H.back?H.back(hc,hd):''}
-  <path d="M8 150 Q12 112 60 106 Q108 112 112 150Z" fill="${tc}"/><path d="M47 106 Q60 118 73 106 Q60 112 47 106Z" fill="${shade(tc,-.2)}"/>
-  <rect x="51" y="86" width="18" height="24" rx="7" fill="${sd}"/>
+  <rect x="${fem?52.5:51}" y="86" width="${fem?15:18}" height="24" rx="7" fill="${sd}"/>
+  ${outfitSVG(a,tc,sk,id)}
   <circle cx="33" cy="70" r="6.5" fill="${sk}"/><circle cx="87" cy="70" r="6.5" fill="${sk}"/><circle cx="33" cy="70" r="3" fill="${sd}"/><circle cx="87" cy="70" r="3" fill="${sd}"/>
   <ellipse cx="60" cy="68" rx="27" ry="31" fill="${sk}"/>
-  <ellipse cx="43" cy="80" rx="5" ry="3" fill="#FF7A8A" opacity=".35"/><ellipse cx="77" cy="80" rx="5" ry="3" fill="#FF7A8A" opacity=".35"/>
+  <ellipse cx="43" cy="80" rx="${a.freckles==='rosy'?6.5:5}" ry="${a.freckles==='rosy'?4:3}" fill="#FF7A8A" opacity="${a.freckles==='rosy'?.6:.35}"/><ellipse cx="77" cy="80" rx="${a.freckles==='rosy'?6.5:5}" ry="${a.freckles==='rosy'?4:3}" fill="#FF7A8A" opacity="${a.freckles==='rosy'?.6:.35}"/>
+  ${a.freckles==='mole'?`<circle cx="72" cy="84" r="1.4" fill="${shade(sk,-.5)}"/>`:''}
+  ${a.facial==='stubble'?`<g fill="${hd}" opacity=".45">${jaw.map(([x,y])=>`<circle cx="${x}" cy="${y}" r=".9"/>`).join('')}</g>`:''}
   ${a.freckles==='y'?`<g fill="${shade(sk,-.35)}">${[[41,76],[45,78.5],[40,80],[79,76],[75,78.5],[80,80]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r=".95"/>`).join('')}</g>`:''}
   ${hide?'':eye(50)+eye(70)}
-  <path d="M44 58 q6 -4 12 0 M64 58 q6 -4 12 0" fill="none" stroke="${a.hair==='bald'?sd:hd}" stroke-width="2.8" stroke-linecap="round"/>
-  <path d="M60 70 q-3.5 7 0 9" fill="none" stroke="${sd}" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="${BR[0]}" fill="none" stroke="${a.hair==='bald'?sd:hd}" stroke-width="${BR[1]}" stroke-linecap="round"/>
+  ${(NOSES[a.nose]||NOSES.curve)(sd)}
   ${a.facial==='beard'?`<path d="M33 70 Q33 101 60 102 Q87 101 87 70 Q83 88 71 88 Q60 82 49 88 Q37 88 33 70Z" fill="${hc}"/>`:''}
   ${MOUTH[a.expr]||MOUTH.smile}
-  ${a.facial==='tache'||a.facial==='beard'?`<path d="M49 82 Q55 77 60 80.5 Q65 77 71 82 Q65 85 60 83 Q55 85 49 82Z" fill="${hc}"/>`:''}
+  ${a.facial==='goatee'?`<path d="M53 91 Q60 101 67 91 L65 89.5 Q60 94 55 89.5Z" fill="${hc}"/>`:''}
+  ${a.facial==='handlebar'?`<path d="M60 81 Q54 77 49 81 Q45 84 44 80 Q43 85 48 85.5 Q55 85 60 82.5 Q65 85 72 85.5 Q77 85 76 80 Q75 84 71 81 Q66 77 60 81Z" fill="${hc}"/>`:''}
+  ${a.facial==='tache'||a.facial==='beard'||a.facial==='goatee'?`<path d="M49 82 Q55 77 60 80.5 Q65 77 71 82 Q65 85 60 83 Q55 85 49 82Z" fill="${hc}"/>`:''}
   ${H.front?H.front(hc,hd):''}
   ${a.ears==='studs'?`<circle cx="32" cy="77" r="2.4" fill="#FFC21F"/><circle cx="88" cy="77" r="2.4" fill="#FFC21F"/>`:''}
   ${a.ears==='hoops'?`<circle cx="32" cy="80" r="4.6" fill="none" stroke="#FFC21F" stroke-width="2"/><circle cx="88" cy="80" r="4.6" fill="none" stroke="#FFC21F" stroke-width="2"/>`:''}
@@ -3293,11 +3367,12 @@ function openAvatar(){ draft=JSON.parse(JSON.stringify(AVA)); avTab='face'; rend
 function closeAvatar(){ $('#avEd').classList.remove('on'); $('#avEd').innerHTML=''; draft=null; }
 const swatch=(k,list,label)=>`<div class="grp"><b>${label}</b><div class="sw">${list.map((c,i)=>`<button data-k="${k}" data-v="${i}" class="${draft[k]===i?'on':''}" style="background:${c}" aria-label="${label} ${i+1}"></button>`).join('')}</div></div>`;
 const thumbs=(k,label)=>`<div class="grp"><b>${label}</b><div class="th">${AV_OPTS[k].map(([v,n])=>{ const lk=lockInfo(k,v), nw=newItems.has(k+':'+v);
-  return `<button data-k="${k}" data-v="${v}" class="${draft[k]===v?'on':''} ${lk?'lock':''} ${nw?'new':''}" ${lk?`data-need="${esc(lk)}"`:''}>${avatarSVG({...draft,[k]:v},52)}${lk?`<span class="lk2">${L(LU.lock,13)}</span><em>${esc(lk)}</em>`:`<span>${n}</span>`}</button>`; }).join('')}</div></div>`;
+  return `<button data-k="${k}" data-v="${v}" class="${draft[k]===v?'on':''} ${lk?'lock':''} ${nw?'new':''}" ${lk?`data-need="${esc(lk)}"`:''}>${avatarSVG(k==='body'?bodyPreset(draft,v):{...draft,[k]:v},52)}${lk?`<span class="lk2">${L(LU.lock,13)}</span><em>${esc(lk)}</em>`:`<span>${n}</span>`}</button>`; }).join('')}</div></div>`;
 function avPane(){
-  if(avTab==='face') return swatch('skin',SKIN,'Skin')+swatch('eyes',EYEC,'Eyes')+thumbs('expr','Expression')+thumbs('freckles','Freckles')+thumbs('facial','Facial hair');
-  if(avTab==='hair') return swatch('hairC',HAIRC,'Hair colour')+thumbs('hair','Hair style');
-  if(avTab==='style') return thumbs('hat','Hats')+thumbs('glasses','Glasses')+thumbs('neck','Necklaces')+thumbs('ears','Earrings')+swatch('top',TOPC,'Top');
+  if(avTab==='face') return thumbs('body','Body')+swatch('skin',SKIN,'Skin')+thumbs('expr','Expression')+swatch('eyes',EYEC,'Eye colour')+thumbs('eyeS','Eye shape')+thumbs('lashes','Eyelashes')+thumbs('brows','Eyebrows')+thumbs('nose','Nose')+thumbs('freckles','Cheeks and marks');
+  if(avTab==='hair') return swatch('hairC',HAIRC,'Hair colour')+thumbs('hair','Hair style')+thumbs('facial','Facial hair');
+  if(avTab==='clothes') return swatch('top',TOPC,'Colour')+thumbs('outfit','Outfit');
+  if(avTab==='style') return thumbs('hat','Hats')+thumbs('glasses','Glasses')+thumbs('neck','Necklaces')+thumbs('ears','Earrings');
   if(avTab==='glow') return `<p class="avnote">Special effects. Most are locked: keep stamping, collecting and sending postcards to earn them.</p>`+thumbs('aura','Aura')+thumbs('frame','Photo frame')+thumbs('bgx','Special background')+swatch('bg',BGC,'Background colour');
   const b=draft.bio, f=(k,label,type='text',ph='')=>`<label class="fld">${label}<input data-bio="${k}" type="${type}" value="${esc(b[k])}" maxlength="24" placeholder="${ph}" autocomplete="off"></label>`;
   return `<p class="avnote">Everything here is optional and just for fun. It’s saved only in this browser.</p>
@@ -3309,21 +3384,30 @@ function renderAv(){
   const y=$('#avEd .avpane')?.scrollTop||0;
   $('#avEd').innerHTML=`<div class="mhead"><div><div class="eyebrow">Passport photo</div><h1>Make your photo</h1></div><button class="xbtn" id="avClose" aria-label="Close">${L(LU.x,20)}</button></div>
   <div class="avtop"><div class="avframe ${draft.frame!=='none'?'f-'+draft.frame:''}" id="avFrame">${avatarSVG(draft,118)}</div><div class="avside"><button class="dice" id="avDice">${L(LU.dice,18)}Shuffle</button><small>Mix and match, or shuffle for a surprise.</small></div></div>
-  <div class="avtabs" role="tablist">${[['face','Face'],['hair','Hair'],['style','Style'],['glow','Glow ✨'],['details','Details']].map(([k,n])=>`<button role="tab" data-tab="${k}" class="${avTab===k?'on':''}" aria-selected="${avTab===k}">${n}</button>`).join('')}</div>
+  <div class="avtabs" role="tablist">${[['face','Face'],['hair','Hair'],['clothes','Clothes'],['style','Extras'],['glow','Glow ✨'],['details','Details']].map(([k,n])=>`<button role="tab" data-tab="${k}" class="${avTab===k?'on':''}" aria-selected="${avTab===k}">${n}</button>`).join('')}</div>
   <div class="avpane">${avPane()}</div>
   <div class="avfoot"><button class="btn navy big" id="avSave">${L(LU.check,18)}Save to passport</button></div>`;
   $('#avEd .avpane').scrollTop=y;
 }
 const pick = a => a[Math.floor(Math.random()*a.length)];
+/* Choosing a body nudges a few defaults to match; every part can still be changed afterwards. */
+const SHORTH=['short','buzz','side','quiff','spiky','mohawk','mullet','curtains','bald'], LONGH=['long','waves','pony','bun','spacebuns','braids','bob','pixie'];
+function bodyPreset(d,v){ const o={...d, body:v};
+  if(v==='f'){ o.lashes='y'; o.facial='none'; if(SHORTH.includes(o.hair)) o.hair='long'; if(o.brows==='soft'||o.brows==='thick') o.brows='arched'; }
+  else { o.lashes='n'; if(LONGH.includes(o.hair)) o.hair='short'; if(o.brows==='arched') o.brows='soft'; }
+  return o; }
 $('#avEd').addEventListener('click', e=>{
   if(e.target.closest('#avClose')) return closeAvatar();
   const t=e.target.closest('[data-tab]'); if(t){ avTab=t.dataset.tab; renderAv(); $('#avEd .avpane').scrollTop=0; return; }
   const o=e.target.closest('[data-k]'); if(o && o.dataset.need){ o.classList.remove('nope'); void o.offsetWidth; o.classList.add('nope'); thud(70,.12); return toast('Locked: '+o.dataset.need); }
-  if(o){ const k=o.dataset.k; newItems.delete(k+':'+o.dataset.v); draft[k]=NUMK.includes(k)?+o.dataset.v:o.dataset.v; tone(0,'triangle',880+Math.random()*300,.06,.08); return renderAv(); }
+  if(o){ const k=o.dataset.k; newItems.delete(k+':'+o.dataset.v); draft[k]=NUMK.includes(k)?+o.dataset.v:o.dataset.v;
+    if(k==='body') draft=bodyPreset(draft,draft.body); tone(0,'triangle',880+Math.random()*300,.06,.08); return renderAv(); }
   if(e.target.closest('#avDice')){
     Object.assign(draft,{skin:Math.floor(Math.random()*SKIN.length), eyes:Math.floor(Math.random()*EYEC.length), hairC:Math.floor(Math.random()*HAIRC.length), top:Math.floor(Math.random()*TOPC.length), bg:Math.floor(Math.random()*BGC.length),
+      body:pick(AV_OPTS.body)[0], eyeS:Math.random()<.5?'round':pick(AV_OPTS.eyeS)[0], brows:pick(AV_OPTS.brows)[0], nose:pick(AV_OPTS.nose)[0], outfit:pick(AV_OPTS.outfit)[0],
       hair:pick(AV_OPTS.hair)[0], expr:pick(AV_OPTS.expr)[0], freckles:pick(AV_OPTS.freckles)[0], facial:Math.random()<.75?'none':pick(AV_OPTS.facial)[0],
       hat:Math.random()<.4?'none':pick(AV_OPTS.hat)[0], glasses:Math.random()<.5?'none':pick(AV_OPTS.glasses)[0], neck:Math.random()<.5?'none':pick(AV_OPTS.neck)[0], ears:pick(AV_OPTS.ears)[0]});
+    draft.lashes=draft.body==='f'?'y':'n'; if(draft.body==='f') draft.facial='none';
     LOCKCATS.forEach(k=>{ if(Math.random()<.5 || lockInfo(k,draft[k])) draft[k]='none'; });
     ['aura','bgx','frame'].forEach(k=>{ const free=AV_OPTS[k].filter(([v])=>!lockInfo(k,v)); if(Math.random()<.35) draft[k]=pick(free)[0]; });
     renderAv(); $('#avFrame').classList.add('shake'); for(let i=0;i<4;i++) tone(i*.06,'square',300+i*120,.05,.05); return; }
