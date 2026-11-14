@@ -1310,6 +1310,23 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
 .addres button .pl{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--ink-navy);color:var(--paper-cream);display:flex;align-items:center;justify-content:center}
 .addres p{margin:4px 2px;font-size:13px;line-height:1.4;color:var(--ink-soft)}
 .addres .more{justify-content:center;border-style:dashed;background:none;font-weight:800;font-size:13px}
+
+/* ---------- plan a trip: first stops ---------- */
+.tfstops .addq{height:42px}
+.tfchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tfchips:empty{display:none}
+.tfchips button{display:flex;align-items:center;gap:6px;padding:5px 8px 5px 6px;border:2px solid var(--ink-navy);border-radius:999px;background:var(--stamp-gold-wash);font-size:12px;font-weight:800;color:var(--ink-navy)}
+.tfchips button .miniflag{width:16px;height:16px}
+.tfchips button i{font-style:normal;display:flex;width:16px;height:16px;border-radius:50%;background:var(--ink-navy);color:#fff;align-items:center;justify-content:center}
+.tfchips button b{font:inherit;font-size:10px;opacity:.6}
+#tfRes{margin-top:6px}
+#tfRes button{padding:6px 8px}
+#tfRes button .pl{width:26px;height:26px}
+/* ---------- smart order ---------- */
+.rtools{display:flex;gap:8px;align-items:center;margin:-2px 0 10px}
+.rtools button{display:flex;align-items:center;gap:6px;height:34px;padding:0 12px;border:2px solid var(--ink-navy);border-radius:999px;background:var(--paper-card);font-size:12px;font-weight:800;color:var(--ink-navy);box-shadow:2px 2px 0 var(--ink-navy)}
+.rtools button.pri{background:var(--city-kyoto);color:#fff}
+.rtools span{font-size:11px;color:var(--ink-soft);line-height:1.3}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}}
 .banner h2.long{font-size:30px}
 </style>
@@ -3985,6 +4002,19 @@ function packSuggest(t){
   return out;
 }
 const tripKm = t => t.cities.slice(1).reduce((s2,id,i)=>s2+km(CITY_LL[t.cities[i]],CITY_LL[id]),0);
+const routeKm = cs => cs.slice(1).reduce((a,id,i)=>a+km(CITY_LL[cs[i]],CITY_LL[id]),0);
+/* Keeps the first stop, then nearest-next, then untangles crossings (2-opt). Fine for the handful of stops a trip has. */
+function bestOrder(cs){
+  if(cs.length<3 || cs.some(id=>!CITY_LL[id])) return cs.slice();
+  const d=(a,b)=>km(CITY_LL[a],CITY_LL[b]); let left=cs.slice(1), r=[cs[0]];
+  while(left.length){ const last=r[r.length-1]; left.sort((a,b)=>d(last,a)-d(last,b)); r.push(left.shift()); }
+  for(let pass=0, better=true; better && pass<50; pass++){ better=false;
+    for(let i=1;i<r.length-1;i++) for(let j=i+1;j<r.length;j++){
+      const a=r[i-1], b=r[i], c=r[j], e=r[j+1], before=d(a,b)+(e?d(c,e):0), after=d(a,c)+(e?d(b,e):0);
+      if(after<before-0.5){ r=[...r.slice(0,i), ...r.slice(i,j+1).reverse(), ...r.slice(j+1)]; better=true; } } }
+  return r;
+}
+let smartUndo=null;
 function legInfo(a,b){ const d=km(CITY_LL[a],CITY_LL[b]);
   if(d>700) return {d, mode:'plane', h:d/800+1.2}; if(d>120) return {d, mode:'train', h:d/90}; return {d, mode:'train', h:d/60}; }
 const fmtH = h => { const m=Math.round(h*60/5)*5; return m<60?`${m} min`:`${Math.floor(m/60)}h${m%60?' '+String(m%60).padStart(2,'0')+'m':''}`; };
@@ -4225,10 +4255,22 @@ function tripCard(t){
     ${daysTo(t.end)<0&&tripStamps(t).length?`<div class="tmemo" style="color:var(--accent-plum)">${L(LU.play,13)}Your trip recap is ready</div>`:''}
     <div class="tmeta"><span>${t.cities.length} ${t.cities.length===1?'stop':'stops'}</span><span>${n} of ${t.cities.length} stamped</span></div>${tripCrew(t)}${started(t)?`<div class="tmemo"><i>${L(LU.stamp,12)}</i>${tripStamps(t).length} ${tripStamps(t).length===1?'stamp':'stamps'} on this trip</div>`:''}${activeTrip===t.id?'<div class="tmeta" style="color:var(--city-kyoto)">★ Active trip: city cards add here</div>':''}</div></button>`;
 }
+let tfCities=[];
+const tfChipsHTML = () => tfCities.map((id,i)=>`<button data-tfrm="${id}" aria-label="Remove ${CITIES[id].name}"><b>${i+1}</b>${miniFlag(CITIES[id].c)}${CITIES[id].name}<i>${L(LU.x,10)}</i></button>`).join('');
+function tfResHTML(q){
+  q=(q||'').trim(); if(!q) return '';
+  const rs=searchResults(q).cities, top=rs.length?rs[0].sc:0, ids=rs.filter(x=>x.sc>=Math.min(40,top*.5)).map(x=>x.id).filter(id=>!tfCities.includes(id)).slice(0,5);
+  if(!ids.length) return `<p>No cities match “${esc(q)}”.</p>`;
+  return ids.map(id=>`<button data-tfadd="${id}">${miniFlag(CITIES[id].c)}<span class="tx"><b>${CITIES[id].name}</b><span class="d">${COUNTRIES[CITIES[id].c].name}</span></span><span class="pl">${L(LU.plus,14)}</span></button>`).join('');
+}
+function paintTf(){ const c=$('#tfChips'), r=$('#tfRes'), q=$('#tfQ'); if(c) c.innerHTML=tfChipsHTML(); if(r) r.innerHTML=tfResHTML(q?q.value:''); }
 function tripFormHTML(){
   return `<div class="tform"><h3>Plan a trip</h3>
     <label class="fld">Trip name<input id="tfName" maxlength="28" placeholder="Summer in Mexico"></label>
     <div class="fpair"><label class="fld">Start<input id="tfStart" type="date" value="${today()}"></label><label class="fld">End<input id="tfEnd" type="date"></label></div>
+    <div class="fld tfstops">First stops <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--ink-soft)">(optional)</span>
+      <label class="addq" style="margin-top:6px">${L(LU.search,18)}<input id="tfQ" type="search" enterkeyhint="search" autocomplete="off" placeholder="Add cities, e.g. Bangkok or Japan" aria-label="Search cities for this trip"></label>
+      <div class="tfchips" id="tfChips">${tfChipsHTML()}</div><div class="addres" id="tfRes"></div></div>
     <div class="fld">Colour<div class="tcolors">${TCOLORS.map((c,i)=>`<button data-tcol="${i}" class="${newColor===i?'on':''}" style="background:${c}" aria-label="Colour ${i+1}"></button>`).join('')}</div></div>
     ${TOG.sb&&friendIds.length?`<div class="fld">Plan with friends <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--ink-soft)">(optional)</span><div class="pickf" style="margin-top:6px">${friendIds.map(id=>`<button data-tfpick="${id}" class="${TOG.form.has(id)?'on':''}"><span class="face">${ffaceSVG(realFriend(id),26)}</span>${esc(realFriend(id).name)}</button>`).join('')}</div></div>`:''}
     <div class="trow2"><button class="btn line" id="tfCancel">Cancel</button><button class="btn navy" id="tfCreate">${L(LU.plus,18)}${TOG.sb&&TOG.form.size?'Create and invite':'Create trip'}</button></div></div>`;
@@ -4268,6 +4310,7 @@ function tripDetail(t){
     ${started(t)&&tripStamps(t).length?`<button class="recapbtn" id="tRecap">${L(LU.play,16)}${daysTo(t.end)<0?'Watch your trip recap':'Play the recap so far'}</button>`:''}</div>
   ${started(t)?memoHTML(t):''}
   <div class="tsec"><h3>Route <span>${t.cities.length} stops${t.cities.length>1?' · '+fmtKm(tripKm(t)):''}</span></h3>
+  ${t.cities.length>2||(smartUndo&&smartUndo.id===t.id)?`<div class="rtools">${t.cities.length>2?`<button class="pri" id="tSmart">${L(LU.spark,15)}Smart order</button>`:''}${smartUndo&&smartUndo.id===t.id?`<button id="tUndo">${L(LU.left,15)}Undo</button><span>Saved ${fmtKm(smartUndo.saved)}</span>`:`<span>Shortest route from ${CITIES[t.cities[0]].name}</span>`}</div>`:''}
   ${t.cities.length?`<div class="rmap">${routeMapSVG(t.cities, t.color)}</div>`:''}
   <div class="route" id="route">${t.cities.map((id,i)=>{ const C=CITIES[id], K=COUNTRIES[C.c], g=goodTiming(id,t.start), w=weatherFor(id,t.start);
     return `${i?legHTML(t.cities[i-1],id):''}<div class="rstop ${visited[id]?'done':''}" data-idx="${i}"><span class="num">${i+1}</span><button class="sq" data-open="${id}" style="background:${K.color}" aria-label="Open ${C.name}">${lm(C.icon,'on').replace('<svg','<svg width="32" height="32"')}</button>
@@ -4282,10 +4325,12 @@ function tripDetail(t){
   ${crewHTML(t)}
   <div class="tsec">${activeTrip===t.id?'':`<button class="btn navy" style="width:100%" id="tActive">${L(LU.star,18)}Make this my active trip</button>`}<button class="tdel" id="tDel">${t.sid&&t.owner!==TOG.uid?'Leave this trip':t.sid?'Delete this trip for everyone':'Delete this trip'}</button></div>`;
 }
-$('#trips').addEventListener('input', e=>{ if(e.target.id==='addQ'){ addQ=e.target.value; addAll=false; paintAdd();
+$('#trips').addEventListener('input', e=>{ if(e.target.id==='tfQ'){ const r=$('#tfRes'); if(r) r.innerHTML=tfResHTML(e.target.value); return; }
+  if(e.target.id==='addQ'){ addQ=e.target.value; addAll=false; paintAdd();
   const lb=e.target.closest('.addq'); if(lb){ const has=!!lb.querySelector('.clr'); if(!!addQ!==has){ if(addQ) lb.insertAdjacentHTML('beforeend',`<button class="clr" id="addClr" aria-label="Clear search">${L(LU.x,14)}</button>`); else lb.querySelector('.clr').remove(); } } } });
 $('#trips').addEventListener('change', e=>{ if(e.target.id==='addC'){ addC=e.target.value; addAll=false; paintAdd(); } });
-$('#trips').addEventListener('keydown', e=>{ if(e.target.id==='addQ' && e.key==='Enter'){ e.preventDefault(); e.target.blur(); } });
+$('#trips').addEventListener('keydown', e=>{ if(e.target.id==='tfQ' && e.key==='Enter'){ e.preventDefault(); const b=$('#tfRes [data-tfadd]'); if(b) b.click(); return; }
+  if(e.target.id==='addQ' && e.key==='Enter'){ e.preventDefault(); e.target.blur(); } });
 function renderTrips(){ saveState();
   const y=$('#tscroll')?.scrollTop||0, t=tripView&&T(tripView);
   $('#trips').innerHTML = `<div id="tscroll">${t ? tripDetail(t) : `<div class="thead"><div><span class="eyebrow">Postmark</span><h1>Your trips</h1><p>${trips.length?`${trips.length} ${trips.length>1?'trips':'trip'} planned`:'Nothing planned yet'}</p></div><button class="newtrip" id="tNew">${L(LU.plus,18)}Plan</button></div>
@@ -4301,12 +4346,14 @@ $('#trips').addEventListener('click', async e=>{
   const dec=q('[data-tdec]'); if(dec){ await TOG.sb.from('trip_members').delete().eq('trip_id',dec.dataset.tdec).eq('user_id',TOG.uid); TOG.invites=TOG.invites.filter(i=>i.sid!==dec.dataset.tdec); $('#tDot').hidden=!TOG.invites.length; renderTrips(); return toast('Invite declined'); }
   const fp=q('[data-tfpick]'); if(fp){ const id=fp.dataset.tfpick; TOG.form.has(id)?TOG.form.delete(id):TOG.form.add(id); fp.classList.toggle('on'); const cb=$('#tfCreate'); if(cb) cb.innerHTML=`${L(LU.plus,18)}${TOG.form.size?'Create and invite':'Create trip'}`; return; }
   if(q('#tSign')) return openAuth('in');
-  if(q('#tNew')||q('#tNew2')){ tripForm=!tripForm; TOG.form=new Set(); return renderTrips(); }
+  if(q('#tNew')||q('#tNew2')){ tripForm=!tripForm; TOG.form=new Set(); tfCities=[]; return renderTrips(); }
+  const tfa=q('[data-tfadd]'); if(tfa){ tfCities.push(tfa.dataset.tfadd); const i=$('#tfQ'); if(i){ i.value=''; } paintTf(); tone(0,'triangle',740,.08,.08,990); return; }
+  const tfr=q('[data-tfrm]'); if(tfr){ tfCities=tfCities.filter(x=>x!==tfr.dataset.tfrm); return paintTf(); }
   const tc=q('[data-tcol]'); if(tc){ newColor=+tc.dataset.tcol; $('#trips').querySelectorAll('[data-tcol]').forEach(b=>b.classList.toggle('on',b===tc)); return; }
-  if(q('#tfCancel')){ tripForm=false; return renderTrips(); }
+  if(q('#tfCancel')){ tripForm=false; tfCities=[]; return renderTrips(); }
   if(q('#tfCreate')){ const name=$('#tfName').value.trim()||'My next trip', st=$('#tfStart').value||today(); let en=$('#tfEnd').value||st; if(en<st) en=st;
-    const t={id:'t'+Date.now(), name, start:st, end:en, color:TCOLORS[newColor], cities:[], pack:[['Passport',false],['Phone charger',false]]};
-    trips.unshift(t); activeTrip=t.id; tripForm=false; tripView=t.id; saveTrips(); renderTrips(); chime();
+    const t={id:'t'+Date.now(), name, start:st, end:en, color:TCOLORS[newColor], cities:[...tfCities], pack:[['Passport',false],['Phone charger',false]]};
+    trips.unshift(t); activeTrip=t.id; tripForm=false; tfCities=[]; tripView=t.id; saveTrips(); renderTrips(); chime();
     if(TOG.sb && TOG.form.size){ const who=[...TOG.form]; TOG.form=new Set(); try{ const n=await inviteToTrip(t, who); renderTrips(); return toast(`${name} created. ${n} invite${n===1?'':'s'} sent.`); }catch(err){ renderTrips(); return toast(`${name} created, but the invites couldn’t be sent. Try again from the trip.`); } }
     return toast(`${name} created. It's now your active trip.`); }
   const card=q('[data-trip]'); if(card){ tripView=card.dataset.trip; return renderTrips(); }
@@ -4314,11 +4361,15 @@ $('#trips').addEventListener('click', async e=>{
   const t=T(tripView); if(!t) return;
   if(q('[data-grip]')) return;
   const op=q('[data-open]'); if(op){ return openCard(op.dataset.open); }
-  const mv=q('[data-mv]'); if(mv){ const [i,d]=mv.dataset.mv.split(':').map(Number), j=i+d; [t.cities[i],t.cities[j]]=[t.cities[j],t.cities[i]]; saveTrips(); return renderTrips(); }
-  const rm=q('[data-rm]'); if(rm){ t.cities=t.cities.filter(x=>x!==rm.dataset.rm); saveTrips(); renderTrips(); return toast(`${CITIES[rm.dataset.rm].name} removed`); }
+  if(q('#tSmart')){ const was=t.cities.slice(), now=bestOrder(was), saved=routeKm(was)-routeKm(now);
+    if(saved<1 || now.join()===was.join()){ smartUndo=null; renderTrips(); return toast('Already the shortest route'); }
+    t.cities=now; smartUndo={id:t.id, cities:was, saved}; saveTrips(); renderTrips(); chime(); return toast(`Route reordered · ${fmtKm(saved)} shorter`); }
+  if(q('#tUndo')){ if(smartUndo&&smartUndo.id===t.id){ t.cities=smartUndo.cities; smartUndo=null; saveTrips(); renderTrips(); return toast('Original order restored'); } return; }
+  const mv=q('[data-mv]'); if(mv){ smartUndo=null; const [i,d]=mv.dataset.mv.split(':').map(Number), j=i+d; [t.cities[i],t.cities[j]]=[t.cities[j],t.cities[i]]; saveTrips(); return renderTrips(); }
+  const rm=q('[data-rm]'); if(rm){ smartUndo=null; t.cities=t.cities.filter(x=>x!==rm.dataset.rm); saveTrips(); renderTrips(); return toast(`${CITIES[rm.dataset.rm].name} removed`); }
   if(q('#addClr')){ addQ=''; addAll=false; renderTrips(); const i=$('#addQ'); if(i) i.focus(); return; }
   if(q('#addMore')){ addAll=true; return paintAdd(); }
-  const ad=q('[data-add]'); if(ad){ t.cities.push(ad.dataset.add); saveTrips(); renderTrips(); tone(0,'triangle',740,.1,.1,990); return toast(`${CITIES[ad.dataset.add].name} added to ${t.name}`); }
+  const ad=q('[data-add]'); if(ad){ smartUndo=null; t.cities.push(ad.dataset.add); saveTrips(); renderTrips(); tone(0,'triangle',740,.1,.1,990); return toast(`${CITIES[ad.dataset.add].name} added to ${t.name}`); }
   const sg=q('[data-sug]'); if(sg){ t.pack.push([sg.dataset.sug,false]); saveTrips(); renderTrips(); return toast(`${sg.dataset.sug} added to your packing list`); }
   if(q('#tRecap')) return openRecap(t);
   if(q('#packAdd')){ const v=$('#packIn').value.trim(); if(!v) return; t.pack.push([v,false]); saveTrips(); return renderTrips(); }
