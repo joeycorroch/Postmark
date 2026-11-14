@@ -4014,7 +4014,7 @@ async function addFriendByCode(raw){
   if(code===myCode()) return toast('That’s your own code');
   try{ const qs=await SOC.db.collection('people').where('code','==',code).limit(1).get();
     if(qs.empty) return toast('No traveller found with that code');
-    const d=qs.docs[0]; if(friendIds.includes(d.id)) return toast('You’re already friends');
+    const d=qs.docs[0]; if(friendIds.includes(d.id)){ if(TOG.sb) TOG.sb.from('friend_links').insert({from_user:TOG.uid, to_user:d.id}).then(()=>{}, ()=>{}); return toast('You’re already friends. They’ll see you in their friends too.'); }
     PEOPLE[d.id]=d.data(); friendIds.unshift(d.id); renderFriends(); chime(); toast(`${realFriend(d.id).name} added. You’re now friends.`);
     if(TOG.sb){ TOG.sb.from('friend_links').insert({from_user:TOG.uid, to_user:d.id}).then(()=>{}, ()=>{}); }
   }catch(e){ toast('Couldn’t look that code up just now'); }
