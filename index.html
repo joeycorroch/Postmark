@@ -1251,6 +1251,42 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
 #art-world{touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
 #art-world.drag{cursor:grabbing}#art-world.drag .bub{pointer-events:none}
 .bubble.swipe{transform:translateX(-50%);animation:none;font-size:13px;padding:7px 12px}.bubble.swipe::after{display:none}
+
+/* ---------- together: friend notices, trip invites, shared trips ---------- */
+.fnote2{margin:0 20px 16px;padding:12px;border:2px solid #2FBF71;border-radius:16px;background:#E9F9F0;display:flex;flex-direction:column;gap:10px;box-shadow:3px 3px 0 #2FBF71;animation:pop .4s both cubic-bezier(.3,1.5,.5,1)}
+.fnote2 .fr{display:flex;align-items:center;gap:10px}
+.fnote2 .face{width:44px;height:44px;border-radius:50%;overflow:hidden;border:2px solid var(--ink-navy);flex-shrink:0;display:block;background:#fff}
+.fnote2 small{display:block;font-size:10px;font-weight:800;letter-spacing:.14em;color:#14603A}
+.fnote2 b{display:block;font:900 16px/1.2 var(--font-display)}
+.fnote2 span.d{font-size:12px;color:var(--ink-soft)}
+.fnote2 .bt{display:flex;gap:8px}.fnote2 .bt button{flex:1;height:38px;border:2px solid var(--ink-navy);border-radius:10px;font-size:13px;font-weight:800;background:var(--paper-card);display:flex;align-items:center;justify-content:center;gap:6px}
+.fnote2 .bt button.pri{background:var(--ink-navy);color:#fff}
+.tinv{margin:0 20px 16px;padding:12px;border:2px solid var(--ink-navy);border-radius:16px;background:var(--stamp-gold-wash);box-shadow:4px 4px 0 var(--city-kyoto);display:flex;flex-direction:column;gap:10px;animation:pop .4s both cubic-bezier(.3,1.5,.5,1)}
+.tinv .fr{display:flex;align-items:center;gap:10px}
+.tinv .face{width:46px;height:46px;border-radius:50%;overflow:hidden;border:2px solid var(--ink-navy);flex-shrink:0;display:block;background:#fff}
+.tinv small{display:block;font-size:10px;font-weight:800;letter-spacing:.14em;color:var(--stamp-red)}
+.tinv b{display:block;font:900 17px/1.2 var(--font-display)}
+.tinv span.d{font-size:12px;color:var(--ink-soft)}
+.tinv .bt{display:flex;gap:8px}.tinv .bt button{flex:1;height:40px;border:2px solid var(--ink-navy);border-radius:10px;font-size:14px;font-weight:800;background:var(--paper-card)}
+.tinv .bt button.pri{background:var(--stamp-red);color:#fff;box-shadow:2px 2px 0 var(--ink-navy)}
+.tfaces{display:flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:700;color:var(--ink-soft)}
+.tfaces .stack{display:flex}.tfaces .stack .face{width:24px;height:24px;border-radius:50%;overflow:hidden;border:2px solid var(--paper-card);margin-left:-6px;background:#fff;display:block}
+.tfaces .stack .face:first-child{margin-left:0}
+.crew{display:flex;flex-direction:column;gap:8px}
+.crew .who{display:flex;align-items:center;gap:10px;padding:8px 10px;border:2px solid var(--ink-navy);border-radius:12px;background:var(--paper-card)}
+.crew .who .face{width:38px;height:38px;border-radius:50%;overflow:hidden;border:2px solid var(--ink-navy);flex-shrink:0;display:block;background:#fff}
+.crew .who b{font:900 15px/1.2 var(--font-display)}
+.crew .who em{margin-left:auto;font-style:normal;font-size:10px;font-weight:800;letter-spacing:.08em;padding:3px 8px;border-radius:999px;border:1.5px solid var(--ink-soft);color:var(--ink-soft)}
+.crew .who em.own{border-color:var(--stamp-gold);color:var(--stamp-gold)}
+.crew .last{font-size:12px;color:var(--ink-soft);display:flex;align-items:center;gap:6px}
+.pickf{display:flex;flex-wrap:wrap;gap:8px}
+.pickf button{display:flex;align-items:center;gap:6px;padding:4px 12px 4px 4px;border:2px solid var(--ink-navy);border-radius:999px;font-size:13px;font-weight:700;background:var(--paper-card)}
+.pickf button .face{width:26px;height:26px;border-radius:50%;overflow:hidden;display:block;background:#fff}
+.pickf button.on{background:var(--ink-navy);color:#fff}
+.pickf button[disabled]{opacity:.5}
+.crewbtn{width:100%;height:44px;border:2px solid var(--ink-navy);border-radius:12px;font-size:14px;font-weight:800;background:var(--city-lisbon);box-shadow:3px 3px 0 var(--ink-navy);display:flex;align-items:center;justify-content:center;gap:8px}
+.crewbtn[disabled]{opacity:.5}
+.tnote{font-size:12px;line-height:1.4;color:var(--ink-soft)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}}
 .banner h2.long{font-size:30px}
 </style>
@@ -2086,7 +2122,7 @@ $('#status div').innerHTML = L(LU.signal,16)+L(LU.wifi,16)+L(LU.batt,20);
 $('#nav').innerHTML = `
   <button id="tMap" class="on" aria-current="page">${L(LU.map)}Map</button>
   <button id="tPass">${L(LU.stamp)}Passport</button>
-  <button id="tTrips">${L(LU.brief)}Trips</button>
+  <button id="tTrips">${L(LU.brief)}Trips<i class="navdot" id="tDot" hidden></i></button>
   <button id="tFriends">${L(LU.users)}Friends<i class="navdot" id="fDot" hidden></i></button>`;
 
 /* ---------- map levels ---------- */
@@ -3459,8 +3495,128 @@ let trips = [
 ];
 if(FRESH) trips=[];
 try{ const t=JSON.parse(localStorage.getItem('pm-trips2')||'null'); if(Array.isArray(t) && !FRESH) trips=t; }catch(e){}
+let delArm=false;
 let activeTrip=(trips.find(t=>t.id==='t0')||trips[0]||{}).id||null, tripView=null, tripForm=false, newColor=0;
-const saveTrips = () => { try{ localStorage.setItem('pm-trips2', JSON.stringify(trips)); }catch(e){} saveState(); };
+const saveTrips = () => { try{ localStorage.setItem('pm-trips2', JSON.stringify(trips)); }catch(e){} saveState(); togQueue(); };
+/* ---------- together: shared trips, trip invites and friend links (standalone app, signed in) ----------
+   A shared trip lives in the database; each member keeps a local copy marked with its shared id (sid).
+   Edits are pushed field by field, so two people changing different parts of a trip both keep their changes. */
+const TOG={sb:null, uid:null, invites:[], members:{}, base:{}, at:{}, by:{}, pushT:{}, timer:null, polling:false, ready:{}, pick:null, form:new Set()};
+const togFields = t => ({name:t.name, start:t.start, end:t.end, color:t.color, cities:t.cities, pack:t.pack});
+const sameJ = (a,b) => JSON.stringify(a)===JSON.stringify(b);
+const tsOf = v => v ? Date.parse(v) : 0;
+/* Someone else saved since our last sync: keep both sets of changes. Lists merge item by item (stops by city, packing by name). */
+function mergeField(k, base, mine, remote){
+  if(sameJ(mine, base)) return remote; if(sameJ(remote, base) || remote===undefined) return mine;
+  if(k!=='cities' && k!=='pack') return mine;
+  const key = k==='cities' ? (x=>x) : (x=>String(x[0]).toLowerCase());
+  const b=new Map((base||[]).map(x=>[key(x),x])), m=new Map((mine||[]).map(x=>[key(x),x]));
+  const removed=new Set([...b.keys()].filter(x=>!m.has(x)));
+  const out=(remote||[]).filter(x=>!removed.has(key(x))).map(x=>{ const kx=key(x); return m.has(kx) && b.has(kx) && !sameJ(m.get(kx), b.get(kx)) ? m.get(kx) : x; });
+  const have=new Set(out.map(key)); (mine||[]).forEach(x=>{ if(!b.has(key(x)) && !have.has(key(x))){ out.push(x); have.add(key(x)); } });
+  return out;
+}
+function togQueue(){ if(!TOG.sb) return; trips.forEach(t=>{ if(!t.sid || !TOG.ready[t.sid] || sameJ(togFields(t), TOG.base[t.sid])) return; clearTimeout(TOG.pushT[t.sid]); TOG.pushT[t.sid]=setTimeout(()=>togPush(t.sid), 700); }); }
+async function togPush(sid){
+  const t=trips.find(x=>x.sid===sid); if(!t||!TOG.sb) return;
+  try{
+    const mine=JSON.parse(JSON.stringify(togFields(t))), base=TOG.base[sid]||{};
+    const {data:row,error:e1}=await TOG.sb.from('shared_trips').select('data,updated_at').eq('id',sid).maybeSingle(); if(e1) throw e1;
+    if(!row){ delete TOG.pushT[sid]; return; }
+    let out=mine;
+    if(tsOf(row.updated_at)>tsOf(TOG.at[sid])){ out={}; for(const k in mine) out[k] = mergeField(k, base[k], mine[k], row.data[k]); Object.assign(t, JSON.parse(JSON.stringify(out))); }
+    const at=new Date().toISOString();
+    const {error}=await TOG.sb.from('shared_trips').update({data:out, updated_at:at, updated_by:TOG.uid}).eq('id',sid); if(error) throw error;
+    TOG.base[sid]=JSON.parse(JSON.stringify(out)); TOG.at[sid]=at; TOG.by[sid]={by:TOG.uid, at};
+    delete TOG.pushT[sid];
+    try{ localStorage.setItem('pm-trips2', JSON.stringify(trips)); }catch(e){} saveState();
+    if(!sameJ(out, mine) && tripView===t.id) togRenderTrips();
+  }catch(e){ delete TOG.pushT[sid]; toast('Couldn’t save that trip change. It will try again.'); setTimeout(togQueue, 8000); }
+}
+async function loadPeople(ids){
+  const need=[...new Set(ids)].filter(id=>id && id!==TOG.uid && !PEOPLE[id]); if(!need.length || !TOG.sb) return;
+  try{ const {data}=await TOG.sb.rpc('profiles_by_ids',{p_ids:need}); (data||[]).forEach(r=>{ PEOPLE[r.user_id]={code:r.code, given:r.given, home:r.home, av:r.av, cities:r.cities}; }); }catch(e){}
+}
+const personName = uid => uid===TOG.uid ? 'You' : realFriend(uid).name;
+const personFace = (uid,w) => uid===TOG.uid ? avatarSVG(AVA,w) : ffaceSVG(realFriend(uid),w);
+function togRenderTrips(){ if($('#trips').hidden) return; const a=document.activeElement; if(a && $('#trips').contains(a) && /INPUT|TEXTAREA/.test(a.tagName)){ TOG.later=true; return; } renderTrips(); }
+async function togPoll(){
+  if(!TOG.sb || TOG.polling || document.visibilityState!=='visible') return; TOG.polling=true;
+  try{
+    const sb=TOG.sb, me=TOG.uid;
+    /* 1. someone added your code: you're friends both ways */
+    const {data:links}=await sb.from('friend_links').select('id,from_user').eq('to_user',me);
+    let newF=[];
+    for(const l of links||[]){ if(!friendIds.includes(l.from_user)){ friendIds.unshift(l.from_user); newF.push(l.from_user); }
+      if(!friendNotes.some(n=>n.uid===l.from_user) && newF.includes(l.from_user)) friendNotes.unshift({uid:l.from_user, at:new Date().toISOString(), seen:false});
+      sb.from('friend_links').delete().eq('id',l.id).then(()=>{},()=>{}); }
+    if(newF.length){ await loadFriends(true); await loadPeople(newF); renderFriends(); saveState(); tone(0,'triangle',880,.1,.12); tone(.12,'triangle',1320,.14,.1);
+      toast(newF.length>1?`${newF.length} people added you as a friend`:`${realFriend(newF[0]).name} added you as a friend`); }
+    /* 2. trips you're on, and invites waiting for you */
+    const {data:mem,error:me1}=await sb.from('trip_members').select('trip_id,status,invited_by').eq('user_id',me); if(me1) throw me1;
+    const joined=(mem||[]).filter(m=>m.status==='joined').map(m=>m.trip_id), inv=(mem||[]).filter(m=>m.status==='invited');
+    const all=[...joined, ...inv.map(m=>m.trip_id)];
+    const {data:rows}= all.length ? await sb.from('shared_trips').select('id,owner,data,updated_at,updated_by').in('id',all) : {data:[]};
+    const byId={}; (rows||[]).forEach(r=>byId[r.id]=r);
+    const oldInv=TOG.invites.map(i=>i.sid).join();
+    TOG.invites=inv.filter(m=>byId[m.trip_id]).map(m=>({sid:m.trip_id, by:m.invited_by, data:byId[m.trip_id].data}));
+    const freshInv=TOG.invites.filter(i=>!oldInv.split(',').includes(i.sid));
+    let changed=false, note=null;
+    joined.forEach(sid=>{ const r=byId[sid]; if(!r) return; let t=trips.find(x=>x.sid===sid);
+      if(!t){ t={id:'s'+sid.slice(0,8), sid, owner:r.owner, ...JSON.parse(JSON.stringify(r.data))}; trips.unshift(t); changed=true; }
+      else if(!TOG.pushT[sid] && (!TOG.ready[sid] || tsOf(r.updated_at)>tsOf(TOG.at[sid]))){
+        if(!sameJ(togFields(t), r.data)){ Object.assign(t, JSON.parse(JSON.stringify(r.data))); changed=true; if(TOG.ready[sid] && r.updated_by && r.updated_by!==me) note={sid, by:r.updated_by}; } }
+      t.owner=r.owner; TOG.base[sid]=JSON.parse(JSON.stringify(r.data)); TOG.at[sid]=r.updated_at; TOG.by[sid]={by:r.updated_by, at:r.updated_at}; TOG.ready[sid]=true; });
+    /* trips you were removed from, or that the owner deleted */
+    const gone=trips.filter(t=>t.sid && !joined.includes(t.sid) && TOG.ready[t.sid]!==undefined);
+    if(gone.length){ trips=trips.filter(t=>!gone.includes(t)); if(gone.some(t=>t.id===activeTrip)) activeTrip=trips[0]?trips[0].id:null; if(gone.some(t=>t.id===tripView)) tripView=null; changed=true; toast(`${gone[0].name} is no longer shared with you`); gone.forEach(t=>delete TOG.ready[t.sid]); }
+    if(joined.length){ const {data:ms}=await sb.from('trip_members').select('trip_id,user_id,status').in('trip_id',joined); const grp={}; (ms||[]).forEach(m=>{ (grp[m.trip_id]=grp[m.trip_id]||[]).push(m); }); joined.forEach(sid=>TOG.members[sid]=grp[sid]||[]); }
+    await loadPeople([...Object.values(TOG.members).flat().map(m=>m.user_id), ...TOG.invites.map(i=>i.by), ...Object.values(TOG.by).map(b=>b.by)]);
+    if(changed){ try{ localStorage.setItem('pm-trips2', JSON.stringify(trips)); }catch(e){} saveState(); }
+    $('#tDot').hidden=!TOG.invites.length;
+    if(freshInv.length){ tone(0,'triangle',660,.1,.12); tone(.12,'triangle',990,.14,.1); toast(`${personName(freshInv[0].by)} invited you to plan “${freshInv[0].data.name}”`); }
+    if(note){ const t=trips.find(x=>x.sid===note.sid); if(t) toast(`${personName(note.by)} updated ${t.name}`); }
+    togRenderTrips();
+  }catch(e){}
+  TOG.polling=false;
+}
+function togSchedule(){ clearTimeout(TOG.timer); if(!TOG.sb) return; const t=tripView&&T(tripView), fast=!$('#trips').hidden && t && t.sid; TOG.timer=setTimeout(()=>{ togPoll().finally(togSchedule); }, fast?6000:20000); }
+function togStart(sb, uid){ TOG.sb=sb; TOG.uid=uid; togPoll().finally(togSchedule); }
+function togStop(){ clearTimeout(TOG.timer); Object.values(TOG.pushT).forEach(clearTimeout); Object.assign(TOG,{sb:null, uid:null, invites:[], members:{}, base:{}, at:{}, by:{}, pushT:{}, ready:{}}); const d=$('#tDot'); if(d) d.hidden=true; }
+document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState==='visible' && TOG.sb) togPoll(); });
+async function shareTrip(t){
+  if(t.sid) return t.sid;
+  const sid=(crypto.randomUUID?crypto.randomUUID():'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const r=Math.random()*16|0;return (c==='x'?r:(r&3|8)).toString(16);}));
+  const data=JSON.parse(JSON.stringify(togFields(t))), at=new Date().toISOString();
+  let r=await TOG.sb.from('shared_trips').insert({id:sid, owner:TOG.uid, data, updated_at:at, updated_by:TOG.uid}); if(r.error) throw r.error;
+  r=await TOG.sb.from('trip_members').insert({trip_id:sid, user_id:TOG.uid, status:'joined', invited_by:TOG.uid}); if(r.error) throw r.error;
+  const old=t.id; t.sid=sid; t.owner=TOG.uid; t.id='s'+sid.slice(0,8); if(activeTrip===old) activeTrip=t.id; if(tripView===old) tripView=t.id;
+  TOG.base[sid]=data; TOG.at[sid]=at; TOG.by[sid]={by:TOG.uid, at}; TOG.ready[sid]=true; TOG.members[sid]=[{trip_id:sid, user_id:TOG.uid, status:'joined'}];
+  try{ localStorage.setItem('pm-trips2', JSON.stringify(trips)); }catch(e){} saveState(); return sid;
+}
+async function inviteToTrip(t, uids){
+  const sid=await shareTrip(t); let n=0;
+  for(const u of uids){ const r=await TOG.sb.from('trip_members').insert({trip_id:sid, user_id:u, status:'invited', invited_by:TOG.uid}); if(!r.error){ n++; (TOG.members[sid]=TOG.members[sid]||[]).push({trip_id:sid, user_id:u, status:'invited'}); } }
+  return n;
+}
+function crewHTML(t){
+  if(!STANDALONE) return '';
+  if(!TOG.sb) return `<div class="tsec"><h3>Plan with friends</h3><p class="tnote">Sign in to invite friends to this trip. Everyone who joins can add stops and tick off the packing list, and sees each other’s changes.</p><button class="crewbtn" id="tSign">${L(LU.shield,16)}Sign in</button></div>`;
+  const mem=t.sid?(TOG.members[t.sid]||[]):[], inIds=mem.map(m=>m.user_id), canPick=friendIds.filter(id=>!inIds.includes(id)), by=t.sid&&TOG.by[t.sid];
+  const pick = TOG.pick===t.id ? `<div class="pickf">${canPick.map(id=>`<button data-tpick="${id}" class="${TOG.form.has(id)?'on':''}"><span class="face">${ffaceSVG(realFriend(id),26)}</span>${esc(realFriend(id).name)}</button>`).join('')||'<span class="tnote">All your friends are already on this trip. Add more friends from the Friends tab.</span>'}</div>
+    <div class="trow2"><button class="btn line" id="tPickX">Cancel</button><button class="btn navy" id="tPickGo" ${TOG.form.size?'':'disabled'}>${L(LU.mail,16)}Send ${TOG.form.size||''} invite${TOG.form.size===1?'':'s'}</button></div>` : '';
+  return `<div class="tsec"><h3>${t.sid?'Travelling together':'Plan with friends'} <span>${t.sid?mem.filter(m=>m.status==='joined').length+' on this trip':''}</span></h3>
+    ${t.sid?`<div class="crew">${[...mem].sort((a,b)=>(a.user_id===t.owner?-1:b.user_id===t.owner?1:a.status==='joined'?-1:1)).map(m=>`<div class="who"><span class="face">${personFace(m.user_id,38)}</span><b>${esc(personName(m.user_id))}</b>${m.user_id===t.owner?'<em class="own">PLANNER</em>':m.status==='invited'?'<em>INVITED</em>':''}</div>`).join('')}
+      ${by&&by.by?`<div class="last">${L(LU.cloud,13)}Last change by ${esc(personName(by.by))} · ${new Date(by.at).toLocaleString([], {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div>`:''}</div>`
+     :`<p class="tnote">Invite friends and everyone who joins can add stops, change dates and tick off the packing list. You’ll all see each other’s changes.</p>`}
+    ${pick || (friendIds.length?`<button class="crewbtn" id="tInvite" style="margin-top:10px">${L(LU.users,16)}Invite friends</button>`:`<p class="tnote" style="margin-top:8px">Add friends from the Friends tab to invite them.</p>`)}</div>`;
+}
+function invitesHTML(){
+  return TOG.invites.map(i=>`<div class="tinv"><div class="fr"><span class="face">${personFace(i.by,46)}</span><div><small>TRIP INVITE</small><b>${esc(personName(i.by))} invited you to plan “${esc(i.data.name)}”</b><span class="d">${i.data.start?range(i.data)+' · ':''}${(i.data.cities||[]).length} stops so far</span></div></div>
+    <div class="bt"><button class="pri" data-tacc="${i.sid}">Join the trip</button><button data-tdec="${i.sid}">Decline</button></div></div>`).join('');
+}
+const tripCrew = t => { if(!t.sid) return ''; const mem=(TOG.members[t.sid]||[]).filter(m=>m.status==='joined'), others=mem.filter(m=>m.user_id!==TOG.uid); if(!others.length) return '';
+  return `<div class="tfaces"><span class="stack">${others.slice(0,4).map(m=>`<span class="face">${personFace(m.user_id,24)}</span>`).join('')}</span>With ${others.slice(0,2).map(m=>esc(personName(m.user_id))).join(' and ')}${others.length>2?` +${others.length-2}`:''}</div>`; };
 const T = id => trips.find(t=>t.id===id);
 const inTrip = id => { const t=T(activeTrip); return !!(t && t.cities.includes(id)); };
 const daysTo = iso => Math.round((new Date(iso+'T00:00')-new Date(today()+'T00:00'))/864e5);
@@ -3498,14 +3654,15 @@ function tripCard(t){
   return `<button class="tcard" data-trip="${t.id}"><div class="tband" style="background-color:${t.color};${inkOn(t.color)}"><div><b>${esc(t.name)}</b><span>${range(t)}</span></div><div class="tcount"><b>${cd.n}</b><span>${cd.l}</span></div></div>
     <div class="tbody"><div class="tstops">${t.cities.map(id=>`<span class="tstop ${visited[id]?'done':''}"><span class="sq" style="background:${COUNTRIES[CITIES[id].c].color}">${lm(CITIES[id].icon,'on').replace('<svg','<svg width="18" height="18"')}</span>${CITIES[id].name}${visited[id]?' ✓':''}</span>`).join('')||'<span class="tmeta">No stops yet</span>'}</div>
     ${daysTo(t.end)<0&&tripStamps(t).length?`<div class="tmemo" style="color:var(--accent-plum)">${L(LU.play,13)}Your trip recap is ready</div>`:''}
-    <div class="tmeta"><span>${t.cities.length} ${t.cities.length===1?'stop':'stops'}</span><span>${n} of ${t.cities.length} stamped</span></div>${started(t)?`<div class="tmemo"><i>${L(LU.stamp,12)}</i>${tripStamps(t).length} ${tripStamps(t).length===1?'stamp':'stamps'} on this trip</div>`:''}${activeTrip===t.id?'<div class="tmeta" style="color:var(--city-kyoto)">★ Active trip: city cards add here</div>':''}</div></button>`;
+    <div class="tmeta"><span>${t.cities.length} ${t.cities.length===1?'stop':'stops'}</span><span>${n} of ${t.cities.length} stamped</span></div>${tripCrew(t)}${started(t)?`<div class="tmemo"><i>${L(LU.stamp,12)}</i>${tripStamps(t).length} ${tripStamps(t).length===1?'stamp':'stamps'} on this trip</div>`:''}${activeTrip===t.id?'<div class="tmeta" style="color:var(--city-kyoto)">★ Active trip: city cards add here</div>':''}</div></button>`;
 }
 function tripFormHTML(){
   return `<div class="tform"><h3>Plan a trip</h3>
     <label class="fld">Trip name<input id="tfName" maxlength="28" placeholder="Summer in Mexico"></label>
     <div class="fpair"><label class="fld">Start<input id="tfStart" type="date" value="${today()}"></label><label class="fld">End<input id="tfEnd" type="date"></label></div>
     <div class="fld">Colour<div class="tcolors">${TCOLORS.map((c,i)=>`<button data-tcol="${i}" class="${newColor===i?'on':''}" style="background:${c}" aria-label="Colour ${i+1}"></button>`).join('')}</div></div>
-    <div class="trow2"><button class="btn line" id="tfCancel">Cancel</button><button class="btn navy" id="tfCreate">${L(LU.plus,18)}Create trip</button></div></div>`;
+    ${TOG.sb&&friendIds.length?`<div class="fld">Plan with friends <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--ink-soft)">(optional)</span><div class="pickf" style="margin-top:6px">${friendIds.map(id=>`<button data-tfpick="${id}" class="${TOG.form.has(id)?'on':''}"><span class="face">${ffaceSVG(realFriend(id),26)}</span>${esc(realFriend(id).name)}</button>`).join('')}</div></div>`:''}
+    <div class="trow2"><button class="btn line" id="tfCancel">Cancel</button><button class="btn navy" id="tfCreate">${L(LU.plus,18)}${TOG.sb&&TOG.form.size?'Create and invite':'Create trip'}</button></div></div>`;
 }
 function tripDetail(t){
   const n=t.cities.filter(id=>visited[id]).length, cd=countdown(t), others=Object.keys(CITIES).filter(id=>!t.cities.includes(id)), packed=t.pack.filter(p=>p[1]).length;
@@ -3527,23 +3684,32 @@ function tripDetail(t){
   <div class="tsec"><h3>Packing list <span>${packed} of ${t.pack.length} packed</span></h3><div class="pack">${t.pack.map((p,i)=>`<label class="${p[1]?'ok':''}"><input type="checkbox" data-pk="${i}" ${p[1]?'checked':''}><span>${esc(p[0])}</span></label>`).join('')}
     <div class="packadd"><input id="packIn" maxlength="40" placeholder="Add something to pack"><button id="packAdd" aria-label="Add item">${L(LU.plus,18)}</button></div></div>
     ${(()=>{ const sg=packSuggest(t).filter(x=>!t.pack.some(p=>p[0].toLowerCase()===x[0].toLowerCase())); return sg.length?`<div class="sugg"><h4>${L(LU.spark,14)}Suggested for this trip</h4><div class="sgchips">${sg.map(([n,why])=>`<button data-sug="${esc(n)}" title="${esc(why)}">${L(LU.plus,13)}${esc(n)}<em>${esc(why)}</em></button>`).join('')}</div></div>`:''; })()}</div>
-  <div class="tsec">${activeTrip===t.id?'':`<button class="btn navy" style="width:100%" id="tActive">${L(LU.star,18)}Make this my active trip</button>`}<button class="tdel" id="tDel">Delete this trip</button></div>`;
+  ${crewHTML(t)}
+  <div class="tsec">${activeTrip===t.id?'':`<button class="btn navy" style="width:100%" id="tActive">${L(LU.star,18)}Make this my active trip</button>`}<button class="tdel" id="tDel">${t.sid&&t.owner!==TOG.uid?'Leave this trip':t.sid?'Delete this trip for everyone':'Delete this trip'}</button></div>`;
 }
 function renderTrips(){ saveState();
   const y=$('#tscroll')?.scrollTop||0, t=tripView&&T(tripView);
   $('#trips').innerHTML = `<div id="tscroll">${t ? tripDetail(t) : `<div class="thead"><div><span class="eyebrow">Postmark</span><h1>Your trips</h1><p>${trips.length?`${trips.length} ${trips.length>1?'trips':'trip'} planned`:'Nothing planned yet'}</p></div><button class="newtrip" id="tNew">${L(LU.plus,18)}Plan</button></div>
-    ${tripForm?tripFormHTML():''}${trips.map(tripCard).join('')}
+    ${invitesHTML()}${tripForm?tripFormHTML():''}${trips.map(tripCard).join('')}
     ${trips.length?'':`<div class="empty"><div class="wvav">${avatarSVG(AVA,110)}</div><b>Where to next?</b><p>Plan a trip, then add cities from their cards on the map.</p><button class="btn navy" id="tNew2">${L(LU.plane,18)}Plan a trip</button></div>`}`}</div>`;
-  $('#tscroll').scrollTop = t ? y : 0;
+  $('#tscroll').scrollTop = t ? y : 0; TOG.later=false; togSchedule();
 }
-$('#trips').addEventListener('click', e=>{
+$('#trips').addEventListener('focusout', ()=>{ if(TOG.later) setTimeout(()=>{ if(TOG.later) togRenderTrips(); }, 50); });
+$('#trips').addEventListener('click', async e=>{
   const q=s2=>e.target.closest(s2);
-  if(q('#tNew')||q('#tNew2')){ tripForm=!tripForm; return renderTrips(); }
+  const acc=q('[data-tacc]'); if(acc){ acc.disabled=true; const {error}=await TOG.sb.from('trip_members').update({status:'joined'}).eq('trip_id',acc.dataset.tacc).eq('user_id',TOG.uid);
+    if(error){ acc.disabled=false; return toast('Couldn’t join just now. Try again.'); } const nm=(TOG.invites.find(i=>i.sid===acc.dataset.tacc)||{data:{}}).data.name; TOG.invites=TOG.invites.filter(i=>i.sid!==acc.dataset.tacc); await togPoll(); chime(); const t2=trips.find(x=>x.sid===acc.dataset.tacc); if(t2){ tripView=t2.id; renderTrips(); } return toast(`You joined ${nm||'the trip'}`); }
+  const dec=q('[data-tdec]'); if(dec){ await TOG.sb.from('trip_members').delete().eq('trip_id',dec.dataset.tdec).eq('user_id',TOG.uid); TOG.invites=TOG.invites.filter(i=>i.sid!==dec.dataset.tdec); $('#tDot').hidden=!TOG.invites.length; renderTrips(); return toast('Invite declined'); }
+  const fp=q('[data-tfpick]'); if(fp){ const id=fp.dataset.tfpick; TOG.form.has(id)?TOG.form.delete(id):TOG.form.add(id); fp.classList.toggle('on'); const cb=$('#tfCreate'); if(cb) cb.innerHTML=`${L(LU.plus,18)}${TOG.form.size?'Create and invite':'Create trip'}`; return; }
+  if(q('#tSign')) return openAuth('in');
+  if(q('#tNew')||q('#tNew2')){ tripForm=!tripForm; TOG.form=new Set(); return renderTrips(); }
   const tc=q('[data-tcol]'); if(tc){ newColor=+tc.dataset.tcol; $('#trips').querySelectorAll('[data-tcol]').forEach(b=>b.classList.toggle('on',b===tc)); return; }
   if(q('#tfCancel')){ tripForm=false; return renderTrips(); }
   if(q('#tfCreate')){ const name=$('#tfName').value.trim()||'My next trip', st=$('#tfStart').value||today(); let en=$('#tfEnd').value||st; if(en<st) en=st;
     const t={id:'t'+Date.now(), name, start:st, end:en, color:TCOLORS[newColor], cities:[], pack:[['Passport',false],['Phone charger',false]]};
-    trips.unshift(t); activeTrip=t.id; tripForm=false; tripView=t.id; saveTrips(); renderTrips(); chime(); return toast(`${name} created. It's now your active trip.`); }
+    trips.unshift(t); activeTrip=t.id; tripForm=false; tripView=t.id; saveTrips(); renderTrips(); chime();
+    if(TOG.sb && TOG.form.size){ const who=[...TOG.form]; TOG.form=new Set(); try{ const n=await inviteToTrip(t, who); renderTrips(); return toast(`${name} created. ${n} invite${n===1?'':'s'} sent.`); }catch(err){ renderTrips(); return toast(`${name} created, but the invites couldn’t be sent. Try again from the trip.`); } }
+    return toast(`${name} created. It's now your active trip.`); }
   const card=q('[data-trip]'); if(card){ tripView=card.dataset.trip; return renderTrips(); }
   if(q('#tBack')){ tripView=null; return renderTrips(); }
   const t=T(tripView); if(!t) return;
@@ -3556,7 +3722,16 @@ $('#trips').addEventListener('click', e=>{
   if(q('#tRecap')) return openRecap(t);
   if(q('#packAdd')){ const v=$('#packIn').value.trim(); if(!v) return; t.pack.push([v,false]); saveTrips(); return renderTrips(); }
   if(q('#tActive')){ activeTrip=t.id; saveTrips(); renderTrips(); return toast(`${t.name} is your active trip`); }
-  if(q('#tDel')){ trips=trips.filter(x=>x!==t); if(activeTrip===t.id) activeTrip=trips[0]?trips[0].id:null; tripView=null; saveTrips(); renderTrips(); return toast('Trip deleted'); }
+  if(q('#tInvite')){ TOG.pick=t.id; TOG.form=new Set(); return renderTrips(); }
+  if(q('#tPickX')){ TOG.pick=null; TOG.form=new Set(); return renderTrips(); }
+  const tp=q('[data-tpick]'); if(tp){ const id=tp.dataset.tpick; TOG.form.has(id)?TOG.form.delete(id):TOG.form.add(id); return renderTrips(); }
+  if(q('#tPickGo')){ const who=[...TOG.form]; q('#tPickGo').disabled=true;
+    try{ const n=await inviteToTrip(t, who); TOG.pick=null; TOG.form=new Set(); renderTrips(); chime(); return toast(`${n} invite${n===1?'':'s'} sent`); }catch(err){ q('#tPickGo')&&(q('#tPickGo').disabled=false); return toast('Couldn’t send invites just now. Try again.'); } }
+  if(q('#tDel')){
+    if(t.sid && TOG.sb){ const own=t.owner===TOG.uid; if(!delArm){ delArm=true; const b=q('#tDel'); b.textContent=own?'Tap again: this deletes it for everyone':'Tap again to leave this trip'; setTimeout(()=>{ delArm=false; }, 4000); return; } delArm=false;
+      const r = own ? await TOG.sb.from('shared_trips').delete().eq('id',t.sid) : await TOG.sb.from('trip_members').delete().eq('trip_id',t.sid).eq('user_id',TOG.uid);
+      if(r.error) return toast('Couldn’t do that just now. Try again.'); delete TOG.ready[t.sid]; }
+    trips=trips.filter(x=>x!==t); if(activeTrip===t.id) activeTrip=trips[0]?trips[0].id:null; tripView=null; saveTrips(); renderTrips(); return toast(t.sid?(t.owner===TOG.uid?'Trip deleted for everyone':'You left the trip'):'Trip deleted'); }
 });
 $('#trips').addEventListener('change', e=>{ const pk=e.target.dataset.pk; if(pk===undefined) return; const t=T(tripView); if(!t) return; t.pack[+pk][1]=e.target.checked; saveTrips(); renderTrips(); if(e.target.checked) tone(0,'triangle',990,.08,.08); });
 $('#trips').addEventListener('keydown', e=>{ if(e.target.id==='packIn' && e.key==='Enter'){ e.preventDefault(); $('#packAdd').click(); } });
@@ -3571,7 +3746,7 @@ const SAMPLE_FRIENDS = [
    visited:{mexicocity:'2021-06-01', oaxaca:'2023-10-30', cancun:'2024-02-14', marrakech:'2024-10-02', fes:'2024-10-05', salvador:'2025-02-10', rio:'2025-02-14', saopaulo:'2025-02-18', lisbon:'2025-08-01'}}
 ];
 /* Real friends: ids live in your private passport; their public cards live in the shared `people` collection. */
-let friendIds=[], mailSeen2=[];
+let friendIds=[], mailSeen2=[], friendNotes=[];
 const PEOPLE={};                 /* uid -> public card, fetched fresh, never stored */
 const SOC={db:null, uid:null, unsub:null, lastCard:'', loadedAt:0};
 const knownCities = o => { const out={}; Object.keys(o||{}).forEach(k=>{ if(CITIES[k]) out[k]=String(o[k]||''); }); return out; };
@@ -3606,18 +3781,22 @@ function renderFriends(){ saveState();
       <p class="fnote">Anyone with your code can add you and send you postcards. Friends see your first name, home city, avatar and stamped cities.</p>`:`<p class="fnote" style="margin-top:-8px">${STANDALONE?(ACCT.signedIn?'You’re signed in. Friend codes and postcards between friends arrive in a coming update.':'Friend codes and postcards between friends arrive in a coming update.'):'Friend codes work when you’re signed in and Postmark can save to your account.'}</p>`}
       <div class="tsec" style="margin-bottom:6px"><h3>Mailbox <span>${unread?unread+' new':inbox.length+' postcards'}</span></h3></div>
       ${inbox.length?`<div class="mailshelf" aria-label="Envelopes">${inbox.map((m,i)=>{const fr=friendById(m.from); return `<button class="${m.read?'':'unread'}" data-inbox="${i}" aria-label="${m.read?'':'New '}postcard from ${esc(fr.name)}">${m.read?'':'<span class="nb">NEW</span>'}${miniEnv(envTheme(CITIES[m.id].c), !m.read)}<span class="who"><span class="face">${ffaceSVG(fr,20)}</span>${esc(fr.name)}</span></button>`;}).join('')}</div>`:''}
+      ${friendNotes.map(n=>{ const fr=realFriend(n.uid); return `<div class="fnote2"><div class="fr"><span class="face">${ffaceSVG(fr,44)}</span><div><small>NEW FRIEND</small><b>${esc(fr.name)} added you</b><span class="d">You’re now friends and can send each other postcards and plan trips together.</span></div></div>
+        <div class="bt"><button class="pri" data-fsend="${n.uid}">${L(LU.mail,15)}Send a postcard</button><button data-fnok="${n.uid}">Got it</button></div></div>`; }).join('')}
       ${inbox.length?'':'<span class="tmeta" style="padding:0 20px">No postcards yet</span>'}
       ${friendList().length?'':`<div class="fempty"><b>No friends yet</b>Share your code, or type a friend’s code above. Then compare passports and send each other postcards.</div>`}
       ${friendList().map(fr=>{const st=friendStats(fr);return `<div class="fcard"><button class="ftop" data-friend="${fr.id}"><span class="face">${ffaceSVG(fr,58)}</span><span class="fmeta"><b>${esc(fr.name)}${fr.real?'':'<span class="ftag">SAMPLE</span>'}</b><span>${fr.missing?'Loading passport…':`${fr.home?esc(fr.home)+' · ':''}${st.n} stamps · ${st.countries} countries`}</span><em>You share ${st.both.length} ${st.both.length===1?'city':'cities'}</em></span>${L(LU.right,18)}</button>
         <div class="fbtns"><button data-friend="${fr.id}">${L(LU.stamp,16)}Passport</button><button class="pri" data-fsend="${fr.id}">${L(LU.mail,16)}Postcard</button></div>${fr.real?`<button class="rm" data-frm="${fr.id}" aria-label="Remove ${esc(fr.name)}">${L(LU.x,14)}</button>`:''}</div>`}).join('')}</div>`;
   }
-  $('#fDot').hidden = !unread;
+  $('#fDot').hidden = !(unread || friendNotes.some(n=>!n.seen));
+  if(!f && !$('#friends').hidden && friendNotes.some(n=>!n.seen)){ friendNotes.forEach(n=>n.seen=true); setTimeout(()=>{ $('#fDot').hidden=!inbox.some(m=>!m.read); saveState(); }, 1500); }
 }
 function pickPostcardCity(){ return lastCity() || Object.keys(CITIES)[0]; }
 $('#friends').addEventListener('click', async e=>{
   const q=s2=>e.target.closest(s2);
   if(q('#fBack')){ friendView=null; return renderFriends(); }
   if(q('#fSignIn')) return openAuth('in');
+  const nok=q('[data-fnok]'); if(nok){ friendNotes=friendNotes.filter(n=>n.uid!==nok.dataset.fnok); return renderFriends(); }
   if(q('#fSignUp')) return openAuth('up');
   const rm=q('[data-frm]'); if(rm){ const id=rm.dataset.frm, nm=friendById(id).name; friendIds=friendIds.filter(x=>x!==id); renderFriends(); return toast(`${nm} removed from your friends`); }
   const fr=q('[data-friend]'); if(fr){ friendView=fr.dataset.friend; renderFriends(); $('#fscroll').scrollTop=0; return; }
@@ -3643,7 +3822,7 @@ const SYNC={ref:null, status:'local', saving:false, dirty:false, at:null, lastAt
 const ACCT={name:'', signedIn:false};
 let DEVID=''; try{ DEVID=localStorage.getItem('pm-dev')||''; if(!DEVID){ DEVID='d'+Math.random().toString(36).slice(2,10); localStorage.setItem('pm-dev',DEVID); } }catch(e){ DEVID='d'+Math.random().toString(36).slice(2,10); }
 function snapshotState(){
-  return {v:1, visited, unlocked, sent, verified, eventStamps, trips, activeTrip, AVA, outfit, cover, inbox, mailDays, earned:[...earnedWeekly], mailEver, friends:friendIds, mailSeen:mailSeen2.slice(-200)};
+  return {v:1, visited, unlocked, sent, verified, eventStamps, trips, activeTrip, AVA, outfit, cover, inbox, mailDays, earned:[...earnedWeekly], mailEver, friends:friendIds, mailSeen:mailSeen2.slice(-200), fnotes:friendNotes.slice(0,20)};
 }
 function applyState(d){
   if(!d || d.v!==1) return;
@@ -3651,6 +3830,7 @@ function applyState(d){
   if(Array.isArray(d.trips)) trips=d.trips; if('activeTrip' in d) activeTrip=d.activeTrip; if(d.AVA) AVA={...AVA, ...d.AVA, bio:{...AVA.bio, ...(d.AVA.bio||{})}};
   if(d.outfit) outfit=d.outfit; if(d.cover) cover=d.cover; if(Array.isArray(d.inbox)) inbox=d.inbox; if(Array.isArray(d.mailDays)) mailDays=d.mailDays;
   if(Array.isArray(d.earned)) d.earned.forEach(k=>earnedWeekly.add(k)); if(d.mailEver) mailEver=true;
+  if(Array.isArray(d.fnotes)) friendNotes=d.fnotes.filter(n=>n&&typeof n.uid==='string');
   if(Array.isArray(d.friends)) friendIds=d.friends.filter(x=>typeof x==='string'); if(Array.isArray(d.mailSeen)) mailSeen2=d.mailSeen;
 }
 function loadLocalState(){ try{ const d=JSON.parse(localStorage.getItem('pm-state')||'null'); if(d){ applyState(d.state||d); } }catch(e){} stateReady=true; lastStateStr=JSON.stringify(snapshotState()); }
@@ -3717,6 +3897,7 @@ async function authChanged(session){
   if(SYNC.unsub){ try{ SYNC.unsub(); }catch(e){} SYNC.unsub=null; }
   AUTH.user=u;
   if(SOC.unsub){ try{ SOC.unsub(); }catch(e){} SOC.unsub=null; }
+  togStop();
   if(!u){ SOC.db=null; SOC.uid=null; SOC.lastCard=''; SYNC.ref=null; SYNC.status='local'; ACCT.signedIn=false; ACCT.name=''; renderSync(); if(!$('#passport').hidden) renderPassport(); renderFriends(); return; }
   ACCT.signedIn=true; ACCT.name=u.email||''; SYNC.ref=supaRef(AUTH.client, u.id); SYNC.status='loading'; renderSync();
   SOC.db=supaSocial(AUTH.client, u.id); SOC.uid=u.id; SOC.lastCard=''; SOC.loadedAt=0; renderFriends(); if(!$('#passport').hidden) renderPassport();
@@ -3729,7 +3910,7 @@ async function authChanged(session){
     if(remote && remote.state && (remote.savedAt||'')>localAt){ takeRemote(remote); toast('Passport loaded from your account'); } else await pushState();
     SYNC.unsub=SYNC.ref.onSnapshot(sn=>{ const d=sn.exists?sn.data():null; if(!d||!d.state||d.dev===DEVID||(d.savedAt||'')<=SYNC.lastAt||SYNC.saving||stamping) return; takeRemote(d); toast('Passport updated from your other device'); });
   }catch(e){ SYNC.status=navigator.onLine?'error':'offline'; SYNC.dirty=true; renderSync(); }
-  publishCard(); loadFriends(true); startPostbox();
+  publishCard(); loadFriends(true); startPostbox(); togStart(AUTH.client, u.id);
   if(!$('#passport').hidden) renderPassport(); renderFriends();
 }
 async function initAuth(){
@@ -3834,7 +4015,8 @@ async function addFriendByCode(raw){
   try{ const qs=await SOC.db.collection('people').where('code','==',code).limit(1).get();
     if(qs.empty) return toast('No traveller found with that code');
     const d=qs.docs[0]; if(friendIds.includes(d.id)) return toast('You’re already friends');
-    PEOPLE[d.id]=d.data(); friendIds.unshift(d.id); renderFriends(); chime(); toast(`${realFriend(d.id).name} added. Send them a postcard!`);
+    PEOPLE[d.id]=d.data(); friendIds.unshift(d.id); renderFriends(); chime(); toast(`${realFriend(d.id).name} added. You’re now friends.`);
+    if(TOG.sb){ TOG.sb.from('friend_links').insert({from_user:TOG.uid, to_user:d.id}).then(()=>{}, ()=>{}); }
   }catch(e){ toast('Couldn’t look that code up just now'); }
 }
 function startPostbox(){
@@ -4005,7 +4187,7 @@ $('#onboard').addEventListener('click', e=>{
 function tab(t){
   $('#passport').hidden = t!=='passport'; $('#trips').hidden = t!=='trips'; $('#friends').hidden = t!=='friends';
   [['tMap','map'],['tPass','passport'],['tTrips','trips'],['tFriends','friends']].forEach(([b,k])=>{ $('#'+b).classList.toggle('on', t===k); $('#'+b).toggleAttribute('aria-current', t===k); });
-  if(t==='passport') renderPassport(); else if(t==='trips'){ tripView=null; renderTrips(); } else if(t==='friends'){ friendView=null; renderFriends(); loadFriends(); } else renderAll();
+  if(t==='passport') renderPassport(); else if(t==='trips'){ tripView=null; renderTrips(); if(TOG.sb) togPoll(); } else if(t==='friends'){ friendView=null; renderFriends(); loadFriends(); if(TOG.sb) togPoll(); } else renderAll();
 }
 $('#tMap').onclick=()=>tab('map'); $('#tPass').onclick=()=>tab('passport'); $('#tTrips').onclick=()=>tab('trips'); $('#tFriends').onclick=()=>tab('friends');
 
