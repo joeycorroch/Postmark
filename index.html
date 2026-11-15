@@ -1349,7 +1349,10 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
 #art-world{touch-action:none}
 .wpan.pinch{transform-origin:0 0}
 .wpan.tween{transition:transform .26s cubic-bezier(.3,.7,.2,1)}
-.art .wtile svg.map .land path{stroke-width:calc(1.5px / var(--wz,1))}
+.art .wtile svg.map .land path{stroke-width:calc(.55px / var(--wz,1))}
+/* finer map outlines */
+.art svg.map .land path,.art svg.map .sea path{stroke-width:1.1px}
+.art svg.map .hl path{stroke-width:1.6px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}}
 .banner h2.long{font-size:30px}
 </style>
