@@ -1249,7 +1249,7 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
 .wtile{position:absolute;top:0;width:0;height:100%}
 .art .wtile svg.map{inset:auto;left:0}
 .wtile .bub{width:38px;height:38px;font-size:16px}
-#art-world{touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+#art-world{cursor:grab;user-select:none;-webkit-user-select:none}
 #art-world.drag{cursor:grabbing}#art-world.drag .bub{pointer-events:none}
 .bubble.swipe{transform:translateX(-50%);animation:none;font-size:13px;padding:7px 12px}.bubble.swipe::after{display:none}
 
@@ -1340,6 +1340,16 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
 .zoomctl button:disabled{opacity:.4;box-shadow:none}
 .zoomctl .zr{font-size:11px;font-weight:800;width:42px;height:30px;border-radius:999px;background:var(--ink-navy);color:var(--paper-cream)}
 .zoomctl .zr[hidden]{display:none}
+.zoomctl.wz{top:156px}
+
+/* country names under region stamps once there's room */
+.cst .nm{display:none;position:absolute;top:calc(100% + 3px);left:50%;transform:translateX(-50%);white-space:nowrap;padding:1px 6px;border:1.5px solid var(--ink-navy);border-radius:999px;background:var(--paper-card);font:800 9.5px/1.4 var(--font-body);color:var(--ink-navy);pointer-events:none}
+.zoomer.zin .cst .nm{display:block}
+/* world map zoom */
+#art-world{touch-action:none}
+.wpan.pinch{transform-origin:0 0}
+.wpan.tween{transition:transform .26s cubic-bezier(.3,.7,.2,1)}
+.art .wtile svg.map .land path{stroke-width:calc(1.5px / var(--wz,1))}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}}
 .banner h2.long{font-size:30px}
 </style>
@@ -2865,7 +2875,7 @@ const flagSVG = c => `<svg viewBox="0 0 64 64" aria-hidden="true">${FLAGS[c]}</s
 const miniFlag = c => `<span class="miniflag">${flagSVG(c)}</span>`;
 function flagStamp(c,x,y){
   const cls=stampClass(c), st = COUNTRIES[c] && got(c).length;
-  return `<button class="cst mk ${cls}" data-country="${c}" style="left:${x-2}px;top:${y-2}px" aria-label="${CNAME[c]||c}${st?', stamped':''}"><span class="fl">${flagSVG(c)}</span>${st?`<span class="badge">${done(c)?L(LU.star,9,3):L(LU.check,9,3.5)}</span>`:''}</button>`;
+  return `<button class="cst mk ${cls}" data-country="${c}" style="left:${x-2}px;top:${y-2}px" aria-label="${CNAME[c]||c}${st?', stamped':''}"><span class="fl">${flagSVG(c)}</span><span class="nm">${CNAME[c]||c}</span>${st?`<span class="badge">${done(c)?L(LU.star,9,3):L(LU.check,9,3.5)}</span>`:''}</button>`;
 }
 
 function pinHTML(id, left, top, i=0){
@@ -2969,10 +2979,14 @@ async function loadReal(){
 /* ---------- world map: a flat globe you swipe left and right; it wraps round, and grows to fill the space above the region panel ---------- */
 const WTURN = 388.8;                      /* 360° of longitude in the world art's own units */
 let worldPan = null, WG = {z:1.9, oy:0, w:WTURN*1.9};
+let WZ=1, WY=0;            /* world zoom on top of the fitted size, and vertical offset once zoomed */
+const WZMAX=2.5;
 function worldGeom(){
   const H=parseFloat($('#phone').style.height)||844, top=116, bottom = REG_MIN ? H-158 : Math.max(top+190, H-452);
-  const z=Math.max(1.35, Math.min(3.1, (bottom-top)/141*.96)), cy=(top+bottom)/2;
-  return WG={z, oy:cy-206.5*z, w:WTURN*z};
+  const z0=Math.max(1.35, Math.min(3.1, (bottom-top)/141*.96)), cy=(top+bottom)/2, z=z0*WZ;
+  /* the stamped world band (map units 136–277) must keep covering the space between search bar and panel */
+  let oy=cy-206.5*z+WY; const lo=bottom-277*z, hi=top-136*z; oy = lo<=hi ? Math.min(hi,Math.max(lo,oy)) : (lo+hi)/2; WY=oy-(cy-206.5*z);
+  return WG={z, oy, w:WTURN*z, cy, z0};
 }
 const wrapPan = p => { const w=WG.w; return ((p % w) - w) % w; };      /* keeps the middle copy's left edge in (-w, 0] */
 function worldHome(){ let lon=15; if(LOC.on && LOC.pos) lon=LOC.pos[1]; else { const id=lastCity(); if(id && CITY_LL[id]) lon=CITY_LL[id][1]; } return wrapPan(195-(1.08*lon+195.5)*WG.z); }
@@ -2981,7 +2995,7 @@ function worldArtHTML(){
   worldPan = worldPan===null ? worldHome() : wrapPan(worldPan/prevW*g.w + 195*(1-g.w/prevW));   /* keep the same spot centred when the size changes */
   const svg = artBase('world').match(/<svg class="map"[\s\S]*?<\/svg>/)[0].replace(/<svg class="map" viewBox="0 0 390 844" aria-hidden="true">([\s\S]*?)<\/svg>/, (m,inner)=>{
     if(MAPSTYLE==='real' && REAL) inner = realInner('world');
-    return scratchSvg('world',inner); }).replace('<svg class="map"', `<svg class="map" style="width:${(390*g.z).toFixed(1)}px;height:${(844*g.z).toFixed(1)}px;top:${g.oy.toFixed(1)}px"`);
+    return scratchSvg('world',inner); }).replace('<svg class="map"', `<svg class="map" style="--wz:${WZ.toFixed(3)};width:${(390*g.z).toFixed(1)}px;height:${(844*g.z).toFixed(1)}px;top:${g.oy.toFixed(1)}px"`);
   const at=(x,y)=>[x*g.z, y*g.z+g.oy];
   const bubs = REGIONS.map(r=>{ const n=regionCount(r), [cx,cy]=at(r.x+15,r.y+15); return `<button class="bub mk ${n?'hot':''}" data-region="${r.id}" style="left:${(cx-19).toFixed(1)}px;top:${(cy-19).toFixed(1)}px" aria-label="${r.name}, ${n} stamped">${n}</button>`; }).join('');
   let me='';
@@ -2990,19 +3004,56 @@ function worldArtHTML(){
   const tile=k=>`<div class="wtile" style="left:${(k*g.w).toFixed(1)}px" ${k?'aria-hidden="true"':''}>${svg}${bubs}${me}</div>`;
   return `<div class="wpan" id="wpan" style="transform:translateX(${worldPan.toFixed(1)}px)">${tile(-1)}${tile(0)}${tile(1)}</div>`;
 }
+/* Redraw the world crisply at a new zoom k (relative to now), keeping the screen point (mx,my) fixed. */
+function worldZoomCommit(k, mx, my){
+  const nz=Math.max(1,Math.min(WZMAX,WZ*k)); k=nz/WZ; if(Math.abs(k-1)<.001 && !WG) return;
+  const A=mx+(worldPan-mx)*k, oyNew=my+(WG.oy-my)*k;
+  WZ=nz; worldPan=(A-195*(1-k))/k; WY=oyNew-(WG.cy-206.5*WG.z0*WZ);
+  $('#art-world').innerHTML=artHTML('world'); paintWorldZoom();
+}
+function paintWorldZoom(){ const ui=$('#ui-world'); if(!ui) return; const o=ui.querySelector('[data-wzoom="out"]'), r=ui.querySelector('[data-wzoom="reset"]'); if(o) o.disabled=WZ<=1.01; if(r) r.hidden=WZ<=1.01; }
+const worldZoomCtl = () => `<div class="zoomctl wz" aria-label="Map zoom"><button data-wzoom="in" aria-label="Zoom in">+</button><button data-wzoom="out" aria-label="Zoom out" ${WZ<=1.01?'disabled':''}>−</button><button class="zr" data-wzoom="reset" ${WZ<=1.01?'hidden':''}>Reset</button></div>`;
+/* animate to zoom k around (mx,my) with a quick CSS scale, then redraw crisply */
+function worldZoomTo(k, mx, my){ const p=$('#wpan'); const nz=Math.max(1,Math.min(WZMAX,WZ*k)); k=nz/WZ; if(!p || Math.abs(k-1)<.001) return;
+  p.classList.add('pinch','tween'); p.style.transform=`translate(${(mx+(worldPan-mx)*k).toFixed(1)}px,${(my-my*k).toFixed(1)}px) scale(${k.toFixed(4)})`;
+  setTimeout(()=>{ p.classList.remove('tween'); worldZoomCommit(k, mx, my); }, 270); }
 (function(){
-  let d=null, moved=false, vel=0, raf=0; const el=()=>$('#art-world');
-  const apply=()=>{ const p=$('#wpan'); if(p) p.style.transform=`translateX(${worldPan.toFixed(1)}px)`; };
+  let d=null, moved=false, vel=0, raf=0, pz=null, lastTap=0, lastXY=[0,0]; const el=()=>$('#art-world'); const pts=new Map();
+  const apply=(dy=0)=>{ const p=$('#wpan'); if(p) p.style.transform=`translate(${worldPan.toFixed(1)}px,${dy.toFixed(1)}px)`; };
   const scale=()=>$('#phone').getBoundingClientRect().width/390;
-  addEventListener('pointerdown', e=>{ if(level!=='world' || busy || !e.target.closest('#art-world')) return; cancelAnimationFrame(raf); d={x:e.clientX, p:worldPan, t:performance.now(), lx:e.clientX}; moved=false; vel=0; });
-  addEventListener('pointermove', e=>{ if(!d) return; const dx=(e.clientX-d.x)/scale(); if(!moved && Math.abs(dx)<7) return;
+  const P=e=>{ const r=$('#phone').getBoundingClientRect(), k=r.width/390; return [(e.clientX-r.left)/k,(e.clientY-r.top)/k]; };
+  addEventListener('pointerdown', e=>{ if(level!=='world' || busy || !e.target.closest('#art-world')) return; cancelAnimationFrame(raf); pts.set(e.pointerId, P(e));
+    if(pts.size===2){ const [a,b]=[...pts.values()]; pz={d0:Math.hypot(a[0]-b[0],a[1]-b[1])||1, m0:[(a[0]+b[0])/2,(a[1]+b[1])/2], k:1, m:null}; d=null; moved=true; $('#wpan').classList.add('pinch'); return; }
+    d={x:e.clientX, y:e.clientY, p:worldPan, t:performance.now(), lx:e.clientX, dy:0}; moved=false; vel=0; });
+  addEventListener('pointermove', e=>{ if(!pts.has(e.pointerId)) return; pts.set(e.pointerId, P(e));
+    if(pz && pts.size>=2){ const [a,b]=[...pts.values()], m=[(a[0]+b[0])/2,(a[1]+b[1])/2]; let k=Math.hypot(a[0]-b[0],a[1]-b[1])/pz.d0; k=Math.max(1/WZ, Math.min(WZMAX/WZ, k)); pz.k=k; pz.m=m;
+      const p=$('#wpan'); if(p) p.style.transform=`translate(${(m[0]+(worldPan-pz.m0[0])*k).toFixed(1)}px,${(m[1]-pz.m0[1]*k).toFixed(1)}px) scale(${k.toFixed(4)})`; return; }
+    if(!d) return; const dx=(e.clientX-d.x)/scale(), dy=(e.clientY-d.y)/scale(); if(!moved && Math.hypot(dx,dy)<7) return;
     if(!moved){ moved=true; el().classList.add('drag'); if(showHint){ showHint=false; const h=$('#hint'); if(h) h.remove(); } }
     const now=performance.now(); vel=.7*vel+.3*((e.clientX-d.lx)/scale())/Math.max(1,now-d.t)*16; d.lx=e.clientX; d.t=now;
-    worldPan=wrapPan(d.p+dx); apply(); });
-  const end=()=>{ if(!d) return; d=null; el().classList.remove('drag'); if(!moved) return;
+    worldPan=wrapPan(d.p+dx); d.dy = WZ>1.01 ? dy : 0; apply(d.dy); });
+  const end=e=>{ if(!pts.has(e.pointerId)) return; const pe=pts.get(e.pointerId); pts.delete(e.pointerId);
+    if(pz){ if(pts.size) return; const z=pz; pz=null; $('#wpan').classList.remove('pinch'); if(z.m && Math.abs(z.k-1)>.01){
+        /* the gesture mapped screen points by: s' = m + (s - m0)·k. Redraw at the new zoom with the same mapping. */
+        const k=z.k, A=z.m[0]+(worldPan-z.m0[0])*k, oyNew=z.m[1]+(WG.oy-z.m0[1])*k, nz=WZ*k;
+        WZ=Math.max(1,Math.min(WZMAX,nz)); worldPan=(A-195*(1-k))/k; WY=oyNew-(WG.cy-206.5*WG.z0*WZ); $('#art-world').innerHTML=artHTML('world'); paintWorldZoom(); }
+      else apply(); setTimeout(()=>{ moved=false; }, 60); return; }
+    if(!d) return; const dd=d; d=null; el().classList.remove('drag');
+    if(!moved){ /* double tap on the ocean or land: zoom in there, or back out */
+      if(!e.target.closest('.bub,.me,button')){ const now=performance.now(); if(now-lastTap<320 && Math.hypot(pe[0]-lastXY[0],pe[1]-lastXY[1])<40){ lastTap=0; if(WZ>1.4) worldZoomTo(1/WZ,195,pe[1]); else worldZoomTo(2.2,pe[0],pe[1]); } else { lastTap=now; lastXY=pe; } }
+      return; }
+    if(dd.dy){ WY+=dd.dy; $('#art-world').innerHTML=artHTML('world'); }
     const glide=()=>{ vel*=.94; if(Math.abs(vel)<.25 || level!=='world') return; worldPan=wrapPan(worldPan+vel); apply(); raf=requestAnimationFrame(glide); };
     if(!reduced()) raf=requestAnimationFrame(glide); setTimeout(()=>{ moved=false; }, 60); };
   addEventListener('pointerup', end); addEventListener('pointercancel', end);
+  addEventListener('wheel', e=>{ if(level!=='world' || busy || !e.target.closest('#art-world')) return; e.preventDefault();
+    if(e.ctrlKey){ const p=P(e); clearTimeout(window.__wwt); const k=Math.exp(-e.deltaY*0.01); window.__wk=(window.__wk||1)*k; window.__wm=p;
+      const w=$('#wpan'); w.classList.add('pinch'); const K=window.__wk; w.style.transform=`translate(${(p[0]+(worldPan-p[0])*K).toFixed(1)}px,${(p[1]-p[1]*K).toFixed(1)}px) scale(${K.toFixed(4)})`;
+      window.__wwt=setTimeout(()=>{ const K=window.__wk, m=window.__wm; window.__wk=1; w.classList.remove('pinch'); worldZoomCommit(K, m[0], m[1]); }, 160); }
+    else { worldPan=wrapPan(worldPan-e.deltaX); if(WZ>1.01 && Math.abs(e.deltaY)>0){ WY-=e.deltaY; $('#art-world').innerHTML=artHTML('world'); } else apply(); } }, {passive:false});
+  addEventListener('click', e=>{ const b=e.target.closest('[data-wzoom]'); if(!b) return;
+    if(b.dataset.wzoom==='reset') worldZoomTo(1/WZ,195,360); else worldZoomTo(b.dataset.wzoom==='in'?1.6:1/1.6, 195, 360);
+    tone(0,'triangle',b.dataset.wzoom==='in'?880:660,.05,.06); });
   /* a swipe that started on a region bubble shouldn't count as tapping it */
   addEventListener('click', e=>{ if(moved && e.target.closest('#art-world')){ e.stopPropagation(); e.preventDefault(); } }, true);
 })();
@@ -3057,7 +3108,7 @@ function regionCard(name, n, of, hint){
 }
 function uiHTML(lv){
   const back = p => `<button class="chip" data-back="${p}">${L(LU.left,18)}<span>${LVNAME[p]}</span></button>`;
-  if(lv==='world') return `${showHint?`<div class="hint" id="hint"><div class="bubble swipe" style="left:50%;top:112px">Swipe the map, then tap a number</div></div>`:''}<div class="toprow" style="margin-top:8px"><div class="search">${L(LU.search,20)}<span>Search a city or region</span></div><button class="mailbtn ${mailSeen()?'':'new'}" id="mailBtn" aria-label="Today’s postcard${mailSeen()?'':', unread'}">${L(LU.mail,20)}<i></i></button></div>
+  if(lv==='world') return `${showHint?`<div class="hint" id="hint"><div class="bubble swipe" style="left:50%;top:112px">Swipe or pinch the map, then tap a number</div></div>`:''}<div class="toprow" style="margin-top:8px"><div class="search">${L(LU.search,20)}<span>Search a city or region</span></div><button class="mailbtn ${mailSeen()?'':'new'}" id="mailBtn" aria-label="Today’s postcard${mailSeen()?'':', unread'}">${L(LU.mail,20)}<i></i></button></div>
     <div class="regions ${REG_MIN?'min':''}" id="regions"><button class="regtog" id="regTog" aria-expanded="${!REG_MIN}"><h2>Pick a region</h2><span class="chev">${L(LU.right,20,2.6)}</span></button>
     ${REGIONS.map(r=>`<button class="rrow ${r.open?'':'off'}" data-region="${r.id}">${r.name}<span>${regionCount(r)} stamped ${L(LU.right,18)}</span></button>`).join('')}</div>`;
   if(lv==='europe') return `<div class="toprow">${back('world')}<div class="search">${L(LU.search,18)}<span>Search in Europe</span></div></div>${regionCard('Europe',countryCount('europe'),regionTotal('europe'),'Tap a country stamp to zoom in and see its cities.')}`;
@@ -3074,7 +3125,7 @@ function uiHTML(lv){
 $('#arts').innerHTML = LEVELS.map(lv=>`<div class="art" id="art-${lv}"></div>`).join('');
 $('#uis').innerHTML = LEVELS.map(lv=>`<div class="ui" id="ui-${lv}"></div>`).join('');
 function renderLevel(lv){
-  if(lv==='world'){ $('#art-'+lv).innerHTML = artHTML(lv); $('#ui-'+lv).innerHTML = uiHTML(lv); return; }
+  if(lv==='world'){ $('#art-'+lv).innerHTML = artHTML(lv); $('#ui-'+lv).innerHTML = uiHTML(lv) + worldZoomCtl(); return; }
   $('#art-'+lv).innerHTML = `<div class="zoomer">${artHTML(lv)}</div>`; $('#ui-'+lv).innerHTML = uiHTML(lv) + zoomCtlHTML(lv); applyZoom(lv);
 }
 /* ---------- zoom: the map spreads out while stamps and pins keep their size ---------- */
@@ -3085,7 +3136,7 @@ const zoomCtlHTML = lv => `<div class="zoomctl" aria-label="Map zoom"><button da
 function applyZoom(lv, ease){
   const el=document.querySelector('#art-'+lv+' > .zoomer'); if(!el) return; const z=zClamp(zOf(lv));
   if(ease) return zoomTween(lv, {...z});
-  el.style.transform=`translate(${z.x.toFixed(1)}px,${z.y.toFixed(1)}px) scale(${z.s.toFixed(4)})`; el.style.setProperty('--iz', (1/z.s).toFixed(4));
+  el.style.transform=`translate(${z.x.toFixed(1)}px,${z.y.toFixed(1)}px) scale(${z.s.toFixed(4)})`; el.style.setProperty('--iz', (1/z.s).toFixed(4)); el.classList.toggle('zin', z.s>=1.7);
   /* the map drawing itself is redrawn at the zoomed view, so coastlines stay crisp and thin */
   const sv=el.querySelector('svg.map'); if(sv){ const vx=-z.x/z.s, vy=-z.y/z.s; sv.style.transformOrigin='0 0'; sv.style.transform=`translate(${vx.toFixed(2)}px,${vy.toFixed(2)}px) scale(${(1/z.s).toFixed(5)})`; sv.setAttribute('viewBox', `${vx.toFixed(2)} ${vy.toFixed(2)} ${(390/z.s).toFixed(2)} ${(844/z.s).toFixed(2)}`); }
   z.__s=z.s; z.__x=z.x; z.__y=z.y;
@@ -3145,6 +3196,7 @@ function go(to, ox=195, oy=300, dir='in'){
   if(busy || to===level) return; busy=true;
   const fromA=$('#art-'+level), toA=$('#art-'+to);
   ZM[to]={s:1,x:0,y:0}; goingTo=to; renderLevel(to); goingTo=null;
+  if(['europe','asia','na','sa','africa','oc'].includes(to)){ let seen=false; try{ seen=localStorage.getItem('pm-zhint')==='1'; localStorage.setItem('pm-zhint','1'); }catch(e){ seen=true; } if(!seen) setTimeout(()=>toast('Tip: pinch or double-tap the map to zoom in'), 900); }
   fromA.style.transformOrigin=`${ox}px ${oy}px`;
   toA.style.transition='none'; toA.style.transformOrigin=`${ox}px ${oy}px`;
   toA.style.transform = dir==='in' ? 'scale(.55)' : 'scale(1.8)';
