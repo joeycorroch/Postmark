@@ -1373,6 +1373,25 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
 .lrow .lb{flex-shrink:0;display:flex;align-items:center;gap:3px;padding:3px 8px;border-radius:999px;font-size:10.5px;font-weight:800;border:1.5px solid var(--ink-navy)}
 .lrow .lb.ok{background:#E9F9F0;color:#1E7A48}
 .lrow .lb.past{background:#E6EEFF;color:var(--memory,#3D5BD9)}
+.lchips{display:flex;gap:6px;padding:6px 0 4px;flex-wrap:wrap}
+.lchip{display:flex;align-items:center;gap:5px;height:30px;padding:0 11px;border:2px solid var(--ink-navy);border-radius:999px;font-size:12px;font-weight:800;background:var(--paper-cream)}
+.lchip i{font-style:normal;font-size:10.5px;opacity:.7}
+.lchip.on{background:var(--ink-navy);color:#fff}
+.lmon{margin:10px 4px 2px;font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft)}
+.lnone{margin:12px 4px;font-size:13px;color:var(--ink-soft)}
+.pjump{display:flex;gap:6px;margin-top:12px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.pjump::-webkit-scrollbar{display:none}
+.pjump button{flex-shrink:0;display:flex;align-items:center;gap:6px;height:32px;padding:0 12px;border:2px solid var(--ink-navy);border-radius:999px;background:var(--paper-card);font-size:12.5px;font-weight:800;color:var(--ink-navy)}
+.pjump b{font-size:11px;padding:1px 6px;border-radius:999px;background:var(--paper-cream)}
+.pjump i{width:9px;height:9px;border-radius:50%}
+.pjump i.r{background:var(--stamp-red)} .pjump i.b{background:var(--memory)}
+.tile.mem{border-color:var(--memory);color:var(--memory);background:#EEF4FF}
+.tile.mem b{font:800 12px/1.1 var(--font-body);color:#2A5FD6}
+.tile.mem small,.tile.more small{font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+.tile.more{background:none;border-style:solid;color:var(--ink-navy)}
+.tile.more b{font:900 20px/1 var(--font-display)}
+.memn{display:block;font-style:normal;color:#2A5FD6;font-weight:700;font-size:12px;margin-top:2px}
+.empty .erow{display:flex;flex-direction:column;gap:4px;width:100%}
 .lmore{margin-top:6px;height:38px;border:2px dashed var(--ink-navy);border-radius:999px;font-size:13px;font-weight:800;background:none}
 /* paper speckle on land */
 .art svg.map .speck path{fill:url(#pmSpeck);stroke:none !important;pointer-events:none}
@@ -4108,11 +4127,11 @@ const firstStampISO = () => Object.values(visited).sort()[0];
 function beenHTML(){
   const ids=Object.keys(visited).filter(isPast).sort((a,b)=>visited[a]<visited[b]?1:-1), cs=[...new Set(ids.map(id=>CITIES[id].c))];
   const seal=`<svg class="seal" viewBox="0 0 64 64" width="58" height="58" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="#fff" stroke="#3D7BFF" stroke-width="3.5"/><circle cx="32" cy="32" r="21" fill="none" stroke="#3D7BFF" stroke-width="1.4" stroke-dasharray="2.4 2.4"/><g transform="translate(20 20)" fill="none" stroke="#3D7BFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></g></svg>`;
-  return `<section class="beenpage" aria-label="Places I've been">
-    <div class="bh">${seal}<div><small>MEMORY PAGE</small><h2>Places I’ve been</h2><p>Trips from before Postmark, in blue</p></div></div>
+  return `<section class="beenpage" id="pMem" aria-label="Places I've been">
+    <div class="bh">${seal}<div><small>MEMORY PAGE</small><h2>Places I’ve been</h2><p>Past visits and unverified stamps, in blue</p></div></div>
     ${ids.length?`<div class="bstats"><div><b>${ids.length}</b><span>${ids.length===1?'City':'Cities'}</span></div><div><b>${cs.length}</b><span>${cs.length===1?'Country':'Countries'}</span></div><div><b>${ids.map(id=>visited[id].slice(0,4)).sort()[0]}</b><span>Earliest</span></div></div>
       ${cs.map(c=>{ const K=COUNTRIES[c], mine=ids.filter(id=>CITIES[id].c===c); return `<div class="beenc"><h3>${miniFlag(c)}${K.name}<span>${mine.length} of ${K.cities.length} key cities</span></h3><div class="beenrow">${mine.map(id=>`<button data-popen="${id}" aria-label="${CITIES[id].name}, past visit">${pastStamp(id,58)}<b>${CITIES[id].short||CITIES[id].name}</b><span>${pastLabel(visited[id])}</span></button>`).join('')}</div></div>`; }).join('')}
-      <p class="tip">${L(LU.pin,14)}<span>Back in one of these cities? Stamp it on the spot to swap the blue stamp for the full landmark stamp.</span></p>`
+      <p class="tip">${L(LU.pin,14)}<span>Back in one of these cities? Stamp it on the spot to verify it. It moves to your stamp pages with the full landmark stamp.</span></p>`
     :`<div class="beenempty"><i></i><i style="transform:rotate(8deg)"></i><p>Been travelling before Postmark? Add those places and they’ll show up here with a blue memory stamp.</p></div>`}
     <button class="addpast" id="addPast">${L(LU.plus,16)}Add places you’ve been</button></section>`;
 }
@@ -5078,48 +5097,62 @@ $('#pastSheet').addEventListener('click', e=>{
 });
 
 /* ---------- passport ---------- */
-let logOpen=false, logAll=false;
+let logOpen=false, logAll=false, logF='all', evAll=false; const pExp=new Set();
+const vgot = c => COUNTRIES[c].cities.filter(id=>visited[id]&&verified[id]);
+const monthName = ym => new Date(ym+'-01T12:00:00').toLocaleDateString('en-GB',{month:'long',year:'numeric'});
 const stampOrder = () => Object.keys(visited).filter(id=>CITIES[id]).sort((a,b)=>{ const d=visited[b].localeCompare(visited[a]); if(d) return d;
   const ta=(verified[a]&&verified[a].at)||'', tb=(verified[b]&&verified[b].at)||''; return tb.localeCompare(ta); });
 function stampLogHTML(){
-  const ids=stampOrder(); if(!ids.length) return '';
+  const all=stampOrder(); if(!all.length) return '';
+  const nv=all.filter(id=>verified[id]).length, np=all.length-nv;
+  const ids=logF==='spot'?all.filter(id=>verified[id]):logF==='mem'?all.filter(isPast):all;
   const row=id=>{ const C=CITIES[id], K=COUNTRIES[C.c], v=verified[id], ev=eventStamps[id];
     return `<button class="lrow" data-plog="${id}"><span class="sq" style="background:${K.color}">${lm(C.icon,'on').replace('<svg','<svg width="28" height="28"')}</span>
       <span class="lt"><b>${C.name}</b><span>${miniFlag(C.c)}${K.name} · ${dLong(visited[id])}</span></span>
       <span class="lb ${v?'ok':'past'}">${ev?'Event':v?`${L(LU.check,10,3)}Verified`:'Past visit'}</span></button>`; };
-  const cap=logAll?ids.length:12, first=ids[0], C0=CITIES[first];
+  const cap=logAll?ids.length:12, first=all[0], C0=CITIES[first];
+  let lastM=''; const rows=ids.slice(0,cap).map(id=>{ const m=visited[id].slice(0,7), h=m!==lastM?`<div class="lmon">${monthName(m)}</div>`:''; lastM=m; return h+row(id); }).join('');
+  const chip=(k,t,n)=>`<button class="lchip ${logF===k?'on':''}" data-logf="${k}">${t}<i>${n}</i></button>`;
   return `<section class="slog ${logOpen?'open':''}"><button class="slh" id="logTog" aria-expanded="${logOpen}">
       <span class="sq" style="background:${COUNTRIES[C0.c].color}">${lm(C0.icon,'on').replace('<svg','<svg width="28" height="28"')}</span>
-      <span class="lt"><small>ALL STAMPS · NEWEST FIRST</small><b>${ids.length} stamp${ids.length===1?'':'s'}</b><span>Latest: ${C0.name}, ${dLong(visited[first])}</span></span>
+      <span class="lt"><small>ALL STAMPS · NEWEST FIRST</small><b>${all.length} stamp${all.length===1?'':'s'}</b><span>Latest: ${C0.name}, ${dLong(visited[first])}</span></span>
       <span class="chev">${L(LU.down,18)}</span></button>
-    ${logOpen?`<div class="lbody">${ids.slice(0,cap).map(row).join('')}${ids.length>cap?`<button class="lmore" id="logMore">Show all ${ids.length} stamps</button>`:''}</div>`:''}</section>`;
+    ${logOpen?`<div class="lbody"><div class="lchips">${chip('all','All',all.length)}${chip('spot','On the spot',nv)}${chip('mem','Memories',np)}</div>${rows||'<p class="lnone">Nothing here yet.</p>'}${ids.length>cap?`<button class="lmore" id="logMore">Show all ${ids.length} stamps</button>`:''}</div>`:''}</section>`;
 }
+function evShown(){ if(evAll) return EVENTS;
+  const key=e=>Object.values(eventStamps).some(v=>v.ev===e.id)?0:e.cities.some(c=>activeEvent(c)&&activeEvent(c).id===e.id)?1:2;
+  const sorted=EVENTS.map((e,i)=>[key(e),i,e]).sort((a,b)=>a[0]-b[0]||a[1]-b[1]).map(x=>x[2]);
+  return sorted.slice(0,Math.max(4,sorted.filter(e=>key(e)<2).length)); }
 function renderPassport(){ saveState();
-  const cs = Object.keys(COUNTRIES).filter(c=>got(c).length);
-  const nc = Object.keys(CITIES).filter(id=>visited[id]).length;
-  const head = cs.length ? `${cs.length} ${cs.length>1?'countries':'country'} and ${nc} ${nc>1?'cities':'city'} stamped.` : 'No stamps yet.';
+  const cs = Object.keys(COUNTRIES).filter(c=>vgot(c).length);
+  const nc = Object.keys(CITIES).filter(id=>visited[id]&&verified[id]).length;
+  const nm = Object.keys(CITIES).filter(isPast).length;
+  const head = cs.length ? `${cs.length} ${cs.length>1?'countries':'country'} and ${nc} ${nc>1?'cities':'city'} stamped on the spot.` : (nm?'No on-the-spot stamps yet.':'No stamps yet.');
+  const jump = Object.keys(visited).length ? `<nav class="pjump" aria-label="Passport sections"><button data-jump="#pStamps"><i class="r"></i>Stamps <b>${nc}</b></button><button data-jump="#pMem"><i class="b"></i>Memories <b>${nm}</b></button><button data-jump="#pCol">Collections</button><button data-jump="#pEv">Events</button><button data-jump="#pRew">Rewards</button></nav>` : '';
   $('#passport').className = 'cover-'+cover;
-  $('#passport').innerHTML = `<div id="pscroll"><div class="phead"><button class="sndbtn" id="sndBtn" aria-label="${soundOn?'Mute stamp sounds':'Turn stamp sounds on'}">${L(soundOn?LU.vol:LU.mute,20)}</button><span class="eyebrow">Postmark</span><h1>Your passport</h1><p>${head}</p>${syncPillHTML()}${Object.keys(visited).length?`<span class="inklegend"><span><i style="color:var(--stamp-red)"></i>Stamped on the spot</span><span><i style="color:var(--memory)"></i>Past visit</span></span>`:''}${Object.keys(verified).filter(k=>visited[k]).length?`<span class="honest">${L(LU.shield,14)}Verified traveller · ${Object.keys(verified).filter(k=>visited[k]).length} stamps checked by location</span>`:''}</div>
+  $('#passport').innerHTML = `<div id="pscroll"><div class="phead"><button class="sndbtn" id="sndBtn" aria-label="${soundOn?'Mute stamp sounds':'Turn stamp sounds on'}">${L(soundOn?LU.vol:LU.mute,20)}</button><span class="eyebrow">Postmark</span><h1>Your passport</h1><p>${head}</p>${syncPillHTML()}${Object.keys(verified).filter(k=>visited[k]).length?`<span class="honest">${L(LU.shield,14)}Verified traveller · ${Object.keys(verified).filter(k=>visited[k]).length} stamps checked by location</span>`:''}${jump}</div>
   ${bioHTML()}
   ${stampLogHTML()}
-  ${cs.length?'':`<div class="empty"><div class="wvav">${avatarSVG(AVA,110)}</div><b>Your passport is empty</b><p>Every city you visit earns a stamp. Pick a place on the map and mark it as visited.</p><button class="btn navy" id="goMap">${L(LU.map,18)}Open the map</button></div>`}
-  <div class="pcards">${cs.map(c=>{const K=COUNTRIES[c], n=got(c).length, g=done(c);
+  ${cs.length?'':nm?`<div class="empty"><div class="wvav">${avatarSVG(AVA,110)}</div><b>No on-the-spot stamps yet</b><p>Your ${nm} past ${nm>1?'visits are':'visit is'} on your memory page below. Stamp a city while you’re there to fill these pages with red landmark stamps.</p><div class="erow"><button class="btn navy" id="goMap">${L(LU.map,18)}Open the map</button><button class="btn blue" data-jump="#pMem">See memories</button></div></div>`:`<div class="empty"><div class="wvav">${avatarSVG(AVA,110)}</div><b>Your passport is empty</b><p>Every city you visit earns a stamp. Pick a place on the map and mark it as visited.</p><button class="btn navy" id="goMap">${L(LU.map,18)}Open the map</button></div>`}
+  <div class="pcards" id="pStamps">${cs.map(c=>{const K=COUNTRIES[c], vs=vgot(c), n=vs.length, g=n>=goldNeed(c), mem=K.cities.filter(isPast), lock=K.cities.filter(k=>!visited[k]);
+    const order=[...vs,...mem,...lock], open=pExp.has(c)||order.length<=6, shown=open?order:order.slice(0,5), more=order.length-shown.length;
     return `<section class="pcard ${g?'gold':''}">
-      <div class="prow"><div class="ring ink ${!g&&!K.cities.some(k=>visited[k]&&verified[k])?'past':''}"><div>${g?L(LU.star,12):'<span>ENTRY</span>'}<b>${K.name.toUpperCase()}</b><span>${g?'COMPLETE':dMonth(firstEntry(c))}</span></div></div>
-        <div class="pinfo"><b style="display:flex;align-items:center">${miniFlag(c)}${K.name}</b><span>${g?(n<K.cities.length?`Gold · ${n} of ${K.cities.length} cities stamped`:`All ${K.cities.length} cities stamped`):`${n} of ${K.cities.length} key cities`}</span>
+      <div class="prow"><div class="ring ink"><div>${g?L(LU.star,12):'<span>ENTRY</span>'}<b>${K.name.toUpperCase()}</b><span>${g?'COMPLETE':dMonth(vs.map(k=>visited[k]).sort()[0])}</span></div></div>
+        <div class="pinfo"><b style="display:flex;align-items:center">${miniFlag(c)}${K.name}</b><span>${g?(n<K.cities.length?`Gold · ${n} of ${K.cities.length} cities stamped`:`All ${K.cities.length} cities stamped`):`${n} of ${K.cities.length} key cities`}${mem.length?`<em class="memn">${mem.length} in memories</em>`:''}</span>
           <div class="bar ${g?'gold':''}"><i style="width:${Math.min(1,n/goldNeed(c))*100}%"></i></div></div></div>
-      <div class="tiles">${K.cities.map(k=>visited[k]
-        ? `<button class="tile re ${eventStamps[k]?'evst':''} ${verified[k]?'':'past'}" data-restamp="${k}" aria-label="Stamp ${CITIES[k].name} again">${verified[k]?`<span class="vdot" title="Verified">${L(LU.check,11,3)}</span>`:`<span class="pdot" title="Past visit">${L(LU.cal,11,2.6)}</span>`}${eventStamps[k]?`<span class="evb">${L(LU.spark,12,2.4)}</span>`:''}<div class="sq" style="${isPast(k)?'':`background:${K.color}`}">${isPast(k)?pastStamp(k,60):lm(CITIES[k].icon,'on').replace('<svg','<svg width="36" height="36"')}</div><b>${CITIES[k].short||CITIES[k].name}</b></button>`
-        : `<div class="tile lock">${L(LU.lock,18)}<b>${CITIES[k].short||CITIES[k].name}</b></div>`).join('')}</div></section>`;}).join('')}</div>
-  ${weekHTML()}
+      <div class="tiles">${shown.map(k=>verified[k]&&visited[k]
+        ? `<button class="tile re ${eventStamps[k]?'evst':''}" data-restamp="${k}" aria-label="Stamp ${CITIES[k].name} again"><span class="vdot" title="Verified">${L(LU.check,11,3)}</span>${eventStamps[k]?`<span class="evb">${L(LU.spark,12,2.4)}</span>`:''}<div class="sq" style="background:${K.color}">${lm(CITIES[k].icon,'on').replace('<svg','<svg width="36" height="36"')}</div><b>${CITIES[k].short||CITIES[k].name}</b></button>`
+        : visited[k] ? `<button class="tile mem" data-popen="${k}" aria-label="${CITIES[k].name}: on your memory page. Stamp it on the spot to verify">${L(LU.cal,18,2.2)}<b>${CITIES[k].short||CITIES[k].name}</b><small>Memory</small></button>`
+        : `<div class="tile lock">${L(LU.lock,18)}<b>${CITIES[k].short||CITIES[k].name}</b></div>`).join('')}${more>0?`<button class="tile more" data-pexp="${c}" aria-label="Show ${more} more cities"><b>+${more}</b><small>more</small></button>`:''}</div></section>`;}).join('')}</div>
   ${beenHTML()}
+  ${weekHTML()}
   ${yirCardHTML()}
-  <div class="psec"><div class="psh"><h2>Collections</h2><span>${doneSets().length} of ${SETS.length} complete</span></div>
+  <div class="psec" id="pCol"><div class="psh"><h2>Collections</h2><span>${doneSets().length} of ${SETS.length} complete</span></div>
     <div class="sets">${SETS.map(st=>{const n=setGot(st).length, on=n===st.cities.length;
       return `<div class="setc ${on?'on':''}">${badgeSVG(st,on,58)}<b>${st.name}</b><span>${on?'Complete':`${n} of ${st.cities.length}`}</span><small>${st.cities.map(id=>visited[id]?`<i>${CITIES[id].name}</i>`:CITIES[id].name).join(' · ')}</small></div>`}).join('')}</div></div>
-  <div class="psec"><div class="psh"><h2>Event stamps</h2><span>${Object.keys(eventStamps).length} collected</span></div><div class="evlist">${EVENTS.map(e=>{ const got2=Object.entries(eventStamps).find(([,v])=>v.ev===e.id), live=e.cities.some(c=>activeEvent(c)&&activeEvent(c).id===e.id), C0=CITIES[got2?got2[0]:e.cities[0]], K0=COUNTRIES[C0.c];
-      return `<div class="evrow ${got2?'got':live?'live':''}"><span class="sq" style="background:${K0.color}">${lm(C0.icon,'on').replace('<svg','<svg width="26" height="26"')}</span><div><b>${e.name}</b><span>${e.cities.map(c=>CITIES[c].name).join(' or ')} · ${got2?'collected '+dLong(got2[1].date):e.when}</span></div>${got2?`<em>${L(LU.check,10,3)}</em>`:live?'<em style="background:var(--city-kyoto)">ON NOW</em>':''}</div>`; }).join('')}</div></div>
-  <div class="psec"><div class="psh"><h2>Rewards</h2><span>Complete collections to unlock</span></div>
+  <div class="psec" id="pEv"><div class="psh"><h2>Event stamps</h2><span>${Object.keys(eventStamps).length} collected</span></div><div class="evlist">${evShown().map(e=>{ const got2=Object.entries(eventStamps).find(([,v])=>v.ev===e.id), live=e.cities.some(c=>activeEvent(c)&&activeEvent(c).id===e.id), C0=CITIES[got2?got2[0]:e.cities[0]], K0=COUNTRIES[C0.c];
+      return `<div class="evrow ${got2?'got':live?'live':''}"><span class="sq" style="background:${K0.color}">${lm(C0.icon,'on').replace('<svg','<svg width="26" height="26"')}</span><div><b>${e.name}</b><span>${e.cities.map(c=>CITIES[c].name).join(' or ')} · ${got2?'collected '+dLong(got2[1].date):e.when}</span></div>${got2?`<em>${L(LU.check,10,3)}</em>`:live?'<em style="background:var(--city-kyoto)">ON NOW</em>':''}</div>`; }).join('')}${evShown().length<EVENTS.length?`<button class="lmore" id="evMore">Show all ${EVENTS.length} events</button>`:''}</div></div>
+  <div class="psec" id="pRew"><div class="psh"><h2>Rewards</h2><span>Complete collections to unlock</span></div>
     <div class="wardrobe">${OUTFITS.map(o=>{const ok=unlockedBy(o.set); return `<button class="ward ${ok?'':'lock'} ${outfit===o.id?'on':''}" data-outfit="${o.id}" ${ok?'':'aria-disabled="true"'}><span class="prev">${miniHand(o.id,84)}</span><b>${o.name}</b><small>${ok?(outfit===o.id?'Wearing':'Tap to wear'):'Complete '+SETS.find(st=>st.id===o.set).name}</small></button>`}).join('')}
       ${COVERS.map(cv2=>{const ok=unlockedBy(cv2.set); return `<button class="ward ${ok?'':'lock'} ${cover===cv2.id?'on':''}" data-cover="${cv2.id}" ${ok?'':'aria-disabled="true"'}><span class="prev"><span class="covsw ${cv2.id}"></span></span><b>${cv2.name} cover</b><small>${ok?(cover===cv2.id?'On your passport':'Tap to use'):'Complete '+SETS.find(st=>st.id===cv2.set).name}</small></button>`}).join('')}</div></div>
   ${sent.length?`<div class="psec"><div class="psh"><h2>Postcards sent</h2><span>${sent.length}</span></div><div class="shelf">${sent.map((p,i)=>{const C=CITIES[p.id],K=COUNTRIES[C.c];
@@ -5133,6 +5166,11 @@ $('#passport').addEventListener('click', e=>{
   if(e.target.closest('#logTog')){ logOpen=!logOpen; logAll=false; const y=$('#pscroll').scrollTop; renderPassport(); $('#pscroll').scrollTop=y; tone(0,'triangle',logOpen?740:560,.05,.06); return; }
   if(e.target.closest('#logMore')){ logAll=true; const y=$('#pscroll').scrollTop; renderPassport(); $('#pscroll').scrollTop=y; return; }
   const pl=e.target.closest('[data-plog]'); if(pl) return openCard(pl.dataset.plog);
+  const keep=fn=>{ const y=$('#pscroll').scrollTop; fn(); renderPassport(); $('#pscroll').scrollTop=y; };
+  const lf=e.target.closest('[data-logf]'); if(lf) return keep(()=>{ logF=lf.dataset.logf; logAll=false; });
+  const px=e.target.closest('[data-pexp]'); if(px) return keep(()=>pExp.add(px.dataset.pexp));
+  if(e.target.closest('#evMore')) return keep(()=>{ evAll=true; });
+  const jp=e.target.closest('[data-jump]'); if(jp){ const sc=$('#pscroll'), el=$(jp.dataset.jump); if(el) sc.scrollTo({top:sc.scrollTop+el.getBoundingClientRect().top-sc.getBoundingClientRect().top-12,behavior:'smooth'}); return; }
   if(e.target.closest('#addPast')) return openPastSheet();
   if(e.target.closest('#yirBtn')) return openYir();
   if(e.target.closest('#verTap')){ const now=Date.now(); verTaps=(now-verT<2500?verTaps:0)+1; verT=now;
@@ -5228,6 +5266,3 @@ renderAll();
 $('#art-world').classList.add('on'); $('#ui-world').classList.add('on');
 checkUnlocks(); renderFriends(); showSplash(); initSync(); locRefreshState().then(st=>{ if(LOC.on && st==='granted') locTest(false); else paintLoc(); }); if(MAPSTYLE==='real') loadReal();
 </script>
-
-</body>
-</html>
