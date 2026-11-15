@@ -25,7 +25,7 @@
   --paper-cream:#F6EBD3; --paper-card:#FFF8E7; --ink-navy:#1F2A44; --ink-soft:#4A4F63;
   --stamp-red:#B83A2B; --stamp-gold:#9A6F0E; --stamp-gold-wash:#F7E6B5;
   --city-lisbon:#E3A72F; --city-kyoto:#C4473A; --city-capetown:#2A7C86; --accent-plum:#7A4A7D;
-  --map-ocean:#BFD9D6; --map-land:#F0DFB8; --map-land-edge:#C9B07A;
+  --map-ocean:#C6D7E0; --map-land:#F0DFB8; --map-land-edge:#C9B07A; --map-hl:#F4D58E;
   --surround:#E4D6B6; --frame:#1F2A44;
   --font-display:"Fraunces",Georgia,"Times New Roman",serif;
   --font-body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -37,7 +37,7 @@ html.bright{
   --paper-cream:#FFF3D6; --paper-card:#FFFCF2; --ink-navy:#1B1F4B; --ink-soft:#50557F;
   --stamp-red:#E8382A; --stamp-gold:#AD7400; --stamp-gold-wash:#FFE38A;
   --city-lisbon:#FFC21F; --city-kyoto:#FF4F6E; --city-capetown:#009C94; --accent-plum:#9D4EFF;
-  --map-ocean:#6FD3F0; --map-land:#FFE7A3; --map-land-edge:#E8A93A;
+  --map-ocean:#8DCDE6; --map-land:#FFE7A3; --map-land-edge:#E8A93A; --map-hl:#FFD45C;
   --surround:#FFD9A0; --frame:#1B1F4B;
 }
 html.bright .btn.navy{box-shadow:4px 4px 0 var(--city-kyoto)}
@@ -75,7 +75,7 @@ button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--stamp-red)
 .art svg.map{position:absolute;inset:0;width:390px;height:844px}
 .land path{fill:var(--map-land);stroke:var(--map-land-edge);stroke-linejoin:round}
 .sea path{fill:var(--map-ocean);stroke:var(--map-land-edge);stroke-linejoin:round}
-.hl path{fill:var(--stamp-gold-wash);stroke:var(--stamp-gold);stroke-width:3;stroke-linejoin:round}
+.hl path{fill:var(--map-hl,var(--stamp-gold-wash));stroke:var(--stamp-gold);stroke-width:3;stroke-linejoin:round}
 .mk{position:absolute}
 .art.on .mk{animation:grow .45s .15s both cubic-bezier(.3,1.4,.5,1)}
 @keyframes grow{from{transform:scale(.85);opacity:.4}to{transform:none;opacity:1}}
@@ -1353,6 +1353,30 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
 /* finer map outlines */
 .art svg.map .land path,.art svg.map .sea path{stroke-width:1.1px}
 .art svg.map .hl path{stroke-width:1.6px}
+
+/* ---------- passport: stamp log drop-down ---------- */
+.slog{margin:0 20px 16px;border:2px solid var(--ink-navy);border-radius:16px;background:var(--paper-card);box-shadow:4px 4px 0 var(--ink-navy);overflow:hidden}
+.slh{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;text-align:left;background:none}
+.slog .sq{flex-shrink:0;width:40px;height:40px;border-radius:10px;border:2px solid var(--ink-navy);display:flex;align-items:center;justify-content:center}
+.slog .lt{flex:1;min-width:0}
+.slog .lt small{display:block;font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--ink-soft)}
+.slog .lt b{display:block;font:900 17px/1.2 var(--font-display);color:var(--ink-navy)}
+.slog .lt span{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slog .lt .miniflag{width:14px;height:14px}
+.slog .chev{flex-shrink:0;width:32px;height:32px;border-radius:50%;border:2px solid var(--ink-navy);display:flex;align-items:center;justify-content:center;transition:transform .25s}
+.slog.open .chev{transform:rotate(180deg)}
+.lbody{border-top:2px dashed var(--ink-navy);padding:6px 10px 10px;display:flex;flex-direction:column;gap:2px;animation:pop .2s both}
+.lrow{display:flex;align-items:center;gap:10px;width:100%;padding:8px 4px;text-align:left;background:none;border-bottom:1px solid rgba(31,42,68,.12)}
+.lrow:last-of-type{border-bottom:0}
+.lrow .sq{width:36px;height:36px;border-radius:9px}
+.lrow .lt b{font:800 14px/1.25 var(--font-body)}
+.lrow .lb{flex-shrink:0;display:flex;align-items:center;gap:3px;padding:3px 8px;border-radius:999px;font-size:10.5px;font-weight:800;border:1.5px solid var(--ink-navy)}
+.lrow .lb.ok{background:#E9F9F0;color:#1E7A48}
+.lrow .lb.past{background:#E6EEFF;color:var(--memory,#3D5BD9)}
+.lmore{margin-top:6px;height:38px;border:2px dashed var(--ink-navy);border-radius:999px;font-size:13px;font-weight:800;background:none}
+/* paper speckle on land */
+.art svg.map .speck path{fill:url(#pmSpeck);stroke:none !important;pointer-events:none}
+.art .wtile svg.map .speck path{fill:url(#pmSpeckW)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}}
 .banner h2.long{font-size:30px}
 </style>
@@ -2780,7 +2804,11 @@ function badgeSVG(st, on, size){
 }
 const esc = t => String(t).replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
 const cap = t => t.charAt(0).toUpperCase() + t.slice(1);
-const paths = (arr, cls, sw) => `<g class="${cls}" style="stroke-width:${sw}px">${arr.map(d=>`<path d="${d}"/>`).join('')}</g>`;
+const paths = (arr, cls, sw) => `<g class="${cls}" style="stroke-width:${sw}px">${arr.map(d=>`<path d="${d}"/>`).join('')}</g>`+((cls==='land'||cls==='hl')?`<g class="speck">${arr.map(d=>`<path d="${d}"/>`).join('')}</g>`:'');
+/* one shared paper-speckle pattern; its scale is undone when a map is zoomed so the grain stays fine */
+document.body.insertAdjacentHTML('afterbegin', `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <pattern id="pmSpeck" width="9" height="9" patternUnits="userSpaceOnUse">${[[1.2,1.6,.5],[5.6,2.4,.38],[3.4,5.2,.42],[7.8,6.8,.5],[1.8,7.6,.34],[6.4,4.6,.3]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#8A6A2E" opacity=".22"/>`).join('')}<path d="M2.5 3.8 l1.6 .7 M6.2 8.1 l1.4 -.6" stroke="#8A6A2E" stroke-width=".35" opacity=".18"/></pattern>
+  <pattern id="pmSpeckW" width="9" height="9" patternUnits="userSpaceOnUse" href="#pmSpeck"></pattern></defs></svg>`);
 let toastT;
 function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('on'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('on'),2200); }
 
@@ -3000,6 +3028,7 @@ function worldArtHTML(){
     if(MAPSTYLE==='real' && REAL) inner = realInner('world');
     return scratchSvg('world',inner); }).replace('<svg class="map"', `<svg class="map" style="--wz:${WZ.toFixed(3)};width:${(390*g.z).toFixed(1)}px;height:${(844*g.z).toFixed(1)}px;top:${g.oy.toFixed(1)}px"`);
   const at=(x,y)=>[x*g.z, y*g.z+g.oy];
+  const pw=document.getElementById('pmSpeckW'); if(pw) pw.setAttribute('patternTransform', `scale(${(1.9/g.z).toFixed(4)})`);
   const bubs = REGIONS.map(r=>{ const n=regionCount(r), [cx,cy]=at(r.x+15,r.y+15); return `<button class="bub mk ${n?'hot':''}" data-region="${r.id}" style="left:${(cx-19).toFixed(1)}px;top:${(cy-19).toFixed(1)}px" aria-label="${r.name}, ${n} stamped">${n}</button>`; }).join('');
   let me='';
   if(LOC.on && LOC.pos){ const [ax,bx,ay,by]=lvAff('world'), [X,Y]=at(ax*LOC.pos[1]+bx, ay*LOC.pos[0]+by); me=`<div class="me here" style="left:${(X-24).toFixed(1)}px;top:${(Y-58).toFixed(1)}px" aria-hidden="true">${face(40)}<i>YOU</i><u></u></div>`; }
@@ -3140,6 +3169,7 @@ function applyZoom(lv, ease){
   const el=document.querySelector('#art-'+lv+' > .zoomer'); if(!el) return; const z=zClamp(zOf(lv));
   if(ease) return zoomTween(lv, {...z});
   el.style.transform=`translate(${z.x.toFixed(1)}px,${z.y.toFixed(1)}px) scale(${z.s.toFixed(4)})`; el.style.setProperty('--iz', (1/z.s).toFixed(4)); el.classList.toggle('zin', z.s>=1.7);
+  const pt=document.getElementById('pmSpeck'); if(pt) pt.setAttribute('patternTransform', `scale(${(1/z.s).toFixed(4)})`);
   /* the map drawing itself is redrawn at the zoomed view, so coastlines stay crisp and thin */
   const sv=el.querySelector('svg.map'); if(sv){ const vx=-z.x/z.s, vy=-z.y/z.s; sv.style.transformOrigin='0 0'; sv.style.transform=`translate(${vx.toFixed(2)}px,${vy.toFixed(2)}px) scale(${(1/z.s).toFixed(5)})`; sv.setAttribute('viewBox', `${vx.toFixed(2)} ${vy.toFixed(2)} ${(390/z.s).toFixed(2)} ${(844/z.s).toFixed(2)}`); }
   z.__s=z.s; z.__x=z.x; z.__y=z.y;
@@ -3198,7 +3228,7 @@ let busy=false;
 function go(to, ox=195, oy=300, dir='in'){
   if(busy || to===level) return; busy=true;
   const fromA=$('#art-'+level), toA=$('#art-'+to);
-  ZM[to]={s:1,x:0,y:0}; goingTo=to; renderLevel(to); goingTo=null;
+  ZM[to]={s:1,x:0,y:0}; goingTo=to; renderLevel(to); goingTo=null; if(to!=='world'){ const pt=document.getElementById('pmSpeck'); if(pt) pt.setAttribute('patternTransform','scale(1)'); }
   if(['europe','asia','na','sa','africa','oc'].includes(to)){ let seen=false; try{ seen=localStorage.getItem('pm-zhint')==='1'; localStorage.setItem('pm-zhint','1'); }catch(e){ seen=true; } if(!seen) setTimeout(()=>toast('Tip: pinch or double-tap the map to zoom in'), 900); }
   fromA.style.transformOrigin=`${ox}px ${oy}px`;
   toA.style.transition='none'; toA.style.transformOrigin=`${ox}px ${oy}px`;
@@ -5048,6 +5078,22 @@ $('#pastSheet').addEventListener('click', e=>{
 });
 
 /* ---------- passport ---------- */
+let logOpen=false, logAll=false;
+const stampOrder = () => Object.keys(visited).filter(id=>CITIES[id]).sort((a,b)=>{ const d=visited[b].localeCompare(visited[a]); if(d) return d;
+  const ta=(verified[a]&&verified[a].at)||'', tb=(verified[b]&&verified[b].at)||''; return tb.localeCompare(ta); });
+function stampLogHTML(){
+  const ids=stampOrder(); if(!ids.length) return '';
+  const row=id=>{ const C=CITIES[id], K=COUNTRIES[C.c], v=verified[id], ev=eventStamps[id];
+    return `<button class="lrow" data-plog="${id}"><span class="sq" style="background:${K.color}">${lm(C.icon,'on').replace('<svg','<svg width="28" height="28"')}</span>
+      <span class="lt"><b>${C.name}</b><span>${miniFlag(C.c)}${K.name} · ${dLong(visited[id])}</span></span>
+      <span class="lb ${v?'ok':'past'}">${ev?'Event':v?`${L(LU.check,10,3)}Verified`:'Past visit'}</span></button>`; };
+  const cap=logAll?ids.length:12, first=ids[0], C0=CITIES[first];
+  return `<section class="slog ${logOpen?'open':''}"><button class="slh" id="logTog" aria-expanded="${logOpen}">
+      <span class="sq" style="background:${COUNTRIES[C0.c].color}">${lm(C0.icon,'on').replace('<svg','<svg width="28" height="28"')}</span>
+      <span class="lt"><small>ALL STAMPS · NEWEST FIRST</small><b>${ids.length} stamp${ids.length===1?'':'s'}</b><span>Latest: ${C0.name}, ${dLong(visited[first])}</span></span>
+      <span class="chev">${L(LU.down,18)}</span></button>
+    ${logOpen?`<div class="lbody">${ids.slice(0,cap).map(row).join('')}${ids.length>cap?`<button class="lmore" id="logMore">Show all ${ids.length} stamps</button>`:''}</div>`:''}</section>`;
+}
 function renderPassport(){ saveState();
   const cs = Object.keys(COUNTRIES).filter(c=>got(c).length);
   const nc = Object.keys(CITIES).filter(id=>visited[id]).length;
@@ -5055,6 +5101,7 @@ function renderPassport(){ saveState();
   $('#passport').className = 'cover-'+cover;
   $('#passport').innerHTML = `<div id="pscroll"><div class="phead"><button class="sndbtn" id="sndBtn" aria-label="${soundOn?'Mute stamp sounds':'Turn stamp sounds on'}">${L(soundOn?LU.vol:LU.mute,20)}</button><span class="eyebrow">Postmark</span><h1>Your passport</h1><p>${head}</p>${syncPillHTML()}${Object.keys(visited).length?`<span class="inklegend"><span><i style="color:var(--stamp-red)"></i>Stamped on the spot</span><span><i style="color:var(--memory)"></i>Past visit</span></span>`:''}${Object.keys(verified).filter(k=>visited[k]).length?`<span class="honest">${L(LU.shield,14)}Verified traveller · ${Object.keys(verified).filter(k=>visited[k]).length} stamps checked by location</span>`:''}</div>
   ${bioHTML()}
+  ${stampLogHTML()}
   ${cs.length?'':`<div class="empty"><div class="wvav">${avatarSVG(AVA,110)}</div><b>Your passport is empty</b><p>Every city you visit earns a stamp. Pick a place on the map and mark it as visited.</p><button class="btn navy" id="goMap">${L(LU.map,18)}Open the map</button></div>`}
   <div class="pcards">${cs.map(c=>{const K=COUNTRIES[c], n=got(c).length, g=done(c);
     return `<section class="pcard ${g?'gold':''}">
@@ -5083,6 +5130,9 @@ function renderPassport(){ saveState();
 }
 $('#passport').addEventListener('click', e=>{
   if(e.target.closest('#goMap')) return tab('map');
+  if(e.target.closest('#logTog')){ logOpen=!logOpen; logAll=false; const y=$('#pscroll').scrollTop; renderPassport(); $('#pscroll').scrollTop=y; tone(0,'triangle',logOpen?740:560,.05,.06); return; }
+  if(e.target.closest('#logMore')){ logAll=true; const y=$('#pscroll').scrollTop; renderPassport(); $('#pscroll').scrollTop=y; return; }
+  const pl=e.target.closest('[data-plog]'); if(pl) return openCard(pl.dataset.plog);
   if(e.target.closest('#addPast')) return openPastSheet();
   if(e.target.closest('#yirBtn')) return openYir();
   if(e.target.closest('#verTap')){ const now=Date.now(); verTaps=(now-verT<2500?verTaps:0)+1; verT=now;
