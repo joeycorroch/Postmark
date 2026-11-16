@@ -1081,6 +1081,44 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
 .mailshelf .nb{position:absolute;top:-8px;right:-4px;padding:2px 7px;border-radius:999px;background:var(--stamp-red);color:#fff;border:2px solid var(--ink-navy);font-size:10px;font-weight:800;z-index:1}
 .mailshelf .who{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:800;color:var(--ink-navy)}
 .mailshelf .who .face{width:20px;height:20px}
+.caught{display:flex;align-items:center;gap:6px;margin:0 20px 10px;font-size:13px;color:var(--ink-soft)}
+.caught svg{color:#1E7A48}
+.tin{margin:4px 20px 16px;border:2px solid var(--ink-navy);border-radius:16px;background:#E4EEF2;background-image:var(--grain);box-shadow:4px 4px 0 var(--ink-navy);overflow:hidden}
+.tin.bump .tinh svg{animation:tinbump .7s .2s both}
+@keyframes tinbump{0%{transform:none}30%{transform:translateY(-6px) rotate(-4deg)}60%{transform:translateY(1px) rotate(3deg)}100%{transform:none}}
+.tinh{display:flex;align-items:center;gap:12px;width:100%;padding:10px 14px;text-align:left;background:none}
+.tinh svg{flex-shrink:0;overflow:visible;transition:transform .3s}
+.tin.open .tinh svg rect:nth-last-child(5){transform:translateY(-3px)}
+.tin .lt{flex:1;min-width:0}
+.tin .lt small{display:block;font-size:10px;font-weight:800;letter-spacing:.08em;color:#2F6F8F}
+.tin .lt b{display:block;font:900 17px/1.2 var(--font-display);color:var(--ink-navy)}
+.tin .lt span{display:block;font-size:12px;color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tin .chev{flex-shrink:0;width:32px;height:32px;border-radius:50%;border:2px solid var(--ink-navy);display:flex;align-items:center;justify-content:center;transition:transform .25s;background:var(--paper-card)}
+.tin.open .chev{transform:rotate(180deg)}
+.tinb{border-top:2px dashed var(--ink-navy);padding:10px 12px 14px;animation:pop .2s both}
+.tchips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:10px}
+.tchips::-webkit-scrollbar{display:none}
+.tchips button{flex-shrink:0;display:flex;align-items:center;gap:5px;height:30px;padding:0 10px 0 6px;border:2px solid var(--ink-navy);border-radius:999px;background:var(--paper-card);font-size:12px;font-weight:800}
+.tchips button:first-child{padding-left:10px}
+.tchips .face{width:18px;height:18px}
+.tchips i{font-style:normal;font-size:10.5px;opacity:.65}
+.tchips button.on{background:var(--ink-navy);color:#fff}
+.kstack{display:flex;flex-direction:column;padding:4px 4px 2px}
+.kc{position:relative;display:flex;flex-direction:column;width:100%;height:132px;padding:0;text-align:left;border:2px solid var(--ink-navy);border-radius:8px;background:var(--paper-card);background-image:var(--grain);box-shadow:3px 3px 0 rgba(27,31,75,.35);transform:rotate(var(--r));overflow:hidden;animation:kin .35s both}
+.kc+.kc{margin-top:-86px}
+.kc:nth-child(2){animation-delay:.05s}.kc:nth-child(3){animation-delay:.1s}.kc:nth-child(4){animation-delay:.15s}.kc:nth-child(5){animation-delay:.2s}.kc:nth-child(6){animation-delay:.25s}
+@keyframes kin{from{opacity:0;transform:translateY(-18px) rotate(var(--r))}to{opacity:1;transform:rotate(var(--r))}}
+.kc:active{transform:translateY(-4px) rotate(var(--r))}
+.kb{flex:1;display:flex;gap:10px;padding:10px 12px 4px;position:relative}
+.km{flex:1;font:italic 600 14px/1.35 var(--font-display);color:var(--ink-navy);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;border-right:1.5px solid rgba(27,31,75,.25);padding-right:10px}
+.ks{flex-shrink:0;width:42px;height:48px;background:var(--c);border:2px dashed var(--paper-card);outline:2px solid var(--ink-navy);display:flex;align-items:center;justify-content:center;margin:2px 2px 0 0}
+.kpm{position:absolute;right:40px;top:30px;width:40px;height:40px;border-radius:50%;border:2px solid rgba(192,57,43,.75);color:rgba(192,57,43,.85);display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(-14deg);background:rgba(255,255,255,.15)}
+.kpm b{font-size:9.5px;font-weight:900;line-height:1}.kpm small{font-size:8.5px;font-weight:800}
+.kf{flex-shrink:0;display:flex;align-items:center;gap:7px;height:42px;padding:0 12px;background:var(--c);color:var(--k);border-top:2px solid var(--ink-navy)}
+.kf .face{width:22px;height:22px;border:1.5px solid var(--ink-navy)}
+.kf b{font:900 15px/1 var(--font-display)}
+.kf span:last-child{margin-left:auto;font-size:12px;font-weight:700;opacity:.9}
+.psub{margin:4px 0 10px;font-size:12.5px;color:var(--ink-soft)}
 /* ---------- collectable envelope styles ---------- */
 .envpick{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px}
 .envpick button{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 6px 4px;border:2px solid var(--ink-navy);border-radius:12px;background:var(--paper-card);font-size:11px;font-weight:800;position:relative}
@@ -2675,11 +2713,12 @@ const today = () => { const t=new Date(); return `${t.getFullYear()}-${String(t.
 const got = c => COUNTRIES[c].cities.filter(id => visited[id]);
 const firstEntry = c => got(c).map(id => visited[id]).sort()[0];
 const goldNeed = c => Math.min(5, COUNTRIES[c].cities.length);
-const done = c => got(c).length >= goldNeed(c);
+const vst = id => !!visited[id] && !!verified[id];   /* stamped on the spot (location-checked) */
+const done = c => COUNTRIES[c].cities.filter(vst).length >= goldNeed(c);
 const cityCount = region => Object.keys(CITIES).filter(id => visited[id] && COUNTRIES[CITIES[id].c].region === region).length;
 const regionTotal = region => Object.keys(COUNTRIES).filter(c => COUNTRIES[c].region === region).length;
 const countryCount = region => Object.keys(COUNTRIES).filter(c => COUNTRIES[c].region === region && got(c).length).length;
-const setGot = st => st.cities.filter(id => visited[id]);
+const setGot = st => st.cities.filter(vst);
 const doneSets = () => SETS.filter(st => setGot(st).length === st.cities.length);
 /* Past visits keep a generic blue postmark until the city is stamped on the spot. */
 const pastStamp = (id, size) => { const y=(visited[id]||'').slice(0,4); return `<svg viewBox="0 0 64 64" width="${size}" height="${size}" aria-hidden="true"><path d="M1 22 q4 -3 8 0 t8 0 M1 30 q4 -3 8 0 t8 0 M1 38 q4 -3 8 0 t8 0" fill="none" stroke="#3D7BFF" stroke-width="2.2" stroke-linecap="round"/><circle cx="36" cy="32" r="25" fill="none" stroke="#3D7BFF" stroke-width="3.4"/><circle cx="36" cy="32" r="19" fill="none" stroke="#3D7BFF" stroke-width="1.4" stroke-dasharray="2.4 2.4"/><text x="36" y="27" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="6.6" font-weight="800" letter-spacing=".5" fill="#3D7BFF">BEEN</text><text x="36" y="35" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="6.6" font-weight="800" letter-spacing=".5" fill="#3D7BFF">THERE</text><text x="36" y="45" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="7.5" font-weight="800" fill="#3D7BFF">${y}</text></svg>`; };
@@ -3645,7 +3684,7 @@ function goldMoment(c, after){
 }
 function markVisited(id, opts={}){
   if(stamping) return; stamping=true; holdReveal=true;
-  const c=CITIES[id].c, upgrade=!!visited[id], isFirst = !upgrade && got(c).length===0, setsBefore = doneSets().map(st=>st.id);
+  const c=CITIES[id].c, upgrade=!!visited[id], isFirst = !upgrade && got(c).length===0, setsBefore = doneSets().map(st=>st.id), goldBefore = done(c);
   const now=Date.now(); combo = now-lastStampT < 180000 ? combo+1 : 1; lastStampT = now;
   const sc=$('#sheetScroll'); sc.scrollTop=0;
   const ban=toPhone(sc.querySelector('.banner'));
@@ -3655,7 +3694,11 @@ function markVisited(id, opts={}){
     const ev=(opts.verified||when===today()) && activeEvent(id, when); if(ev) eventStamps[id]={ev:ev.id, date:when};
     justStamped=id; lastStamped=id; refreshCard(); renderPassport();
   }}).then(()=>setTimeout(()=>{
-    if(upgrade){ stamping=false; holdReveal=false; justStamped=null; refreshCard(); renderAll(); renderPassport(); chime(); toast(`Full stamp unlocked for ${CITIES[id].name}`); setTimeout(()=>{ lastStamped=null; checkUnlocks(); }, 900); return; }
+    if(upgrade){ stamping=false; holdReveal=false; justStamped=null; refreshCard(); renderAll(); renderPassport(); chime(); toast(`Full stamp unlocked for ${CITIES[id].name}`);
+      const fresh=doneSets().filter(st=>!setsBefore.includes(st.id)), goldNew=!goldBefore&&done(c);
+      const end=()=>setTimeout(()=>{ lastStamped=null; checkUnlocks(); }, 900);
+      const sets=()=>fresh.length?setTimeout(()=>badgeMoment(fresh[0], end), 600):end();
+      if(goldNew||fresh.length){ setTimeout(()=>{ closeCard(); goldNew?goldMoment(c, sets):sets(); }, 1200); } else end(); return; }
     stamping=false; closeCard(); renderAll();
     const finish = next => {
       justStamped=null; holdReveal=false; renderAll();
@@ -4054,11 +4097,11 @@ const LOCKS = {
   'hat:halo':{test:()=>Object.keys(unlocked).length>=3, label:'Unlock 3 local secrets'},
   'neck:medal':{test:()=>Object.keys(COUNTRIES).some(done), label:'Earn gold in any country'},
   'glasses:neon':{test:()=>sent.length>=1, label:'Send a postcard'},
-  'aura:glow':{test:()=>Object.keys(visited).length>=5, label:'Stamp 5 cities'},
-  'aura:rainbow':{test:()=>Object.keys(COUNTRIES).filter(c=>got(c).length).length>=4, label:'Stamp all 4 countries'},
+  'aura:glow':{test:()=>Object.keys(visited).filter(vst).length>=5, label:'Stamp 5 cities on the spot'},
+  'aura:rainbow':{test:()=>Object.keys(COUNTRIES).filter(c=>vgot(c).length).length>=4, label:'Stamp 4 countries on the spot'},
   'aura:sparkle':{test:()=>doneSets().length>=1, label:'Complete any collection'},
   'bgx:sunset':{test:()=>mailEver, label:'Open a daily postcard'},
-  'bgx:galaxy':{test:()=>Object.keys(visited).length>=10, label:'Stamp 10 cities'},
+  'bgx:galaxy':{test:()=>Object.keys(visited).filter(vst).length>=10, label:'Stamp 10 cities on the spot'},
   'hat:propeller':{test:()=>weeklyEarned('hat:propeller'), label:'Weekly challenge reward'},
   'glasses:pixel':{test:()=>weeklyEarned('glasses:pixel'), label:'Weekly challenge reward'},
   'aura:confetti':{test:()=>weeklyEarned('aura:confetti'), label:'Weekly challenge reward'},
@@ -4089,13 +4132,13 @@ const inWeek = iso => iso && iso>=weekStart() && iso<=addDays(weekStart(),6);
 const BRIDGES = ['porto','sydney','venice','florence','lisbon'];
 const ASIA_C = ['tokyo','kyoto','osaka','bangkok','chiangmai','phuket'];
 const CH_POOL = [
-  {id:'bridge', name:'Bridge spotter', text:'Stamp a city famous for its bridges', target:1, icon:'bridge', n:()=>Object.keys(visited).filter(id=>BRIDGES.includes(id)&&inWeek(visited[id])).length},
+  {id:'bridge', name:'Bridge spotter', text:'Stamp a bridge city on the spot', target:1, icon:'bridge', n:()=>Object.keys(visited).filter(id=>vst(id)&&BRIDGES.includes(id)&&inWeek(visited[id])).length},
   {id:'cards', name:'Pen pal', text:'Send 2 postcards', target:2, icon:'mail', n:()=>sent.filter(p=>inWeek(p.date)).length},
   {id:'asia', name:'Secret keeper', text:'Unlock a local secret in Asia', target:1, icon:'key', n:()=>Object.keys(unlocked).filter(id=>ASIA_C.includes(id)&&inWeek(unlocked[id])).length},
-  {id:'two', name:'On the move', text:'Stamp 2 cities', target:2, icon:'stamp', n:()=>Object.keys(visited).filter(id=>inWeek(visited[id])).length},
+  {id:'two', name:'On the move', text:'Stamp 2 cities on the spot', target:2, icon:'stamp', n:()=>Object.keys(visited).filter(id=>vst(id)&&inWeek(visited[id])).length},
   {id:'event', name:'Festival goer', text:'Collect a special event stamp', target:1, icon:'spark', n:()=>Object.values(eventStamps).filter(e=>inWeek(e.date)).length},
   {id:'mail', name:'Mail call', text:'Open the daily postcard', target:1, icon:'mail', n:()=>mailDays.filter(inWeek).length},
-  {id:'country', name:'New horizons', text:'Stamp a city in a new country', target:1, icon:'plane', n:()=>Object.keys(COUNTRIES).filter(c=>got(c).length && inWeek(firstEntry(c))).length},
+  {id:'country', name:'New horizons', text:'Stamp a new country on the spot', target:1, icon:'plane', n:()=>Object.keys(COUNTRIES).filter(c=>vgot(c).length && inWeek(vgot(c).map(k=>visited[k]).sort()[0])).length},
   {id:'secrets2', name:'Know-it-all', text:'Unlock 2 local secrets', target:2, icon:'key', n:()=>Object.keys(unlocked).filter(id=>inWeek(unlocked[id])).length}
 ];
 const WREWARDS = [['hat','propeller','Propeller hat'],['glasses','pixel','Pixel shades'],['aura','confetti','Confetti aura']];
@@ -4107,7 +4150,7 @@ function weeklyEarned(key){ if(earnedWeekly.has(key)) return true; const c=weekl
 function weekHTML(){
   const cs=weekly(), left=6-Math.round((new Date(today()+'T00:00')-new Date(weekStart()+'T00:00'))/864e5);
   return `<section class="week" aria-label="This week's challenges"><div class="wh"><b>This week</b><span>${left===0?'Last day':left+(left===1?' day left':' days left')}</span></div>
-    <p>Finish a challenge to win its avatar item and a collectable envelope. They’re only up for grabs this week.</p>
+    <p>Finish a challenge to win its avatar item and a collectable envelope. They’re only up for grabs this week. Only on-the-spot stamps count.</p>
     ${cs.map(c=>`<div class="chal ${c.cur>=c.target?'done':''}"><span class="ci">${L(c.cur>=c.target?LU.check:LU[c.icon]||LU.target,18)}</span>
       <div class="cm"><b>${c.name}</b><small>${c.text} · ${c.cur} of ${c.target}</small><div class="bar"><i style="width:${c.cur/c.target*100}%"></i></div></div>
       <div class="rw"><span class="face">${avatarSVG({...AVA,[c.rk]:c.rv},40)}</span><em>${c.rlabel}<small>+ ${ENV_STYLES.find(x=>x.slot===cs.indexOf(c)).name} envelope</small></em></div></div>`).join('')}</section>`;
@@ -4763,6 +4806,7 @@ const friendList = () => [...friendIds.map(realFriend), ...(DEMO?SAMPLE_FRIENDS:
 const friendById = id => SAMPLE_FRIENDS.find(x=>x.id===id) || realFriend(id);
 const fav = f => ({...AV_DEFAULT, ...f.av, bio:{...AV_DEFAULT.bio}});
 const ffaceSVG = (f,w) => avatarSVG(fav(f), w);
+let tinOpen=false, tinAll=false, tinFrom='all', tinBump=false;
 let inbox = FRESH ? [] : [{from:'mia', id:'venice', msg:'Wish you were here! The gondolier sang the whole way.', date:'2025-06-10', read:false}];
 let friendView = null;
 const codeOf = uid => { let h=2166136261; for(const ch of uid){ h^=ch.charCodeAt(0); h=Math.imul(h,16777619)>>>0; } let h2=h^0x9e3779b9; const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let out=''; for(let i=0;i<6;i++){ out+=A[(i<3?h:h2)>>>(i%3*5)&31]; } return 'PM-'+out; };
@@ -4771,6 +4815,22 @@ const myCode = () => codeOf(SOC.uid || AVA.no || 'guest');
 function friendStats(f){ const ids=Object.keys(f.visited).filter(i=>CITIES[i]), cs=new Set(ids.map(i=>CITIES[i].c)); const mine=Object.keys(visited);
   return {n:ids.length, countries:cs.size, both:ids.filter(i=>mine.includes(i)), theirs:ids.filter(i=>!mine.includes(i)), mineOnly:mine.filter(i=>!ids.includes(i))}; }
 const cityChip = id => `<button data-fopen="${id}">${miniFlag(CITIES[id].c)}${CITIES[id].name}</button>`;
+/* Opened postcards move off the shelf into a keepsake tin: a lidded tin on the shelf that opens into a cascading stack of postcards. */
+function tinHTML(){
+  const kept=inbox.map((m,i)=>({m,i})).filter(x=>x.m.read&&CITIES[x.m.id]).sort((a,b)=>(b.m.date||'').localeCompare(a.m.date||'')||a.i-b.i);
+  if(!kept.length) return '';
+  const senders=[...new Set(kept.map(x=>x.m.from))], list=tinFrom==='all'?kept:kept.filter(x=>x.m.from===tinFrom), cap=tinAll?list.length:6;
+  const peek=kept.slice(0,3).map((x,j)=>{ const K=COUNTRIES[CITIES[x.m.id].c]; return `<rect x="${13+j*9}" y="${9-j*2}" width="26" height="22" rx="2" fill="${K.color}" stroke="#1B1F4B" stroke-width="2" transform="rotate(${[-12,4,14][j]} ${26+j*9} 26)"/>`; }).reverse().join('');
+  const tin=`<svg viewBox="0 0 72 62" width="62" height="54" aria-hidden="true">${peek}<rect x="5" y="24" width="62" height="34" rx="6" fill="#2F6F8F" stroke="#1B1F4B" stroke-width="2.5"/><rect x="2" y="20" width="68" height="9" rx="4" fill="#3E8DB3" stroke="#1B1F4B" stroke-width="2.5"/><rect x="18" y="34" width="36" height="15" rx="3" fill="#F6E7C1" stroke="#1B1F4B" stroke-width="1.6"/><path d="M23 41.5h26" stroke="#C0392B" stroke-width="2" stroke-dasharray="3 2"/><circle cx="12" cy="42" r="2" fill="#F6E7C1"/><circle cx="60" cy="42" r="2" fill="#F6E7C1"/></svg>`;
+  const card=(x,k)=>{ const m=x.m, C=CITIES[m.id], K=COUNTRIES[C.c], fr=friendById(m.from), dt=m.date?dLong(m.date):'';
+    return `<button class="kc" data-inbox="${x.i}" style="--c:${K.color};--k:${K.ink};--r:${[-1.4,1.1,-.6,1.6,-1,.7][k%6]}deg;z-index:${40-k}" aria-label="Postcard from ${esc(fr.name)}, ${C.name}">
+      <span class="kb"><span class="km">“${esc(m.msg)}”</span><span class="ks">${lm(C.icon,'on').replace('<svg','<svg width="26" height="26"')}</span><span class="kpm"><b>${dt.split(' ').slice(0,2).join(' ')}</b><small>${(m.date||'').slice(0,4)}</small></span></span>
+      <span class="kf"><span class="face">${ffaceSVG(fr,22)}</span><b>${C.name}</b><span>from ${esc(fr.name)}</span></span></button>`; };
+  return `<section class="tin ${tinOpen?'open':''} ${tinBump?'bump':''}"><button class="tinh" id="tinTog" aria-expanded="${tinOpen}">${tin}
+      <span class="lt"><small>KEEPSAKE TIN</small><b>${kept.length} postcard${kept.length===1?'':'s'} kept</b><span>Latest from ${esc(friendById(kept[0].m.from).name)} · ${CITIES[kept[0].m.id].name}</span></span><span class="chev">${L(LU.down,18)}</span></button>
+    ${tinOpen?`<div class="tinb">${senders.length>1?`<div class="tchips"><button class="${tinFrom==='all'?'on':''}" data-tinf="all">Everyone <i>${kept.length}</i></button>${senders.map(f=>{ const fr=friendById(f); return `<button class="${tinFrom===f?'on':''}" data-tinf="${f}"><span class="face">${ffaceSVG(fr,18)}</span>${esc(fr.name)} <i>${kept.filter(x=>x.m.from===f).length}</i></button>`; }).join('')}</div>`:''}
+      <div class="kstack">${list.slice(0,cap).map(card).join('')}</div>${list.length>cap?`<button class="lmore" id="tinMore">Show all ${list.length} postcards</button>`:''}</div>`:''}</section>`;
+}
 function renderFriends(){ saveState();
   const unread=inbox.filter(m=>!m.read).length, f=friendView&&friendList().find(x=>x.id===friendView);
   if(f){ const st=friendStats(f);
@@ -4787,8 +4847,9 @@ function renderFriends(){ saveState();
       <div class="codecard" ${STANDALONE&&!ACCT.signedIn?'hidden':''}><span class="face">${avatarSVG(AVA,52)}</span><div><small>YOUR FRIEND CODE</small><b>${SOC.uid?myCode():STANDALONE?'Coming soon':'Sign in to get one'}</b></div>${SOC.uid?`<button id="fInvite">${L(LU.copy,14)}Invite</button>`:''}</div>
       ${SOC.uid?`<form class="addfriend" id="fAdd"><input id="fCode" maxlength="9" autocomplete="off" autocapitalize="characters" placeholder="Enter a friend’s code" aria-label="Friend code"><button type="submit">${L(LU.plus,16)}Add</button></form>
       <p class="fnote">Anyone with your code can add you and send you postcards. Friends see your first name, home city, avatar and stamped cities.</p>`:`<p class="fnote" style="margin-top:-8px">${STANDALONE?(ACCT.signedIn?'You’re signed in. Friend codes and postcards between friends arrive in a coming update.':'Friend codes and postcards between friends arrive in a coming update.'):'Friend codes work when you’re signed in and Postmark can save to your account.'}</p>`}
-      <div class="tsec" style="margin-bottom:6px"><h3>Mailbox <span>${unread?unread+' new':inbox.length+' postcards'}</span></h3></div>
-      ${inbox.length?`<div class="mailshelf" aria-label="Envelopes">${inbox.map((m,i)=>{const fr=friendById(m.from); return `<button class="${m.read?'':'unread'}" data-inbox="${i}" aria-label="${m.read?'':'New '}postcard from ${esc(fr.name)}">${m.read?'':'<span class="nb">NEW</span>'}${miniEnv(envTheme(CITIES[m.id].c), !m.read)}<span class="who"><span class="face">${ffaceSVG(fr,20)}</span>${esc(fr.name)}</span></button>`;}).join('')}</div>`:''}
+      <div class="tsec" style="margin-bottom:6px"><h3>Mailbox <span>${unread?unread+' new':inbox.length?'All caught up':'Empty'}</span></h3></div>
+      ${unread?`<div class="mailshelf" aria-label="Envelopes">${inbox.map((m,i)=>m.read?'':(()=>{const fr=friendById(m.from); return `<button class="${m.read?'':'unread'}" data-inbox="${i}" aria-label="${m.read?'':'New '}postcard from ${esc(fr.name)}">${m.read?'':'<span class="nb">NEW</span>'}${miniEnv(envTheme(CITIES[m.id].c), !m.read)}<span class="who"><span class="face">${ffaceSVG(fr,20)}</span>${esc(fr.name)}</span></button>`;})()).join('')}</div>`:inbox.length?`<p class="caught">${L(LU.check,14,3)}No new post. Opened postcards are kept in your tin.</p>`:''}
+      ${tinHTML()}
       ${friendNotes.map(n=>{ const fr=realFriend(n.uid); return `<div class="fnote2"><div class="fr"><span class="face">${ffaceSVG(fr,44)}</span><div><small>NEW FRIEND</small><b>${esc(fr.name)} added you</b><span class="d">You’re now friends and can send each other postcards and plan trips together.</span></div></div>
         <div class="bt"><button class="pri" data-fsend="${n.uid}">${L(LU.mail,15)}Send a postcard</button><button data-fnok="${n.uid}">Got it</button></div></div>`; }).join('')}
       ${inbox.length?'':'<span class="tmeta" style="padding:0 20px">No postcards yet</span>'}
@@ -4811,7 +4872,10 @@ $('#friends').addEventListener('click', async e=>{
   const fs=q('[data-fsend]'); if(fs){ const id=pickPostcardCity(); return openPostcard(id, null, false, fs.dataset.fsend); }
   if(q('#fSend')){ return openPostcard(pickPostcardCity(), null, false, friendView); }
   const fo=q('[data-fopen]'); if(fo) return openCard(fo.dataset.fopen);
-  const ib=q('[data-inbox]'); if(ib){ const m=inbox[+ib.dataset.inbox]; m.read=true; renderFriends(); return viewPostcard(m); }
+  if(q('#tinTog')){ tinOpen=!tinOpen; tinAll=false; tinBump=false; renderFriends(); tone(0,'triangle',tinOpen?660:520,.05,.06); return; }
+  if(q('#tinMore')){ tinAll=true; return renderFriends(); }
+  const tf=q('[data-tinf]'); if(tf){ tinFrom=tf.dataset.tinf; tinAll=false; return renderFriends(); }
+  const ib=q('[data-inbox]'); if(ib){ const m=inbox[+ib.dataset.inbox], first=!m.read; m.read=true; if(first){ tinBump=true; setTimeout(()=>{ tinBump=false; }, 1500); } renderFriends(); viewPostcard(m); if(first) setTimeout(()=>toast('Saved to your keepsake tin'), 1800); return; }
   if(q('#fInvite')){ const text=`Join me on Postmark and let’s compare passports. My friend code is ${myCode()}.${STANDALONE?' '+location.origin+location.pathname:''}`;
     try{ if(navigator.share){ await navigator.share({text}); return; } }catch(err){ if(err&&err.name==='AbortError') return; }
     try{ await navigator.clipboard.writeText(text); toast('Invite copied'); }catch(err){ toast(`Your friend code is ${myCode()}`); } }
@@ -5098,7 +5162,7 @@ $('#pastSheet').addEventListener('click', e=>{
 
 /* ---------- passport ---------- */
 let logOpen=false, logAll=false, logF='all', evAll=false; const pExp=new Set();
-const vgot = c => COUNTRIES[c].cities.filter(id=>visited[id]&&verified[id]);
+const vgot = c => COUNTRIES[c].cities.filter(vst);
 const monthName = ym => new Date(ym+'-01T12:00:00').toLocaleDateString('en-GB',{month:'long',year:'numeric'});
 const stampOrder = () => Object.keys(visited).filter(id=>CITIES[id]).sort((a,b)=>{ const d=visited[b].localeCompare(visited[a]); if(d) return d;
   const ta=(verified[a]&&verified[a].at)||'', tb=(verified[b]&&verified[b].at)||''; return tb.localeCompare(ta); });
@@ -5147,9 +5211,9 @@ function renderPassport(){ saveState();
   ${beenHTML()}
   ${weekHTML()}
   ${yirCardHTML()}
-  <div class="psec" id="pCol"><div class="psh"><h2>Collections</h2><span>${doneSets().length} of ${SETS.length} complete</span></div>
+  <div class="psec" id="pCol"><div class="psh"><h2>Collections</h2><span>${doneSets().length} of ${SETS.length} complete</span></div><p class="psub">Only stamps made on the spot count toward collections and gold.</p>
     <div class="sets">${SETS.map(st=>{const n=setGot(st).length, on=n===st.cities.length;
-      return `<div class="setc ${on?'on':''}">${badgeSVG(st,on,58)}<b>${st.name}</b><span>${on?'Complete':`${n} of ${st.cities.length}`}</span><small>${st.cities.map(id=>visited[id]?`<i>${CITIES[id].name}</i>`:CITIES[id].name).join(' · ')}</small></div>`}).join('')}</div></div>
+      return `<div class="setc ${on?'on':''}">${badgeSVG(st,on,58)}<b>${st.name}</b><span>${on?'Complete':`${n} of ${st.cities.length}`}</span><small>${st.cities.map(id=>vst(id)?`<i>${CITIES[id].name}</i>`:CITIES[id].name).join(' · ')}</small></div>`}).join('')}</div></div>
   <div class="psec" id="pEv"><div class="psh"><h2>Event stamps</h2><span>${Object.keys(eventStamps).length} collected</span></div><div class="evlist">${evShown().map(e=>{ const got2=Object.entries(eventStamps).find(([,v])=>v.ev===e.id), live=e.cities.some(c=>activeEvent(c)&&activeEvent(c).id===e.id), C0=CITIES[got2?got2[0]:e.cities[0]], K0=COUNTRIES[C0.c];
       return `<div class="evrow ${got2?'got':live?'live':''}"><span class="sq" style="background:${K0.color}">${lm(C0.icon,'on').replace('<svg','<svg width="26" height="26"')}</span><div><b>${e.name}</b><span>${e.cities.map(c=>CITIES[c].name).join(' or ')} · ${got2?'collected '+dLong(got2[1].date):e.when}</span></div>${got2?`<em>${L(LU.check,10,3)}</em>`:live?'<em style="background:var(--city-kyoto)">ON NOW</em>':''}</div>`; }).join('')}${evShown().length<EVENTS.length?`<button class="lmore" id="evMore">Show all ${EVENTS.length} events</button>`:''}</div></div>
   <div class="psec" id="pRew"><div class="psh"><h2>Rewards</h2><span>Complete collections to unlock</span></div>
