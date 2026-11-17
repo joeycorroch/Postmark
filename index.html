@@ -1301,9 +1301,53 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
 .wpan{position:absolute;left:0;top:0;width:0;height:100%;will-change:transform}
 .wtile{position:absolute;top:0;width:0;height:100%}
 .art .wtile svg.map{inset:auto;left:0}
-.wtile .bub{width:38px;height:38px;font-size:16px}
+.wtile .bub{width:38px;height:38px;font-size:16px;overflow:visible}
+svg.wov{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
+.wlt{animation:wtw 3s var(--d,0s) ease-in-out infinite}
+@keyframes wtw{50%{opacity:.35}}
+.wline{fill:none;stroke:#E8382A;stroke-width:2;stroke-linecap:round;stroke-dasharray:.1 5.5;opacity:.7;animation:wmarch 1.4s linear infinite}
+@keyframes wmarch{to{stroke-dashoffset:-5.6}}
+.wdot{fill:#E8382A;stroke:#fff;stroke-width:1.6}.wdot.mem{fill:#3D7BFF}
+.wgold{filter:drop-shadow(0 0 3px rgba(255,194,31,.9))}
+.wcloud>g{animation:wdrift 22s var(--d,0s) ease-in-out infinite alternate}
+@keyframes wdrift{to{transform:translateX(46px)}}
+.wboat{animation:wbob 2.6s var(--d,0s) ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes wbob{0%,100%{transform:rotate(-5deg) translateX(-3px)}50%{transform:rotate(5deg) translateX(3px)}}
+.wev{position:absolute;z-index:3;display:flex;align-items:center;gap:4px;height:26px;padding:0 9px 0 6px;border:2px solid var(--ink-navy);border-radius:999px;background:linear-gradient(135deg,#FF4F8B,#9D4EFF);color:#fff;font-size:10.5px;font-weight:800;white-space:nowrap;box-shadow:2px 2px 0 var(--ink-navy);animation:pinglow 1.8s ease-in-out infinite}
+.wev span{max-width:92px;overflow:hidden;text-overflow:ellipsis}
+.wcotd{position:absolute;z-index:3;width:26px;height:26px;border-radius:8px 8px 8px 0;transform:rotate(-45deg);border:2px solid var(--ink-navy);background:#FFC21F;color:var(--ink-navy);display:flex;align-items:center;justify-content:center;box-shadow:2px 2px 0 var(--ink-navy);animation:cotdbob 2s ease-in-out infinite}
+.wcotd svg{transform:rotate(45deg)}
+@keyframes cotdbob{50%{translate:0 -4px}}
+.wfr{position:absolute;z-index:2;width:30px;height:30px;padding:0;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 2px var(--ink-navy);background:#fff;overflow:hidden}
+.wfr .face{display:block;width:26px;height:26px}.wfr .face svg{display:block}
+.mering{position:absolute;width:0;height:0;pointer-events:none;z-index:1}
+.mering::before,.mering::after{content:'';position:absolute;left:-22px;top:-22px;width:44px;height:44px;border-radius:50%;border:2.5px solid var(--stamp-red);animation:mering 2.4s ease-out infinite}
+.mering::after{animation-delay:1.2s}
+@keyframes mering{from{transform:scale(.3);opacity:.9}to{transform:scale(1.6);opacity:0}}
+.wnear{position:absolute;z-index:3;transform:translateX(-50%);display:flex;align-items:center;gap:4px;height:24px;padding:0 9px;border:2px solid var(--ink-navy);border-radius:999px;background:var(--paper-card);font-size:10.5px;font-weight:800;color:var(--ink-navy);white-space:nowrap;box-shadow:2px 2px 0 var(--ink-navy)}
+.bring{position:absolute;left:-9px;top:-9px;width:52px;height:52px;pointer-events:none;transform:rotate(-90deg)}
+.bring circle{fill:none;stroke:rgba(27,31,75,.18);stroke-width:4}
+.bring circle.on{stroke:#FFC21F;stroke-linecap:round}
+.bub .bt{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);font-style:normal;font-size:9.5px;font-weight:800;padding:0 5px;border-radius:999px;background:var(--paper-card);color:var(--ink-navy);border:1.5px solid var(--ink-navy);white-space:nowrap;line-height:1.5}
+.bub.hot{animation:bubglow 2.6s ease-in-out infinite}
+@keyframes bubglow{0%,100%{box-shadow:2px 2px 0 var(--ink-navy),0 0 0 0 rgba(255,79,110,0)}50%{box-shadow:2px 2px 0 var(--ink-navy),0 0 14px 6px rgba(255,79,110,.45)}}
+.cotd{position:absolute;left:14px;bottom:300px;z-index:3;display:flex;align-items:center;gap:7px;max-width:196px;padding:4px 10px 4px 4px;border:2px solid var(--ink-navy);border-radius:14px;background:var(--paper-card);box-shadow:3px 3px 0 var(--ink-navy);text-align:left;transition:bottom .3s cubic-bezier(.3,.7,.2,1)}
+.cotd .ci{flex-shrink:0;width:26px;height:26px;border-radius:9px;background:#FFC21F;border:2px solid var(--ink-navy);display:flex;align-items:center;justify-content:center;color:var(--ink-navy)}
+.cotd .ct{min-width:0;display:flex;flex-direction:column}
+.cotd small{font-size:8.5px;font-weight:800;letter-spacing:.1em;color:#B07D1A}
+.cotd b{display:flex;align-items:center;font:900 14px/1.15 var(--font-display);color:var(--ink-navy)}
+.cotd b .miniflag{width:13px;height:13px;margin:0 4px 0 0}
+.cotd em{font-style:normal;font-size:10.5px;color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
+#art-world.intro{animation:wzin 1.6s cubic-bezier(.2,.7,.2,1) both;transform-origin:50% 30%}
+@keyframes wzin{from{transform:scale(.72);opacity:.2}to{transform:none;opacity:1}}
+#art-world.intro .wdot{animation:wdotin .45s calc(.8s + var(--i)*70ms) both;transform-box:fill-box;transform-origin:center}
+@keyframes wdotin{from{transform:scale(0)}60%{transform:scale(1.8)}to{transform:none}}
+#art-world.intro .wline{animation:wlinein .6s calc(1.1s + var(--i)*70ms) both}
+@keyframes wlinein{from{opacity:0}}
+#art-world.intro .bub{animation:pop .45s calc(1.3s + var(--i)*90ms) both cubic-bezier(.3,1.5,.5,1)}
+#art-world.intro .wgold{animation:wlinein .5s 2s both}
 #art-world{cursor:grab;user-select:none;-webkit-user-select:none}
-#art-world.drag{cursor:grabbing}#art-world.drag .bub{pointer-events:none}
+#art-world.drag{cursor:grabbing}#art-world.drag .bub,#art-world.drag .wev,#art-world.drag .wcotd,#art-world.drag .wfr,#art-world.drag .wnear{pointer-events:none}
 .bubble.swipe{transform:translateX(-50%);animation:none;font-size:13px;padding:7px 12px}.bubble.swipe::after{display:none}
 
 /* ---------- together: friend notices, trip invites, shared trips ---------- */
@@ -3094,6 +3138,63 @@ function worldGeom(){
 }
 const wrapPan = p => { const w=WG.w; return ((p % w) - w) % w; };      /* keeps the middle copy's left edge in (-w, 0] */
 function worldHome(){ let lon=15; if(LOC.on && LOC.pos) lon=LOC.pos[1]; else { const id=lastCity(); if(id && CITY_LL[id]) lon=CITY_LL[id][1]; } return wrapPan(195-(1.08*lon+195.5)*WG.z); }
+/* ---------- the opening map comes alive: your stamps, routes, day and night, events, friends ---------- */
+const wLL = (g,lat,lon) => { const [ax,bx,ay,by]=lvAff('world'); return [(ax*lon+bx)*g.z, (ay*lat+by)*g.z+g.oy]; };
+const kmTo = (a,b) => { const r=Math.PI/180, d=Math.sin((b[0]-a[0])*r/2)**2+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin((b[1]-a[1])*r/2)**2; return 12742*Math.asin(Math.sqrt(d)); };
+function sunNow(){ const d=new Date(), doy=(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate())-Date.UTC(d.getUTCFullYear(),0,0))/864e5;
+  let dec=-23.44*Math.cos(2*Math.PI/365*(doy+10)); if(Math.abs(dec)<0.6) dec=dec<0?-0.6:0.6;
+  const h=d.getUTCHours()+d.getUTCMinutes()/60; return {dec, lon:((12-h)*15+540)%360-180}; }
+const sunElev = (S,lat,lon) => { const r=Math.PI/180; return Math.asin(Math.sin(lat*r)*Math.sin(S.dec*r)+Math.cos(lat*r)*Math.cos(S.dec*r)*Math.cos((lon-S.lon)*r))/r; };
+/* night: three nested bands (sunset, civil and nautical twilight) so the terminator has a soft edge */
+function nightInner(g){ const S=sunNow(), south=S.dec>=0; let out='';
+  [[0,.08],[-6,.08],[-12,.09]].forEach(([th,op])=>{ const pts=[];
+    for(let lon=-180; lon<=180; lon+=4){ let b=south?-90:90;
+      if(south){ for(let lat=-90; lat<=90; lat+=1){ if(sunElev(S,lat,lon)<th) b=lat; else break; } }
+      else { for(let lat=90; lat>=-90; lat-=1){ if(sunElev(S,lat,lon)<th) b=lat; else break; } }
+      pts.push(wLL(g,b,lon)); }
+    const cap=south?-120:120, A=wLL(g,cap,180), B=wLL(g,cap,-180);
+    out+=`<path d="M${pts.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' L')} L${A[0].toFixed(1)} ${A[1].toFixed(1)} L${B[0].toFixed(1)} ${B[1].toFixed(1)}Z" fill="#141838" opacity="${op}"/>`; });
+  /* city lights on the dark side */
+  Object.keys(CITIES).forEach(id=>{ const ll=CITY_LL[id]; if(!ll || sunElev(S,ll[0],ll[1])>-4) return; const [x,y]=wLL(g,ll[0],ll[1]);
+    out+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" fill="#FFD25A" opacity=".22"/><circle class="wlt" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="1.5" fill="#FFF1B8" style="--d:${(id.length%7)*.4}s"/>`; });
+  return out; }
+/* stamped cities, gold countries and the routes between them */
+function stampsInner(g){ const ids=Object.keys(visited).filter(id=>CITIES[id]&&CITY_LL[id]).sort((a,b)=>(visited[a]+((verified[a]&&verified[a].at)||'')).localeCompare(visited[b]+((verified[b]&&verified[b].at)||'')));
+  let lines='', dots='', gold='';
+  ids.slice(-15).forEach((id,i,arr)=>{ if(!i) return; const a=CITY_LL[arr[i-1]], b=CITY_LL[id]; if(a[0]===b[0]&&a[1]===b[1]) return;
+    let bl=b[1]; if(bl-a[1]>180) bl-=360; if(a[1]-bl>180) bl+=360;
+    const [x1,y1]=wLL(g,a[0],a[1]), [x2,y2]=wLL(g,b[0],bl), dx=x2-x1, dy=y2-y1, d=Math.hypot(dx,dy); if(d<4) return;
+    const lift=Math.min(60,d*.28), cx=(x1+x2)/2+dy/d*lift*.2, cy=(y1+y2)/2-lift;
+    lines+=`<path class="wline" style="--i:${i}" d="M${x1.toFixed(1)} ${y1.toFixed(1)} Q${cx.toFixed(1)} ${cy.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}"/>`; });
+  ids.forEach((id,i)=>{ const [x,y]=wLL(g,...CITY_LL[id]); dots+=`<circle class="wdot ${verified[id]?'':'mem'}" style="--i:${i}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.6"/>`; });
+  Object.keys(COUNTRIES).filter(done).forEach(c=>{ const ll=COUNTRIES[c].cities.map(k=>CITY_LL[k]).filter(Boolean); if(!ll.length) return;
+    const [x,y]=wLL(g, ll.reduce((s,p)=>s+p[0],0)/ll.length, ll.reduce((s,p)=>s+p[1],0)/ll.length);
+    gold+=`<g class="wgold" transform="translate(${x.toFixed(1)} ${(y-10).toFixed(1)})"><path d="M0 -8 L2.4 -2.5 L8.4 -2.4 L3.7 1.5 L5.3 7.4 L0 4 L-5.3 7.4 L-3.7 1.5 L-8.4 -2.4 L-2.4 -2.5Z" fill="#FFC21F" stroke="#1B1F4B" stroke-width="1.6" stroke-linejoin="round"/></g>`; });
+  return lines+dots+gold; }
+/* small moving things: a paper plane on a route, drifting clouds, two boats */
+function ambientInner(g){ if(reduced()) return ''; let out='';
+  const route=(pts,dur,beg)=>{ const P=pts.map(([la,lo])=>wLL(g,la,lo)); let d=`M${P[0][0].toFixed(1)} ${P[0][1].toFixed(1)}`; for(let i=1;i<P.length;i++){ const [x1,y1]=P[i-1], [x2,y2]=P[i]; d+=` Q${((x1+x2)/2).toFixed(1)} ${(Math.min(y1,y2)-26).toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`; }
+    return `<g class="wplane"><path d="M-7 -5 L9 0 L-7 5 L-3 0Z" fill="#FFF8E7" stroke="#1B1F4B" stroke-width="1.4" stroke-linejoin="round"/><animateMotion dur="${dur}s" begin="${beg}s" repeatCount="indefinite" rotate="auto" path="${d}"/></g>`; };
+  out+=route([[38,-9],[41,29],[25,55],[13,100]],26,0)+route([[-34,151],[1,104],[35,139],[49,-123]],34,-12);
+  [[52,-30,1],[8,78,.8],[-18,-118,.9],[30,160,.7]].forEach(([la,lo,s],i)=>{ const [x,y]=wLL(g,la,lo); out+=`<g class="wcloud" style="--d:${-i*5}s" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${s})"><g><ellipse cx="0" cy="0" rx="22" ry="9" fill="#fff" opacity=".85"/><ellipse cx="-8" cy="-6" rx="10" ry="8" fill="#fff" opacity=".85"/><ellipse cx="7" cy="-7" rx="12" ry="9" fill="#fff" opacity=".85"/></g></g>`; });
+  [[16,-150],[22,-38],[-18,75]].forEach(([la,lo],i)=>{ const [x,y]=wLL(g,la,lo); out+=`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><g class="wboat" style="--d:${-i*7}s"><path d="M-9 0 H9 L6 5 H-6Z" fill="#E8382A" stroke="#1B1F4B" stroke-width="1.3" stroke-linejoin="round"/><path d="M0 0 V-12 L7 -2 H0" fill="#FFF8E7" stroke="#1B1F4B" stroke-width="1.2" stroke-linejoin="round"/><path d="M-14 7 q3 -2 6 0 q3 -2 6 0" stroke="#fff" stroke-width="1.4" fill="none" opacity=".8"/></g></g>`; });
+  return out; }
+let cotdPick=null;
+function cityOfDay(){ if(cotdPick && cotdPick.d===today()) return cotdPick.id;
+  const all=Object.keys(CITIES).filter(id=>CITY_LL[id]&&CITIES[id].eat), pool=all.filter(id=>!visited[id]), list=pool.length?pool:all;
+  const n=Math.floor((Date.now()-new Date().getTimezoneOffset()*6e4)/864e5); let id=list[(n*37+11)%list.length]; if(id===dailyCity()) id=list[(n*37+12)%list.length];
+  cotdPick={d:today(), id}; return id; }
+/* tappable pins over the map: events on today, the city of the day, friends where they last stamped */
+function pinsHTML(g){ let out='';
+  const seen=new Set();
+  EVENTS.forEach(e=>e.cities.forEach(id=>{ const ev=activeEvent(id); if(!ev||ev.id!==e.id||seen.has(id)||!CITY_LL[id]) return; seen.add(id); const [x,y]=wLL(g,...CITY_LL[id]);
+    out+=`<button class="wev" data-wev="${id}" style="left:${(x-15).toFixed(1)}px;top:${(y-34).toFixed(1)}px" aria-label="${esc(e.name)} is on now in ${CITIES[id].name}">${L(LU.spark,14,2.4)}<span>${esc(e.name)}</span></button>`; }));
+  const cd=cityOfDay(); if(CITY_LL[cd]){ const [x,y]=wLL(g,...CITY_LL[cd]); out+=`<button class="wcotd" data-cotd="${cd}" style="left:${(x-13).toFixed(1)}px;top:${(y-30).toFixed(1)}px" aria-label="City of the day: ${CITIES[cd].name}">${L(LU.star,13,2.6)}</button>`; }
+  const spots={};
+  friendList().forEach(f=>{ const last=Object.entries(f.visited||{}).filter(([k])=>CITIES[k]&&CITY_LL[k]).sort((a,b)=>String(a[1]).localeCompare(String(b[1]))).pop(); if(!last) return;
+    const k=last[0], n=spots[k]=(spots[k]||0)+1, [x,y]=wLL(g,...CITY_LL[k]);
+    out+=`<button class="wfr" data-wfriend="${esc(f.id)}" style="left:${(x-14+(n-1)*18).toFixed(1)}px;top:${(y+6).toFixed(1)}px" aria-label="${esc(f.name)} was last in ${CITIES[k].name}"><span class="face">${ffaceSVG(f,26)}</span></button>`; });
+  return out; }
 function worldArtHTML(){
   const prevW=WG.w, g=worldGeom();
   worldPan = worldPan===null ? worldHome() : wrapPan(worldPan/prevW*g.w + 195*(1-g.w/prevW));   /* keep the same spot centred when the size changes */
@@ -3102,14 +3203,25 @@ function worldArtHTML(){
     return scratchSvg('world',inner); }).replace('<svg class="map"', `<svg class="map" style="--wz:${WZ.toFixed(3)};width:${(390*g.z).toFixed(1)}px;height:${(844*g.z).toFixed(1)}px;top:${g.oy.toFixed(1)}px"`);
   const at=(x,y)=>[x*g.z, y*g.z+g.oy];
   const pw=document.getElementById('pmSpeckW'); if(pw) pw.setAttribute('patternTransform', `scale(${(1.9/g.z).toFixed(4)})`);
-  const bubs = REGIONS.map(r=>{ const n=regionCount(r), [cx,cy]=at(r.x+15,r.y+15); return `<button class="bub mk ${n?'hot':''}" data-region="${r.id}" style="left:${(cx-19).toFixed(1)}px;top:${(cy-19).toFixed(1)}px" aria-label="${r.name}, ${n} stamped">${n}</button>`; }).join('');
+  const bubs = REGIONS.map((r,i)=>{ const n=regionCount(r), [cx,cy]=at(r.x+15,r.y+15), cc=countryCount(r.id), tot=regionTotal(r.id)||1, p=Math.min(1,cc/tot);
+    return `<button class="bub mk ${n?'hot':''}" data-region="${r.id}" style="left:${(cx-19).toFixed(1)}px;top:${(cy-19).toFixed(1)}px;--i:${i}" aria-label="${r.name}, ${n} stamped, ${cc} of ${tot} countries">${n}<svg class="bring" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="23"/><circle class="on" cx="26" cy="26" r="23" stroke-dasharray="${(p*144.5).toFixed(1)} 144.5"/></svg><i class="bt">${cc}/${tot}</i></button>`; }).join('');
   let me='';
-  if(LOC.on && LOC.pos){ const [ax,bx,ay,by]=lvAff('world'), [X,Y]=at(ax*LOC.pos[1]+bx, ay*LOC.pos[0]+by); me=`<div class="me here" style="left:${(X-24).toFixed(1)}px;top:${(Y-58).toFixed(1)}px" aria-hidden="true">${face(40)}<i>YOU</i><u></u></div>`; }
+  if(LOC.on && LOC.pos){ const [ax,bx,ay,by]=lvAff('world'), [X,Y]=at(ax*LOC.pos[1]+bx, ay*LOC.pos[0]+by); me=`<div class="mering" style="left:${X.toFixed(1)}px;top:${Y.toFixed(1)}px"></div><div class="me here" style="left:${(X-24).toFixed(1)}px;top:${(Y-58).toFixed(1)}px" aria-hidden="true">${face(40)}<i>YOU</i><u></u></div>`;
+    const near=Object.keys(CITIES).filter(id=>!vst(id)&&CITY_LL[id]&&kmTo(LOC.pos,CITY_LL[id])<350).sort((a,b)=>kmTo(LOC.pos,CITY_LL[a])-kmTo(LOC.pos,CITY_LL[b]));
+    if(near.length) me+=`<button class="wnear" data-wnear="${near[0]}" style="left:${X.toFixed(1)}px;top:${(Y+12).toFixed(1)}px">${L(LU.pin,12,2.6)}${near.length} to stamp near you</button>`; }
   else { const id=lastCity(); if(id){ const r=REGIONS.find(r=>r.id===COUNTRIES[CITIES[id].c].region), [X,Y]=at(r.x+15,r.y+15); me=`<div class="me" style="left:${(X-24).toFixed(1)}px;top:${(Y-80).toFixed(1)}px" aria-hidden="true">${face(40)}<i>YOU</i></div>`; } }
-  const tile=k=>`<div class="wtile" style="left:${(k*g.w).toFixed(1)}px" ${k?'aria-hidden="true"':''}>${svg}${bubs}${me}</div>`;
+  const ov=`<svg class="wov" width="1" height="1" aria-hidden="true"><g class="wnight">${nightInner(g)}</g><g class="wstamps">${stampsInner(g)}</g><g class="wamb">${ambientInner(g)}</g></svg>`, pins=pinsHTML(g);
+  const tile=k=>`<div class="wtile" style="left:${(k*g.w).toFixed(1)}px" ${k?'aria-hidden="true"':''}>${svg}${ov}${pins}${bubs}${me}</div>`;
   return `<div class="wpan" id="wpan" style="transform:translateX(${worldPan.toFixed(1)}px)">${tile(-1)}${tile(0)}${tile(1)}</div>`;
 }
 /* Redraw the world crisply at a new zoom k (relative to now), keeping the screen point (mx,my) fixed. */
+function worldIntro(force){ let d=''; try{ d=localStorage.getItem('pm-wintro')||''; }catch(e){}
+  if((!force && d===today()) || reduced() || level!=='world') return; try{ localStorage.setItem('pm-wintro', today()); }catch(e){}
+  const art=$('#art-world'); art.classList.remove('intro'); void art.offsetWidth; art.classList.add('intro');
+  const p=$('#wpan'), end=worldPan, start=end+170, t0=performance.now();
+  const step=now=>{ const k=Math.min(1,(now-t0)/1600), e=1-Math.pow(1-k,3); if(p && art.classList.contains('intro')) p.style.transform=`translateX(${(start+(end-start)*e).toFixed(1)}px)`; if(k<1) requestAnimationFrame(step); };
+  requestAnimationFrame(step); setTimeout(()=>art.classList.remove('intro'), 3400); }
+setInterval(()=>{ if(level!=='world' || document.hidden || $('#art-world').classList.contains('drag')) return; document.querySelectorAll('#art-world .wnight').forEach(n=>n.innerHTML=nightInner(WG)); }, 300000);
 function worldZoomCommit(k, mx, my){
   const nz=Math.max(1,Math.min(WZMAX,WZ*k)); k=nz/WZ; if(Math.abs(k-1)<.001 && !WG) return;
   const A=mx+(worldPan-mx)*k, oyNew=my+(WG.oy-my)*k;
@@ -3145,7 +3257,7 @@ function worldZoomTo(k, mx, my){ const p=$('#wpan'); const nz=Math.max(1,Math.mi
       else apply(); setTimeout(()=>{ moved=false; }, 60); return; }
     if(!d) return; const dd=d; d=null; el().classList.remove('drag');
     if(!moved){ /* double tap on the ocean or land: zoom in there, or back out */
-      if(!e.target.closest('.bub,.me,button')){ const now=performance.now(); if(now-lastTap<320 && Math.hypot(pe[0]-lastXY[0],pe[1]-lastXY[1])<40){ lastTap=0; if(WZ>1.4) worldZoomTo(1/WZ,195,pe[1]); else worldZoomTo(2.2,pe[0],pe[1]); } else { lastTap=now; lastXY=pe; } }
+      if(!e.target.closest('.bub,.me,button,.wev,.wfr,.wcotd')){ const now=performance.now(); if(now-lastTap<320 && Math.hypot(pe[0]-lastXY[0],pe[1]-lastXY[1])<40){ lastTap=0; if(WZ>1.4) worldZoomTo(1/WZ,195,pe[1]); else worldZoomTo(2.2,pe[0],pe[1]); } else { lastTap=now; lastXY=pe; } }
       return; }
     if(dd.dy){ WY+=dd.dy; $('#art-world').innerHTML=artHTML('world'); }
     const glide=()=>{ vel*=.94; if(Math.abs(vel)<.25 || level!=='world') return; worldPan=wrapPan(worldPan+vel); apply(); raf=requestAnimationFrame(glide); };
@@ -3214,6 +3326,7 @@ function regionCard(name, n, of, hint){
 function uiHTML(lv){
   const back = p => `<button class="chip" data-back="${p}">${L(LU.left,18)}<span>${LVNAME[p]}</span></button>`;
   if(lv==='world') return `${showHint?`<div class="hint" id="hint"><div class="bubble swipe" style="left:50%;top:112px">Swipe or pinch the map, then tap a number</div></div>`:''}<div class="toprow" style="margin-top:8px"><div class="search">${L(LU.search,20)}<span>Search a city or region</span></div><button class="mailbtn ${mailSeen()?'':'new'}" id="mailBtn" aria-label="Today’s postcard${mailSeen()?'':', unread'}">${L(LU.mail,20)}<i></i></button></div>
+    ${(()=>{ const id=cityOfDay(), C=CITIES[id]; return `<button class="cotd" data-cotd="${id}"><span class="ci">${L(LU.star,16,2.6)}</span><span class="ct"><small>CITY OF THE DAY</small><b>${miniFlag(C.c)}${C.name}</b><em>Try: ${esc(C.eat)}</em></span></button>`; })()}
     <div class="regions ${REG_MIN?'min':''}" id="regions"><button class="regtog" id="regTog" aria-expanded="${!REG_MIN}"><h2>Pick a region</h2><span class="chev">${L(LU.right,20,2.6)}</span></button>
     ${REGIONS.map(r=>`<button class="rrow ${r.open?'':'off'}" data-region="${r.id}">${r.name}<span>${regionCount(r)} stamped ${L(LU.right,18)}</span></button>`).join('')}</div>`;
   if(lv==='europe') return `<div class="toprow">${back('world')}<div class="search">${L(LU.search,18)}<span>Search in Europe</span></div></div>${regionCard('Europe',countryCount('europe'),regionTotal('europe'),'Tap a country stamp to zoom in and see its cities.')}`;
@@ -3237,7 +3350,7 @@ function renderLevel(lv){
 function placeZoom(lv){ const ui=$('#ui-'+lv); if(!ui) return; const ctl=ui.querySelector('.zoomctl'); if(!ctl) return;
   const pr=$('#phone').getBoundingClientRect(); if(!pr.width) return; const k=pr.width/390; let top=844-84-8;
   [...ui.querySelectorAll('.bcard,.regions'), ...document.querySelectorAll('#art-'+lv+' .regions')].forEach(p=>{ const r=p.getBoundingClientRect(); if(r.height) top=Math.min(top,(r.top-pr.top)/k); });
-  ctl.style.bottom=Math.round(844-top+12)+'px'; }
+  ctl.style.bottom=Math.round(844-top+12)+'px'; const cd=ui.querySelector('.cotd'); if(cd) cd.style.bottom=Math.round(844-top+12)+'px'; }
 addEventListener('resize', ()=>placeZoom(level));
 /* ---------- zoom: the map spreads out while stamps and pins keep their size ---------- */
 const ZM={}, ZMAX=4;
@@ -3397,6 +3510,11 @@ $('#srch').addEventListener('click', e=>{
   const r=e.target.closest('[data-sregion]'); if(r){ closeSearch(); if(showHint){ showHint=false; } return jumpTo(r.dataset.sregion); }
 });
 $('#phone').addEventListener('click', e=>{
+  const wq=e.target.closest('[data-wev],[data-cotd],[data-wfriend],[data-wnear]');
+  if(wq){ if(stamping||busy) return; const id=wq.dataset.wev||wq.dataset.cotd||wq.dataset.wnear;
+    if(wq.dataset.wfriend){ tab('friends'); friendView=wq.dataset.wfriend; renderFriends(); const fs=$('#fscroll'); if(fs) fs.scrollTop=0; return; }
+    const lv=COUNTRIES[CITIES[id].c].level; tone(0,'triangle',880,.05,.06);
+    if(level==='world' && lv && LEVELS.includes(lv)){ go(lv, ...centerOf(wq)); setTimeout(()=>openCard(id), 720); } else openCard(id); return; }
   if(e.target.closest('.search')){ if(stamping) return; return openSearch(level==='world'?null:level); }
   if(e.target.closest('#regTog')){ REG_MIN=!REG_MIN; try{ localStorage.setItem('pm-regmin', REG_MIN?'1':'0'); }catch(err){} const el=$('#regions'); el.classList.toggle('min', REG_MIN); $('#regTog').setAttribute('aria-expanded', String(!REG_MIN)); $('#art-world').innerHTML=artHTML('world'); placeZoom('world'); return; }
   if(e.target.closest('#mailBtn')) return openDaily();
@@ -4405,7 +4523,7 @@ function showSplash(){
 }
 $('#splash').addEventListener('click', e=>{ if(!e.target.closest('#startBtn')) return;
   thud(90,.35); stampSound('PT'); const sp=$('#splash'); sp.classList.add('off');
-  setTimeout(()=>{ sp.classList.add('gone'); sp.innerHTML=''; renderLevel('world'); setTimeout(()=>{ let skip=false; try{ skip=localStorage.getItem('pm-noacct')==='1'; }catch(e){}
+  setTimeout(()=>{ sp.classList.add('gone'); sp.innerHTML=''; renderLevel('world'); worldIntro(); setTimeout(()=>{ let skip=false; try{ skip=localStorage.getItem('pm-noacct')==='1'; }catch(e){}
       if(STANDALONE && AUTH.configured && !AUTH.user && !skip && !DEMO) return openAuth('in');
       if(!openOnboard()) toast('54 countries on 6 continents are playable'); }, 900); }, 560); });
 
