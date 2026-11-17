@@ -1318,8 +1318,8 @@ svg.wov{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
 .wcotd{position:absolute;z-index:3;width:26px;height:26px;border-radius:8px 8px 8px 0;transform:rotate(-45deg);border:2px solid var(--ink-navy);background:#FFC21F;color:var(--ink-navy);display:flex;align-items:center;justify-content:center;box-shadow:2px 2px 0 var(--ink-navy);animation:cotdbob 2s ease-in-out infinite}
 .wcotd svg{transform:rotate(45deg)}
 @keyframes cotdbob{50%{translate:0 -4px}}
-.wfr{position:absolute;z-index:2;width:30px;height:30px;padding:0;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 2px var(--ink-navy);background:#fff;overflow:hidden}
-.wfr .face{display:block;width:26px;height:26px}.wfr .face svg{display:block}
+.wfr{position:absolute;z-index:2;width:20px;height:20px;padding:0;border-radius:50%;border:1.5px solid #fff;box-shadow:0 0 0 1.5px var(--ink-navy);background:#fff;overflow:hidden}
+.wfr .face{display:block;width:17px;height:17px}.wfr .face svg{display:block}
 .mering{position:absolute;width:0;height:0;pointer-events:none;z-index:1}
 .mering::before,.mering::after{content:'';position:absolute;left:-22px;top:-22px;width:44px;height:44px;border-radius:50%;border:2.5px solid var(--stamp-red);animation:mering 2.4s ease-out infinite}
 .mering::after{animation-delay:1.2s}
@@ -1337,6 +1337,7 @@ svg.wov{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
 .cotd small{font-size:8.5px;font-weight:800;letter-spacing:.1em;color:#B07D1A}
 .cotd b{display:flex;align-items:center;font:900 14px/1.15 var(--font-display);color:var(--ink-navy)}
 .cotd b .miniflag{width:13px;height:13px;margin:0 4px 0 0}
+.cotd .ctm{font-size:10px;font-weight:800;line-height:1.35}.cotd .ctm.dy{color:#B07D1A}.cotd .ctm.nt{color:#3D4BA8}
 .cotd em{font-style:normal;font-size:10.5px;color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
 #art-world.intro{animation:wzin 1.6s cubic-bezier(.2,.7,.2,1) both;transform-origin:50% 30%}
 @keyframes wzin{from{transform:scale(.72);opacity:.2}to{transform:none;opacity:1}}
@@ -3065,7 +3066,7 @@ function scratchSvg(lv, inner){
     `<g mask="url(#mk-${lv})"><rect width="390" height="844" style="fill:var(--map-ocean)"/>${inner}</g></svg>`;
 }
 function lastCity(){ if(lastStamped && visited[lastStamped]) return lastStamped; return Object.keys(visited).sort((a,b)=>visited[a]<visited[b]?-1:visited[a]>visited[b]?1:0).pop(); }
-let REG_MIN=false; try{ REG_MIN=localStorage.getItem('pm-regmin')==='1'; }catch(e){}
+let REG_MIN=false; try{ const v=localStorage.getItem('pm-regmin'); REG_MIN = v==='1' || (v===null && localStorage.getItem('pm-seen')==='1'); }catch(e){}
 function meMarker(lv){
   /* On the world and region maps the avatar sits where the phone says you are; without a location it falls back to your latest stamp. */
   if(LOC.on && LOC.pos && (lv==='world' || REGIONS.some(r=>r.id===lv))){
@@ -3160,17 +3161,12 @@ function nightInner(g){ const S=sunNow(), south=S.dec>=0; let out='';
   return out; }
 /* stamped cities, gold countries and the routes between them */
 function stampsInner(g){ const ids=Object.keys(visited).filter(id=>CITIES[id]&&CITY_LL[id]).sort((a,b)=>(visited[a]+((verified[a]&&verified[a].at)||'')).localeCompare(visited[b]+((verified[b]&&verified[b].at)||'')));
-  let lines='', dots='', gold='';
-  ids.slice(-15).forEach((id,i,arr)=>{ if(!i) return; const a=CITY_LL[arr[i-1]], b=CITY_LL[id]; if(a[0]===b[0]&&a[1]===b[1]) return;
-    let bl=b[1]; if(bl-a[1]>180) bl-=360; if(a[1]-bl>180) bl+=360;
-    const [x1,y1]=wLL(g,a[0],a[1]), [x2,y2]=wLL(g,b[0],bl), dx=x2-x1, dy=y2-y1, d=Math.hypot(dx,dy); if(d<4) return;
-    const lift=Math.min(60,d*.28), cx=(x1+x2)/2+dy/d*lift*.2, cy=(y1+y2)/2-lift;
-    lines+=`<path class="wline" style="--i:${i}" d="M${x1.toFixed(1)} ${y1.toFixed(1)} Q${cx.toFixed(1)} ${cy.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}"/>`; });
+  let dots='', gold='';
   ids.forEach((id,i)=>{ const [x,y]=wLL(g,...CITY_LL[id]); dots+=`<circle class="wdot ${verified[id]?'':'mem'}" style="--i:${i}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.6"/>`; });
   Object.keys(COUNTRIES).filter(done).forEach(c=>{ const ll=COUNTRIES[c].cities.map(k=>CITY_LL[k]).filter(Boolean); if(!ll.length) return;
     const [x,y]=wLL(g, ll.reduce((s,p)=>s+p[0],0)/ll.length, ll.reduce((s,p)=>s+p[1],0)/ll.length);
     gold+=`<g class="wgold" transform="translate(${x.toFixed(1)} ${(y-10).toFixed(1)})"><path d="M0 -8 L2.4 -2.5 L8.4 -2.4 L3.7 1.5 L5.3 7.4 L0 4 L-5.3 7.4 L-3.7 1.5 L-8.4 -2.4 L-2.4 -2.5Z" fill="#FFC21F" stroke="#1B1F4B" stroke-width="1.6" stroke-linejoin="round"/></g>`; });
-  return lines+dots+gold; }
+  return dots+gold; }
 /* small moving things: a paper plane on a route, drifting clouds, two boats */
 function ambientInner(g){ if(reduced()) return ''; let out='';
   const route=(pts,dur,beg)=>{ const P=pts.map(([la,lo])=>wLL(g,la,lo)); let d=`M${P[0][0].toFixed(1)} ${P[0][1].toFixed(1)}`; for(let i=1;i<P.length;i++){ const [x1,y1]=P[i-1], [x2,y2]=P[i]; d+=` Q${((x1+x2)/2).toFixed(1)} ${(Math.min(y1,y2)-26).toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`; }
@@ -3180,6 +3176,15 @@ function ambientInner(g){ if(reduced()) return ''; let out='';
   [[16,-150],[22,-38],[-18,75]].forEach(([la,lo],i)=>{ const [x,y]=wLL(g,la,lo); out+=`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><g class="wboat" style="--d:${-i*7}s"><path d="M-9 0 H9 L6 5 H-6Z" fill="#E8382A" stroke="#1B1F4B" stroke-width="1.3" stroke-linejoin="round"/><path d="M0 0 V-12 L7 -2 H0" fill="#FFF8E7" stroke="#1B1F4B" stroke-width="1.2" stroke-linejoin="round"/><path d="M-14 7 q3 -2 6 0 q3 -2 6 0" stroke="#fff" stroke-width="1.4" fill="none" opacity=".8"/></g></g>`; });
   return out; }
 let cotdPick=null;
+const CTZ={PT:'Europe/Lisbon',JP:'Asia/Tokyo',MX:'America/Mexico_City',AU:'Australia/Sydney',IT:'Europe/Rome',TH:'Asia/Bangkok',MA:'Africa/Casablanca',BR:'America/Sao_Paulo',US:'America/New_York',UK:'Europe/London',CH:'Europe/Zurich',IN:'Asia/Kolkata',NP:'Asia/Kathmandu',LK:'Asia/Colombo',CN:'Asia/Shanghai',ES:'Europe/Madrid',FR:'Europe/Paris',NL:'Europe/Amsterdam',DE:'Europe/Berlin',AT:'Europe/Vienna',GR:'Europe/Athens',TR:'Europe/Istanbul',KR:'Asia/Seoul',AE:'Asia/Dubai',EG:'Africa/Cairo',ZA:'Africa/Johannesburg',IE:'Europe/Dublin',NO:'Europe/Oslo',CZ:'Europe/Prague',HR:'Europe/Zagreb',VN:'Asia/Ho_Chi_Minh',ID:'Asia/Jakarta',SG:'Asia/Singapore',NZ:'Pacific/Auckland',CA:'America/Toronto',PE:'America/Lima',AR:'America/Argentina/Buenos_Aires',KE:'Africa/Nairobi',KH:'Asia/Phnom_Penh',LA:'Asia/Vientiane',PH:'Asia/Manila',MY:'Asia/Kuala_Lumpur',CO:'America/Bogota',BO:'America/La_Paz',CL:'America/Santiago',HU:'Europe/Budapest',PL:'Europe/Warsaw',IS:'Atlantic/Reykjavik',GT:'America/Guatemala',CR:'America/Costa_Rica',CU:'America/Havana',JO:'Asia/Amman',TZ:'Africa/Dar_es_Salaam',EC:'America/Guayaquil'};
+const CITY_TZ={cancun:'America/Cancun',tulum:'America/Cancun',darwin:'Australia/Darwin',uluru:'Australia/Darwin',brisbane:'Australia/Brisbane',cairns:'Australia/Brisbane',airlie:'Australia/Brisbane',melbourne:'Australia/Melbourne',hobart:'Australia/Hobart',adelaide:'Australia/Adelaide',perth:'Australia/Perth',salvador:'America/Bahia',chicago:'America/Chicago',lasvegas:'America/Los_Angeles',losangeles:'America/Los_Angeles',sanfrancisco:'America/Los_Angeles',vancouver:'America/Vancouver',banff:'America/Edmonton',galapagos:'Pacific/Galapagos',bali:'Asia/Makassar',hongkong:'Asia/Hong_Kong',mendoza:'America/Argentina/Mendoza',torresdelpaine:'America/Punta_Arenas'};
+function cityNow(id){ const ll=CITY_LL[id], d=new Date(); let time='';
+  try{ time=new Intl.DateTimeFormat('en-AU',{hour:'numeric',minute:'2-digit',hour12:true,timeZone:CITY_TZ[id]||CTZ[CITIES[id].c]}).format(d).replace(/\s/g,' ').toLowerCase(); }
+  catch(e){ const h=((d.getUTCHours()+d.getUTCMinutes()/60+ (ll?ll[1]/15:0))%24+24)%24, hh=Math.floor(h), mm=Math.floor((h-hh)*60); time=`${(hh%12)||12}:${String(mm).padStart(2,'0')} ${hh<12?'am':'pm'}`; }
+  const el=ll?sunElev(sunNow(),ll[0],ll[1]):10, part=el>6?'Daytime':el>-6?(((new Date().getUTCHours()+(ll?ll[1]/15:0))%24+24)%24<12?'Sunrise':'Sunset'):'Night';
+  return {time, part, day:el>-6}; }
+const cotdNowHTML = id => { const n=cityNow(id); return `<span class="ctm ${n.day?'dy':'nt'}">${n.day?'☀':'☾'} ${n.time} there · ${n.part}</span>`; };
+setInterval(()=>{ const c=document.querySelector('#ui-world .cotd'); if(!c || document.hidden) return; const t=c.querySelector('.ctm'); if(t) t.outerHTML=cotdNowHTML(c.dataset.cotd); }, 60000);
 function cityOfDay(){ if(cotdPick && cotdPick.d===today()) return cotdPick.id;
   const all=Object.keys(CITIES).filter(id=>CITY_LL[id]&&CITIES[id].eat), pool=all.filter(id=>!visited[id]), list=pool.length?pool:all;
   const n=Math.floor((Date.now()-new Date().getTimezoneOffset()*6e4)/864e5); let id=list[(n*37+11)%list.length]; if(id===dailyCity()) id=list[(n*37+12)%list.length];
@@ -3193,7 +3198,7 @@ function pinsHTML(g){ let out='';
   const spots={};
   friendList().forEach(f=>{ const last=Object.entries(f.visited||{}).filter(([k])=>CITIES[k]&&CITY_LL[k]).sort((a,b)=>String(a[1]).localeCompare(String(b[1]))).pop(); if(!last) return;
     const k=last[0], n=spots[k]=(spots[k]||0)+1, [x,y]=wLL(g,...CITY_LL[k]);
-    out+=`<button class="wfr" data-wfriend="${esc(f.id)}" style="left:${(x-14+(n-1)*18).toFixed(1)}px;top:${(y+6).toFixed(1)}px" aria-label="${esc(f.name)} was last in ${CITIES[k].name}"><span class="face">${ffaceSVG(f,26)}</span></button>`; });
+    out+=`<button class="wfr" data-wfriend="${esc(f.id)}" style="left:${(x-10+(n-1)*13).toFixed(1)}px;top:${(y+5).toFixed(1)}px" aria-label="${esc(f.name)} was last in ${CITIES[k].name}"><span class="face">${ffaceSVG(f,17)}</span></button>`; });
   return out; }
 function worldArtHTML(){
   const prevW=WG.w, g=worldGeom();
@@ -3326,7 +3331,7 @@ function regionCard(name, n, of, hint){
 function uiHTML(lv){
   const back = p => `<button class="chip" data-back="${p}">${L(LU.left,18)}<span>${LVNAME[p]}</span></button>`;
   if(lv==='world') return `${showHint?`<div class="hint" id="hint"><div class="bubble swipe" style="left:50%;top:112px">Swipe or pinch the map, then tap a number</div></div>`:''}<div class="toprow" style="margin-top:8px"><div class="search">${L(LU.search,20)}<span>Search a city or region</span></div><button class="mailbtn ${mailSeen()?'':'new'}" id="mailBtn" aria-label="Today’s postcard${mailSeen()?'':', unread'}">${L(LU.mail,20)}<i></i></button></div>
-    ${(()=>{ const id=cityOfDay(), C=CITIES[id]; return `<button class="cotd" data-cotd="${id}"><span class="ci">${L(LU.star,16,2.6)}</span><span class="ct"><small>CITY OF THE DAY</small><b>${miniFlag(C.c)}${C.name}</b><em>Try: ${esc(C.eat)}</em></span></button>`; })()}
+    ${(()=>{ const id=cityOfDay(), C=CITIES[id]; return `<button class="cotd" data-cotd="${id}"><span class="ci">${L(LU.star,16,2.6)}</span><span class="ct"><small>CITY OF THE DAY</small><b>${miniFlag(C.c)}${C.name}</b>${cotdNowHTML(id)}<em>Try: ${esc(C.eat)}</em></span></button>`; })()}
     <div class="regions ${REG_MIN?'min':''}" id="regions"><button class="regtog" id="regTog" aria-expanded="${!REG_MIN}"><h2>Pick a region</h2><span class="chev">${L(LU.right,20,2.6)}</span></button>
     ${REGIONS.map(r=>`<button class="rrow ${r.open?'':'off'}" data-region="${r.id}">${r.name}<span>${regionCount(r)} stamped ${L(LU.right,18)}</span></button>`).join('')}</div>`;
   if(lv==='europe') return `<div class="toprow">${back('world')}<div class="search">${L(LU.search,18)}<span>Search in Europe</span></div></div>${regionCard('Europe',countryCount('europe'),regionTotal('europe'),'Tap a country stamp to zoom in and see its cities.')}`;
@@ -4522,7 +4527,7 @@ function showSplash(){
     <span class="splashme">${face(44)}${AVA.bio.given?`Welcome back, ${esc(AVA.bio.given)}!`:'Your passport is ready'}</span></div>`;
 }
 $('#splash').addEventListener('click', e=>{ if(!e.target.closest('#startBtn')) return;
-  thud(90,.35); stampSound('PT'); const sp=$('#splash'); sp.classList.add('off');
+  thud(90,.35); stampSound('PT'); const sp=$('#splash'); sp.classList.add('off'); try{ localStorage.setItem('pm-seen','1'); }catch(err){}
   setTimeout(()=>{ sp.classList.add('gone'); sp.innerHTML=''; renderLevel('world'); worldIntro(); setTimeout(()=>{ let skip=false; try{ skip=localStorage.getItem('pm-noacct')==='1'; }catch(e){}
       if(STANDALONE && AUTH.configured && !AUTH.user && !skip && !DEMO) return openAuth('in');
       if(!openOnboard()) toast('54 countries on 6 continents are playable'); }, 900); }, 560); });
