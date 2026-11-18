@@ -3278,7 +3278,7 @@ let worldPan = null, WG = {z:1.9, oy:0, w:WTURN*1.9};
 let WZ=1, WY=0;            /* world zoom on top of the fitted size, and vertical offset once zoomed */
 const WZMAX=2.5;
 function worldGeom(){
-  const H=parseFloat($('#phone').style.height)||844, top=116, bottom = REG_MIN ? H-158 : Math.max(top+190, H-452);
+  const H=parseFloat($('#phone').style.height)||844, top=116, bottom = H-104;
   const z0=Math.max(1.35, Math.min(3.1, (bottom-top)/141*.96)), cy=(top+bottom)/2, z=z0*WZ;
   /* the stamped world band (map units 136–277) must keep covering the space between search bar and panel */
   let oy=cy-206.5*z+WY; const lo=bottom-277*z, hi=top-136*z; oy = lo<=hi ? Math.min(hi,Math.max(lo,oy)) : (lo+hi)/2; WY=oy-(cy-206.5*z);
@@ -3531,8 +3531,7 @@ function uiHTML(lv){
     ${(()=>{ const id=cityOfDay(), C=CITIES[id], rw=cotdIsMemory(); return rw
       ? `<div class="cotd rw"><button class="cm" data-cotd="${id}"><span class="ci">${L(LU.cal,16,2.4)}</span><span class="ct"><small>REMEMBER WHEN</small><b>${miniFlag(C.c)}${C.name}</b>${cotdNowHTML(id)}<em>You stamped it ${agoText(visited[id])}, on ${dLong(visited[id])}</em></span></button><button class="cotdpc" data-cotdpc="${id}">${L(LU.mail,13,2.4)}Send a postcard about it</button></div>`
       : `<div class="cotd"><button class="cm" data-cotd="${id}"><span class="ci">${L(LU.star,16,2.6)}</span><span class="ct"><small>CITY OF THE DAY</small><b>${miniFlag(C.c)}${C.name}</b>${cotdNowHTML(id)}<em>Try: ${esc(C.eat)}</em></span></button></div>`; })()}
-    <div class="regions ${REG_MIN?'min':''}" id="regions"><button class="regtog" id="regTog" aria-expanded="${!REG_MIN}"><h2>Pick a region</h2><span class="chev">${L(LU.right,20,2.6)}</span></button>
-    ${REGIONS.map(r=>`<button class="rrow ${r.open?'':'off'}" data-region="${r.id}">${r.name}<span>${regionCount(r)} stamped ${L(LU.right,18)}</span></button>`).join('')}</div>`;
+`;
   if(lv==='europe') return `<div class="toprow">${back('world')}<div class="search">${L(LU.search,18)}<span>Search in Europe</span></div></div>${regionCard('Europe',countryCount('europe'),regionTotal('europe'),'Tap a country stamp to zoom in and see its cities.')}`;
   if(lv==='asia') return `<div class="toprow">${back('world')}<div class="search">${L(LU.search,18)}<span>Search in Asia</span></div></div>${regionCard('Asia',countryCount('asia'),regionTotal('asia'),'Tap a country stamp to zoom in and see its cities.')}`;
   if(lv==='portugal') return `<div class="toprow">${back('europe')}<div class="search">${L(LU.search,18)}<span>Search in Portugal</span></div></div>${countryCard('PT')}`;
