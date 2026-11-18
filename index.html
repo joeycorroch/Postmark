@@ -1402,6 +1402,30 @@ svg.wov.wnl{z-index:1}
 @keyframes anibob{0%,100%{transform:none}50%{transform:translateY(-2px) rotate(-3deg)}}
 @keyframes anihop{0%{transform:none}40%{transform:translateY(-12px) scale(1.15)}100%{transform:none}}
 .wfani{display:inline-flex;width:34px;height:34px;margin-right:8px;border-radius:50%;background:#E4F4FB;border:1.5px solid var(--ink-navy);align-items:center;justify-content:center}
+.wani.sleep svg{animation:anisleep 3.6s var(--d,0s) ease-in-out infinite;filter:brightness(.82) saturate(.8)}
+@keyframes anisleep{0%,100%{transform:rotate(-8deg) scaleY(.94)}50%{transform:rotate(-6deg) scaleY(.9)}}
+.wani .zz{position:absolute;left:17px;top:-8px;font:italic 900 14px/1 var(--font-display);color:#1B1F4B;text-shadow:0 0 2px #fff,0 0 2px #fff,0 0 4px #fff;pointer-events:none}
+.wani .zz,.wani .zz b,.wani .zz u{font-style:italic;text-decoration:none}
+.wani .zz{animation:zz 2.4s ease-in-out infinite}.wani .zz b{display:inline-block;font-size:11px;transform:translate(1px,-7px);animation:zz 2.4s .4s ease-in-out infinite}.wani .zz u{display:inline-block;font-size:9px;transform:translate(1px,-13px);animation:zz 2.4s .8s ease-in-out infinite}
+@keyframes zz{0%,100%{opacity:.6;translate:0 2px}50%{opacity:1;translate:2px -3px}}
+.anigrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.anic{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px 6px;border:2px dashed rgba(27,31,75,.3);border-radius:12px;background:var(--paper-cream);text-align:center}
+.anic.on{border-style:solid;border-color:var(--ink-navy);background:#E9F6EC;box-shadow:2px 2px 0 var(--ink-navy)}
+.anic .ai{position:relative;display:block;width:40px;height:40px}
+.anic:not(.on) svg{filter:brightness(0);opacity:.18}
+.anic .ai em{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:900 18px/1 var(--font-display);font-style:normal;color:var(--ink-soft)}
+.anic b{font-size:10.5px;font-weight:800;color:var(--ink-navy);line-height:1.15}
+.anic small{font-size:9px;color:var(--ink-soft);line-height:1.2}
+.guestbtn{margin-top:-2px}
+.guestnote{font-size:12.5px;color:var(--ink-soft);text-align:center;font-weight:600}
+.skip.guestgo{display:flex;align-items:center;justify-content:center;gap:8px;margin:14px 20px 0;height:50px;border:2px solid var(--ink-navy);border-radius:14px;background:var(--paper-card);font-size:15px;font-weight:800;color:var(--ink-navy);box-shadow:3px 3px 0 var(--ink-navy);width:calc(100% - 40px)}
+.gnag{display:flex;gap:10px;margin:0 20px 14px;padding:12px;border:2px solid #2A5FD6;border-radius:16px;background:#EEF4FF;box-shadow:3px 3px 0 #2A5FD6}
+.gnag .gi{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:#2A5FD6;color:#fff;display:flex;align-items:center;justify-content:center}
+.gnag b{display:block;font:900 15px/1.2 var(--font-display);color:var(--ink-navy)}
+.gnag span{display:block;font-size:12.5px;line-height:1.35;color:var(--ink-soft);margin-top:2px}
+.gnag .gb{display:flex;gap:8px;margin-top:8px}
+.gnag .gb button{height:32px;padding:0 12px;border:2px solid var(--ink-navy);border-radius:999px;background:var(--paper-card);font-size:12px;font-weight:800}
+.gnag .gb .pri{background:#2A5FD6;color:#fff}
 .wfp{display:flex;align-items:center;gap:6px;margin:-4px 0 10px;font-size:10.5px;font-weight:800;color:#B07D1A}
 .wfp.done{color:#1E7A48}
 .wfbar{width:60px;height:6px;border-radius:999px;background:rgba(27,31,75,.12);overflow:hidden;flex-shrink:0}.wfbar i{display:block;height:100%;background:#FFC21F}
@@ -3525,23 +3549,27 @@ function ambientInner(g){ if(reduced()) return ''; let out='';
   return out; }
 let cotdPick=null;
 const ANIMALS=[
-  {k:'camel', name:'Camel', ll:[24,2], go:'marrakech', fact:'A thirsty camel can drink more than 100 litres of water in about ten minutes.', svg:'<path d="M-10 2 Q-10 -4 -6 -4 Q-4 -9 -1 -4 Q1 -9 4 -4 L6 -6 Q9 -9 11 -6 Q11 -4 9 -4 L8 -3 Q8 2 6 2 Z" fill="#D9A15A" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><path d="M-8 2 V8 M-5 2 V8 M3 2 V8 M6 2 V8" stroke="#1B1F4B" stroke-width="1.4" stroke-linecap="round"/><circle cx="9.4" cy="-6" r=".8" fill="#1B1F4B"/>'},
-  {k:'kangaroo', name:'Kangaroo', ll:[-29,126], go:'uluru', fact:'Red kangaroos can hop at more than 50 km/h and cover around 8 metres in a single bound.', svg:'<path d="M-12 7 Q-10 2 -5 4" stroke="#C8743A" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M-6 7 Q-8 -2 -2 -4 Q0 -10 3 -9 L4 -12 L5.6 -8.6 Q8 -7.6 6 -5 Q4 -2 2 0 Q4 4 8 7 Z" fill="#C8743A" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><circle cx="4.6" cy="-7.4" r=".8" fill="#1B1F4B"/>'},
-  {k:'polarbear', name:'Polar bear', ll:[73,-95], go:null, fact:'A polar bear’s fur is actually see-through, and the skin underneath is black.', svg:'<path d="M-11 6 V0 Q-11 -4 -5 -4 H4 Q6 -7 9 -6 Q12 -5 11 -2 L8 -1 V6 H5 V2 H-6 V6 Z" fill="#FFFFFF" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><circle cx="9" cy="-4" r=".9" fill="#1B1F4B"/><circle cx="11.2" cy="-2.6" r=".7" fill="#1B1F4B"/>'},
-  {k:'whale', name:'Blue whale', ll:[30,-140], go:'vavau', fact:'A blue whale’s heart can weigh around 180 kg, about as much as two adults.', svg:'<path d="M-11 3 Q-9 -5 1 -4 Q8 -3 9 1 Q4 5 -11 3 Z" fill="#3D7BFF" stroke="#1B1F4B" stroke-width="1"/><path d="M9 1 L12.5 -3.5 L12.5 4.5 Z" fill="#3D7BFF" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><circle cx="-6" cy="-1" r=".9" fill="#1B1F4B"/><path d="M-3 -5 Q-5 -10 -7 -11 M-3 -5 Q-1 -10 1 -11 M-3 -5 V-12" stroke="#FFFFFF" stroke-width="1.4" fill="none" stroke-linecap="round"/>'},
-  {k:'penguin', name:'Emperor penguins', ll:[-55,-42], go:null, fact:'Emperor penguins can dive more than 500 metres deep and hold their breath for over 20 minutes.', svg:'<path d="M-12 8 L-9 3 H9 L12 8 Z" fill="#FFFFFF" stroke="#1B1F4B" stroke-width=".8"/><g transform="translate(-4 -1)"><ellipse rx="3.4" ry="5.4" fill="#1B1F4B"/><ellipse cx=".7" cy="1" rx="2.1" ry="3.8" fill="#fff"/><path d="M1.8 -3.6 l2.2 .9 -2.2 .5 Z" fill="#FFC21F"/></g><g transform="translate(4 0) scale(.8)"><ellipse rx="3.4" ry="5.4" fill="#1B1F4B"/><ellipse cx=".7" cy="1" rx="2.1" ry="3.8" fill="#fff"/><path d="M1.8 -3.6 l2.2 .9 -2.2 .5 Z" fill="#FFC21F"/></g>'},
-  {k:'elephant', name:'African elephant', ll:[-12,24], go:'serengeti', fact:'An elephant’s big ears work like air conditioners. Flapping them cools its blood.', svg:'<path d="M-10 6 V-1 Q-10 -7 -2 -7 Q5 -7 7 -2 Q10 0 10 5 Q9 7 8 5 Q8 2 7 2 V6 H4 V3 H-5 V6 Z" fill="#9AA0B5" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><path d="M-1 -6 Q4 -8 3 -1 Q1 0 -1 -2 Z" fill="#B7BCCB" stroke="#1B1F4B" stroke-width=".8"/><circle cx="5" cy="-3" r=".8" fill="#1B1F4B"/>'},
-  {k:'panda', name:'Giant panda', ll:[31,104], go:'chengdu', fact:'Giant pandas spend up to 14 hours a day eating bamboo.', svg:'<circle cx="-5" cy="-5" r="2.6" fill="#1B1F4B"/><circle cx="5" cy="-5" r="2.6" fill="#1B1F4B"/><circle r="6.5" fill="#fff" stroke="#1B1F4B" stroke-width="1"/><ellipse cx="-2.6" cy="0" rx="1.7" ry="2.3" fill="#1B1F4B" transform="rotate(20 -2.6 0)"/><ellipse cx="2.6" cy="0" rx="1.7" ry="2.3" fill="#1B1F4B" transform="rotate(-20 2.6 0)"/><circle cx="0" cy="3" r="1.1" fill="#1B1F4B"/>'},
-  {k:'llama', name:'Llama', ll:[-26,-67], go:'cusco', fact:'Llamas hum to each other, and they mostly spit at other llamas, not at people.', svg:'<path d="M-8 7 V1 Q-8 -2 -4 -2 H2 V-9 Q2 -11 4 -11 L5 -13 L6 -11 Q8 -10 6.6 -8 L5.4 -7.4 V2 Q5.4 7 4 7 H2 V3 H-5 V7 Z" fill="#F4EEDC" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><circle cx="4.4" cy="-9" r=".7" fill="#1B1F4B"/><path d="M-4 -2 h6" stroke="#E8382A" stroke-width="1.6"/>'},
-  {k:'moose', name:'Moose', ll:[57,-128], go:'banff', fact:'Moose are strong swimmers and can dive several metres to eat plants from lake beds.', svg:'<path d="M-10 7 V0 Q-10 -4 -5 -4 H3 Q6 -6 9 -4 Q11 -1 8 0 L6 0 V7 H4 V3 H-7 V7 Z" fill="#7A4B22" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><path d="M5 -5 Q3 -10 -1 -9 M3.4 -7.6 L2 -10.4 M5 -5 Q8 -10 12 -9 M8.6 -7.6 L10 -10.6" stroke="#E3C9A0" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="8" cy="-3" r=".8" fill="#1B1F4B"/>'},
-  {k:'toucan', name:'Toucan', ll:[-9,-58], go:'manuelantonio', fact:'A toucan’s huge beak is light and hollow, and it helps the bird shed heat to stay cool.', svg:'<ellipse cx="-2" cy="2" rx="4.8" ry="6.4" fill="#1B1F4B"/><circle cx="-1" cy="-2.6" r="2.6" fill="#fff"/><path d="M1 -4 Q11 -5 12 -1.6 Q8 -.6 1 -1.6 Z" fill="#FF8A3D" stroke="#1B1F4B" stroke-width=".8" stroke-linejoin="round"/><path d="M10 -4 Q12 -3 12 -1.6" stroke="#E8382A" stroke-width="1.4" fill="none"/><circle cx="-1.2" cy="-3" r=".8" fill="#1B1F4B"/><path d="M-4 8 v3" stroke="#1B1F4B" stroke-width="1.2"/>'},
-  {k:'tiger', name:'Bengal tiger', ll:[24,82], go:'chitwan', fact:'No two tigers have the same stripes. Their pattern is as unique as a fingerprint.', svg:'<circle cx="-4.8" cy="-4.8" r="2" fill="#F28C28" stroke="#1B1F4B" stroke-width=".8"/><circle cx="4.8" cy="-4.8" r="2" fill="#F28C28" stroke="#1B1F4B" stroke-width=".8"/><circle r="6.5" fill="#F28C28" stroke="#1B1F4B" stroke-width="1"/><path d="M-6.4 -1 h3 M6.4 -1 h-3 M0 -6.4 v2.6 M-5.8 2 h2.4 M5.8 2 h-2.4" stroke="#1B1F4B" stroke-width="1.1" stroke-linecap="round"/><ellipse cx="0" cy="3.2" rx="2.8" ry="2.1" fill="#fff"/><circle cx="-2.2" cy="-1" r=".8" fill="#1B1F4B"/><circle cx="2.2" cy="-1" r=".8" fill="#1B1F4B"/><circle cx="0" cy="2.4" r=".8" fill="#1B1F4B"/>'},
-  {k:'kiwi', name:'Kiwi', ll:[-38,177], go:'rotorua', fact:'For its size, the kiwi lays one of the biggest eggs of any bird, about a fifth of its body weight.', svg:'<ellipse cx="-1" cy="1" rx="6.4" ry="4.8" fill="#8C5A2B" stroke="#1B1F4B" stroke-width="1"/><path d="M4.4 -.4 Q9 1.6 12 6" stroke="#E3C9A0" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="3.2" cy="-1" r=".8" fill="#1B1F4B"/><path d="M-3 5.4 v3 M1 5.4 v3" stroke="#1B1F4B" stroke-width="1.3" stroke-linecap="round"/>'}];
-function animalFact(k, btn){ const a=ANIMALS.find(x=>x.k===k); if(!a) return; const old=$('#wfact'); const n=$('#wnote'); if(n) n.remove();
+  {k:'camel', where:'Sahara', name:'Camel', ll:[24,2], go:'marrakech', fact:'A thirsty camel can drink more than 100 litres of water in about ten minutes.', svg:'<path d="M-10 2 Q-10 -4 -6 -4 Q-4 -9 -1 -4 Q1 -9 4 -4 L6 -6 Q9 -9 11 -6 Q11 -4 9 -4 L8 -3 Q8 2 6 2 Z" fill="#D9A15A" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><path d="M-8 2 V8 M-5 2 V8 M3 2 V8 M6 2 V8" stroke="#1B1F4B" stroke-width="1.4" stroke-linecap="round"/><circle cx="9.4" cy="-6" r=".8" fill="#1B1F4B"/>'},
+  {k:'kangaroo', where:'Australian outback', name:'Kangaroo', ll:[-29,126], go:'uluru', fact:'Red kangaroos can hop at more than 50 km/h and cover around 8 metres in a single bound.', svg:'<path d="M-12 7 Q-10 2 -5 4" stroke="#C8743A" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M-6 7 Q-8 -2 -2 -4 Q0 -10 3 -9 L4 -12 L5.6 -8.6 Q8 -7.6 6 -5 Q4 -2 2 0 Q4 4 8 7 Z" fill="#C8743A" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><circle cx="4.6" cy="-7.4" r=".8" fill="#1B1F4B"/>'},
+  {k:'polarbear', where:'Arctic', name:'Polar bear', ll:[73,-95], go:null, fact:'A polar bear’s fur is actually see-through, and the skin underneath is black.', svg:'<path d="M-11 6 V0 Q-11 -4 -5 -4 H4 Q6 -7 9 -6 Q12 -5 11 -2 L8 -1 V6 H5 V2 H-6 V6 Z" fill="#FFFFFF" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><circle cx="9" cy="-4" r=".9" fill="#1B1F4B"/><circle cx="11.2" cy="-2.6" r=".7" fill="#1B1F4B"/>'},
+  {k:'whale', where:'Pacific Ocean', name:'Blue whale', ll:[30,-140], go:'vavau', fact:'A blue whale’s heart can weigh around 180 kg, about as much as two adults.', svg:'<path d="M-11 3 Q-9 -5 1 -4 Q8 -3 9 1 Q4 5 -11 3 Z" fill="#3D7BFF" stroke="#1B1F4B" stroke-width="1"/><path d="M9 1 L12.5 -3.5 L12.5 4.5 Z" fill="#3D7BFF" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><circle cx="-6" cy="-1" r=".9" fill="#1B1F4B"/><path d="M-3 -5 Q-5 -10 -7 -11 M-3 -5 Q-1 -10 1 -11 M-3 -5 V-12" stroke="#FFFFFF" stroke-width="1.4" fill="none" stroke-linecap="round"/>'},
+  {k:'penguin', where:'Southern Ocean', name:'Emperor penguins', ll:[-55,-42], go:null, fact:'Emperor penguins can dive more than 500 metres deep and hold their breath for over 20 minutes.', svg:'<path d="M-12 8 L-9 3 H9 L12 8 Z" fill="#FFFFFF" stroke="#1B1F4B" stroke-width=".8"/><g transform="translate(-4 -1)"><ellipse rx="3.4" ry="5.4" fill="#1B1F4B"/><ellipse cx=".7" cy="1" rx="2.1" ry="3.8" fill="#fff"/><path d="M1.8 -3.6 l2.2 .9 -2.2 .5 Z" fill="#FFC21F"/></g><g transform="translate(4 0) scale(.8)"><ellipse rx="3.4" ry="5.4" fill="#1B1F4B"/><ellipse cx=".7" cy="1" rx="2.1" ry="3.8" fill="#fff"/><path d="M1.8 -3.6 l2.2 .9 -2.2 .5 Z" fill="#FFC21F"/></g>'},
+  {k:'elephant', where:'Southern Africa', name:'African elephant', ll:[-12,24], go:'serengeti', fact:'An elephant’s big ears work like air conditioners. Flapping them cools its blood.', svg:'<path d="M-10 6 V-1 Q-10 -7 -2 -7 Q5 -7 7 -2 Q10 0 10 5 Q9 7 8 5 Q8 2 7 2 V6 H4 V3 H-5 V6 Z" fill="#9AA0B5" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><path d="M-1 -6 Q4 -8 3 -1 Q1 0 -1 -2 Z" fill="#B7BCCB" stroke="#1B1F4B" stroke-width=".8"/><circle cx="5" cy="-3" r=".8" fill="#1B1F4B"/>'},
+  {k:'panda', where:'China', name:'Giant panda', ll:[31,104], go:'chengdu', fact:'Giant pandas spend up to 14 hours a day eating bamboo.', svg:'<circle cx="-5" cy="-5" r="2.6" fill="#1B1F4B"/><circle cx="5" cy="-5" r="2.6" fill="#1B1F4B"/><circle r="6.5" fill="#fff" stroke="#1B1F4B" stroke-width="1"/><ellipse cx="-2.6" cy="0" rx="1.7" ry="2.3" fill="#1B1F4B" transform="rotate(20 -2.6 0)"/><ellipse cx="2.6" cy="0" rx="1.7" ry="2.3" fill="#1B1F4B" transform="rotate(-20 2.6 0)"/><circle cx="0" cy="3" r="1.1" fill="#1B1F4B"/>'},
+  {k:'llama', where:'Andes', name:'Llama', ll:[-26,-67], go:'cusco', fact:'Llamas hum to each other, and they mostly spit at other llamas, not at people.', svg:'<path d="M-8 7 V1 Q-8 -2 -4 -2 H2 V-9 Q2 -11 4 -11 L5 -13 L6 -11 Q8 -10 6.6 -8 L5.4 -7.4 V2 Q5.4 7 4 7 H2 V3 H-5 V7 Z" fill="#F4EEDC" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><circle cx="4.4" cy="-9" r=".7" fill="#1B1F4B"/><path d="M-4 -2 h6" stroke="#E8382A" stroke-width="1.6"/>'},
+  {k:'moose', where:'Canada', name:'Moose', ll:[57,-128], go:'banff', fact:'Moose are strong swimmers and can dive several metres to eat plants from lake beds.', svg:'<path d="M-10 7 V0 Q-10 -4 -5 -4 H3 Q6 -6 9 -4 Q11 -1 8 0 L6 0 V7 H4 V3 H-7 V7 Z" fill="#7A4B22" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><path d="M5 -5 Q3 -10 -1 -9 M3.4 -7.6 L2 -10.4 M5 -5 Q8 -10 12 -9 M8.6 -7.6 L10 -10.6" stroke="#E3C9A0" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="8" cy="-3" r=".8" fill="#1B1F4B"/>'},
+  {k:'toucan', where:'Amazon', name:'Toucan', ll:[-9,-58], go:'manuelantonio', fact:'A toucan’s huge beak is light and hollow, and it helps the bird shed heat to stay cool.', svg:'<ellipse cx="-2" cy="2" rx="4.8" ry="6.4" fill="#1B1F4B"/><circle cx="-1" cy="-2.6" r="2.6" fill="#fff"/><path d="M1 -4 Q11 -5 12 -1.6 Q8 -.6 1 -1.6 Z" fill="#FF8A3D" stroke="#1B1F4B" stroke-width=".8" stroke-linejoin="round"/><path d="M10 -4 Q12 -3 12 -1.6" stroke="#E8382A" stroke-width="1.4" fill="none"/><circle cx="-1.2" cy="-3" r=".8" fill="#1B1F4B"/><path d="M-4 8 v3" stroke="#1B1F4B" stroke-width="1.2"/>'},
+  {k:'tiger', where:'India', name:'Bengal tiger', ll:[24,82], go:'chitwan', fact:'No two tigers have the same stripes. Their pattern is as unique as a fingerprint.', svg:'<circle cx="-4.8" cy="-4.8" r="2" fill="#F28C28" stroke="#1B1F4B" stroke-width=".8"/><circle cx="4.8" cy="-4.8" r="2" fill="#F28C28" stroke="#1B1F4B" stroke-width=".8"/><circle r="6.5" fill="#F28C28" stroke="#1B1F4B" stroke-width="1"/><path d="M-6.4 -1 h3 M6.4 -1 h-3 M0 -6.4 v2.6 M-5.8 2 h2.4 M5.8 2 h-2.4" stroke="#1B1F4B" stroke-width="1.1" stroke-linecap="round"/><ellipse cx="0" cy="3.2" rx="2.8" ry="2.1" fill="#fff"/><circle cx="-2.2" cy="-1" r=".8" fill="#1B1F4B"/><circle cx="2.2" cy="-1" r=".8" fill="#1B1F4B"/><circle cx="0" cy="2.4" r=".8" fill="#1B1F4B"/>'},
+  {k:'kiwi', where:'New Zealand', name:'Kiwi', ll:[-38,177], go:'rotorua', fact:'For its size, the kiwi lays one of the biggest eggs of any bird, about a fifth of its body weight.', svg:'<ellipse cx="-1" cy="1" rx="6.4" ry="4.8" fill="#8C5A2B" stroke="#1B1F4B" stroke-width="1"/><path d="M4.4 -.4 Q9 1.6 12 6" stroke="#E3C9A0" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="3.2" cy="-1" r=".8" fill="#1B1F4B"/><path d="M-3 5.4 v3 M1 5.4 v3" stroke="#1B1F4B" stroke-width="1.3" stroke-linecap="round"/>'}];
+let animalsSeen=[]; const awake=new Set();
+function animalFact(k, btn){ const a=ANIMALS.find(x=>x.k===k); if(!a) return;
+  const woke = btn && btn.classList.contains('sleep'); if(woke){ awake.add(k); btn.classList.remove('sleep'); const z=btn.querySelector('.zz'); if(z) z.remove(); }
+  if(!animalsSeen.includes(k)){ animalsSeen.push(k); saveState(); const n=animalsSeen.length;
+    setTimeout(()=>{ if(n>=ANIMALS.length){ checkUnlocks(); toast('You spotted all 12 animals! The safari hat is yours.'); } else toast(`New animal spotted! ${n} of ${ANIMALS.length} in your Animal spotter`); }, 500); } const old=$('#wfact'); const n=$('#wnote'); if(n) n.remove();
   if(btn){ btn.classList.remove('hop'); void btn.offsetWidth; btn.classList.add('hop'); setTimeout(()=>btn.classList.remove('hop'), 700); }
   tone(0,'triangle',740,.06,.07); tone(.07,'triangle',988,.08,.06);
   const go=a.go && CITIES[a.go] ? `<button class="pri" data-wfgo="${a.go}">${L(LU.pin,14,2.4)}See them near ${CITIES[a.go].name}</button>` : '';
-  const html=`<div class="wfact" id="wfact" role="dialog" aria-label="${esc(a.name)}"><small>${L(LU.spark,11,2.6)}WILDLIFE SPOTTED</small><b><span class="wfani"><svg viewBox="-13 -13 26 26" width="30" height="30">${a.svg}</svg></span>${esc(a.name)}</b><p>${esc(a.fact)}</p>
+  const html=`<div class="wfact" id="wfact" role="dialog" aria-label="${esc(a.name)}"><small>${L(LU.spark,11,2.6)}${woke?'YOU WOKE IT UP!':'WILDLIFE SPOTTED'}</small><b><span class="wfani"><svg viewBox="-13 -13 26 26" width="30" height="30">${a.svg}</svg></span>${esc(a.name)}</b><p>${esc(a.fact)}</p>
     <div class="wfb">${go}<button class="x" data-wfclose aria-label="Close">${L(LU.x,14,2.6)}</button></div></div>`;
   if(old) old.outerHTML=html; else $('#ui-world').insertAdjacentHTML('beforeend', html); }
 const CTZ={PT:'Europe/Lisbon',JP:'Asia/Tokyo',MX:'America/Mexico_City',AU:'Australia/Sydney',IT:'Europe/Rome',TH:'Asia/Bangkok',MA:'Africa/Casablanca',BR:'America/Sao_Paulo',US:'America/New_York',UK:'Europe/London',CH:'Europe/Zurich',IN:'Asia/Kolkata',NP:'Asia/Kathmandu',LK:'Asia/Colombo',CN:'Asia/Shanghai',ES:'Europe/Madrid',FR:'Europe/Paris',NL:'Europe/Amsterdam',DE:'Europe/Berlin',AT:'Europe/Vienna',GR:'Europe/Athens',TR:'Europe/Istanbul',KR:'Asia/Seoul',AE:'Asia/Dubai',EG:'Africa/Cairo',ZA:'Africa/Johannesburg',IE:'Europe/Dublin',NO:'Europe/Oslo',CZ:'Europe/Prague',HR:'Europe/Zagreb',VN:'Asia/Ho_Chi_Minh',ID:'Asia/Jakarta',SG:'Asia/Singapore',NZ:'Pacific/Auckland',CA:'America/Toronto',PE:'America/Lima',AR:'America/Argentina/Buenos_Aires',KE:'Africa/Nairobi',KH:'Asia/Phnom_Penh',LA:'Asia/Vientiane',PH:'Asia/Manila',MY:'Asia/Kuala_Lumpur',CO:'America/Bogota',BO:'America/La_Paz',CL:'America/Santiago',HU:'Europe/Budapest',PL:'Europe/Warsaw',IS:'Atlantic/Reykjavik',GT:'America/Guatemala',CR:'America/Costa_Rica',CU:'America/Havana',JO:'Asia/Amman',TZ:'Africa/Dar_es_Salaam',EC:'America/Guayaquil'};
@@ -3682,7 +3710,9 @@ function balloonFact(btn){ const old=$('#wfact'); const id=pickRandom(k=>CITIES[
     <div class="wfb"><button class="pri" data-wfgo="${id}">${L(LU.pin,14,2.4)}Take me there</button><button data-wfx>Another one</button><button class="x" data-wfclose aria-label="Close">${L(LU.x,14,2.6)}</button></div></div>`;
   if(old) old.outerHTML=html; else $('#ui-world').insertAdjacentHTML('beforeend', html); }
 function pinsHTML(g){ let out='';
-  ANIMALS.forEach((a,i)=>{ const [x,y]=wLL(g,...a.ll); out+=`<button class="wani" data-wani="${a.k}" style="left:${(x-15).toFixed(1)}px;top:${(y-15).toFixed(1)}px;--d:${(i*.37).toFixed(2)}s" aria-label="${esc(a.name)}: tap for a fact"><svg viewBox="-13 -13 26 26" width="30" height="30" aria-hidden="true">${a.svg}</svg></button>`; });
+  const SUN=sunNow();
+  ANIMALS.forEach((a,i)=>{ const [x,y]=wLL(g,...a.ll), zz=!awake.has(a.k) && sunElev(SUN,a.ll[0],a.ll[1])<-6;
+    out+=`<button class="wani ${zz?'sleep':''}" data-wani="${a.k}" style="left:${(x-15).toFixed(1)}px;top:${(y-15).toFixed(1)}px;--d:${(i*.37).toFixed(2)}s" aria-label="${esc(a.name)}${zz?' (asleep)':''}: tap for a fact"><svg viewBox="-13 -13 26 26" width="30" height="30" aria-hidden="true">${a.svg}</svg>${zz?'<i class="zz" aria-hidden="true">z<b>z</b><u>z</u></i>':''}</button>`; });
   { const [x,y]=wLL(g,40,33); out+=`<button class="wball" data-wball style="left:${(x-17).toFixed(1)}px;top:${(y-70).toFixed(1)}px" aria-label="Hot air balloon: tap for today’s quiz">${BALLOON}</button>`; }
   const seen=new Set();
   EVENTS.forEach(e=>e.cities.forEach(id=>{ const ev=activeEvent(id); if(!ev||ev.id!==e.id||seen.has(id)||!CITY_LL[id]) return; seen.add(id); const [x,y]=wLL(g,...CITY_LL[id]);
@@ -4598,7 +4628,7 @@ const AV_OPTS={
   facial:[['none','None'],['stubble','Stubble'],['tache','Moustache'],['handlebar','Handlebar'],['goatee','Goatee'],['beard','Full beard']],
   freckles:[['n','None'],['y','Freckles'],['rosy','Rosy cheeks'],['mole','Beauty mark']],
   outfit:[['tee','T-shirt'],['stripes','Stripy tee'],['tank','Tank top'],['scoop','Scoop top'],['shirt','Collared shirt'],['hoodie','Hoodie'],['sweater','Knit jumper'],['jacket','Jacket'],['overalls','Overalls'],['jersey','Sports jersey']],
-  hat:[['none','None'],['beanie','Beanie'],['cap','Cap'],['sunhat','Sun hat'],['beret','Beret'],['party','Party'],['tram','Conductor'],['chef','Chef'],['explorer','Explorer'],['halo','Halo'],['crown','Crown'],['propeller','Propeller'],['aviator','Balloonist'],['sailor','Sailor']],
+  hat:[['none','None'],['beanie','Beanie'],['cap','Cap'],['sunhat','Sun hat'],['beret','Beret'],['party','Party'],['tram','Conductor'],['chef','Chef'],['explorer','Explorer'],['halo','Halo'],['crown','Crown'],['propeller','Propeller'],['aviator','Balloonist'],['sailor','Sailor'],['safari','Safari']],
   glasses:[['none','None'],['round','Round'],['shades','Shades'],['hearts','Hearts'],['neon','Neon stars'],['pixel','Pixel shades']],
   neck:[['none','None'],['chain','Chain'],['pearls','Pearls'],['scarf','Scarf'],['lei','Flower lei'],['medal','Gold medal']],
   ears:[['none','None'],['studs','Studs'],['hoops','Hoops']],
@@ -4650,6 +4680,7 @@ const HATS_AV = {
   tram:`<path d="M31 52 Q31 24 60 24 Q89 24 89 52Z" fill="#C8323A"/><rect x="29" y="46" width="62" height="10" rx="3" fill="#1B1F4B"/><path d="M29 55 Q60 63 93 55 L93 59 Q60 68 29 59Z" fill="#0F1230"/><rect x="53" y="32" width="14" height="10" rx="2" fill="#FFC21F"/>`,
   chef:`<g fill="#fff" stroke="#1B1F4B" stroke-width="2"><circle cx="43" cy="22" r="12"/><circle cx="77" cy="22" r="12"/><circle cx="60" cy="13" r="15"/><rect x="37" y="24" width="46" height="24" rx="3"/></g><path d="M38 26 h44 v8 h-44z" fill="#fff"/><path d="M48 32 v13 M60 32 v13 M72 32 v13" stroke="#E2DED3" stroke-width="2"/>`,
   explorer:`<ellipse cx="60" cy="46" rx="48" ry="10" fill="#A9814A"/><path d="M37 46 Q39 20 60 20 Q81 20 83 46Z" fill="#D2AE70"/><path d="M37 38 Q60 33 83 38 L83 44 Q60 39 37 44Z" fill="#7A4A2A"/>`,
+  safari:`<path d="M24 57 Q60 45 96 57 Q97 64 88 62 Q60 53 32 62 Q23 64 24 57Z" fill="#C9A66B"/><path d="M34 53 Q34 26 60 26 Q86 26 86 53Z" fill="#E8D3A6"/><path d="M44 30 Q60 26 76 30" stroke="#F5E6C4" stroke-width="3" fill="none"/><rect x="34" y="46" width="52" height="6" fill="#7A4B22"/><circle cx="60" cy="25" r="3" fill="#C9A66B"/>`,
   sailor:`<path d="M33 50 Q33 27 60 27 Q87 27 87 50Z" fill="#FFFFFF"/><path d="M42 33 Q60 27 78 33" stroke="#E2E8F4" stroke-width="3" fill="none"/><rect x="32" y="44" width="56" height="6" fill="#1B1F4B"/><path d="M26 53 Q60 41 94 53 Q95 61 88 61 Q60 52 32 61 Q25 61 26 53Z" fill="#F4F7FC" stroke="#C9D2E8" stroke-width="2"/><path d="M60 33 v8 M56 37 h8 M55 40 q5 4 10 0" stroke="#E8382A" stroke-width="1.8" fill="none" stroke-linecap="round"/>`,
   aviator:`<path d="M30 60 Q28 72 32 80 Q39 80 40 66Z M90 60 Q92 72 88 80 Q81 80 80 66Z" fill="#7A4B22"/><path d="M29 60 Q29 24 60 24 Q91 24 91 60Z" fill="#8C5A2B"/><path d="M60 25 V46 M44 29 Q40 40 40 46 M76 29 Q80 40 80 46" stroke="#6B4019" stroke-width="2" fill="none"/><rect x="30" y="43" width="60" height="7" rx="3.5" fill="#5A3A22"/><circle cx="47" cy="45" r="8.5" fill="#9FDCF3" stroke="#C9961A" stroke-width="3.5"/><circle cx="73" cy="45" r="8.5" fill="#9FDCF3" stroke="#C9961A" stroke-width="3.5"/><path d="M43 42 l5 -3 M69 42 l5 -3" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>`,
   propeller:`<path d="M33 52 Q33 26 60 26 Q87 26 87 52Z" fill="#3D7BFF"/><path d="M33 52 Q33 26 60 26 L60 52Z" fill="#FF4F6E"/><path d="M60 26 Q76 30 87 52 L60 52Z" fill="#FFC21F"/><rect x="29" y="48" width="62" height="8" rx="4" fill="#1B1F4B"/><rect x="58" y="12" width="4" height="15" fill="#1B1F4B"/><g class="prop"><ellipse cx="47" cy="12" rx="13" ry="3.6" fill="#2FBF71"/><ellipse cx="73" cy="12" rx="13" ry="3.6" fill="#9D4EFF"/></g><circle cx="60" cy="12" r="3.6" fill="#FFC21F"/>`,
@@ -4785,6 +4816,7 @@ const LOCKS = {
   'glasses:pixel':{test:()=>weeklyEarned('glasses:pixel'), label:'Weekly challenge reward'},
   'aura:confetti':{test:()=>weeklyEarned('aura:confetti'), label:'Weekly challenge reward'},
   'hat:aviator':{test:()=>bqTotal>=10 || factsRead.length>=10, label:'Get 10 answers right in the balloon quiz'},
+  'hat:safari':{test:()=>animalsSeen.length>=12, label:'Spot all 12 animals on the world map'},
   'hat:sailor':{test:()=>notesRead.length>=5, label:'Find 5 messages in bottles (tap the boats)'},
   'frame:gold':{test:()=>Object.keys(COUNTRIES).some(done), label:'Earn gold in any country'},
   'frame:holo':{test:()=>Object.keys(COUNTRIES).filter(done).length>=2, label:'Earn gold in 2 countries'}
@@ -5029,18 +5061,24 @@ const LOGO = `<svg class="logo" viewBox="0 0 200 220" width="200" height="220" a
   <path class="wave" d="M108 52 q8 -6 16 0 t16 0 t16 0 t16 0 t16 0" fill="none" stroke="#1B1F4B" stroke-width="3" stroke-linecap="round"/>
   <path class="wave" d="M108 64 q8 -6 16 0 t16 0 t16 0 t16 0 t16 0" fill="none" stroke="#1B1F4B" stroke-width="3" stroke-linecap="round"/></svg>`;
 const STAR4 = s => `<svg width="${s}" height="${s}" viewBox="0 0 20 20"><path d="M10 0 L12.5 7.5 L20 10 L12.5 12.5 L10 20 L7.5 12.5 L0 10 L7.5 7.5Z" fill="currentColor"/></svg>`;
+const isGuest = () => { if(!STANDALONE || ACCT.signedIn) return false; try{ return localStorage.getItem('pm-noacct')==='1'; }catch(e){ return false; } };
+const likelySignedIn = () => { try{ return Object.keys(localStorage).some(k=>/^sb-.*-auth-token$/.test(k)); }catch(e){ return false; } };
 function showSplash(){
   const sp=$('#splash'); sp.className='';
   sp.innerHTML=`<div class="launch">${ICON(112,'l')}</div><div class="sun-rays"></div>
     ${[[40,120,22,0],[318,170,16,.4],[60,330,14,.8],[330,360,24,.2],[200,96,12,1.1],[290,470,12,.6]].map(([x,y,s2,d])=>`<span class="spk2" style="left:${x}px;top:${y}px;animation-delay:${d}s">${STAR4(s2)}</span>`).join('')}
     <div class="logo-wrap"><div class="logo-glow"></div>${LOGO}</div>
     <h1 class="brand">Postmark</h1><p class="tagline">Stamp the world, one city at a time.</p>
-    <div class="splashbtns"><button class="btn navy big" id="startBtn">${L(LU.map,18)}Start exploring</button>
+    <div class="splashbtns">${STANDALONE && AUTH.configured && !DEMO && !isGuest() && !likelySignedIn()
+      ? `<button class="btn navy big" id="signinBtn">${L(LU.shield,18)}Sign in or create account</button><button class="btn line big guestbtn" id="guestBtn">${L(LU.map,18)}Continue as a guest</button><span class="guestnote">No account needed. You can sign up later and keep your stamps.</span>`
+      : `<button class="btn navy big" id="startBtn">${L(LU.map,18)}Start exploring</button>${isGuest()?'<span class="guestnote">Exploring as a guest</span>':''}`}
     <span class="splashme">${face(44)}${AVA.bio.given?`Welcome back, ${esc(AVA.bio.given)}!`:'Your passport is ready'}</span></div>`;
 }
-$('#splash').addEventListener('click', e=>{ if(!e.target.closest('#startBtn')) return;
+$('#splash').addEventListener('click', e=>{ const sb=e.target.closest('#startBtn,#guestBtn,#signinBtn'); if(!sb) return; const wantAuth=sb.id==='signinBtn';
+  if(sb.id==='guestBtn'){ try{ localStorage.setItem('pm-noacct','1'); }catch(err){} }
   thud(90,.35); stampSound('PT'); const sp=$('#splash'); sp.classList.add('off'); try{ localStorage.setItem('pm-seen','1'); }catch(err){}
   setTimeout(()=>{ sp.classList.add('gone'); sp.innerHTML=''; renderLevel('world'); worldIntro(); setTimeout(()=>{ let skip=false; try{ skip=localStorage.getItem('pm-noacct')==='1'; }catch(e){}
+      if(wantAuth && !AUTH.user) return openAuth('in');
       if(STANDALONE && AUTH.configured && !AUTH.user && !skip && !DEMO) return openAuth('in');
       if(!openOnboard()) toast('59 countries on 6 continents are playable'); }, 900); }, 560); });
 
@@ -5615,13 +5653,13 @@ const SYNC={ref:null, status:'local', saving:false, dirty:false, at:null, lastAt
 const ACCT={name:'', signedIn:false};
 let DEVID=''; try{ DEVID=localStorage.getItem('pm-dev')||''; if(!DEVID){ DEVID='d'+Math.random().toString(36).slice(2,10); localStorage.setItem('pm-dev',DEVID); } }catch(e){ DEVID='d'+Math.random().toString(36).slice(2,10); }
 function snapshotState(){
-  return {v:1, visited, unlocked, sent, verified, eventStamps, trips, activeTrip, AVA, outfit, cover, inbox, mailDays, tinStyle, balloon:factsRead.slice(-300), bq:BQ, bqt:bqTotal, bqs:bqStreak, bottles:notesRead.slice(-100), earned:[...earnedWeekly], mailEver, friends:friendIds, mailSeen:mailSeen2.slice(-200), fnotes:friendNotes.slice(0,20)};
+  return {v:1, visited, unlocked, sent, verified, eventStamps, trips, activeTrip, AVA, outfit, cover, inbox, mailDays, tinStyle, balloon:factsRead.slice(-300), ani:animalsSeen, bq:BQ, bqt:bqTotal, bqs:bqStreak, bottles:notesRead.slice(-100), earned:[...earnedWeekly], mailEver, friends:friendIds, mailSeen:mailSeen2.slice(-200), fnotes:friendNotes.slice(0,20)};
 }
 function applyState(d){
   if(!d || d.v!==1) return;
   if(d.visited) visited=d.visited; if(d.unlocked) unlocked=d.unlocked; if(d.sent) sent=d.sent; if(d.verified) verified=d.verified; if(d.eventStamps) eventStamps=d.eventStamps;
   if(Array.isArray(d.trips)) trips=d.trips; if('activeTrip' in d) activeTrip=d.activeTrip; if(d.AVA) AVA={...AVA, ...d.AVA, bio:{...AVA.bio, ...(d.AVA.bio||{})}};
-  if(d.outfit) outfit=d.outfit; if(d.cover) cover=d.cover; if(Array.isArray(d.inbox)) inbox=d.inbox; if(Array.isArray(d.mailDays)) mailDays=d.mailDays; if(Array.isArray(d.balloon)) factsRead=d.balloon.filter(k=>CITIES[k]); if(d.bq && typeof d.bq.d==='string' && Array.isArray(d.bq.picks)) BQ={d:d.bq.d, picks:d.bq.picks.filter(n=>Number.isInteger(n)).slice(0,7)}; if(Number.isFinite(d.bqt)) bqTotal=d.bqt; if(d.bqs && typeof d.bqs.last==='string') bqStreak={last:d.bqs.last, n:+d.bqs.n||0, best:+d.bqs.best||0}; if(Array.isArray(d.bottles)) notesRead=d.bottles.filter(k=>typeof k==='string'); if(typeof d.tinStyle==='string' && TIN_STYLES.some(x=>x.id===d.tinStyle)) tinStyle=d.tinStyle;
+  if(d.outfit) outfit=d.outfit; if(d.cover) cover=d.cover; if(Array.isArray(d.inbox)) inbox=d.inbox; if(Array.isArray(d.mailDays)) mailDays=d.mailDays; if(Array.isArray(d.balloon)) factsRead=d.balloon.filter(k=>CITIES[k]); if(Array.isArray(d.ani)) animalsSeen=d.ani.filter(k=>typeof k==='string'); if(d.bq && typeof d.bq.d==='string' && Array.isArray(d.bq.picks)) BQ={d:d.bq.d, picks:d.bq.picks.filter(n=>Number.isInteger(n)).slice(0,7)}; if(Number.isFinite(d.bqt)) bqTotal=d.bqt; if(d.bqs && typeof d.bqs.last==='string') bqStreak={last:d.bqs.last, n:+d.bqs.n||0, best:+d.bqs.best||0}; if(Array.isArray(d.bottles)) notesRead=d.bottles.filter(k=>typeof k==='string'); if(typeof d.tinStyle==='string' && TIN_STYLES.some(x=>x.id===d.tinStyle)) tinStyle=d.tinStyle;
   if(Array.isArray(d.earned)) d.earned.forEach(k=>earnedWeekly.add(k)); if(d.mailEver) mailEver=true;
   if(Array.isArray(d.fnotes)) friendNotes=d.fnotes.filter(n=>n&&typeof n.uid==='string');
   if(Array.isArray(d.friends)) friendIds=d.friends.filter(x=>typeof x==='string'); if(Array.isArray(d.mailSeen)) mailSeen2=d.mailSeen;
@@ -5684,6 +5722,14 @@ function supaSocial(c, uid){
           return ()=>{ clearInterval(iv); document.removeEventListener('visibilitychange',pull); }; } }; } };
     } };
 }
+function mergeGuest(g){ let added=0;
+  for(const k in g.visited){ if(!CITIES[k]) continue; if(!visited[k]){ visited[k]=g.visited[k]; added++; } else if(g.visited[k]<visited[k]) visited[k]=g.visited[k]; }
+  for(const k in g.verified) if(visited[k] && !verified[k]) verified[k]=g.verified[k];
+  for(const k in g.unlocked) if(!unlocked[k]) unlocked[k]=g.unlocked[k];
+  for(const k in g.eventStamps) if(!eventStamps[k]) eventStamps[k]=g.eventStamps[k];
+  (g.sent||[]).forEach(p=>{ if(!sent.some(q=>q.id===p.id && q.msg===p.msg && q.date===p.date)) sent.push(p); });
+  notesRead=[...new Set([...notesRead,...(g.notesRead||[])])]; factsRead=[...new Set([...factsRead,...(g.factsRead||[])])]; animalsSeen=[...new Set([...animalsSeen,...(g.animalsSeen||[])])];
+  return added; }
 async function authChanged(session){
   const u=session&&session.user||null;
   if(u && AUTH.user && AUTH.user.id===u.id) return;
@@ -5692,6 +5738,9 @@ async function authChanged(session){
   if(SOC.unsub){ try{ SOC.unsub(); }catch(e){} SOC.unsub=null; }
   togStop();
   if(!u){ SOC.db=null; SOC.uid=null; SOC.lastCard=''; SYNC.ref=null; SYNC.status='local'; ACCT.signedIn=false; ACCT.name=''; renderSync(); if(!$('#passport').hidden) renderPassport(); renderFriends(); return; }
+  let wasGuest=false; try{ wasGuest=localStorage.getItem('pm-noacct')==='1'; }catch(e){}
+  const guest = wasGuest && Object.keys(visited).length ? JSON.parse(JSON.stringify({visited,verified,unlocked,eventStamps,sent,notesRead,factsRead,animalsSeen})) : null;
+  try{ localStorage.removeItem('pm-noacct'); }catch(e){}
   ACCT.signedIn=true; ACCT.name=u.email||''; SYNC.ref=supaRef(AUTH.client, u.id); SYNC.status='loading'; renderSync();
   SOC.db=supaSocial(AUTH.client, u.id); SOC.uid=u.id; SOC.lastCard=''; SOC.loadedAt=0; renderFriends(); if(!$('#passport').hidden) renderPassport();
   if($('#auth').classList.contains('on')){ closeAuth(); toast('Signed in. Your passport is backed up.'); setTimeout(()=>openOnboard(), 1200); }
@@ -5700,7 +5749,11 @@ async function authChanged(session){
     if(!AUTH.user || AUTH.user.id!==u.id) return;
     let localAt=''; try{ localAt=(JSON.parse(localStorage.getItem('pm-state')||'{}').savedAt)||''; }catch(e){}
     const remote=snap.exists?snap.data():null;
-    if(remote && remote.state && (remote.savedAt||'')>localAt){ takeRemote(remote); toast('Passport loaded from your account'); } else await pushState();
+    if(remote && remote.state && (remote.savedAt||'')>localAt){ takeRemote(remote);
+      const n = guest ? mergeGuest(guest) : 0;
+      if(n){ saveState(); renderAll(); if(!$('#passport').hidden) renderPassport(); await pushState(); toast(`Signed in. ${n} guest stamp${n===1?'':'s'} added to your passport.`); }
+      else toast('Passport loaded from your account'); }
+    else await pushState();
     SYNC.unsub=SYNC.ref.onSnapshot(sn=>{ const d=sn.exists?sn.data():null; if(!d||!d.state||d.dev===DEVID||(d.savedAt||'')<=SYNC.lastAt||SYNC.saving||stamping) return; takeRemote(d); toast('Passport updated from your other device'); });
   }catch(e){ SYNC.status=navigator.onLine?'error':'offline'; SYNC.dirty=true; renderSync(); }
   publishCard(); loadFriends(true); startPostbox(); togStart(AUTH.client, u.id);
@@ -5736,8 +5789,8 @@ function renderAuth(){
       </form>
       <div class="links">${rs?`<button data-amode="in">Back to sign in</button><span></span>`:`<button data-amode="${up?'in':'up'}">${up?'I already have an account':'Create an account'}</button>${up?'<span></span>':`<button data-amode="reset">Forgot password?</button>`}`}</div>
     </div>
-    <button class="skip" id="auSkip">Continue without an account</button>
-    <p class="fine">Without an account your passport is saved on this device only. You can sign in later from the Passport tab.</p><div style="height:24px"></div>`;
+    <button class="skip guestgo" id="auSkip">${L(LU.map,16)}Continue as a guest</button>
+    <p class="fine">As a guest, your passport is saved on this device only. Create an account any time from the Passport tab and your stamps come with you.</p><div style="height:24px"></div>`;
 }
 function openAuth(mode){ AUTH.mode=mode||'in'; AUTH.msg=null; AUTH.busy=false; renderAuth(); $('#auth').classList.add('on'); $('#auth').scrollTop=0; }
 function closeAuth(){ $('#auth').classList.remove('on'); $('#auth').innerHTML=''; }
@@ -5749,7 +5802,7 @@ async function authRun(fn){
 }
 $('#auth').addEventListener('click', async e=>{
   if(e.target.closest('#auX')) return closeAuth();
-  if(e.target.closest('#auSkip')){ try{ localStorage.setItem('pm-noacct','1'); }catch(err){} closeAuth(); if(!openOnboard()) toast('You can sign in any time from the Passport tab'); return; }
+  if(e.target.closest('#auSkip')){ try{ localStorage.setItem('pm-noacct','1'); }catch(err){} closeAuth(); if(!$('#passport').hidden) renderPassport(); if(!openOnboard()) toast('Exploring as a guest. Sign up any time from the Passport tab.'); return; }
   const md=e.target.closest('[data-amode]'); if(md){ AUTH.mode=md.dataset.amode; AUTH.msg=null; return renderAuth(); }
   const pv=e.target.closest('[data-prov]'); if(pv){ const provider=pv.dataset.prov;
     if(AUTH.configured && provider==='google' && !CFG.googleSignIn){ AUTH.msg={t:'setup', text:'Google sign-in is coming soon. For now, use your email and a password.'}; return renderAuth(); }
@@ -5838,11 +5891,11 @@ function takeRemote(remote){
 let resetArm=false;
 function accountHTML(){
   const st=SYNC.status, on=ACCT.signedIn, n=Object.keys(visited).length, v=Object.keys(visited).filter(id=>verified[id]).length;
-  return `<section class="acct" aria-label="Account"><div class="who"><span class="face">${avatarSVG(AVA,48)}</span><div><small>ACCOUNT</small><b id="acctName">${on?(ACCT.name?'Signed in as '+esc(ACCT.name):'Signed in'):'Not signed in'}</b><span class="s">${on?'Your passport follows you to any device':'Saved on this device only'}</span></div></div>
+  return `<section class="acct" aria-label="Account"><div class="who"><span class="face">${avatarSVG(AVA,48)}</span><div><small>ACCOUNT</small><b id="acctName">${on?(ACCT.name?'Signed in as '+esc(ACCT.name):'Signed in'):isGuest()?'Guest explorer':'Not signed in'}</b><span class="s">${on?'Your passport follows you to any device':isGuest()?'Guest passport · saved on this device only':'Saved on this device only'}</span></div></div>
     <div class="rows"><div>${L(st==='synced'?LU.cloudok:LU.cloud,14)}<span>${on?{loading:'Connecting…', saving:'Saving…', synced:'Backed up'+(SYNC.at?' · '+SYNC.at.toLocaleString([], {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):''), offline:'Offline. Changes are kept here and sync when you’re back online.', error:'Couldn’t reach your account. Changes are kept on this device.', local:'Saved on this device'}[st]:(STANDALONE?'Sign in to back up your passport and use it on other devices.':'Open Postmark while signed in to Claude to back up your passport and use it on other devices.')}</span></div>
       <div>${L(LU.shield,14)}<span>${n} stamp${n===1?'':'s'} · ${v} verified by location</span></div></div>
     ${locRowHTML()}
-    <div class="btns">${STANDALONE&&!on?`<button id="authOpen" style="background:var(--stamp-red);color:#fff">${L(LU.shield,14)}Sign in</button><button id="authNew">Create account</button>`:''}${on?`<button id="syncNow">${L(LU.cloud,14)}Sync now</button>`:''}${STANDALONE&&on?`<button id="signOut">Sign out</button>`:''}<button id="obOpen">${L(LU.star,14)}Getting started</button><button id="resetMe" class="danger ${resetArm?'sure':''}">${resetArm?'Tap again to erase everything':'Reset my passport'}</button></div></section>`;
+    <div class="btns">${STANDALONE&&!on?(isGuest()?`<button id="authNew" style="background:var(--stamp-red);color:#fff">${L(LU.shield,14)}Create account</button><button id="authOpen">Sign in</button>`:`<button id="authOpen" style="background:var(--stamp-red);color:#fff">${L(LU.shield,14)}Sign in</button><button id="authNew">Create account</button>`):''}${on?`<button id="syncNow">${L(LU.cloud,14)}Sync now</button>`:''}${STANDALONE&&on?`<button id="signOut">Sign out</button>`:''}<button id="obOpen">${L(LU.star,14)}Getting started</button><button id="resetMe" class="danger ${resetArm?'sure':''}">${resetArm?'Tap again to erase everything':'Reset my passport'}</button></div></section>`;
 }
 function syncPillHTML(){
   const st=SYNC.status, ago=SYNC.at?Math.round((Date.now()-SYNC.at)/60000):null;
@@ -5909,14 +5962,17 @@ function evShown(){ if(evAll) return EVENTS;
   const key=e=>Object.values(eventStamps).some(v=>v.ev===e.id)?0:e.cities.some(c=>activeEvent(c)&&activeEvent(c).id===e.id)?1:2;
   const sorted=EVENTS.map((e,i)=>[key(e),i,e]).sort((a,b)=>a[0]-b[0]||a[1]-b[1]).map(x=>x[2]);
   return sorted.slice(0,Math.max(4,sorted.filter(e=>key(e)<2).length)); }
+function guestNagHTML(){ if(!isGuest()) return ''; const n=Object.keys(visited).length; if(n<3) return ''; let last=''; try{ last=localStorage.getItem('pm-guestnag')||''; }catch(e){} if(last && last>addDays(today(),-7)) return '';
+  return `<div class="gnag"><span class="gi">${L(LU.shield,18)}</span><div><b>Keep your ${n} stamps safe</b><span>You’re exploring as a guest. A free account backs up your passport and lets you add friends.</span><div class="gb"><button id="authNew" class="pri">Create free account</button><button id="gnagLater">Later</button></div></div></div>`; }
 function renderPassport(){ saveState();
   const cs = Object.keys(COUNTRIES).filter(c=>vgot(c).length);
   const nc = Object.keys(CITIES).filter(id=>visited[id]&&verified[id]).length;
   const nm = Object.keys(CITIES).filter(isPast).length;
   const head = cs.length ? `${cs.length} ${cs.length>1?'countries':'country'} and ${nc} ${nc>1?'cities':'city'} stamped on the spot.` : (nm?'No on-the-spot stamps yet.':'No stamps yet.');
-  const jump = Object.keys(visited).length ? `<nav class="pjump" aria-label="Passport sections"><button data-jump="#pStamps"><i class="r"></i>Stamps <b>${nc}</b></button><button data-jump="#pMem"><i class="b"></i>Memories <b>${nm}</b></button><button data-jump="#pCol">Collections</button><button data-jump="#pEv">Events</button><button data-jump="#pRew">Rewards</button></nav>` : '';
+  const jump = Object.keys(visited).length ? `<nav class="pjump" aria-label="Passport sections"><button data-jump="#pStamps"><i class="r"></i>Stamps <b>${nc}</b></button><button data-jump="#pMem"><i class="b"></i>Memories <b>${nm}</b></button><button data-jump="#pCol">Collections</button><button data-jump="#pEv">Events</button><button data-jump="#pAni">Animals</button><button data-jump="#pRew">Rewards</button></nav>` : '';
   $('#passport').className = 'cover-'+cover;
   $('#passport').innerHTML = `<div id="pscroll"><div class="phead"><button class="sndbtn" id="sndBtn" aria-label="${soundOn?'Mute stamp sounds':'Turn stamp sounds on'}">${L(soundOn?LU.vol:LU.mute,20)}</button><span class="eyebrow">Postmark</span><h1>Your passport</h1><p>${head}</p>${syncPillHTML()}${Object.keys(verified).filter(k=>visited[k]).length?`<span class="honest">${L(LU.shield,14)}Verified traveller · ${Object.keys(verified).filter(k=>visited[k]).length} stamps checked by location</span>`:''}${jump}</div>
+  ${guestNagHTML()}
   ${bioHTML()}
   ${stampLogHTML()}
   ${cs.length?'':nm?`<div class="empty"><div class="wvav">${avatarSVG(AVA,110)}</div><b>No on-the-spot stamps yet</b><p>Your ${nm} past ${nm>1?'visits are':'visit is'} on your memory page below. Stamp a city while you’re there to fill these pages with red landmark stamps.</p><div class="erow"><button class="btn navy" id="goMap">${L(LU.map,18)}Open the map</button><button class="btn blue" data-jump="#pMem">See memories</button></div></div>`:`<div class="empty"><div class="wvav">${avatarSVG(AVA,110)}</div><b>Your passport is empty</b><p>Every city you visit earns a stamp. Pick a place on the map and mark it as visited.</p><button class="btn navy" id="goMap">${L(LU.map,18)}Open the map</button></div>`}
@@ -5936,6 +5992,8 @@ function renderPassport(){ saveState();
   <div class="psec" id="pCol"><div class="psh"><h2>Collections</h2><span>${doneSets().length} of ${SETS.length} complete</span></div><p class="psub">Only stamps made on the spot count toward collections and gold.</p>
     <div class="sets">${SETS.map(st=>{const n=setGot(st).length, on=n===st.cities.length;
       return `<div class="setc ${on?'on':''}">${badgeSVG(st,on,58)}<b>${st.name}</b><span>${on?'Complete':`${n} of ${st.cities.length}`}</span><small>${st.cities.map(id=>vst(id)?`<i>${CITIES[id].name}</i>`:CITIES[id].name).join(' · ')}</small></div>`}).join('')}</div></div>
+  <div class="psec" id="pAni"><div class="psh"><h2>Animal spotter</h2><span>${animalsSeen.length} of ${ANIMALS.length} spotted</span></div><p class="psub">Tap the animals on the world map to spot them. Find all ${ANIMALS.length} to win the safari hat.</p>
+    <div class="anigrid">${ANIMALS.map(a=>{ const on=animalsSeen.includes(a.k); return `<div class="anic ${on?'on':''}"><span class="ai"><svg viewBox="-13 -13 26 26" width="40" height="40" aria-hidden="true">${a.svg}</svg>${on?'':'<em>?</em>'}</span><b>${on?esc(a.name):'Not yet'}</b><small>${esc(a.where)}</small></div>`; }).join('')}</div></div>
   <div class="psec" id="pEv"><div class="psh"><h2>Event stamps</h2><span>${Object.keys(eventStamps).length} collected</span></div><div class="evlist">${evShown().map(e=>{ const got2=Object.entries(eventStamps).find(([,v])=>v.ev===e.id), live=e.cities.some(c=>activeEvent(c)&&activeEvent(c).id===e.id), C0=CITIES[got2?got2[0]:e.cities[0]], K0=COUNTRIES[C0.c];
       return `<div class="evrow ${got2?'got':live?'live':''}"><span class="sq" style="background:${K0.color}">${lm(C0.icon,'on').replace('<svg','<svg width="26" height="26"')}</span><div><b>${e.name}</b><span>${e.cities.map(c=>CITIES[c].name).join(' or ')} · ${got2?'collected '+dLong(got2[1].date):e.when}</span></div>${got2?`<em>${L(LU.check,10,3)}</em>`:live?'<em style="background:var(--city-kyoto)">ON NOW</em>':''}</div>`; }).join('')}${evShown().length<EVENTS.length?`<button class="lmore" id="evMore">Show all ${EVENTS.length} events</button>`:''}</div></div>
   <div class="psec" id="pRew"><div class="psh"><h2>Rewards</h2><span>Complete collections to unlock</span></div>
@@ -5952,6 +6010,7 @@ $('#passport').addEventListener('click', e=>{
   if(e.target.closest('#logMore')){ logAll=true; const y=$('#pscroll').scrollTop; renderPassport(); $('#pscroll').scrollTop=y; return; }
   const pl=e.target.closest('[data-plog]'); if(pl) return openCard(pl.dataset.plog);
   if(tinClick(e, ()=>{ const y=$('#pscroll').scrollTop; renderPassport(); $('#pscroll').scrollTop=y; })) return;
+  if(e.target.closest('#gnagLater')){ try{ localStorage.setItem('pm-guestnag', today()); }catch(err){} const y=$('#pscroll').scrollTop; renderPassport(); $('#pscroll').scrollTop=y; return; }
   const keep=fn=>{ const y=$('#pscroll').scrollTop; fn(); renderPassport(); $('#pscroll').scrollTop=y; };
   const lf=e.target.closest('[data-logf]'); if(lf) return keep(()=>{ logF=lf.dataset.logf; logAll=false; });
   const px=e.target.closest('[data-pexp]'); if(px) return keep(()=>pExp.add(px.dataset.pexp));
