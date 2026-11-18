@@ -1335,10 +1335,26 @@ svg.wov.wnl{z-index:1}
 @keyframes signwobble{25%{transform:rotate(calc(var(--tilt) + 8deg))}55%{transform:rotate(calc(var(--tilt) - 5deg))}80%{transform:rotate(calc(var(--tilt) + 2deg))}}
 #art-world.intro .wsign .sg{animation:signin .55s calc(1.3s + var(--i)*90ms) both cubic-bezier(.3,1.5,.5,1)}
 @keyframes signin{from{transform:rotate(var(--tilt)) scale(1,0)}to{transform:rotate(var(--tilt))}}
+.wbottle{position:absolute;z-index:7;pointer-events:none;width:30px;height:60px}
+.wbottle svg{display:block;animation:bottleup 1.4s cubic-bezier(.3,.7,.2,1) both;transform-origin:50% 90%}
+.wbottle .cork{animation:corkpop .6s .62s both cubic-bezier(.2,.8,.3,1)}
+.wbottle .splash{position:absolute;left:-8px;bottom:-4px;width:46px;height:12px;border-radius:50%;border:2px solid #fff;opacity:0;animation:splash .7s .05s both}
+@keyframes bottleup{0%{transform:translateY(40px) scale(.4) rotate(-20deg);opacity:0}30%{transform:translateY(-6px) scale(1) rotate(10deg);opacity:1}50%{transform:translateY(0) rotate(-8deg)}65%{transform:rotate(6deg)}85%{transform:rotate(-2deg);opacity:1}100%{transform:translateY(-10px) rotate(0);opacity:0}}
+@keyframes corkpop{to{transform:translate(10px,-30px) rotate(160deg);opacity:0}}
+@keyframes splash{0%{opacity:.9;transform:scale(.3)}100%{opacity:0;transform:scale(1.6)}}
+.wnote{position:absolute;left:24px;right:24px;top:118px;z-index:8;animation:noteopen .55s both cubic-bezier(.3,1.3,.5,1);transform-origin:50% 0}
+.wnote::before,.wnote::after{content:'';position:absolute;left:-8px;right:-8px;height:16px;border-radius:8px;background:linear-gradient(#E9D3A5,#C9A46A);border:2px solid var(--ink-navy);z-index:1}
+.wnote::before{top:-6px}.wnote::after{bottom:-6px}
+.wnote .scroll{position:relative;padding:16px 16px 14px;border:2px solid var(--ink-navy);border-top:0;border-bottom:0;background:linear-gradient(90deg,#F3E2BC,#FBF0D6 20%,#FBF0D6 80%,#F3E2BC);box-shadow:4px 4px 0 var(--ink-navy)}
+.wnote small{display:block;font-size:9.5px;font-weight:800;letter-spacing:.12em;color:#2A5FD6}
+.wnote b{display:block;margin-top:3px;font:italic 900 19px/1.2 var(--font-display);color:var(--ink-navy)}
+.wnote p{margin:6px 0 10px;font:italic 500 14px/1.45 var(--font-display);color:#3A2A14}
+.wnote .soon{font-size:11px;font-weight:800;color:#8A6100;padding:0 4px}
+@keyframes noteopen{from{transform:scaleY(.08);opacity:0}to{transform:none;opacity:1}}
 .wfp{display:flex;align-items:center;gap:6px;margin:-4px 0 10px;font-size:10.5px;font-weight:800;color:#B07D1A}
 .wfp.done{color:#1E7A48}
 .wfbar{width:60px;height:6px;border-radius:999px;background:rgba(27,31,75,.12);overflow:hidden;flex-shrink:0}.wfbar i{display:block;height:100%;background:#FFC21F}
-.wplane{pointer-events:auto;cursor:pointer}.wplane .hit{pointer-events:all}
+.wplane,.wboatw{pointer-events:auto;cursor:pointer}.wplane .hit,.wboatw .hit{pointer-events:all}
 .wball{position:absolute;z-index:3;padding:0;border:0;background:none;cursor:pointer;animation:wballdrift 28s ease-in-out infinite alternate;filter:drop-shadow(2px 3px 0 rgba(27,31,75,.25))}
 .wball svg{display:block;animation:bob 3.2s ease-in-out infinite}
 .wball .flame{opacity:0;transition:opacity .2s}
@@ -1391,7 +1407,7 @@ svg.wov.wnl{z-index:1}
 #art-world.intro .bub{animation:pop .45s calc(1.3s + var(--i)*90ms) both cubic-bezier(.3,1.5,.5,1)}
 #art-world.intro .wgold{animation:wlinein .5s 2s both}
 #art-world{cursor:grab;user-select:none;-webkit-user-select:none}
-#art-world.drag{cursor:grabbing}#art-world.drag .bub,#art-world.drag .wsign,#art-world.drag .wev,#art-world.drag .wcotd,#art-world.drag .wfr,#art-world.drag .wnear,#art-world.drag .wball,#art-world.drag .wplane{pointer-events:none}
+#art-world.drag{cursor:grabbing}#art-world.drag .bub,#art-world.drag .wsign,#art-world.drag .wev,#art-world.drag .wcotd,#art-world.drag .wfr,#art-world.drag .wnear,#art-world.drag .wball,#art-world.drag .wplane,#art-world.drag .wboatw{pointer-events:none}
 .bubble.swipe{transform:translateX(-50%);animation:none;font-size:13px;padding:7px 12px}.bubble.swipe::after{display:none}
 
 /* ---------- together: friend notices, trip invites, shared trips ---------- */
@@ -3217,7 +3233,7 @@ function ambientInner(g){ if(reduced()) return ''; let out='';
     return `<g class="wplane"><circle r="20" fill="transparent" class="hit"/><path d="M-17 1.5 h-5 M-15 4 h-3" stroke="#FFF8E7" stroke-width="1.6" stroke-linecap="round" opacity=".7"/><g stroke="#1B1F4B" stroke-width="1.1" stroke-linejoin="round" transform="scale(1.3)"><path d="M13 0 L-11 -9 L-4 0Z" fill="#FFFFFF"/><path d="M13 0 L-4 0 L-7 3Z" fill="#B9C0DA"/><path d="M13 0 L-7 3 L-11 8Z" fill="#E3E7F3"/></g><animateMotion dur="${dur}s" begin="${beg}s" repeatCount="indefinite" rotate="auto" path="${d}"/></g>`; };
   out+=route([[38,-9],[41,29],[25,55],[13,100]],26,0)+route([[-34,151],[1,104],[35,139],[49,-123]],34,-12)+route([[40.7,-74],[51.5,-0.1],[30,31.2],[-1.3,36.8]],30,-20);
   [[52,-30,1],[8,78,.8],[-18,-118,.9],[30,160,.7]].forEach(([la,lo,s],i)=>{ const [x,y]=wLL(g,la,lo); out+=`<g class="wcloud" style="--d:${-i*5}s" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${s})"><g><ellipse cx="0" cy="0" rx="22" ry="9" fill="#fff" opacity=".85"/><ellipse cx="-8" cy="-6" rx="10" ry="8" fill="#fff" opacity=".85"/><ellipse cx="7" cy="-7" rx="12" ry="9" fill="#fff" opacity=".85"/></g></g>`; });
-  [[16,-150],[22,-38],[-18,75],[-32,-14]].forEach(([la,lo],i)=>{ const [x,y]=wLL(g,la,lo); out+=`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><g class="wboat" style="--d:${-i*7}s"><path d="M-9 0 H9 L6 5 H-6Z" fill="#E8382A" stroke="#1B1F4B" stroke-width="1.3" stroke-linejoin="round"/><path d="M0 0 V-12 L7 -2 H0" fill="#FFF8E7" stroke="#1B1F4B" stroke-width="1.2" stroke-linejoin="round"/><path d="M-14 7 q3 -2 6 0 q3 -2 6 0" stroke="#fff" stroke-width="1.4" fill="none" opacity=".8"/></g></g>`; });
+  [[16,-150],[22,-38],[-18,75],[-32,-14]].forEach(([la,lo],i)=>{ const [x,y]=wLL(g,la,lo); out+=`<g class="wboatw" transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><circle r="18" cy="-3" fill="transparent" class="hit"/><g class="wboat" style="--d:${-i*7}s"><path d="M-9 0 H9 L6 5 H-6Z" fill="#E8382A" stroke="#1B1F4B" stroke-width="1.3" stroke-linejoin="round"/><path d="M0 0 V-12 L7 -2 H0" fill="#FFF8E7" stroke="#1B1F4B" stroke-width="1.2" stroke-linejoin="round"/><path d="M-14 7 q3 -2 6 0 q3 -2 6 0" stroke="#fff" stroke-width="1.4" fill="none" opacity=".8"/></g></g>`; });
   return out; }
 let cotdPick=null;
 const CTZ={PT:'Europe/Lisbon',JP:'Asia/Tokyo',MX:'America/Mexico_City',AU:'Australia/Sydney',IT:'Europe/Rome',TH:'Asia/Bangkok',MA:'Africa/Casablanca',BR:'America/Sao_Paulo',US:'America/New_York',UK:'Europe/London',CH:'Europe/Zurich',IN:'Asia/Kolkata',NP:'Asia/Kathmandu',LK:'Asia/Colombo',CN:'Asia/Shanghai',ES:'Europe/Madrid',FR:'Europe/Paris',NL:'Europe/Amsterdam',DE:'Europe/Berlin',AT:'Europe/Vienna',GR:'Europe/Athens',TR:'Europe/Istanbul',KR:'Asia/Seoul',AE:'Asia/Dubai',EG:'Africa/Cairo',ZA:'Africa/Johannesburg',IE:'Europe/Dublin',NO:'Europe/Oslo',CZ:'Europe/Prague',HR:'Europe/Zagreb',VN:'Asia/Ho_Chi_Minh',ID:'Asia/Jakarta',SG:'Asia/Singapore',NZ:'Pacific/Auckland',CA:'America/Toronto',PE:'America/Lima',AR:'America/Argentina/Buenos_Aires',KE:'Africa/Nairobi',KH:'Asia/Phnom_Penh',LA:'Asia/Vientiane',PH:'Asia/Manila',MY:'Asia/Kuala_Lumpur',CO:'America/Bogota',BO:'America/La_Paz',CL:'America/Santiago',HU:'Europe/Budapest',PL:'Europe/Warsaw',IS:'Atlantic/Reykjavik',GT:'America/Guatemala',CR:'America/Costa_Rica',CU:'America/Havana',JO:'Asia/Amman',TZ:'Africa/Dar_es_Salaam',EC:'America/Guayaquil'};
@@ -3243,7 +3259,37 @@ function agoText(iso){ const d=Math.round((new Date(today()+'T00:00')-new Date(i
 const BALLOON=`<svg viewBox="0 0 40 58" width="34" height="49" aria-hidden="true"><path class="flame" d="M20 44 q-4 -5 0 -10 q4 5 0 10z" fill="#FFC21F" stroke="#E8382A" stroke-width="1.2"/><path d="M20 2 C8 2 2 11 2 19 C2 28 11 33 15 38 H25 C29 33 38 28 38 19 C38 11 32 2 20 2Z" fill="#E8382A" stroke="#1B1F4B" stroke-width="2" stroke-linejoin="round"/><path d="M20 2 C13 9 12 28 15 38 H25 C28 28 27 9 20 2Z" fill="#FFC21F" stroke="#1B1F4B" stroke-width="1.6" stroke-linejoin="round"/><path d="M20 2 C18 12 18 28 19 38 H21 C22 28 22 12 20 2Z" fill="#2EC4C9"/><path d="M4 16 Q20 21 36 16" stroke="#1B1F4B" stroke-width="1.4" fill="none"/><path d="M15 38 L16.5 46 M25 38 L23.5 46" stroke="#1B1F4B" stroke-width="1.4"/><rect x="15" y="46" width="10" height="9" rx="2" fill="#C98B4E" stroke="#1B1F4B" stroke-width="1.6"/><path d="M15 50 H25" stroke="#1B1F4B" stroke-width="1"/></svg>`;
 const pickRandom = (pred) => { const ids=Object.keys(CITIES).filter(id=>CITY_LL[id] && pred(id)); return ids[Math.floor(Math.random()*ids.length)]; };
 function flyToCity(id, from){ if(!id) return; const lv=COUNTRIES[CITIES[id].c].level; if(level==='world' && lv && LEVELS.includes(lv)){ go(lv, ...(from?centerOf(from):[195,300])); setTimeout(()=>openCard(id), 720); } else openCard(id); }
-let factsRead=[];
+let factsRead=[], notesRead=[];
+/* message in a bottle: island facts. id = a city already in Postmark; the rest are coming later */
+const ISLANDS=[
+  {k:'maldives', name:'Maldives', fact:'The Maldives is about 1,190 coral islands, and the flattest country on Earth. Its highest natural point is only about 2.4 metres above the sea.'},
+  {k:'fiji', name:'Fiji', fact:'Fiji has more than 300 islands, and the 180° line of longitude runs right through the island of Taveuni.'},
+  {k:'tonga', name:'Tonga', fact:'Tonga is a kingdom of about 170 islands, and the only Pacific island nation that was never colonised.'},
+  {k:'mauritius', name:'Mauritius', fact:'Mauritius was the only home of the dodo, a flightless bird that disappeared in the late 1600s.'},
+  {k:'seychelles', name:'Seychelles', fact:'The Seychelles is home to the coco de mer palm, whose seed is the largest in the plant kingdom, up to 25 kg.'},
+  {k:'galapagos', id:'galapagos', name:'Galápagos', fact:'Giant tortoises on the Galápagos can live for more than 100 years. Darwin visited in 1835 and the islands shaped his ideas on evolution.'},
+  {k:'zanzibar', id:'zanzibar', name:'Zanzibar', fact:'Freddie Mercury of Queen was born in Stone Town, Zanzibar, in 1946.'},
+  {k:'santorini', id:'santorini', name:'Santorini', fact:'Santorini’s crescent shape is the rim of a volcano that erupted about 3,600 years ago, one of the biggest eruptions in human history.'},
+  {k:'bali', id:'bali', name:'Bali', fact:'Bali runs on its own 210-day calendar called Pawukon, which sets the dates of many temple festivals.'},
+  {k:'jeju', id:'jeju', name:'Jeju', fact:'On Jeju, the haenyeo, women free-divers often in their 70s and 80s, harvest the sea on a single breath. UNESCO lists their culture as world heritage.'},
+  {k:'siargao', id:'siargao', name:'Siargao', fact:'Siargao’s famous surf break, Cloud 9, was named after a chocolate bar.'},
+  {k:'iceland', id:'reykjavik', name:'Iceland', fact:'Iceland is one of the few places on Earth with no mosquitoes at all.'}];
+const BOTTLE=`<svg viewBox="0 0 30 60" width="30" height="60" aria-hidden="true"><path d="M11 18 V10 H19 V18 Q26 22 26 32 V52 Q26 57 21 57 H9 Q4 57 4 52 V32 Q4 22 11 18Z" fill="#7FD3C9" fill-opacity=".75" stroke="#1B1F4B" stroke-width="2" stroke-linejoin="round"/><rect x="8" y="30" width="14" height="20" rx="2" fill="#FFF3D6" stroke="#B07D1A" stroke-width="1.2" transform="rotate(-8 15 40)"/><path d="M10 36 h10 M10 40 h8 M10 44 h9" stroke="#B07D1A" stroke-width="1" transform="rotate(-8 15 40)"/><path d="M8 26 Q10 22 14 21" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" opacity=".8"/><g class="cork"><rect x="10.5" y="3" width="9" height="9" rx="2" fill="#C98B4E" stroke="#1B1F4B" stroke-width="1.6"/></g></svg>`;
+function bottleNote(boat){
+  const pool=ISLANDS.filter(x=>!notesRead.includes(x.k)), it=(pool.length?pool:ISLANDS)[Math.floor(Math.random()*(pool.length||ISLANDS.length))];
+  const old=$('#wnote'); if(old) old.remove(); const ob=$('#wbottle'); if(ob) ob.remove();
+  if(boat){ const r=boat.getBoundingClientRect(), pr=$('#phone').getBoundingClientRect(), k=pr.width/390;
+    $('#ui-world').insertAdjacentHTML('beforeend', `<div class="wbottle" id="wbottle" style="left:${((r.left+r.width/2-pr.left)/k-15).toFixed(1)}px;top:${((r.top-pr.top)/k-46).toFixed(1)}px">${BOTTLE}<i class="splash"></i></div>`);
+    setTimeout(()=>{ const b=$('#wbottle'); if(b) b.remove(); }, 1500); }
+  tone(0,'sine',196,.18,.06); tone(.62,'triangle',880,.05,.08); tone(.66,'triangle',1320,.07,.06);
+  const before=notesRead.length; if(!notesRead.includes(it.k)){ notesRead.push(it.k); saveState(); } const n=Math.min(5,notesRead.length);
+  const prog = notesRead.length>=5 ? `<span class="wfp done">${L(LU.check,11,3)}Sailor hat unlocked</span>` : `<span class="wfp"><span class="wfbar"><i style="width:${n*20}%"></i></span>${n} of 5 notes · unlocks the sailor hat</span>`;
+  const sail = it.id && CITIES[it.id] ? `<button class="pri" data-wsail="${it.id}">${L(LU.pin,14,2.4)}Sail there</button>` : `<span class="soon">Coming soon to Postmark</span>`;
+  const html=`<div class="wnote" id="wnote" role="dialog" aria-label="Message in a bottle"><div class="scroll"><small>MESSAGE IN A BOTTLE</small><b>${esc(it.name)}</b><p>${esc(it.fact)}</p>${prog}
+    <div class="wfb">${sail}<button data-wnx>Another bottle</button><button class="x" data-wnclose aria-label="Close">${L(LU.x,14,2.6)}</button></div></div></div>`;
+  setTimeout(()=>{ const o=$('#wnote'); if(o) o.remove(); if(level==='world') $('#ui-world').insertAdjacentHTML('beforeend', html); }, boat?800:0);
+  if(before<5 && notesRead.length>=5) setTimeout(()=>{ checkUnlocks(); toast('5 messages in bottles found. The sailor hat is yours!'); }, 1400);
+}
 function balloonFact(btn){ const old=$('#wfact'); const id=pickRandom(k=>CITIES[k].fact && (!visited[k] || Math.random()<.2)); if(!id) return; const C=CITIES[id];
   if(btn){ btn.classList.remove('puff'); void btn.offsetWidth; btn.classList.add('puff'); setTimeout(()=>btn.classList.remove('puff'), 1300); }
   tone(0,'sine',330,.12,.08); tone(.08,'sine',494,.16,.07);
@@ -3326,7 +3372,7 @@ function worldZoomTo(k, mx, my){ const p=$('#wpan'); const nz=Math.max(1,Math.mi
       else apply(); setTimeout(()=>{ moved=false; }, 60); return; }
     if(!d) return; const dd=d; d=null; el().classList.remove('drag');
     if(!moved){ /* double tap on the ocean or land: zoom in there, or back out */
-      if(!e.target.closest('.bub,.wsign,.me,button,.wev,.wfr,.wcotd,.wplane,.wball')){ const now=performance.now(); if(now-lastTap<320 && Math.hypot(pe[0]-lastXY[0],pe[1]-lastXY[1])<40){ lastTap=0; if(WZ>1.4) worldZoomTo(1/WZ,195,pe[1]); else worldZoomTo(2.2,pe[0],pe[1]); } else { lastTap=now; lastXY=pe; } }
+      if(!e.target.closest('.bub,.wsign,.me,button,.wev,.wfr,.wcotd,.wplane,.wball,.wboatw')){ const now=performance.now(); if(now-lastTap<320 && Math.hypot(pe[0]-lastXY[0],pe[1]-lastXY[1])<40){ lastTap=0; if(WZ>1.4) worldZoomTo(1/WZ,195,pe[1]); else worldZoomTo(2.2,pe[0],pe[1]); } else { lastTap=now; lastXY=pe; } }
       return; }
     if(dd.dy){ WY+=dd.dy; $('#art-world').innerHTML=artHTML('world'); }
     const glide=()=>{ vel*=.94; if(Math.abs(vel)<.25 || level!=='world') return; worldPan=wrapPan(worldPan+vel); apply(); raf=requestAnimationFrame(glide); };
@@ -3512,7 +3558,7 @@ function renderAll(){ LEVELS.forEach(renderLevel); saveState(); }
 
 let busy=false;
 function go(to, ox=195, oy=300, dir='in'){
-  if(busy || to===level) return; busy=true; { const f=document.getElementById('wfact'); if(f) f.remove(); }
+  if(busy || to===level) return; busy=true; ['wfact','wnote','wbottle'].forEach(k=>{ const f=document.getElementById(k); if(f) f.remove(); });
   const fromA=$('#art-'+level), toA=$('#art-'+to);
   ZM[to]={s:1,x:0,y:0}; goingTo=to; renderLevel(to); goingTo=null; if(to!=='world'){ const pt=document.getElementById('pmSpeck'); if(pt) pt.setAttribute('patternTransform','scale(1)'); }
   if(['europe','asia','na','sa','africa','oc'].includes(to)){ let seen=false; try{ seen=localStorage.getItem('pm-zhint')==='1'; localStorage.setItem('pm-zhint','1'); }catch(e){ seen=true; } if(!seen) setTimeout(()=>toast('Tip: pinch or double-tap the map to zoom in'), 900); }
@@ -3584,7 +3630,11 @@ $('#phone').addEventListener('click', e=>{
   const pcb=e.target.closest('[data-cotdpc]'); if(pcb){ if(stamping) return; return openPostcard(pcb.dataset.cotdpc); }
   if(level==='world' && !busy && !stamping){
     const pl=e.target.closest('.wplane'); if(pl){ const id=pickRandom(k=>!visited[k]); if(id){ toast(`Surprise! Flying you to ${CITIES[id].name}`); tone(0,'triangle',660,.06,.07); tone(.09,'triangle',990,.08,.07); flyToCity(id, pl); } return; }
-    const bl=e.target.closest('[data-wball]'); if(bl) return balloonFact(bl);
+    const bl=e.target.closest('[data-wball]'); if(bl){ const n=$('#wnote'); if(n) n.remove(); return balloonFact(bl); }
+    const bt=e.target.closest('.wboatw'); if(bt){ const f=$('#wfact'); if(f) f.remove(); return bottleNote(bt); }
+    if(e.target.closest('[data-wnx]')) return bottleNote(null);
+    if(e.target.closest('[data-wnclose]')){ const n=$('#wnote'); if(n) n.remove(); return; }
+    const sl=e.target.closest('[data-wsail]'); if(sl){ const id=sl.dataset.wsail; const n=$('#wnote'); if(n) n.remove(); return flyToCity(id); }
     if(e.target.closest('[data-wfx]')) return balloonFact(document.querySelector('#art-world .wtile:nth-child(2) .wball'));
     if(e.target.closest('[data-wfclose]')){ const f=$('#wfact'); if(f) f.remove(); return; }
     const wg=e.target.closest('[data-wfgo]'); if(wg){ const id=wg.dataset.wfgo; const f=$('#wfact'); if(f) f.remove(); return flyToCity(id); }
@@ -4164,7 +4214,7 @@ const AV_OPTS={
   facial:[['none','None'],['stubble','Stubble'],['tache','Moustache'],['handlebar','Handlebar'],['goatee','Goatee'],['beard','Full beard']],
   freckles:[['n','None'],['y','Freckles'],['rosy','Rosy cheeks'],['mole','Beauty mark']],
   outfit:[['tee','T-shirt'],['stripes','Stripy tee'],['tank','Tank top'],['scoop','Scoop top'],['shirt','Collared shirt'],['hoodie','Hoodie'],['sweater','Knit jumper'],['jacket','Jacket'],['overalls','Overalls'],['jersey','Sports jersey']],
-  hat:[['none','None'],['beanie','Beanie'],['cap','Cap'],['sunhat','Sun hat'],['beret','Beret'],['party','Party'],['tram','Conductor'],['chef','Chef'],['explorer','Explorer'],['halo','Halo'],['crown','Crown'],['propeller','Propeller'],['aviator','Balloonist']],
+  hat:[['none','None'],['beanie','Beanie'],['cap','Cap'],['sunhat','Sun hat'],['beret','Beret'],['party','Party'],['tram','Conductor'],['chef','Chef'],['explorer','Explorer'],['halo','Halo'],['crown','Crown'],['propeller','Propeller'],['aviator','Balloonist'],['sailor','Sailor']],
   glasses:[['none','None'],['round','Round'],['shades','Shades'],['hearts','Hearts'],['neon','Neon stars'],['pixel','Pixel shades']],
   neck:[['none','None'],['chain','Chain'],['pearls','Pearls'],['scarf','Scarf'],['lei','Flower lei'],['medal','Gold medal']],
   ears:[['none','None'],['studs','Studs'],['hoops','Hoops']],
@@ -4216,6 +4266,7 @@ const HATS_AV = {
   tram:`<path d="M31 52 Q31 24 60 24 Q89 24 89 52Z" fill="#C8323A"/><rect x="29" y="46" width="62" height="10" rx="3" fill="#1B1F4B"/><path d="M29 55 Q60 63 93 55 L93 59 Q60 68 29 59Z" fill="#0F1230"/><rect x="53" y="32" width="14" height="10" rx="2" fill="#FFC21F"/>`,
   chef:`<g fill="#fff" stroke="#1B1F4B" stroke-width="2"><circle cx="43" cy="22" r="12"/><circle cx="77" cy="22" r="12"/><circle cx="60" cy="13" r="15"/><rect x="37" y="24" width="46" height="24" rx="3"/></g><path d="M38 26 h44 v8 h-44z" fill="#fff"/><path d="M48 32 v13 M60 32 v13 M72 32 v13" stroke="#E2DED3" stroke-width="2"/>`,
   explorer:`<ellipse cx="60" cy="46" rx="48" ry="10" fill="#A9814A"/><path d="M37 46 Q39 20 60 20 Q81 20 83 46Z" fill="#D2AE70"/><path d="M37 38 Q60 33 83 38 L83 44 Q60 39 37 44Z" fill="#7A4A2A"/>`,
+  sailor:`<path d="M33 50 Q33 27 60 27 Q87 27 87 50Z" fill="#FFFFFF"/><path d="M42 33 Q60 27 78 33" stroke="#E2E8F4" stroke-width="3" fill="none"/><rect x="32" y="44" width="56" height="6" fill="#1B1F4B"/><path d="M26 53 Q60 41 94 53 Q95 61 88 61 Q60 52 32 61 Q25 61 26 53Z" fill="#F4F7FC" stroke="#C9D2E8" stroke-width="2"/><path d="M60 33 v8 M56 37 h8 M55 40 q5 4 10 0" stroke="#E8382A" stroke-width="1.8" fill="none" stroke-linecap="round"/>`,
   aviator:`<path d="M30 60 Q28 72 32 80 Q39 80 40 66Z M90 60 Q92 72 88 80 Q81 80 80 66Z" fill="#7A4B22"/><path d="M29 60 Q29 24 60 24 Q91 24 91 60Z" fill="#8C5A2B"/><path d="M60 25 V46 M44 29 Q40 40 40 46 M76 29 Q80 40 80 46" stroke="#6B4019" stroke-width="2" fill="none"/><rect x="30" y="43" width="60" height="7" rx="3.5" fill="#5A3A22"/><circle cx="47" cy="45" r="8.5" fill="#9FDCF3" stroke="#C9961A" stroke-width="3.5"/><circle cx="73" cy="45" r="8.5" fill="#9FDCF3" stroke="#C9961A" stroke-width="3.5"/><path d="M43 42 l5 -3 M69 42 l5 -3" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>`,
   propeller:`<path d="M33 52 Q33 26 60 26 Q87 26 87 52Z" fill="#3D7BFF"/><path d="M33 52 Q33 26 60 26 L60 52Z" fill="#FF4F6E"/><path d="M60 26 Q76 30 87 52 L60 52Z" fill="#FFC21F"/><rect x="29" y="48" width="62" height="8" rx="4" fill="#1B1F4B"/><rect x="58" y="12" width="4" height="15" fill="#1B1F4B"/><g class="prop"><ellipse cx="47" cy="12" rx="13" ry="3.6" fill="#2FBF71"/><ellipse cx="73" cy="12" rx="13" ry="3.6" fill="#9D4EFF"/></g><circle cx="60" cy="12" r="3.6" fill="#FFC21F"/>`,
   halo:`<ellipse cx="60" cy="22" rx="26" ry="8" fill="none" stroke="#FFF3A6" stroke-width="9" opacity=".55"/><ellipse cx="60" cy="22" rx="24" ry="7" fill="none" stroke="#FFC21F" stroke-width="4.5"/><ellipse cx="60" cy="21" rx="24" ry="7" fill="none" stroke="#FFF6C9" stroke-width="1.6"/><path class="spk" d="M90 12 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z" fill="#FFF6C9"/>`,
@@ -4350,6 +4401,7 @@ const LOCKS = {
   'glasses:pixel':{test:()=>weeklyEarned('glasses:pixel'), label:'Weekly challenge reward'},
   'aura:confetti':{test:()=>weeklyEarned('aura:confetti'), label:'Weekly challenge reward'},
   'hat:aviator':{test:()=>factsRead.length>=10, label:'Read 10 facts from the hot air balloon'},
+  'hat:sailor':{test:()=>notesRead.length>=5, label:'Find 5 messages in bottles (tap the boats)'},
   'frame:gold':{test:()=>Object.keys(COUNTRIES).some(done), label:'Earn gold in any country'},
   'frame:holo':{test:()=>Object.keys(COUNTRIES).filter(done).length>=2, label:'Earn gold in 2 countries'}
 };
@@ -5173,13 +5225,13 @@ const SYNC={ref:null, status:'local', saving:false, dirty:false, at:null, lastAt
 const ACCT={name:'', signedIn:false};
 let DEVID=''; try{ DEVID=localStorage.getItem('pm-dev')||''; if(!DEVID){ DEVID='d'+Math.random().toString(36).slice(2,10); localStorage.setItem('pm-dev',DEVID); } }catch(e){ DEVID='d'+Math.random().toString(36).slice(2,10); }
 function snapshotState(){
-  return {v:1, visited, unlocked, sent, verified, eventStamps, trips, activeTrip, AVA, outfit, cover, inbox, mailDays, tinStyle, balloon:factsRead.slice(-300), earned:[...earnedWeekly], mailEver, friends:friendIds, mailSeen:mailSeen2.slice(-200), fnotes:friendNotes.slice(0,20)};
+  return {v:1, visited, unlocked, sent, verified, eventStamps, trips, activeTrip, AVA, outfit, cover, inbox, mailDays, tinStyle, balloon:factsRead.slice(-300), bottles:notesRead.slice(-100), earned:[...earnedWeekly], mailEver, friends:friendIds, mailSeen:mailSeen2.slice(-200), fnotes:friendNotes.slice(0,20)};
 }
 function applyState(d){
   if(!d || d.v!==1) return;
   if(d.visited) visited=d.visited; if(d.unlocked) unlocked=d.unlocked; if(d.sent) sent=d.sent; if(d.verified) verified=d.verified; if(d.eventStamps) eventStamps=d.eventStamps;
   if(Array.isArray(d.trips)) trips=d.trips; if('activeTrip' in d) activeTrip=d.activeTrip; if(d.AVA) AVA={...AVA, ...d.AVA, bio:{...AVA.bio, ...(d.AVA.bio||{})}};
-  if(d.outfit) outfit=d.outfit; if(d.cover) cover=d.cover; if(Array.isArray(d.inbox)) inbox=d.inbox; if(Array.isArray(d.mailDays)) mailDays=d.mailDays; if(Array.isArray(d.balloon)) factsRead=d.balloon.filter(k=>CITIES[k]); if(typeof d.tinStyle==='string' && TIN_STYLES.some(x=>x.id===d.tinStyle)) tinStyle=d.tinStyle;
+  if(d.outfit) outfit=d.outfit; if(d.cover) cover=d.cover; if(Array.isArray(d.inbox)) inbox=d.inbox; if(Array.isArray(d.mailDays)) mailDays=d.mailDays; if(Array.isArray(d.balloon)) factsRead=d.balloon.filter(k=>CITIES[k]); if(Array.isArray(d.bottles)) notesRead=d.bottles.filter(k=>typeof k==='string'); if(typeof d.tinStyle==='string' && TIN_STYLES.some(x=>x.id===d.tinStyle)) tinStyle=d.tinStyle;
   if(Array.isArray(d.earned)) d.earned.forEach(k=>earnedWeekly.add(k)); if(d.mailEver) mailEver=true;
   if(Array.isArray(d.fnotes)) friendNotes=d.fnotes.filter(n=>n&&typeof n.uid==='string');
   if(Array.isArray(d.friends)) friendIds=d.friends.filter(x=>typeof x==='string'); if(Array.isArray(d.mailSeen)) mailSeen2=d.mailSeen;
