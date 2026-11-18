@@ -37,7 +37,7 @@ html.bright{
   --paper-cream:#FFF3D6; --paper-card:#FFFCF2; --ink-navy:#1B1F4B; --ink-soft:#50557F;
   --stamp-red:#E8382A; --stamp-gold:#AD7400; --stamp-gold-wash:#FFE38A;
   --city-lisbon:#FFC21F; --city-kyoto:#FF4F6E; --city-capetown:#009C94; --accent-plum:#9D4EFF;
-  --map-ocean:#8DCDE6; --map-land:#FFE7A3; --map-land-edge:#E8A93A; --map-hl:#FFD45C;
+  --map-ocean:#62BFE8; --map-land:#FFDF8C; --map-land-edge:#D98A1E; --map-hl:#FFC93C;
   --surround:#FFD9A0; --frame:#1B1F4B;
 }
 html.bright .btn.navy{box-shadow:4px 4px 0 var(--city-kyoto)}
@@ -1396,6 +1396,12 @@ svg.wov.wnl{z-index:1}
 .bqstreak span{font-size:16px}
 .bqicon{width:92px;height:92px;margin:0 auto 14px;border-radius:50%;border:2.5px solid var(--ink-navy);background:#FFF8E7;display:flex;align-items:center;justify-content:center;box-shadow:3px 3px 0 var(--ink-navy)}
 @keyframes shake{20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
+.wani{position:absolute;z-index:2;width:30px;height:30px;padding:0;border:0;background:none;cursor:pointer;filter:drop-shadow(1px 2px 0 rgba(27,31,75,.25))}
+.wani svg{display:block;overflow:visible;animation:anibob 2.8s var(--d,0s) ease-in-out infinite;transform-origin:50% 100%}
+.wani.hop svg{animation:anihop .6s cubic-bezier(.3,1.6,.5,1)}
+@keyframes anibob{0%,100%{transform:none}50%{transform:translateY(-2px) rotate(-3deg)}}
+@keyframes anihop{0%{transform:none}40%{transform:translateY(-12px) scale(1.15)}100%{transform:none}}
+.wfani{display:inline-flex;width:34px;height:34px;margin-right:8px;border-radius:50%;background:#E4F4FB;border:1.5px solid var(--ink-navy);align-items:center;justify-content:center}
 .wfp{display:flex;align-items:center;gap:6px;margin:-4px 0 10px;font-size:10.5px;font-weight:800;color:#B07D1A}
 .wfp.done{color:#1E7A48}
 .wfbar{width:60px;height:6px;border-radius:999px;background:rgba(27,31,75,.12);overflow:hidden;flex-shrink:0}.wfbar i{display:block;height:100%;background:#FFC21F}
@@ -1452,7 +1458,7 @@ svg.wov.wnl{z-index:1}
 #art-world.intro .bub{animation:pop .45s calc(1.3s + var(--i)*90ms) both cubic-bezier(.3,1.5,.5,1)}
 #art-world.intro .wgold{animation:wlinein .5s 2s both}
 #art-world{cursor:grab;user-select:none;-webkit-user-select:none}
-#art-world.drag{cursor:grabbing}#art-world.drag .bub,#art-world.drag .wsign,#art-world.drag .wev,#art-world.drag .wcotd,#art-world.drag .wfr,#art-world.drag .wnear,#art-world.drag .wball,#art-world.drag .wplane,#art-world.drag .wboatw{pointer-events:none}
+#art-world.drag{cursor:grabbing}#art-world.drag .bub,#art-world.drag .wsign,#art-world.drag .wev,#art-world.drag .wcotd,#art-world.drag .wfr,#art-world.drag .wnear,#art-world.drag .wball,#art-world.drag .wplane,#art-world.drag .wboatw,#art-world.drag .wani{pointer-events:none}
 .bubble.swipe{transform:translateX(-50%);animation:none;font-size:13px;padding:7px 12px;white-space:normal;width:max-content;max-width:300px;text-align:center}.bubble.swipe::after{display:none}
 
 /* ---------- together: friend notices, trip invites, shared trips ---------- */
@@ -3222,6 +3228,11 @@ const DOODLE={
   dune:'<path d="M-10 4 Q-4.5 -6 1.5 4 Z" fill="#E07A22" stroke="#1B1F4B" stroke-width=".7"/><path d="M-1.5 4 Q4.5 -2.5 10 4 Z" fill="#F0A13F" stroke="#1B1F4B" stroke-width=".7"/><path d="M-4.5 -3.6 Q-2.6 0 -2.2 4" fill="none" stroke="#B85A12" stroke-width=".8"/>',
   peak:'<path d="M-8 4 L-1.5 -7 L5 4 Z" fill="#8E7152" stroke="#1B1F4B" stroke-width=".7" stroke-linejoin="round"/><path d="M-1.5 -7 L-3.8 -3 L-1.8 -3.9 L0.2 -2.8 Z" fill="#fff"/><path d="M1.5 4 L5.5 -2.5 L9.5 4 Z" fill="#A88B66" stroke="#1B1F4B" stroke-width=".7" stroke-linejoin="round"/><path d="M5.5 -2.5 L4.2 -0.4 L5.6 -1 L6.8 -0.4 Z" fill="#fff"/>',
   palm:'<path d="M0 4 Q-1.2 -1 1 -6" stroke="#7A4B22" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M1 -6 q-4 -1.4 -6.5 1.8 M1 -6 q4 -1.4 6.5 1.8 M1 -6 q-2.4 -3 -5.6 -3 M1 -6 q2.4 -3 5.6 -3" stroke="#2F8A44" stroke-width="1.8" fill="none" stroke-linecap="round"/>',
+  tree:'<path d="M0 4 V0" stroke="#7A4B22" stroke-width="1.6"/><circle cx="0" cy="-4" r="4.6" fill="#4E9E4A" stroke="#1B1F4B" stroke-width=".7"/><circle cx="-1.4" cy="-5.4" r="1.4" fill="#7CC36A"/>',
+  tuft:'<path d="M-4 3 Q-3 -2 -2 -4 M-1 3 Q-.5 -3 0 -6 M2 3 Q2.5 -1 4 -3" stroke="#7D7A22" stroke-width="1.3" fill="none" stroke-linecap="round"/>',
+  iceberg:'<path d="M-7 3 L-4 -3 L-1 -1 L2 -6 L6 3 Z" fill="#FFFFFF" stroke="#1B1F4B" stroke-width=".7" stroke-linejoin="round"/><path d="M2 -6 L1 -1 L6 3 Z" fill="#CFE8F5"/><path d="M-9 4.5 h18" stroke="#FFFFFF" stroke-width="1" opacity=".7"/>',
+  volcano:'<path d="M-8 4 L-2.5 -5 H2.5 L8 4 Z" fill="#8E6A52" stroke="#1B1F4B" stroke-width=".7" stroke-linejoin="round"/><path d="M-2.5 -5 H2.5 L1.5 -3 L0 -4 L-1.5 -3 Z" fill="#E8502A"/><path d="M0 -6 q-2 -3 0 -5 q2 -2 0 -4" stroke="#C9C9D6" stroke-width="1.2" fill="none" opacity=".85"/>',
+  compass:'<g><circle r="13" fill="#FFF3D6" stroke="#1B1F4B" stroke-width=".9"/><circle r="10" fill="none" stroke="#1B1F4B" stroke-width=".5" stroke-dasharray="1.5 1.5"/><path d="M-12 0 L0 2 L12 0 L0 -2 Z" fill="#C79A55" stroke="#1B1F4B" stroke-width=".4"/><path d="M0 -12 L2.4 0 L0 12 L-2.4 0 Z" fill="#1B1F4B"/><path d="M0 -12 L2.4 0 L-2.4 0 Z" fill="#E8382A"/><circle r="1.2" fill="#FFF3D6"/><text y="-14.5" text-anchor="middle" font-size="6.5" font-weight="900" fill="#1B1F4B" font-family="Georgia,serif">N</text></g>',
   wave:'<path d="M-7 0 q3.5 -3.4 7 0 t7 0" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" opacity=".85"/><path d="M-4 3.4 q2.4 -2 4.8 0" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round" opacity=".55"/>'};
 const DOODLES=[
   [-120,56,'pine'],[-110,58,'pine'],[-100,54,'pine'],[-90,52,'pine'],[-80,50,'pine'],[-72,48,'pine'],[-130,60,'pine'],[-95,61,'pine'],[-150,63,'pine'],
@@ -3230,6 +3241,15 @@ const DOODLES=[
   [-5,25,'dune'],[5,22,'dune'],[15,24,'dune'],[25,22,'dune'],[10,18,'dune'],[0,19,'dune'],[45,22,'dune'],[51,20,'dune'],[100,43,'dune'],[108,42,'dune'],[125,-24,'dune'],[135,-26,'dune'],[130,-21,'dune'],[21,-24,'dune'],[71,27,'dune'],[15,-23,'dune'],[-69,-23,'dune'],
   [78,34,'peak'],[84,30,'peak'],[89,28.5,'peak'],[94,29,'peak'],[-77,-6,'peak'],[-73,-14,'peak'],[-69,-20,'peak'],[-70,-30,'peak'],[-71,-40,'peak'],[-118,52,'peak'],[-113,47,'peak'],[-108,41,'peak'],[-106,37,'peak'],[9,46.3,'peak'],[44,42.5,'peak'],[39,10,'peak'],[170,-43.5,'peak'],
   [-65,-5,'palm'],[-55,-3,'palm'],[-60,-10,'palm'],[-70,-2,'palm'],[20,0,'palm'],[25,-3,'palm'],[104,15,'palm'],[100,8,'palm'],[112,-1,'palm'],[120,-3,'palm'],[-88,15,'palm'],
+  [-115,62,'pine'],[-85,58,'pine'],[-105,50,'pine'],[-125,54,'pine'],[60,60,'pine'],[75,57,'pine'],[90,56,'pine'],[120,64,'pine'],[135,56,'pine'],[160,62,'pine'],[-140,64,'pine'],[32,63,'pine'],[18,60,'pine'],
+  [-10,22,'dune'],[18,28,'dune'],[30,26,'dune'],[5,27,'dune'],[55,24,'dune'],[48,18,'dune'],[115,-27,'dune'],[140,-28,'dune'],[85,40,'dune'],[95,42,'dune'],
+  [-50,-6,'palm'],[-68,-8,'palm'],[14,2,'palm'],[28,0,'palm'],[110,4,'palm'],[98,4,'palm'],[125,8,'palm'],[140,-6,'palm'],[-80,8,'palm'],[-75,0,'palm'],
+  [2,48,'tree'],[8,51,'tree'],[16,49,'tree'],[22,47,'tree'],[-2,52,'tree'],[27,52,'tree'],[-85,36,'tree'],[-78,40,'tree'],[-90,41,'tree'],[113,30,'tree'],[118,34,'tree'],[146,-36,'tree'],[175,-40,'tree'],[-50,-25,'tree'],[-123,45,'tree'],
+  [-2,13,'tuft'],[10,12,'tuft'],[20,13,'tuft'],[30,12,'tuft'],[34,-6,'tuft'],[30,-12,'tuft'],[25,-17,'tuft'],[-50,-14,'tuft'],[-45,-10,'tuft'],[130,-16,'tuft'],[138,-18,'tuft'],[78,18,'tuft'],[-100,36,'tuft'],[-98,42,'tuft'],[-62,-34,'tuft'],
+  [-19,64.5,'volcano'],[110,-7.5,'volcano'],[138.7,35.4,'volcano'],[-90.9,14.5,'volcano'],[-78.4,-1.5,'volcano'],[15,37.7,'volcano'],
+  [-50,-60,'iceberg'],[0,-62,'iceberg'],[60,-60,'iceberg'],[120,-61,'iceberg'],[170,-62,'iceberg'],[-120,-62,'iceberg'],[-35,64,'iceberg'],[-58,62,'iceberg'],[-170,62,'iceberg'],
+  [-170,40,'wave'],[-100,-30,'wave'],[-80,-40,'wave'],[-10,40,'wave'],[-25,-45,'wave'],[100,-30,'wave'],[112,12,'wave'],[140,12,'wave'],[160,-15,'wave'],[50,-10,'wave'],[-145,42,'wave'],[-60,20,'wave'],[5,-30,'wave'],[170,-40,'wave'],
+  [-135,-35,'compass'],[-28,-38,'compass'],
   [-150,20,'wave'],[-140,0,'wave'],[-130,-20,'wave'],[-160,-10,'wave'],[170,10,'wave'],[178,-25,'wave'],[-120,10,'wave'],[-40,30,'wave'],[-30,10,'wave'],[-20,-15,'wave'],[-35,-35,'wave'],[-50,40,'wave'],[70,-10,'wave'],[80,-25,'wave'],[60,-30,'wave'],[90,-5,'wave'],[-90,-55,'wave'],[30,-50,'wave'],[130,-50,'wave'],[150,25,'wave'],[-60,-50,'wave']];
 function biomeWrap(lv, inner){
   if(MAPSTYLE==='real') return inner; let aff=null; try{ aff=lvAff(lv); }catch(e){} if(!aff || aff.some(v=>!isFinite(v))) return inner;
@@ -3239,7 +3259,8 @@ function biomeWrap(lv, inner){
     return `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${RX.toFixed(1)}" ry="${RY.toFixed(1)}" fill="url(#bm-${t})"${rot?` transform="rotate(${rot} ${x.toFixed(1)} ${y.toFixed(1)})"`:''}/>`; }).join('');
   const ALL=BIOMES.concat(seasonBiomes()), land=ALL.filter(b=>b[4]!=='deep').map(b=>el(...b)).join(''), sea0=ALL.filter(b=>b[4]==='deep').map(b=>el(...b)).join('');
   const k=lv==='world'?1/(WG.z||2):1, snowy=new Date().getMonth()+1, winter=[12,1,2,3].includes(snowy);
-  const dd=t=>DOODLES.filter(d=>(t==='sea')===(d[2]==='wave')).map(([lon,lat,kind])=>offs.map(o=>{ const x=ax*(lon+o)+bx, y=ay*lat+by; if(x<-20||x>410||y<-20||y>864) return '';
+  const SEA=new Set(['wave','iceberg','compass']);
+  const dd=t=>DOODLES.filter(d=>(t==='sea')===SEA.has(d[2])).map(([lon,lat,kind])=>offs.map(o=>{ const x=ax*(lon+o)+bx, y=ay*lat+by; if(x<-20||x>410||y<-20||y>864) return '';
     const sym = kind==='pine' && winter && lat>50 ? 'pinesnow' : kind; return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${k.toFixed(3)})">${DOODLE[sym]}</g>`; }).join('')).join('');
   const sea=sea0+`<g class="doodle">${dd('sea')}</g>`, landD=`<g class="doodle">${dd('land')}</g>`;
   let out=inner; const m=inner.match(/<g class="land"[^>]*>([\s\S]*?)<\/g>/);
@@ -3503,6 +3524,26 @@ function ambientInner(g){ if(reduced()) return ''; let out='';
   [[16,-150],[22,-38],[-18,75],[-32,-14]].forEach(([la,lo],i)=>{ const [x,y]=wLL(g,la,lo); out+=`<g class="wboatw" transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><circle r="18" cy="-3" fill="transparent" class="hit"/><g class="wboat" style="--d:${-i*7}s"><path d="M-9 0 H9 L6 5 H-6Z" fill="#E8382A" stroke="#1B1F4B" stroke-width="1.3" stroke-linejoin="round"/><path d="M0 0 V-12 L7 -2 H0" fill="#FFF8E7" stroke="#1B1F4B" stroke-width="1.2" stroke-linejoin="round"/><path d="M-14 7 q3 -2 6 0 q3 -2 6 0" stroke="#fff" stroke-width="1.4" fill="none" opacity=".8"/></g></g>`; });
   return out; }
 let cotdPick=null;
+const ANIMALS=[
+  {k:'camel', name:'Camel', ll:[24,2], go:'marrakech', fact:'A thirsty camel can drink more than 100 litres of water in about ten minutes.', svg:'<path d="M-10 2 Q-10 -4 -6 -4 Q-4 -9 -1 -4 Q1 -9 4 -4 L6 -6 Q9 -9 11 -6 Q11 -4 9 -4 L8 -3 Q8 2 6 2 Z" fill="#D9A15A" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><path d="M-8 2 V8 M-5 2 V8 M3 2 V8 M6 2 V8" stroke="#1B1F4B" stroke-width="1.4" stroke-linecap="round"/><circle cx="9.4" cy="-6" r=".8" fill="#1B1F4B"/>'},
+  {k:'kangaroo', name:'Kangaroo', ll:[-29,126], go:'uluru', fact:'Red kangaroos can hop at more than 50 km/h and cover around 8 metres in a single bound.', svg:'<path d="M-12 7 Q-10 2 -5 4" stroke="#C8743A" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M-6 7 Q-8 -2 -2 -4 Q0 -10 3 -9 L4 -12 L5.6 -8.6 Q8 -7.6 6 -5 Q4 -2 2 0 Q4 4 8 7 Z" fill="#C8743A" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><circle cx="4.6" cy="-7.4" r=".8" fill="#1B1F4B"/>'},
+  {k:'polarbear', name:'Polar bear', ll:[73,-95], go:null, fact:'A polar bear’s fur is actually see-through, and the skin underneath is black.', svg:'<path d="M-11 6 V0 Q-11 -4 -5 -4 H4 Q6 -7 9 -6 Q12 -5 11 -2 L8 -1 V6 H5 V2 H-6 V6 Z" fill="#FFFFFF" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><circle cx="9" cy="-4" r=".9" fill="#1B1F4B"/><circle cx="11.2" cy="-2.6" r=".7" fill="#1B1F4B"/>'},
+  {k:'whale', name:'Blue whale', ll:[30,-140], go:'vavau', fact:'A blue whale’s heart can weigh around 180 kg, about as much as two adults.', svg:'<path d="M-11 3 Q-9 -5 1 -4 Q8 -3 9 1 Q4 5 -11 3 Z" fill="#3D7BFF" stroke="#1B1F4B" stroke-width="1"/><path d="M9 1 L12.5 -3.5 L12.5 4.5 Z" fill="#3D7BFF" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><circle cx="-6" cy="-1" r=".9" fill="#1B1F4B"/><path d="M-3 -5 Q-5 -10 -7 -11 M-3 -5 Q-1 -10 1 -11 M-3 -5 V-12" stroke="#FFFFFF" stroke-width="1.4" fill="none" stroke-linecap="round"/>'},
+  {k:'penguin', name:'Emperor penguins', ll:[-55,-42], go:null, fact:'Emperor penguins can dive more than 500 metres deep and hold their breath for over 20 minutes.', svg:'<path d="M-12 8 L-9 3 H9 L12 8 Z" fill="#FFFFFF" stroke="#1B1F4B" stroke-width=".8"/><g transform="translate(-4 -1)"><ellipse rx="3.4" ry="5.4" fill="#1B1F4B"/><ellipse cx=".7" cy="1" rx="2.1" ry="3.8" fill="#fff"/><path d="M1.8 -3.6 l2.2 .9 -2.2 .5 Z" fill="#FFC21F"/></g><g transform="translate(4 0) scale(.8)"><ellipse rx="3.4" ry="5.4" fill="#1B1F4B"/><ellipse cx=".7" cy="1" rx="2.1" ry="3.8" fill="#fff"/><path d="M1.8 -3.6 l2.2 .9 -2.2 .5 Z" fill="#FFC21F"/></g>'},
+  {k:'elephant', name:'African elephant', ll:[-12,24], go:'serengeti', fact:'An elephant’s big ears work like air conditioners. Flapping them cools its blood.', svg:'<path d="M-10 6 V-1 Q-10 -7 -2 -7 Q5 -7 7 -2 Q10 0 10 5 Q9 7 8 5 Q8 2 7 2 V6 H4 V3 H-5 V6 Z" fill="#9AA0B5" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><path d="M-1 -6 Q4 -8 3 -1 Q1 0 -1 -2 Z" fill="#B7BCCB" stroke="#1B1F4B" stroke-width=".8"/><circle cx="5" cy="-3" r=".8" fill="#1B1F4B"/>'},
+  {k:'panda', name:'Giant panda', ll:[31,104], go:'chengdu', fact:'Giant pandas spend up to 14 hours a day eating bamboo.', svg:'<circle cx="-5" cy="-5" r="2.6" fill="#1B1F4B"/><circle cx="5" cy="-5" r="2.6" fill="#1B1F4B"/><circle r="6.5" fill="#fff" stroke="#1B1F4B" stroke-width="1"/><ellipse cx="-2.6" cy="0" rx="1.7" ry="2.3" fill="#1B1F4B" transform="rotate(20 -2.6 0)"/><ellipse cx="2.6" cy="0" rx="1.7" ry="2.3" fill="#1B1F4B" transform="rotate(-20 2.6 0)"/><circle cx="0" cy="3" r="1.1" fill="#1B1F4B"/>'},
+  {k:'llama', name:'Llama', ll:[-26,-67], go:'cusco', fact:'Llamas hum to each other, and they mostly spit at other llamas, not at people.', svg:'<path d="M-8 7 V1 Q-8 -2 -4 -2 H2 V-9 Q2 -11 4 -11 L5 -13 L6 -11 Q8 -10 6.6 -8 L5.4 -7.4 V2 Q5.4 7 4 7 H2 V3 H-5 V7 Z" fill="#F4EEDC" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><circle cx="4.4" cy="-9" r=".7" fill="#1B1F4B"/><path d="M-4 -2 h6" stroke="#E8382A" stroke-width="1.6"/>'},
+  {k:'moose', name:'Moose', ll:[57,-128], go:'banff', fact:'Moose are strong swimmers and can dive several metres to eat plants from lake beds.', svg:'<path d="M-10 7 V0 Q-10 -4 -5 -4 H3 Q6 -6 9 -4 Q11 -1 8 0 L6 0 V7 H4 V3 H-7 V7 Z" fill="#7A4B22" stroke="#1B1F4B" stroke-width="1" stroke-linejoin="round"/><path d="M5 -5 Q3 -10 -1 -9 M3.4 -7.6 L2 -10.4 M5 -5 Q8 -10 12 -9 M8.6 -7.6 L10 -10.6" stroke="#E3C9A0" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="8" cy="-3" r=".8" fill="#1B1F4B"/>'},
+  {k:'toucan', name:'Toucan', ll:[-9,-58], go:'manuelantonio', fact:'A toucan’s huge beak is light and hollow, and it helps the bird shed heat to stay cool.', svg:'<ellipse cx="-2" cy="2" rx="4.8" ry="6.4" fill="#1B1F4B"/><circle cx="-1" cy="-2.6" r="2.6" fill="#fff"/><path d="M1 -4 Q11 -5 12 -1.6 Q8 -.6 1 -1.6 Z" fill="#FF8A3D" stroke="#1B1F4B" stroke-width=".8" stroke-linejoin="round"/><path d="M10 -4 Q12 -3 12 -1.6" stroke="#E8382A" stroke-width="1.4" fill="none"/><circle cx="-1.2" cy="-3" r=".8" fill="#1B1F4B"/><path d="M-4 8 v3" stroke="#1B1F4B" stroke-width="1.2"/>'},
+  {k:'tiger', name:'Bengal tiger', ll:[24,82], go:'chitwan', fact:'No two tigers have the same stripes. Their pattern is as unique as a fingerprint.', svg:'<circle cx="-4.8" cy="-4.8" r="2" fill="#F28C28" stroke="#1B1F4B" stroke-width=".8"/><circle cx="4.8" cy="-4.8" r="2" fill="#F28C28" stroke="#1B1F4B" stroke-width=".8"/><circle r="6.5" fill="#F28C28" stroke="#1B1F4B" stroke-width="1"/><path d="M-6.4 -1 h3 M6.4 -1 h-3 M0 -6.4 v2.6 M-5.8 2 h2.4 M5.8 2 h-2.4" stroke="#1B1F4B" stroke-width="1.1" stroke-linecap="round"/><ellipse cx="0" cy="3.2" rx="2.8" ry="2.1" fill="#fff"/><circle cx="-2.2" cy="-1" r=".8" fill="#1B1F4B"/><circle cx="2.2" cy="-1" r=".8" fill="#1B1F4B"/><circle cx="0" cy="2.4" r=".8" fill="#1B1F4B"/>'},
+  {k:'kiwi', name:'Kiwi', ll:[-38,177], go:'rotorua', fact:'For its size, the kiwi lays one of the biggest eggs of any bird, about a fifth of its body weight.', svg:'<ellipse cx="-1" cy="1" rx="6.4" ry="4.8" fill="#8C5A2B" stroke="#1B1F4B" stroke-width="1"/><path d="M4.4 -.4 Q9 1.6 12 6" stroke="#E3C9A0" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="3.2" cy="-1" r=".8" fill="#1B1F4B"/><path d="M-3 5.4 v3 M1 5.4 v3" stroke="#1B1F4B" stroke-width="1.3" stroke-linecap="round"/>'}];
+function animalFact(k, btn){ const a=ANIMALS.find(x=>x.k===k); if(!a) return; const old=$('#wfact'); const n=$('#wnote'); if(n) n.remove();
+  if(btn){ btn.classList.remove('hop'); void btn.offsetWidth; btn.classList.add('hop'); setTimeout(()=>btn.classList.remove('hop'), 700); }
+  tone(0,'triangle',740,.06,.07); tone(.07,'triangle',988,.08,.06);
+  const go=a.go && CITIES[a.go] ? `<button class="pri" data-wfgo="${a.go}">${L(LU.pin,14,2.4)}See them near ${CITIES[a.go].name}</button>` : '';
+  const html=`<div class="wfact" id="wfact" role="dialog" aria-label="${esc(a.name)}"><small>${L(LU.spark,11,2.6)}WILDLIFE SPOTTED</small><b><span class="wfani"><svg viewBox="-13 -13 26 26" width="30" height="30">${a.svg}</svg></span>${esc(a.name)}</b><p>${esc(a.fact)}</p>
+    <div class="wfb">${go}<button class="x" data-wfclose aria-label="Close">${L(LU.x,14,2.6)}</button></div></div>`;
+  if(old) old.outerHTML=html; else $('#ui-world').insertAdjacentHTML('beforeend', html); }
 const CTZ={PT:'Europe/Lisbon',JP:'Asia/Tokyo',MX:'America/Mexico_City',AU:'Australia/Sydney',IT:'Europe/Rome',TH:'Asia/Bangkok',MA:'Africa/Casablanca',BR:'America/Sao_Paulo',US:'America/New_York',UK:'Europe/London',CH:'Europe/Zurich',IN:'Asia/Kolkata',NP:'Asia/Kathmandu',LK:'Asia/Colombo',CN:'Asia/Shanghai',ES:'Europe/Madrid',FR:'Europe/Paris',NL:'Europe/Amsterdam',DE:'Europe/Berlin',AT:'Europe/Vienna',GR:'Europe/Athens',TR:'Europe/Istanbul',KR:'Asia/Seoul',AE:'Asia/Dubai',EG:'Africa/Cairo',ZA:'Africa/Johannesburg',IE:'Europe/Dublin',NO:'Europe/Oslo',CZ:'Europe/Prague',HR:'Europe/Zagreb',VN:'Asia/Ho_Chi_Minh',ID:'Asia/Jakarta',SG:'Asia/Singapore',NZ:'Pacific/Auckland',CA:'America/Toronto',PE:'America/Lima',AR:'America/Argentina/Buenos_Aires',KE:'Africa/Nairobi',KH:'Asia/Phnom_Penh',LA:'Asia/Vientiane',PH:'Asia/Manila',MY:'Asia/Kuala_Lumpur',CO:'America/Bogota',BO:'America/La_Paz',CL:'America/Santiago',HU:'Europe/Budapest',PL:'Europe/Warsaw',IS:'Atlantic/Reykjavik',GT:'America/Guatemala',CR:'America/Costa_Rica',CU:'America/Havana',JO:'Asia/Amman',TZ:'Africa/Dar_es_Salaam',EC:'America/Guayaquil'};
 const CITY_TZ={seattle:'America/Los_Angeles',yosemite:'America/Los_Angeles',grandcanyon:'America/Phoenix',nashville:'America/Chicago',neworleans:'America/Chicago',cancun:'America/Cancun',tulum:'America/Cancun',darwin:'Australia/Darwin',uluru:'Australia/Darwin',brisbane:'Australia/Brisbane',cairns:'Australia/Brisbane',airlie:'Australia/Brisbane',melbourne:'Australia/Melbourne',hobart:'Australia/Hobart',adelaide:'Australia/Adelaide',perth:'Australia/Perth',salvador:'America/Bahia',chicago:'America/Chicago',lasvegas:'America/Los_Angeles',losangeles:'America/Los_Angeles',sanfrancisco:'America/Los_Angeles',vancouver:'America/Vancouver',banff:'America/Edmonton',galapagos:'Pacific/Galapagos',bali:'Asia/Makassar',hongkong:'Asia/Hong_Kong',mendoza:'America/Argentina/Mendoza',torresdelpaine:'America/Punta_Arenas'};
 function cityNow(id){ const ll=CITY_LL[id], d=new Date(); let time='';
@@ -3641,6 +3682,7 @@ function balloonFact(btn){ const old=$('#wfact'); const id=pickRandom(k=>CITIES[
     <div class="wfb"><button class="pri" data-wfgo="${id}">${L(LU.pin,14,2.4)}Take me there</button><button data-wfx>Another one</button><button class="x" data-wfclose aria-label="Close">${L(LU.x,14,2.6)}</button></div></div>`;
   if(old) old.outerHTML=html; else $('#ui-world').insertAdjacentHTML('beforeend', html); }
 function pinsHTML(g){ let out='';
+  ANIMALS.forEach((a,i)=>{ const [x,y]=wLL(g,...a.ll); out+=`<button class="wani" data-wani="${a.k}" style="left:${(x-15).toFixed(1)}px;top:${(y-15).toFixed(1)}px;--d:${(i*.37).toFixed(2)}s" aria-label="${esc(a.name)}: tap for a fact"><svg viewBox="-13 -13 26 26" width="30" height="30" aria-hidden="true">${a.svg}</svg></button>`; });
   { const [x,y]=wLL(g,40,33); out+=`<button class="wball" data-wball style="left:${(x-17).toFixed(1)}px;top:${(y-70).toFixed(1)}px" aria-label="Hot air balloon: tap for today’s quiz">${BALLOON}</button>`; }
   const seen=new Set();
   EVENTS.forEach(e=>e.cities.forEach(id=>{ const ev=activeEvent(id); if(!ev||ev.id!==e.id||seen.has(id)||!CITY_LL[id]) return; seen.add(id); const [x,y]=wLL(g,...CITY_LL[id]);
@@ -3713,7 +3755,7 @@ function worldZoomTo(k, mx, my){ const p=$('#wpan'); const nz=Math.max(1,Math.mi
       else apply(); setTimeout(()=>{ moved=false; }, 60); return; }
     if(!d) return; const dd=d; d=null; el().classList.remove('drag');
     if(!moved){ /* double tap on the ocean or land: zoom in there, or back out */
-      if(!e.target.closest('.bub,.wsign,.me,button,.wev,.wfr,.wcotd,.wplane,.wball,.wboatw')){ const now=performance.now(); if(now-lastTap<320 && Math.hypot(pe[0]-lastXY[0],pe[1]-lastXY[1])<40){ lastTap=0; if(WZ>1.4) worldZoomTo(1/WZ,195,pe[1]); else worldZoomTo(2.2,pe[0],pe[1]); } else { lastTap=now; lastXY=pe; } }
+      if(!e.target.closest('.bub,.wsign,.me,button,.wev,.wfr,.wcotd,.wplane,.wball,.wboatw,.wani')){ const now=performance.now(); if(now-lastTap<320 && Math.hypot(pe[0]-lastXY[0],pe[1]-lastXY[1])<40){ lastTap=0; if(WZ>1.4) worldZoomTo(1/WZ,195,pe[1]); else worldZoomTo(2.2,pe[0],pe[1]); } else { lastTap=now; lastXY=pe; } }
       return; }
     if(dd.dy){ WY+=dd.dy; $('#art-world').innerHTML=artHTML('world'); }
     const glide=()=>{ vel*=.94; if(Math.abs(vel)<.25 || level!=='world') return; worldPan=wrapPan(worldPan+vel); apply(); raf=requestAnimationFrame(glide); };
@@ -3971,6 +4013,7 @@ $('#phone').addEventListener('click', e=>{
   const pcb=e.target.closest('[data-cotdpc]'); if(pcb){ if(stamping) return; return openPostcard(pcb.dataset.cotdpc); }
   if(level==='world' && !busy && !stamping){
     const pl=e.target.closest('.wplane'); if(pl){ const id=pickRandom(k=>!visited[k]); if(id){ toast(`Surprise! Flying you to ${CITIES[id].name}`); tone(0,'triangle',660,.06,.07); tone(.09,'triangle',990,.08,.07); flyToCity(id, pl); } return; }
+    const an=e.target.closest('[data-wani]'); if(an) return animalFact(an.dataset.wani, an);
     const bl=e.target.closest('[data-wball]'); if(bl){ const n=$('#wnote'); if(n) n.remove(); bl.classList.remove('puff'); void bl.offsetWidth; bl.classList.add('puff'); tone(0,'sine',330,.12,.08); tone(.08,'sine',494,.16,.07); setTimeout(()=>bl.classList.remove('puff'), 1300); return setTimeout(openBQuiz, 380); }
     const bt=e.target.closest('.wboatw'); if(bt){ const f=$('#wfact'); if(f) f.remove(); return bottleNote(bt); }
     if(e.target.closest('[data-wnx]')) return bottleNote(null);
