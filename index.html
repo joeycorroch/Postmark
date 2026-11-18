@@ -1389,7 +1389,12 @@ svg.wov.wnl{z-index:1}
 .bqstars i{color:rgba(27,31,75,.2)}.bqstars i.on{color:#FFC21F;filter:drop-shadow(1px 1px 0 var(--ink-navy))}
 .bqmsg{margin:6px 0 2px;font:900 18px/1.3 var(--font-display);color:var(--ink-navy)}
 .bqnext{margin:0 0 4px;font-size:13px;color:var(--ink-soft)}
-.bqres .btn{width:100%;margin-top:14px}
+.bqres .btn{width:100%;margin-top:0}
+.bqbtns{display:flex;flex-direction:column;gap:8px;width:100%;margin-top:14px}
+.bqbtns .btn{display:flex;align-items:center;justify-content:center;gap:8px}
+.bqstreak{display:flex;align-items:center;gap:6px;margin:8px 0 0;padding:6px 14px;border-radius:999px;background:#FFF1D6;border:2px solid #FF8A3D;font-size:13px;color:var(--ink-navy)}
+.bqstreak span{font-size:16px}
+.bqicon{width:92px;height:92px;margin:0 auto 14px;border-radius:50%;border:2.5px solid var(--ink-navy);background:#FFF8E7;display:flex;align-items:center;justify-content:center;box-shadow:3px 3px 0 var(--ink-navy)}
 @keyframes shake{20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
 .wfp{display:flex;align-items:center;gap:6px;margin:-4px 0 10px;font-size:10.5px;font-weight:800;color:#B07D1A}
 .wfp.done{color:#1E7A48}
@@ -3469,6 +3474,9 @@ let factsRead=[], notesRead=[];
 const CAPITALS={PT:'Lisbon',JP:'Tokyo',MX:'Mexico City',AU:'Canberra',IT:'Rome',TH:'Bangkok',MA:'Rabat',BR:'Brasília',US:'Washington, D.C.',UK:'London',CH:'Bern',IN:'New Delhi',NP:'Kathmandu',CN:'Beijing',ES:'Madrid',FR:'Paris',NL:'Amsterdam',DE:'Berlin',AT:'Vienna',GR:'Athens',TR:'Ankara',KR:'Seoul',AE:'Abu Dhabi',EG:'Cairo',IE:'Dublin',NO:'Oslo',CZ:'Prague',HR:'Zagreb',VN:'Hanoi',NZ:'Wellington',CA:'Ottawa',PE:'Lima',AR:'Buenos Aires',KE:'Nairobi',KH:'Phnom Penh',LA:'Vientiane',PH:'Manila',MY:'Kuala Lumpur',CO:'Bogotá',CL:'Santiago',HU:'Budapest',PL:'Warsaw',IS:'Reykjavík',GT:'Guatemala City',CR:'San José',CU:'Havana',JO:'Amman',TZ:'Dodoma',EC:'Quito',MV:'Malé',FJ:'Suva',TO:'Nukuʻalofa',MU:'Port Louis',SC:'Victoria'};
 /* international tourist arrivals in 2019, in millions (rounded; the answers are an order of magnitude apart) */
 const TOURISTS={FR:90,ES:84,US:79,CN:66,IT:65,TR:51,MX:45,TH:40,DE:40,UK:39,JP:32,AT:32,GR:31,MY:26,PT:25,CA:22,PL:21,NL:20,SG:19,VN:18,IN:18,KR:17.5,HR:17,HU:17,ID:16,EG:13,MA:13,CH:12,IE:11,ZA:10,AU:9.5,PH:8,AR:7.4,KH:6.6,BR:6.4,JO:5,LA:4.8,CL:4.5,PE:4.4,CU:4.3,NZ:3.9,CR:3.1,IS:2,KE:2,LK:1.9,MV:1.7,MU:1.4,NP:1.2,FJ:0.9,SC:0.38};
+const CURRENCY={PT:'Euro',JP:'Yen',MX:'Peso',AU:'Dollar',IT:'Euro',TH:'Baht',MA:'Dirham',BR:'Real',US:'Dollar',UK:'Pound sterling',CH:'Franc',IN:'Rupee',NP:'Rupee',LK:'Rupee',CN:'Yuan',ES:'Euro',FR:'Euro',NL:'Euro',DE:'Euro',AT:'Euro',GR:'Euro',TR:'Lira',KR:'Won',AE:'Dirham',EG:'Pound',ZA:'Rand',IE:'Euro',NO:'Krone',CZ:'Koruna',HR:'Euro',VN:'Dong',ID:'Rupiah',SG:'Dollar',NZ:'Dollar',CA:'Dollar',PE:'Sol',AR:'Peso',KE:'Shilling',KH:'Riel',LA:'Kip',PH:'Peso',MY:'Ringgit',CO:'Peso',BO:'Boliviano',CL:'Peso',HU:'Forint',PL:'Złoty',IS:'Króna',GT:'Quetzal',CR:'Colón',CU:'Peso',JO:'Dinar',TZ:'Shilling',EC:'US dollar',MV:'Rufiyaa',FJ:'Dollar',TO:'Paʻanga',MU:'Rupee',SC:'Rupee'};
+/* main language; countries with several equal official languages are left out */
+const LANGUAGE={PT:'Portuguese',JP:'Japanese',MX:'Spanish',AU:'English',IT:'Italian',TH:'Thai',MA:'Arabic',BR:'Portuguese',US:'English',UK:'English',IN:'Hindi',NP:'Nepali',LK:'Sinhala',CN:'Mandarin Chinese',ES:'Spanish',FR:'French',NL:'Dutch',DE:'German',AT:'German',GR:'Greek',TR:'Turkish',KR:'Korean',AE:'Arabic',EG:'Arabic',NO:'Norwegian',CZ:'Czech',HR:'Croatian',VN:'Vietnamese',ID:'Indonesian',PE:'Spanish',AR:'Spanish',KE:'Swahili',KH:'Khmer',LA:'Lao',PH:'Filipino',MY:'Malay',CO:'Spanish',CL:'Spanish',HU:'Hungarian',PL:'Polish',IS:'Icelandic',GT:'Spanish',CR:'Spanish',CU:'Spanish',JO:'Arabic',TZ:'Swahili',EC:'Spanish',MV:'Dhivehi',TO:'Tongan'};
 const fmtTour = m => m>=1 ? `About ${m>=10?Math.round(m):+m.toFixed(1)} million` : `About ${(Math.round(m*1e6/1000)*1000).toLocaleString('en-AU')}`;
 function dailyQuiz(day=today()){
   let h=2166136261; for(const ch of 'bq'+day){ h^=ch.charCodeAt(0); h=Math.imul(h,16777619)>>>0; }
@@ -3478,7 +3486,7 @@ function dailyQuiz(day=today()){
   const freshC = pool => { const p=pool.filter(c=>!used.has(c)); const c=pick(p.length?p:pool); used.add(c); return c; };
   const others = (c, n) => { const same=shuffle(cs.filter(x=>x!==c && COUNTRIES[x].region===COUNTRIES[c].region)), rest=shuffle(cs.filter(x=>x!==c && COUNTRIES[x].region!==COUNTRIES[c].region)); return [...same,...rest].slice(0,n); };
   const mk = (t,q,correct,wrong,ex,extra={}) => { const opts=shuffle([correct,...wrong]); return {t,q,opts,a:opts.indexOf(correct),ex,...extra}; };
-  const types=shuffle(['cap','cap','flag','flag','tour','city','city']);
+  const types=shuffle(['cap','flag','tour','city','money','lang','landmark','hello']).slice(0,7);
   return types.map(t=>{
     if(t==='cap'){ const c=freshC(Object.keys(CAPITALS).filter(k=>COUNTRIES[k])), cap=CAPITALS[c], norm=x=>sNorm(x);
       let wrong=shuffle(COUNTRIES[c].cities.map(id=>CITIES[id].name).filter(n=>norm(n)!==norm(cap)&&!norm(cap).includes(norm(n)))).slice(0,2);
@@ -3489,11 +3497,28 @@ function dailyQuiz(day=today()){
       let k=Math.floor(rnd()*3); if(v*Math.pow(10,2-k)>1500) k=Math.max(k,1); if(v*Math.pow(10,2-k)>1500) k=2; if(v/Math.pow(10,k)<0.004) k=Math.min(k,1);
       const vals=[0,1,2].map(i=>v*Math.pow(10,i-k)), opts=vals.map(fmtTour);
       return {t, q:`Roughly how many international tourists visited ${COUNTRIES[c].name} in a year before the pandemic?`, opts, a:k, ex:`${fmtTour(v).replace('About','About')} international tourists visited ${COUNTRIES[c].name} in 2019.`, c}; }
+    if(t==='money'){ const c=freshC(Object.keys(CURRENCY).filter(k=>COUNTRIES[k])), cur=CURRENCY[c], pool=[...new Set(Object.values(CURRENCY))].filter(x=>x!==cur && !(cur==='US dollar'&&x==='Dollar') && !(cur==='Dollar'&&x==='US dollar'));
+      return mk(t,`Which currency do they use in ${COUNTRIES[c].name}?`, cur, shuffle(pool).slice(0,2), `${COUNTRIES[c].name} uses the ${cur.toLowerCase()==='us dollar'?'US dollar':cur.toLowerCase()}.`, {c}); }
+    if(t==='lang'){ const c=freshC(Object.keys(LANGUAGE).filter(k=>COUNTRIES[k])), lg=LANGUAGE[c], same=[...new Set(Object.keys(LANGUAGE).filter(k=>COUNTRIES[k]&&COUNTRIES[k].region===COUNTRIES[c].region).map(k=>LANGUAGE[k]))].filter(x=>x!==lg), all=[...new Set(Object.values(LANGUAGE))].filter(x=>x!==lg&&!same.includes(x));
+      return mk(t,`What is the main language spoken in ${COUNTRIES[c].name}?`, lg, [...shuffle(same),...shuffle(all)].slice(0,2), `Most people in ${COUNTRIES[c].name} speak ${lg}.`, {c}); }
+    if(t==='landmark'){ const id=pick(Object.keys(CITIES).filter(k=>!used.has(CITIES[k].c)&&CITIES[k].lmName&&CITIES[k].lmName.split(' ').length>1&&![CITIES[k].name,CITIES[k].short||'',COUNTRIES[CITIES[k].c].name].some(n=>n&&sNorm(CITIES[k].lmName).includes(sNorm(n).split(' ')[0])))), c=CITIES[id].c; used.add(c);
+      const wrong=shuffle(Object.keys(CITIES).filter(k=>CITIES[k].c!==c && COUNTRIES[CITIES[k].c].region===COUNTRIES[c].region)).slice(0,2).map(k=>CITIES[k].name);
+      while(wrong.length<2) wrong.push(CITIES[pick(Object.keys(CITIES).filter(k=>CITIES[k].c!==c))].name);
+      return mk(t,`Which city is famous for this: ${CITIES[id].lmName}?`, CITIES[id].name, wrong, `${CITIES[id].lmName} is in ${CITIES[id].name}, ${COUNTRIES[c].name}.`, {c, icon:id}); }
+    if(t==='hello'){ const opts=Object.keys(CITIES).filter(k=>{ const C=CITIES[k], L=LANGUAGE[C.c]; return !used.has(C.c) && /\(hello/i.test(C.say||'') && L && L!=='English' && /“[^”]+”/.test(C.say); });
+      if(opts.length){ const id=pick(opts), c=CITIES[id].c; used.add(c); const word=CITIES[id].say.match(/“([^”]+)”/)[1];
+        const diff=others(c,40).filter(x=>LANGUAGE[x] && LANGUAGE[x]!==LANGUAGE[c]).slice(0,2);
+        return mk(t,`Where would someone greet you with “${word}”?`, COUNTRIES[c].name, diff.map(x=>COUNTRIES[x].name), `“${word}” means hello in ${COUNTRIES[c].name}.`, {c}); } }
     const id=pick(Object.keys(CITIES).filter(k=>!used.has(CITIES[k].c))), c=CITIES[id].c; used.add(c);
-    return mk(t,`Which country is ${CITIES[id].name} in?`, COUNTRIES[c].name, others(c,2).map(x=>COUNTRIES[x].name), `${CITIES[id].name} is in ${COUNTRIES[c].name}.`, {c, id});
+    return mk('city',`Which country is ${CITIES[id].name} in?`, COUNTRIES[c].name, others(c,2).map(x=>COUNTRIES[x].name), `${CITIES[id].name} is in ${COUNTRIES[c].name}.`, {c, id});
   });
 }
-let BQ={d:'', picks:[]}, bqTotal=0, bqRev=false;
+let BQ={d:'', picks:[]}, bqTotal=0, bqRev=false, bqStreak={last:'', n:0, best:0};
+const streakNow = () => (bqStreak.last===today() || bqStreak.last===addDays(today(),-1)) ? bqStreak.n : 0;
+async function shareBQ(){ const qs=dailyQuiz(BQ.d), score=BQ.picks.filter((p,i)=>p===qs[i].a).length, grid=qs.map((q,i)=>BQ.picks[i]===q.a?'🟩':'🟥').join(''), st=streakNow();
+  const text=`Postmark balloon quiz, ${new Date(BQ.d+'T12:00').toLocaleDateString('en-AU',{day:'numeric',month:'short'})}\n${grid}  ${score}/7 🎈${st>1?`\n🔥 ${st}-day streak`:''}${STANDALONE?'\n'+location.origin+location.pathname:''}`;
+  try{ if(navigator.share){ await navigator.share({text}); return; } }catch(err){ if(err&&err.name==='AbortError') return; }
+  try{ await navigator.clipboard.writeText(text); toast('Score copied. Paste it to your friends!'); }catch(err){ toast(`${score}/7 today. ${grid}`); } }
 function untilMidnight(){ const n=new Date(), m=new Date(n); m.setHours(24,0,0,0); const mins=Math.max(1,Math.round((m-n)/6e4)); return mins>=60?`${Math.floor(mins/60)}h ${mins%60}m`:`${mins}m`; }
 function openBQuiz(){ if(BQ.d!==today()){ BQ={d:today(), picks:[]}; } bqRev=false; let el=$('#bqz'); if(!el){ $('#phone').insertAdjacentHTML('beforeend','<div id="bqz" class="bqz" role="dialog" aria-label="Balloon quiz"></div>'); el=$('#bqz'); } renderBQ(); requestAnimationFrame(()=>el.classList.add('on')); }
 function closeBQuiz(){ const el=$('#bqz'); if(!el) return; el.classList.remove('on'); setTimeout(()=>{ if(!el.classList.contains('on')) el.remove(); }, 300); }
@@ -3503,9 +3528,9 @@ function renderBQ(){ const el=$('#bqz'); if(!el) return; const qs=dailyQuiz(BQ.d
   const capLine = bqTotal>=10 ? `<p class="bqcap done">${L(LU.check,12,3)}Balloonist cap unlocked</p>` : `<p class="bqcap"><span class="wfbar"><i style="width:${Math.min(10,bqTotal)*10}%"></i></span>${Math.min(10,bqTotal)} of 10 right answers · unlocks the Balloonist cap</p>`;
   if(n>=7 && !bqRev){
     const msg=score===7?'Perfect score! A true globetrotter.':score>=5?'Great flying! You know your world.':score>=3?'Nice try. Tomorrow’s another flight.':'Bumpy landing. New questions tomorrow!';
-    el.innerHTML=`<div class="bqc">${head}<div class="bqres"><div class="bqscore"><b>${score}</b><span>/7</span></div><div class="bqstars">${[0,1,2].map(i=>`<i class="${score>=[3,5,7][i]?'on':''}">${L(LU.star,22,2.4)}</i>`).join('')}</div><p class="bqmsg">${msg}</p><p class="bqnext">7 new questions in ${untilMidnight()}</p>${capLine}<button class="btn navy big" data-bqclose>Done</button></div></div>`; return; }
+    el.innerHTML=`<div class="bqc">${head}<div class="bqres"><div class="bqscore"><b>${score}</b><span>/7</span></div><div class="bqstars">${[0,1,2].map(i=>`<i class="${score>=[3,5,7][i]?'on':''}">${L(LU.star,22,2.4)}</i>`).join('')}</div><p class="bqmsg">${msg}</p><p class="bqnext">7 new questions in ${untilMidnight()}</p>${streakNow()>0?`<p class="bqstreak"><span>🔥</span><b>${streakNow()}-day streak</b>${bqStreak.best>1?` · best ${bqStreak.best}`:''}</p>`:''}${capLine}<div class="bqbtns"><button class="btn line big" data-bqshare>${L(LU.share,18)}Share score</button><button class="btn navy big" data-bqclose>Done</button></div></div></div>`; return; }
   const i=bqRev?n-1:n, q=qs[i], chosen=bqRev?BQ.picks[i]:null;
-  el.innerHTML=`<div class="bqc">${head}<p class="bqn">Question ${i+1} of 7</p><h3>${q.q}</h3>${q.flag?`<div class="bqflag">${flagSVG(q.flag)}</div>`:''}
+  el.innerHTML=`<div class="bqc">${head}<p class="bqn">Question ${i+1} of 7</p><h3>${esc(q.q)}</h3>${q.flag?`<div class="bqflag">${flagSVG(q.flag)}</div>`:''}${q.icon?`<div class="bqicon">${lm(CITIES[q.icon].icon,'navy').replace('<svg','<svg width="64" height="64"')}</div>`:''}
     <div class="bqopts">${q.opts.map((o,k)=>`<button data-bqopt="${k}" class="${bqRev?(k===q.a?'ok':k===chosen?'no':'dim'):''}" ${bqRev?'disabled':''}>${esc(o)}${bqRev&&k===q.a?`<i>${L(LU.check,14,3)}</i>`:''}</button>`).join('')}</div>
     ${bqRev?`<div class="bqex ${chosen===q.a?'ok':'no'}"><b>${chosen===q.a?'Correct!':'Not quite.'}</b> ${esc(q.ex)}</div><button class="btn navy big bqgo" data-bqnext>${n>=7?'See your score':'Next question'}</button>`:''}
     ${capLine}</div>`;
@@ -3514,8 +3539,10 @@ $('#phone').addEventListener('click', e=>{ const box=$('#bqz'); if(!box || !box.
   if(e.target.closest('[data-bqclose]') || e.target===box) return closeBQuiz();
   const o=e.target.closest('[data-bqopt]'); if(o && !bqRev){ const qs=dailyQuiz(BQ.d), i=BQ.picks.length, k=+o.dataset.bqopt; if(i>=7) return;
     BQ.picks.push(k); bqRev=true; const right=k===qs[i].a, before=bqTotal; if(right){ bqTotal++; chime(); } else tone(0,'triangle',220,.12,.07);
+    if(BQ.picks.length===7 && bqStreak.last!==BQ.d){ bqStreak.n = bqStreak.last===addDays(BQ.d,-1) ? bqStreak.n+1 : 1; bqStreak.last=BQ.d; bqStreak.best=Math.max(bqStreak.best||0, bqStreak.n); }
     saveState(); renderBQ(); if(before<10 && bqTotal>=10) setTimeout(()=>{ checkUnlocks(); toast('10 right answers! The Balloonist cap is yours.'); }, 700); return; }
   if(e.target.closest('[data-bqnext]')){ bqRev=false; renderBQ(); }
+  if(e.target.closest('[data-bqshare]')) shareBQ();
 });
 /* message in a bottle: island facts. id = a city already in Postmark; the rest are coming later */
 const ISLANDS=[
@@ -5488,13 +5515,13 @@ const SYNC={ref:null, status:'local', saving:false, dirty:false, at:null, lastAt
 const ACCT={name:'', signedIn:false};
 let DEVID=''; try{ DEVID=localStorage.getItem('pm-dev')||''; if(!DEVID){ DEVID='d'+Math.random().toString(36).slice(2,10); localStorage.setItem('pm-dev',DEVID); } }catch(e){ DEVID='d'+Math.random().toString(36).slice(2,10); }
 function snapshotState(){
-  return {v:1, visited, unlocked, sent, verified, eventStamps, trips, activeTrip, AVA, outfit, cover, inbox, mailDays, tinStyle, balloon:factsRead.slice(-300), bq:BQ, bqt:bqTotal, bottles:notesRead.slice(-100), earned:[...earnedWeekly], mailEver, friends:friendIds, mailSeen:mailSeen2.slice(-200), fnotes:friendNotes.slice(0,20)};
+  return {v:1, visited, unlocked, sent, verified, eventStamps, trips, activeTrip, AVA, outfit, cover, inbox, mailDays, tinStyle, balloon:factsRead.slice(-300), bq:BQ, bqt:bqTotal, bqs:bqStreak, bottles:notesRead.slice(-100), earned:[...earnedWeekly], mailEver, friends:friendIds, mailSeen:mailSeen2.slice(-200), fnotes:friendNotes.slice(0,20)};
 }
 function applyState(d){
   if(!d || d.v!==1) return;
   if(d.visited) visited=d.visited; if(d.unlocked) unlocked=d.unlocked; if(d.sent) sent=d.sent; if(d.verified) verified=d.verified; if(d.eventStamps) eventStamps=d.eventStamps;
   if(Array.isArray(d.trips)) trips=d.trips; if('activeTrip' in d) activeTrip=d.activeTrip; if(d.AVA) AVA={...AVA, ...d.AVA, bio:{...AVA.bio, ...(d.AVA.bio||{})}};
-  if(d.outfit) outfit=d.outfit; if(d.cover) cover=d.cover; if(Array.isArray(d.inbox)) inbox=d.inbox; if(Array.isArray(d.mailDays)) mailDays=d.mailDays; if(Array.isArray(d.balloon)) factsRead=d.balloon.filter(k=>CITIES[k]); if(d.bq && typeof d.bq.d==='string' && Array.isArray(d.bq.picks)) BQ={d:d.bq.d, picks:d.bq.picks.filter(n=>Number.isInteger(n)).slice(0,7)}; if(Number.isFinite(d.bqt)) bqTotal=d.bqt; if(Array.isArray(d.bottles)) notesRead=d.bottles.filter(k=>typeof k==='string'); if(typeof d.tinStyle==='string' && TIN_STYLES.some(x=>x.id===d.tinStyle)) tinStyle=d.tinStyle;
+  if(d.outfit) outfit=d.outfit; if(d.cover) cover=d.cover; if(Array.isArray(d.inbox)) inbox=d.inbox; if(Array.isArray(d.mailDays)) mailDays=d.mailDays; if(Array.isArray(d.balloon)) factsRead=d.balloon.filter(k=>CITIES[k]); if(d.bq && typeof d.bq.d==='string' && Array.isArray(d.bq.picks)) BQ={d:d.bq.d, picks:d.bq.picks.filter(n=>Number.isInteger(n)).slice(0,7)}; if(Number.isFinite(d.bqt)) bqTotal=d.bqt; if(d.bqs && typeof d.bqs.last==='string') bqStreak={last:d.bqs.last, n:+d.bqs.n||0, best:+d.bqs.best||0}; if(Array.isArray(d.bottles)) notesRead=d.bottles.filter(k=>typeof k==='string'); if(typeof d.tinStyle==='string' && TIN_STYLES.some(x=>x.id===d.tinStyle)) tinStyle=d.tinStyle;
   if(Array.isArray(d.earned)) d.earned.forEach(k=>earnedWeekly.add(k)); if(d.mailEver) mailEver=true;
   if(Array.isArray(d.fnotes)) friendNotes=d.fnotes.filter(n=>n&&typeof n.uid==='string');
   if(Array.isArray(d.friends)) friendIds=d.friends.filter(x=>typeof x==='string'); if(Array.isArray(d.mailSeen)) mailSeen2=d.mailSeen;
