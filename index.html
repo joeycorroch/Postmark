@@ -1317,6 +1317,23 @@ svg.wov{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
 .fev{position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%) scale(var(--iz,1));transform-origin:50% 100%;display:flex;align-items:center;gap:3px;padding:1px 7px 1px 5px;border:1.5px solid var(--ink-navy);border-radius:999px;background:linear-gradient(135deg,#FF4F8B,#9D4EFF);color:#fff;font:800 9.5px/1.5 var(--font-body);white-space:nowrap;pointer-events:none;z-index:2;animation:pinglow 1.8s ease-in-out infinite}
 .wcotd.rw{background:#9FC2FF}
 .cst.hasev{z-index:4}
+.wplane{pointer-events:auto;cursor:pointer}.wplane .hit{pointer-events:all}
+.wball{position:absolute;z-index:3;padding:0;border:0;background:none;cursor:pointer;animation:wballdrift 28s ease-in-out infinite alternate;filter:drop-shadow(2px 3px 0 rgba(27,31,75,.25))}
+.wball svg{display:block;animation:bob 3.2s ease-in-out infinite}
+.wball .flame{opacity:0;transition:opacity .2s}
+.wball.puff .flame{opacity:1}
+.wball.puff svg{animation:wballup 1.2s cubic-bezier(.3,.7,.2,1)}
+@keyframes wballdrift{0%{transform:translate(0,0)}35%{transform:translate(34px,-12px)}70%{transform:translate(-18px,-24px)}100%{transform:translate(22px,6px)}}
+@keyframes wballup{0%{transform:none}40%{transform:translateY(-26px) scale(1.08)}100%{transform:none}}
+.wfact{position:absolute;left:20px;right:20px;top:120px;z-index:8;padding:12px 14px;border:2px solid var(--ink-navy);border-radius:16px;background:var(--paper-card);background-image:var(--grain);box-shadow:4px 4px 0 var(--ink-navy);animation:pop .35s both cubic-bezier(.3,1.5,.5,1)}
+.wfact small{display:flex;align-items:center;gap:4px;font-size:9.5px;font-weight:800;letter-spacing:.1em;color:#E8382A}
+.wfact b{display:flex;align-items:center;margin-top:4px;font:900 17px/1.2 var(--font-display);color:var(--ink-navy)}
+.wfact b .miniflag{width:15px;height:15px;margin:0 6px 0 0}
+.wfact p{margin:6px 0 10px;font-size:13.5px;line-height:1.4;color:var(--ink-navy)}
+.wfb{display:flex;gap:6px;align-items:center}
+.wfb button{height:32px;padding:0 12px;border:2px solid var(--ink-navy);border-radius:999px;background:var(--paper-cream);font-size:12px;font-weight:800;display:flex;align-items:center;gap:5px}
+.wfb .pri{background:var(--stamp-red);color:#fff}
+.wfb .x{margin-left:auto;width:32px;padding:0;justify-content:center}
 .cotd.rw .ci{background:#9FC2FF}.cotd.rw small{color:#2A5FD6}
 .wcotd{position:absolute;z-index:3;width:26px;height:26px;border-radius:8px 8px 8px 0;transform:rotate(-45deg);border:2px solid var(--ink-navy);background:#FFC21F;color:var(--ink-navy);display:flex;align-items:center;justify-content:center;box-shadow:2px 2px 0 var(--ink-navy);animation:cotdbob 2s ease-in-out infinite}
 .wcotd svg{transform:rotate(45deg)}
@@ -1334,7 +1351,9 @@ svg.wov{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
 .bub .bt{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);font-style:normal;font-size:9.5px;font-weight:800;padding:0 5px;border-radius:999px;background:var(--paper-card);color:var(--ink-navy);border:1.5px solid var(--ink-navy);white-space:nowrap;line-height:1.5}
 .bub.hot{animation:bubglow 2.6s ease-in-out infinite}
 @keyframes bubglow{0%,100%{box-shadow:2px 2px 0 var(--ink-navy),0 0 0 0 rgba(255,79,110,0)}50%{box-shadow:2px 2px 0 var(--ink-navy),0 0 14px 6px rgba(255,79,110,.45)}}
-.cotd{position:absolute;left:14px;bottom:300px;z-index:3;display:flex;align-items:center;gap:7px;max-width:196px;padding:4px 10px 4px 4px;border:2px solid var(--ink-navy);border-radius:14px;background:var(--paper-card);box-shadow:3px 3px 0 var(--ink-navy);text-align:left;transition:bottom .3s cubic-bezier(.3,.7,.2,1)}
+.cotd .cm{display:flex;align-items:center;gap:7px;padding:0;background:none;text-align:left;width:100%}
+.cotdpc{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;margin-top:5px;height:26px;border:1.5px solid var(--ink-navy);border-radius:999px;background:#2A5FD6;color:#fff;font-size:10.5px;font-weight:800}
+.cotd{position:absolute;left:14px;bottom:300px;z-index:3;display:flex;flex-direction:column;align-items:stretch;max-width:196px;padding:4px 10px 5px 4px;border:2px solid var(--ink-navy);border-radius:14px;background:var(--paper-card);box-shadow:3px 3px 0 var(--ink-navy);text-align:left;transition:bottom .3s cubic-bezier(.3,.7,.2,1)}
 .cotd .ci{flex-shrink:0;width:26px;height:26px;border-radius:9px;background:#FFC21F;border:2px solid var(--ink-navy);display:flex;align-items:center;justify-content:center;color:var(--ink-navy)}
 .cotd .ct{min-width:0;display:flex;flex-direction:column}
 .cotd small{font-size:8.5px;font-weight:800;letter-spacing:.1em;color:#B07D1A}
@@ -1351,7 +1370,7 @@ svg.wov{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
 #art-world.intro .bub{animation:pop .45s calc(1.3s + var(--i)*90ms) both cubic-bezier(.3,1.5,.5,1)}
 #art-world.intro .wgold{animation:wlinein .5s 2s both}
 #art-world{cursor:grab;user-select:none;-webkit-user-select:none}
-#art-world.drag{cursor:grabbing}#art-world.drag .bub,#art-world.drag .wev,#art-world.drag .wcotd,#art-world.drag .wfr,#art-world.drag .wnear{pointer-events:none}
+#art-world.drag{cursor:grabbing}#art-world.drag .bub,#art-world.drag .wev,#art-world.drag .wcotd,#art-world.drag .wfr,#art-world.drag .wnear,#art-world.drag .wball,#art-world.drag .wplane{pointer-events:none}
 .bubble.swipe{transform:translateX(-50%);animation:none;font-size:13px;padding:7px 12px}.bubble.swipe::after{display:none}
 
 /* ---------- together: friend notices, trip invites, shared trips ---------- */
@@ -3174,7 +3193,7 @@ function stampsInner(g){ const ids=Object.keys(visited).filter(id=>CITIES[id]&&C
 /* small moving things: a paper plane on a route, drifting clouds, two boats */
 function ambientInner(g){ if(reduced()) return ''; let out='';
   const route=(pts,dur,beg)=>{ const P=pts.map(([la,lo])=>wLL(g,la,lo)); let d=`M${P[0][0].toFixed(1)} ${P[0][1].toFixed(1)}`; for(let i=1;i<P.length;i++){ const [x1,y1]=P[i-1], [x2,y2]=P[i]; d+=` Q${((x1+x2)/2).toFixed(1)} ${(Math.min(y1,y2)-26).toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`; }
-    return `<g class="wplane"><path d="M-17 1.5 h-5 M-15 4 h-3" stroke="#FFF8E7" stroke-width="1.6" stroke-linecap="round" opacity=".7"/><g stroke="#1B1F4B" stroke-width="1.1" stroke-linejoin="round" transform="scale(1.3)"><path d="M13 0 L-11 -9 L-4 0Z" fill="#FFFFFF"/><path d="M13 0 L-4 0 L-7 3Z" fill="#B9C0DA"/><path d="M13 0 L-7 3 L-11 8Z" fill="#E3E7F3"/></g><animateMotion dur="${dur}s" begin="${beg}s" repeatCount="indefinite" rotate="auto" path="${d}"/></g>`; };
+    return `<g class="wplane"><circle r="20" fill="transparent" class="hit"/><path d="M-17 1.5 h-5 M-15 4 h-3" stroke="#FFF8E7" stroke-width="1.6" stroke-linecap="round" opacity=".7"/><g stroke="#1B1F4B" stroke-width="1.1" stroke-linejoin="round" transform="scale(1.3)"><path d="M13 0 L-11 -9 L-4 0Z" fill="#FFFFFF"/><path d="M13 0 L-4 0 L-7 3Z" fill="#B9C0DA"/><path d="M13 0 L-7 3 L-11 8Z" fill="#E3E7F3"/></g><animateMotion dur="${dur}s" begin="${beg}s" repeatCount="indefinite" rotate="auto" path="${d}"/></g>`; };
   out+=route([[38,-9],[41,29],[25,55],[13,100]],26,0)+route([[-34,151],[1,104],[35,139],[49,-123]],34,-12)+route([[40.7,-74],[51.5,-0.1],[30,31.2],[-1.3,36.8]],30,-20);
   [[52,-30,1],[8,78,.8],[-18,-118,.9],[30,160,.7]].forEach(([la,lo,s],i)=>{ const [x,y]=wLL(g,la,lo); out+=`<g class="wcloud" style="--d:${-i*5}s" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${s})"><g><ellipse cx="0" cy="0" rx="22" ry="9" fill="#fff" opacity=".85"/><ellipse cx="-8" cy="-6" rx="10" ry="8" fill="#fff" opacity=".85"/><ellipse cx="7" cy="-7" rx="12" ry="9" fill="#fff" opacity=".85"/></g></g>`; });
   [[16,-150],[22,-38],[-18,75],[-32,-14]].forEach(([la,lo],i)=>{ const [x,y]=wLL(g,la,lo); out+=`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><g class="wboat" style="--d:${-i*7}s"><path d="M-9 0 H9 L6 5 H-6Z" fill="#E8382A" stroke="#1B1F4B" stroke-width="1.3" stroke-linejoin="round"/><path d="M0 0 V-12 L7 -2 H0" fill="#FFF8E7" stroke="#1B1F4B" stroke-width="1.2" stroke-linejoin="round"/><path d="M-14 7 q3 -2 6 0 q3 -2 6 0" stroke="#fff" stroke-width="1.4" fill="none" opacity=".8"/></g></g>`; });
@@ -3188,17 +3207,29 @@ function cityNow(id){ const ll=CITY_LL[id], d=new Date(); let time='';
   const el=ll?sunElev(sunNow(),ll[0],ll[1]):10, part=el>6?'Daytime':el>-6?(((new Date().getUTCHours()+(ll?ll[1]/15:0))%24+24)%24<12?'Sunrise':'Sunset'):'Night';
   return {time, part, day:el>-6}; }
 const cotdNowHTML = id => { const n=cityNow(id); return `<span class="ctm ${n.day?'dy':'nt'}">${n.day?'☀':'☾'} ${n.time} there · ${n.part}</span>`; };
-setInterval(()=>{ const c=document.querySelector('#ui-world .cotd'); if(!c || document.hidden) return; const t=c.querySelector('.ctm'); if(t) t.outerHTML=cotdNowHTML(c.dataset.cotd); }, 60000);
+setInterval(()=>{ const c=document.querySelector('#ui-world .cotd [data-cotd]'); if(!c || document.hidden) return; const t=c.querySelector('.ctm'); if(t) t.outerHTML=cotdNowHTML(c.dataset.cotd); }, 60000);
 function cityOfDay(){ if(cotdPick && cotdPick.d===today()) return cotdPick.id;
-  const all=Object.keys(CITIES).filter(id=>CITY_LL[id]&&CITIES[id].eat), pool=all.filter(id=>!visited[id]), list=pool.length?pool:all;
-  const n=Math.floor((Date.now()-new Date().getTimezoneOffset()*6e4)/864e5), mine=Object.keys(visited).filter(id=>CITIES[id]&&CITY_LL[id]&&visited[id]<today());
-  if(mine.length && n%3===0){ const id=mine[(n*17+5)%mine.length]; cotdPick={d:today(), id, rw:true}; return id; }
-  let id=list[(n*37+11)%list.length]; if(id===dailyCity()) id=list[(n*37+12)%list.length];
-  cotdPick={d:today(), id}; return id; }
+  const n=Math.floor((Date.now()-new Date().getTimezoneOffset()*6e4)/864e5);
+  const cs=Object.keys(COUNTRIES).filter(c=>COUNTRIES[c].cities.some(id=>CITY_LL[id]&&CITIES[id].eat)), N=cs.length;
+  let seed=(Math.floor(n/N)*2654435761)>>>0; const rnd=()=>{ seed=(Math.imul(seed,1664525)+1013904223)>>>0; return seed/4294967296; };
+  const perm=cs.slice(); for(let i=perm.length-1;i>0;i--){ const j=Math.floor(rnd()*(i+1)); [perm[i],perm[j]]=[perm[j],perm[i]]; }
+  const ids=COUNTRIES[perm[n%N]].cities.filter(id=>CITY_LL[id]&&CITIES[id].eat); let id=ids[(n*7+3)%ids.length];
+  if(id===dailyCity() && ids.length>1) id=ids[(n*7+4)%ids.length];
+  cotdPick={d:today(), id, rw:!!visited[id] && visited[id]<today()}; return id; }
 const cotdIsMemory = () => { cityOfDay(); return !!(cotdPick && cotdPick.rw); };
 function agoText(iso){ const d=Math.round((new Date(today()+'T00:00')-new Date(iso+'T00:00'))/864e5); if(d<14) return d<=1?'yesterday':`${d} days ago`; if(d<60) return `${Math.round(d/7)} weeks ago`; if(d<730) return `${Math.round(d/30.4)} months ago`; return `${Math.round(d/365)} years ago`; }
 /* tappable pins over the map: events on today, the city of the day, friends where they last stamped */
+const BALLOON=`<svg viewBox="0 0 40 58" width="34" height="49" aria-hidden="true"><path class="flame" d="M20 44 q-4 -5 0 -10 q4 5 0 10z" fill="#FFC21F" stroke="#E8382A" stroke-width="1.2"/><path d="M20 2 C8 2 2 11 2 19 C2 28 11 33 15 38 H25 C29 33 38 28 38 19 C38 11 32 2 20 2Z" fill="#E8382A" stroke="#1B1F4B" stroke-width="2" stroke-linejoin="round"/><path d="M20 2 C13 9 12 28 15 38 H25 C28 28 27 9 20 2Z" fill="#FFC21F" stroke="#1B1F4B" stroke-width="1.6" stroke-linejoin="round"/><path d="M20 2 C18 12 18 28 19 38 H21 C22 28 22 12 20 2Z" fill="#2EC4C9"/><path d="M4 16 Q20 21 36 16" stroke="#1B1F4B" stroke-width="1.4" fill="none"/><path d="M15 38 L16.5 46 M25 38 L23.5 46" stroke="#1B1F4B" stroke-width="1.4"/><rect x="15" y="46" width="10" height="9" rx="2" fill="#C98B4E" stroke="#1B1F4B" stroke-width="1.6"/><path d="M15 50 H25" stroke="#1B1F4B" stroke-width="1"/></svg>`;
+const pickRandom = (pred) => { const ids=Object.keys(CITIES).filter(id=>CITY_LL[id] && pred(id)); return ids[Math.floor(Math.random()*ids.length)]; };
+function flyToCity(id, from){ if(!id) return; const lv=COUNTRIES[CITIES[id].c].level; if(level==='world' && lv && LEVELS.includes(lv)){ go(lv, ...(from?centerOf(from):[195,300])); setTimeout(()=>openCard(id), 720); } else openCard(id); }
+function balloonFact(btn){ const old=$('#wfact'); const id=pickRandom(k=>CITIES[k].fact && (!visited[k] || Math.random()<.2)); if(!id) return; const C=CITIES[id];
+  if(btn){ btn.classList.remove('puff'); void btn.offsetWidth; btn.classList.add('puff'); setTimeout(()=>btn.classList.remove('puff'), 1300); }
+  tone(0,'sine',330,.12,.08); tone(.08,'sine',494,.16,.07);
+  const html=`<div class="wfact" id="wfact" role="dialog" aria-label="A fact from the balloon"><small>${L(LU.spark,11,2.6)}POSTCARD FROM THE BALLOON</small><b>${miniFlag(C.c)}${C.name}, ${COUNTRIES[C.c].name}</b><p>${C.fact.charAt(0).toUpperCase()+C.fact.slice(1)}</p>
+    <div class="wfb"><button class="pri" data-wfgo="${id}">${L(LU.pin,14,2.4)}Take me there</button><button data-wfx>Another one</button><button class="x" data-wfclose aria-label="Close">${L(LU.x,14,2.6)}</button></div></div>`;
+  if(old) old.outerHTML=html; else $('#ui-world').insertAdjacentHTML('beforeend', html); }
 function pinsHTML(g){ let out='';
+  { const [x,y]=wLL(g,40,33); out+=`<button class="wball" data-wball style="left:${(x-17).toFixed(1)}px;top:${(y-70).toFixed(1)}px" aria-label="Hot air balloon: tap for a travel fact">${BALLOON}</button>`; }
   const seen=new Set();
   EVENTS.forEach(e=>e.cities.forEach(id=>{ const ev=activeEvent(id); if(!ev||ev.id!==e.id||seen.has(id)||!CITY_LL[id]) return; seen.add(id); const [x,y]=wLL(g,...CITY_LL[id]);
     out+=`<button class="wev" data-wev="${id}" style="left:${(x-13).toFixed(1)}px;top:${(y-32).toFixed(1)}px" aria-label="${esc(e.name)} is on now in ${CITIES[id].name}">${L(LU.spark,14,2.4)}</button>`; }));
@@ -3270,7 +3301,7 @@ function worldZoomTo(k, mx, my){ const p=$('#wpan'); const nz=Math.max(1,Math.mi
       else apply(); setTimeout(()=>{ moved=false; }, 60); return; }
     if(!d) return; const dd=d; d=null; el().classList.remove('drag');
     if(!moved){ /* double tap on the ocean or land: zoom in there, or back out */
-      if(!e.target.closest('.bub,.me,button,.wev,.wfr,.wcotd')){ const now=performance.now(); if(now-lastTap<320 && Math.hypot(pe[0]-lastXY[0],pe[1]-lastXY[1])<40){ lastTap=0; if(WZ>1.4) worldZoomTo(1/WZ,195,pe[1]); else worldZoomTo(2.2,pe[0],pe[1]); } else { lastTap=now; lastXY=pe; } }
+      if(!e.target.closest('.bub,.me,button,.wev,.wfr,.wcotd,.wplane,.wball')){ const now=performance.now(); if(now-lastTap<320 && Math.hypot(pe[0]-lastXY[0],pe[1]-lastXY[1])<40){ lastTap=0; if(WZ>1.4) worldZoomTo(1/WZ,195,pe[1]); else worldZoomTo(2.2,pe[0],pe[1]); } else { lastTap=now; lastXY=pe; } }
       return; }
     if(dd.dy){ WY+=dd.dy; $('#art-world').innerHTML=artHTML('world'); }
     const glide=()=>{ vel*=.94; if(Math.abs(vel)<.25 || level!=='world') return; worldPan=wrapPan(worldPan+vel); apply(); raf=requestAnimationFrame(glide); };
@@ -3340,8 +3371,8 @@ function uiHTML(lv){
   const back = p => `<button class="chip" data-back="${p}">${L(LU.left,18)}<span>${LVNAME[p]}</span></button>`;
   if(lv==='world') return `${showHint?`<div class="hint" id="hint"><div class="bubble swipe" style="left:50%;top:112px">Swipe or pinch the map, then tap a number</div></div>`:''}<div class="toprow" style="margin-top:8px"><div class="search">${L(LU.search,20)}<span>Search a city or region</span></div><button class="mailbtn ${mailSeen()?'':'new'}" id="mailBtn" aria-label="Today’s postcard${mailSeen()?'':', unread'}">${L(LU.mail,20)}<i></i></button></div>
     ${(()=>{ const id=cityOfDay(), C=CITIES[id], rw=cotdIsMemory(); return rw
-      ? `<button class="cotd rw" data-cotd="${id}"><span class="ci">${L(LU.cal,16,2.4)}</span><span class="ct"><small>REMEMBER WHEN</small><b>${miniFlag(C.c)}${C.name}</b>${cotdNowHTML(id)}<em>You stamped it ${agoText(visited[id])}, on ${dLong(visited[id])}</em></span></button>`
-      : `<button class="cotd" data-cotd="${id}"><span class="ci">${L(LU.star,16,2.6)}</span><span class="ct"><small>CITY OF THE DAY</small><b>${miniFlag(C.c)}${C.name}</b>${cotdNowHTML(id)}<em>Try: ${esc(C.eat)}</em></span></button>`; })()}
+      ? `<div class="cotd rw"><button class="cm" data-cotd="${id}"><span class="ci">${L(LU.cal,16,2.4)}</span><span class="ct"><small>REMEMBER WHEN</small><b>${miniFlag(C.c)}${C.name}</b>${cotdNowHTML(id)}<em>You stamped it ${agoText(visited[id])}, on ${dLong(visited[id])}</em></span></button><button class="cotdpc" data-cotdpc="${id}">${L(LU.mail,13,2.4)}Send a postcard about it</button></div>`
+      : `<div class="cotd"><button class="cm" data-cotd="${id}"><span class="ci">${L(LU.star,16,2.6)}</span><span class="ct"><small>CITY OF THE DAY</small><b>${miniFlag(C.c)}${C.name}</b>${cotdNowHTML(id)}<em>Try: ${esc(C.eat)}</em></span></button></div>`; })()}
     <div class="regions ${REG_MIN?'min':''}" id="regions"><button class="regtog" id="regTog" aria-expanded="${!REG_MIN}"><h2>Pick a region</h2><span class="chev">${L(LU.right,20,2.6)}</span></button>
     ${REGIONS.map(r=>`<button class="rrow ${r.open?'':'off'}" data-region="${r.id}">${r.name}<span>${regionCount(r)} stamped ${L(LU.right,18)}</span></button>`).join('')}</div>`;
   if(lv==='europe') return `<div class="toprow">${back('world')}<div class="search">${L(LU.search,18)}<span>Search in Europe</span></div></div>${regionCard('Europe',countryCount('europe'),regionTotal('europe'),'Tap a country stamp to zoom in and see its cities.')}`;
@@ -3456,7 +3487,7 @@ function renderAll(){ LEVELS.forEach(renderLevel); saveState(); }
 
 let busy=false;
 function go(to, ox=195, oy=300, dir='in'){
-  if(busy || to===level) return; busy=true;
+  if(busy || to===level) return; busy=true; { const f=document.getElementById('wfact'); if(f) f.remove(); }
   const fromA=$('#art-'+level), toA=$('#art-'+to);
   ZM[to]={s:1,x:0,y:0}; goingTo=to; renderLevel(to); goingTo=null; if(to!=='world'){ const pt=document.getElementById('pmSpeck'); if(pt) pt.setAttribute('patternTransform','scale(1)'); }
   if(['europe','asia','na','sa','africa','oc'].includes(to)){ let seen=false; try{ seen=localStorage.getItem('pm-zhint')==='1'; localStorage.setItem('pm-zhint','1'); }catch(e){ seen=true; } if(!seen) setTimeout(()=>toast('Tip: pinch or double-tap the map to zoom in'), 900); }
@@ -3525,6 +3556,14 @@ $('#srch').addEventListener('click', e=>{
   const r=e.target.closest('[data-sregion]'); if(r){ closeSearch(); if(showHint){ showHint=false; } return jumpTo(r.dataset.sregion); }
 });
 $('#phone').addEventListener('click', e=>{
+  const pcb=e.target.closest('[data-cotdpc]'); if(pcb){ if(stamping) return; return openPostcard(pcb.dataset.cotdpc); }
+  if(level==='world' && !busy && !stamping){
+    const pl=e.target.closest('.wplane'); if(pl){ const id=pickRandom(k=>!visited[k]); if(id){ toast(`Surprise! Flying you to ${CITIES[id].name}`); tone(0,'triangle',660,.06,.07); tone(.09,'triangle',990,.08,.07); flyToCity(id, pl); } return; }
+    const bl=e.target.closest('[data-wball]'); if(bl) return balloonFact(bl);
+    if(e.target.closest('[data-wfx]')) return balloonFact(document.querySelector('#art-world .wtile:nth-child(2) .wball'));
+    if(e.target.closest('[data-wfclose]')){ const f=$('#wfact'); if(f) f.remove(); return; }
+    const wg=e.target.closest('[data-wfgo]'); if(wg){ const id=wg.dataset.wfgo; const f=$('#wfact'); if(f) f.remove(); return flyToCity(id); }
+  }
   const wq=e.target.closest('[data-wev],[data-cotd],[data-wfriend],[data-wnear]');
   if(wq){ if(stamping||busy) return; const id=wq.dataset.wev||wq.dataset.cotd||wq.dataset.wnear;
     if(wq.dataset.wfriend){ tab('friends'); friendView=wq.dataset.wfriend; renderFriends(); const fs=$('#fscroll'); if(fs) fs.scrollTop=0; return; }
