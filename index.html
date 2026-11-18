@@ -25,7 +25,7 @@
   --paper-cream:#F6EBD3; --paper-card:#FFF8E7; --ink-navy:#1F2A44; --ink-soft:#4A4F63;
   --stamp-red:#B83A2B; --stamp-gold:#9A6F0E; --stamp-gold-wash:#F7E6B5;
   --city-lisbon:#E3A72F; --city-kyoto:#C4473A; --city-capetown:#2A7C86; --accent-plum:#7A4A7D;
-  --map-ocean:#C6D7E0; --map-land:#F0DFB8; --map-land-edge:#C9B07A; --map-hl:#F4D58E;
+  --map-ocean:#9FD0EA; --map-land:#F7E1A6; --map-land-edge:#C79A55; --map-hl:#F4D58E;
   --surround:#E4D6B6; --frame:#1F2A44;
   --font-display:"Fraunces",Georgia,"Times New Roman",serif;
   --font-body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -1627,7 +1627,7 @@ svg.wov.wnl{z-index:1}
     <div id="onboard" role="dialog" aria-modal="true" aria-label="Getting started"></div>
     <div id="auth" role="dialog" aria-modal="true" aria-label="Sign in"></div>
     <div id="srch" role="dialog" aria-modal="true" aria-label="Search"></div>
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><filter id="fade" x="0" y="0" width="1" height="1"><feColorMatrix type="saturate" values=".62"/><feComponentTransfer><feFuncR type="linear" slope=".8" intercept=".2"/><feFuncG type="linear" slope=".8" intercept=".19"/><feFuncB type="linear" slope=".8" intercept=".18"/></feComponentTransfer></filter><filter id="rough" filterUnits="userSpaceOnUse" x="-100" y="-100" width="590" height="1044"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="30" xChannelSelector="R" yChannelSelector="G"/></filter><pattern id="foil" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><line x1="0" y1="0" x2="0" y2="7" stroke="#FFFFFF" stroke-width="2.2" opacity=".3"/></pattern><filter id="ink" x="-6%" y="-6%" width="112%" height="112%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.2" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="2" seed="9" result="b"/><feColorMatrix in="b" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.75 0 0 0 1.2" result="m"/><feComposite in="d" in2="m" operator="in"/></filter></defs></svg>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><filter id="fade" x="0" y="0" width="1" height="1"><feColorMatrix type="saturate" values=".88"/><feComponentTransfer><feFuncR type="linear" slope=".92" intercept=".08"/><feFuncG type="linear" slope=".92" intercept=".08"/><feFuncB type="linear" slope=".92" intercept=".07"/></feComponentTransfer></filter><filter id="rough" filterUnits="userSpaceOnUse" x="-100" y="-100" width="590" height="1044"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="30" xChannelSelector="R" yChannelSelector="G"/></filter><pattern id="foil" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><line x1="0" y1="0" x2="0" y2="7" stroke="#FFFFFF" stroke-width="1.6" opacity=".14"/></pattern><filter id="ink" x="-6%" y="-6%" width="112%" height="112%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.2" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="2" seed="9" result="b"/><feColorMatrix in="b" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.75 0 0 0 1.2" result="m"/><feComposite in="d" in2="m" operator="in"/></filter></defs></svg>
   </div>
 </div>
 
@@ -3191,7 +3191,7 @@ const paths = (arr, cls, sw) => `<g class="${cls}" style="stroke-width:${sw}px">
 document.body.insertAdjacentHTML('afterbegin', `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <pattern id="pmSpeck" width="9" height="9" patternUnits="userSpaceOnUse">${[[1.2,1.6,.5],[5.6,2.4,.38],[3.4,5.2,.42],[7.8,6.8,.5],[1.8,7.6,.34],[6.4,4.6,.3]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#8A6A2E" opacity=".22"/>`).join('')}<path d="M2.5 3.8 l1.6 .7 M6.2 8.1 l1.4 -.6" stroke="#8A6A2E" stroke-width=".35" opacity=".18"/></pattern>
   <pattern id="pmSpeckW" width="9" height="9" patternUnits="userSpaceOnUse" href="#pmSpeck"></pattern>
-  ${Object.entries({desert:['#E9B462',.95],jungle:['#5E9E58',.92],temperate:['#9FC777',.85],taiga:['#6E9C72',.9],savanna:['#CBBE68',.85],mountain:['#AE977B',.9],snow:['#FFFFFF',1],tundra:['#C3CBB0',.8],deep:['#4F86A3',.5]}).map(([k,[c,a]])=>`<radialGradient id="bm-${k}"><stop offset="0" stop-color="${c}" stop-opacity="${a}"/><stop offset=".55" stop-color="${c}" stop-opacity="${(a*.72).toFixed(2)}"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient>`).join('')}</defs></svg>`);
+  ${Object.entries({desert:['#F2A94A',.95],jungle:['#3E9A4E',.95],temperate:['#86C460',.9],taiga:['#4F8F5E',.92],savanna:['#D6BE45',.88],mountain:['#A2865F',.92],snow:['#FFFFFF',1],tundra:['#BCCDA4',.85],deep:['#2F78A8',.55],autumn:['#E0782F',.72],spring:['#6CCB4E',.8]}).map(([k,[c,a]])=>`<radialGradient id="bm-${k}"><stop offset="0" stop-color="${c}" stop-opacity="${a}"/><stop offset=".55" stop-color="${c}" stop-opacity="${(a*.72).toFixed(2)}"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient>`).join('')}</defs></svg>`);
 /* ---------- natural shading: deserts, forests, mountains, snow and deep ocean, as soft washes under the paper grain ---------- */
 /* [lon, lat, radius in degrees across, radius down, kind, tilt] */
 const BIOMES=[
@@ -3204,18 +3204,50 @@ const BIOMES=[
   [-42,73,15,11,'snow'],[0,-80,200,9,'snow'],[-90,75,30,5,'snow'],[18,78,6,2,'snow'],[85,29,8,1.4,'snow'],[100,74,40,3,'snow'],[-72,-50,2,5,'snow'],
   [-100,66,35,4,'tundra'],[90,69,50,4,'tundra'],[-19,65,4,2,'tundra'],
   [-160,25,35,25,'deep'],[-130,-25,40,25,'deep'],[165,5,20,20,'deep'],[-40,35,15,15,'deep'],[-20,-25,15,20,'deep'],[75,-20,25,18,'deep'],[0,-58,180,8,'deep']];
+/* the season (northern hemisphere month) adds snow, spring green or autumn colour */
+function seasonBiomes(){ const m=new Date().getMonth()+1, out=[];
+  const nWinter=[12,1,2,3].includes(m), nSpring=[4,5].includes(m), nAutumn=[9,10,11].includes(m), sWinter=[6,7,8,9].includes(m), sSpring=[10,11,12].includes(m), sAutumn=[3,4,5].includes(m);
+  if(nWinter) out.push([-100,57,40,9,'snow'],[100,60,48,9,'snow'],[22,64,9,5,'snow'],[-80,47,10,3,'snow'],[10,47,6,2,'snow'],[135,45,6,3,'snow'],[40,56,12,4,'snow']);
+  if(m===11||m===12) out.push([-100,66,40,6,'snow'],[100,68,50,6,'snow']);
+  if(nSpring) out.push([12,50,16,7,'spring'],[-84,40,10,7,'spring'],[115,33,9,6,'spring'],[138,37,4,4,'spring'],[30,52,10,5,'spring']);
+  if(nAutumn) out.push([-78,42,9,6,'autumn'],[8,49,12,6,'autumn'],[137,37,4,4,'autumn'],[127,38,3,3,'autumn'],[-122,47,3,4,'autumn'],[30,55,10,4,'autumn']);
+  if(sWinter) out.push([-71,-42,3,9,'snow'],[170,-44,3,3,'snow'],[148,-36.5,2,1.5,'snow'],[147,-42,1.5,1,'snow']);
+  if(sSpring) out.push([147,-34,6,5,'spring'],[173,-40,4,5,'spring'],[-60,-33,6,5,'spring'],[25,-30,6,4,'spring'],[-50,-24,6,5,'spring']);
+  if(sAutumn) out.push([147,-35,5,4,'autumn'],[172,-43,3,4,'autumn'],[-70,-42,3,5,'autumn']);
+  return out; }
+const DOODLE={
+  pine:'<path d="M0 -11 L4.5 -4 H2.2 L5.5 1.5 H-5.5 L-2.2 -4 H-4.5 Z" fill="#2F7A4B" stroke="#1B1F4B" stroke-width=".7" stroke-linejoin="round"/><rect x="-.9" y="1.5" width="1.8" height="2.5" fill="#7A4B22"/>',
+  pinesnow:'<path d="M0 -11 L4.5 -4 H2.2 L5.5 1.5 H-5.5 L-2.2 -4 H-4.5 Z" fill="#2F7A4B" stroke="#1B1F4B" stroke-width=".7" stroke-linejoin="round"/><path d="M0 -11 L2.2 -7.6 L0 -8.4 L-2.2 -7.6 Z M-2.2 -4 L0 -4.8 L2.2 -4 L3.2 -2.4 L0 -3.2 L-3.2 -2.4 Z" fill="#fff"/><rect x="-.9" y="1.5" width="1.8" height="2.5" fill="#7A4B22"/>',
+  cactus:'<path d="M-1.4 4 V-7 Q0 -8.6 1.4 -7 V4 Z M-1.4 -1 H-3.6 Q-4.6 -1 -4.6 -2 V-5 Q-4 -6 -3.4 -5 V-2.6 H-1.4 Z M1.4 0.6 H3.4 V-3.2 Q4 -4.2 4.6 -3.2 V0.8 Q4.6 1.9 3.4 1.9 H1.4 Z" fill="#4F9A4A" stroke="#1B1F4B" stroke-width=".6" stroke-linejoin="round"/>',
+  dune:'<path d="M-10 4 Q-4.5 -6 1.5 4 Z" fill="#E07A22" stroke="#1B1F4B" stroke-width=".7"/><path d="M-1.5 4 Q4.5 -2.5 10 4 Z" fill="#F0A13F" stroke="#1B1F4B" stroke-width=".7"/><path d="M-4.5 -3.6 Q-2.6 0 -2.2 4" fill="none" stroke="#B85A12" stroke-width=".8"/>',
+  peak:'<path d="M-8 4 L-1.5 -7 L5 4 Z" fill="#8E7152" stroke="#1B1F4B" stroke-width=".7" stroke-linejoin="round"/><path d="M-1.5 -7 L-3.8 -3 L-1.8 -3.9 L0.2 -2.8 Z" fill="#fff"/><path d="M1.5 4 L5.5 -2.5 L9.5 4 Z" fill="#A88B66" stroke="#1B1F4B" stroke-width=".7" stroke-linejoin="round"/><path d="M5.5 -2.5 L4.2 -0.4 L5.6 -1 L6.8 -0.4 Z" fill="#fff"/>',
+  palm:'<path d="M0 4 Q-1.2 -1 1 -6" stroke="#7A4B22" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M1 -6 q-4 -1.4 -6.5 1.8 M1 -6 q4 -1.4 6.5 1.8 M1 -6 q-2.4 -3 -5.6 -3 M1 -6 q2.4 -3 5.6 -3" stroke="#2F8A44" stroke-width="1.8" fill="none" stroke-linecap="round"/>',
+  wave:'<path d="M-7 0 q3.5 -3.4 7 0 t7 0" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" opacity=".85"/><path d="M-4 3.4 q2.4 -2 4.8 0" fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round" opacity=".55"/>'};
+const DOODLES=[
+  [-120,56,'pine'],[-110,58,'pine'],[-100,54,'pine'],[-90,52,'pine'],[-80,50,'pine'],[-72,48,'pine'],[-130,60,'pine'],[-95,61,'pine'],[-150,63,'pine'],
+  [40,60,'pine'],[55,58,'pine'],[70,62,'pine'],[85,60,'pine'],[100,62,'pine'],[115,58,'pine'],[130,60,'pine'],[145,62,'pine'],[15,62,'pine'],[26,64,'pine'],[29,60,'pine'],
+  [-112,33,'cactus'],[-107,31,'cactus'],[-103,29,'cactus'],[-116,36,'cactus'],
+  [-5,25,'dune'],[5,22,'dune'],[15,24,'dune'],[25,22,'dune'],[10,18,'dune'],[0,19,'dune'],[45,22,'dune'],[51,20,'dune'],[100,43,'dune'],[108,42,'dune'],[125,-24,'dune'],[135,-26,'dune'],[130,-21,'dune'],[21,-24,'dune'],[71,27,'dune'],[15,-23,'dune'],[-69,-23,'dune'],
+  [78,34,'peak'],[84,30,'peak'],[89,28.5,'peak'],[94,29,'peak'],[-77,-6,'peak'],[-73,-14,'peak'],[-69,-20,'peak'],[-70,-30,'peak'],[-71,-40,'peak'],[-118,52,'peak'],[-113,47,'peak'],[-108,41,'peak'],[-106,37,'peak'],[9,46.3,'peak'],[44,42.5,'peak'],[39,10,'peak'],[170,-43.5,'peak'],
+  [-65,-5,'palm'],[-55,-3,'palm'],[-60,-10,'palm'],[-70,-2,'palm'],[20,0,'palm'],[25,-3,'palm'],[104,15,'palm'],[100,8,'palm'],[112,-1,'palm'],[120,-3,'palm'],[-88,15,'palm'],
+  [-150,20,'wave'],[-140,0,'wave'],[-130,-20,'wave'],[-160,-10,'wave'],[170,10,'wave'],[178,-25,'wave'],[-120,10,'wave'],[-40,30,'wave'],[-30,10,'wave'],[-20,-15,'wave'],[-35,-35,'wave'],[-50,40,'wave'],[70,-10,'wave'],[80,-25,'wave'],[60,-30,'wave'],[90,-5,'wave'],[-90,-55,'wave'],[30,-50,'wave'],[130,-50,'wave'],[150,25,'wave'],[-60,-50,'wave']];
 function biomeWrap(lv, inner){
   if(MAPSTYLE==='real') return inner; let aff=null; try{ aff=lvAff(lv); }catch(e){} if(!aff || aff.some(v=>!isFinite(v))) return inner;
   const [ax,bx,ay,by]=aff, offs=lv==='world'?[-360,0,360]:[0];
   const el=(lon,lat,rx,ry,t,rot=0)=>offs.map(o=>{ const x=ax*(lon+o)+bx, y=ay*lat+by, RX=Math.abs(ax*rx), RY=Math.abs(ay*ry);
     if(x+RX<-40||x-RX>430||y+RY<-40||y-RY>884) return '';
     return `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${RX.toFixed(1)}" ry="${RY.toFixed(1)}" fill="url(#bm-${t})"${rot?` transform="rotate(${rot} ${x.toFixed(1)} ${y.toFixed(1)})"`:''}/>`; }).join('');
-  const land=BIOMES.filter(b=>b[4]!=='deep').map(b=>el(...b)).join(''), sea=BIOMES.filter(b=>b[4]==='deep').map(b=>el(...b)).join('');
+  const ALL=BIOMES.concat(seasonBiomes()), land=ALL.filter(b=>b[4]!=='deep').map(b=>el(...b)).join(''), sea0=ALL.filter(b=>b[4]==='deep').map(b=>el(...b)).join('');
+  const k=lv==='world'?1/(WG.z||2):1, snowy=new Date().getMonth()+1, winter=[12,1,2,3].includes(snowy);
+  const dd=t=>DOODLES.filter(d=>(t==='sea')===(d[2]==='wave')).map(([lon,lat,kind])=>offs.map(o=>{ const x=ax*(lon+o)+bx, y=ay*lat+by; if(x<-20||x>410||y<-20||y>864) return '';
+    const sym = kind==='pine' && winter && lat>50 ? 'pinesnow' : kind; return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${k.toFixed(3)})">${DOODLE[sym]}</g>`; }).join('')).join('');
+  const sea=sea0+`<g class="doodle">${dd('sea')}</g>`, landD=`<g class="doodle">${dd('land')}</g>`;
   let out=inner; const m=inner.match(/<g class="land"[^>]*>([\s\S]*?)<\/g>/);
   if(m && land){ const id='bc-'+lv; out=inner.replace(m[0], m[0]+`<clipPath id="${id}">${m[1]}</clipPath><g class="biome" clip-path="url(#${id})">${land}</g>`); }
+  const lastG=out.lastIndexOf('</g>');
   const h=out.match(/<g class="hl"[^>]*>([\s\S]*?)<\/g>/);
   if(h && land){ const id='bh-'+lv; out=out.replace(h[0], h[0]+`<clipPath id="${id}">${h[1]}</clipPath><g class="biome" clip-path="url(#${id})" opacity=".55">${land}</g>`); }
-  return (sea?`<g class="deep">${sea}</g>`:'')+out; }
+  return `<g class="deep">${sea}</g>`+out+landD; }
 let toastT;
 function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('on'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('on'),2200); }
 
