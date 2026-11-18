@@ -1313,8 +1313,11 @@ svg.wov{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
 @keyframes wdrift{to{transform:translateX(46px)}}
 .wboat{animation:wbob 2.6s var(--d,0s) ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
 @keyframes wbob{0%,100%{transform:rotate(-5deg) translateX(-3px)}50%{transform:rotate(5deg) translateX(3px)}}
-.wev{position:absolute;z-index:3;display:flex;align-items:center;gap:4px;height:26px;padding:0 9px 0 6px;border:2px solid var(--ink-navy);border-radius:999px;background:linear-gradient(135deg,#FF4F8B,#9D4EFF);color:#fff;font-size:10.5px;font-weight:800;white-space:nowrap;box-shadow:2px 2px 0 var(--ink-navy);animation:pinglow 1.8s ease-in-out infinite}
-.wev span{max-width:92px;overflow:hidden;text-overflow:ellipsis}
+.wev{position:absolute;z-index:3;display:flex;align-items:center;justify-content:center;width:26px;height:26px;padding:0;border:2px solid var(--ink-navy);border-radius:999px;background:linear-gradient(135deg,#FF4F8B,#9D4EFF);color:#fff;font-size:10.5px;font-weight:800;white-space:nowrap;box-shadow:2px 2px 0 var(--ink-navy);animation:pinglow 1.8s ease-in-out infinite}
+.fev{position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%) scale(var(--iz,1));transform-origin:50% 100%;display:flex;align-items:center;gap:3px;padding:1px 7px 1px 5px;border:1.5px solid var(--ink-navy);border-radius:999px;background:linear-gradient(135deg,#FF4F8B,#9D4EFF);color:#fff;font:800 9.5px/1.5 var(--font-body);white-space:nowrap;pointer-events:none;z-index:2;animation:pinglow 1.8s ease-in-out infinite}
+.wcotd.rw{background:#9FC2FF}
+.cst.hasev{z-index:4}
+.cotd.rw .ci{background:#9FC2FF}.cotd.rw small{color:#2A5FD6}
 .wcotd{position:absolute;z-index:3;width:26px;height:26px;border-radius:8px 8px 8px 0;transform:rotate(-45deg);border:2px solid var(--ink-navy);background:#FFC21F;color:var(--ink-navy);display:flex;align-items:center;justify-content:center;box-shadow:2px 2px 0 var(--ink-navy);animation:cotdbob 2s ease-in-out infinite}
 .wcotd svg{transform:rotate(45deg)}
 @keyframes cotdbob{50%{translate:0 -4px}}
@@ -3024,7 +3027,8 @@ const flagSVG = c => `<svg viewBox="0 0 64 64" aria-hidden="true">${FLAGS[c]}</s
 const miniFlag = c => `<span class="miniflag">${flagSVG(c)}</span>`;
 function flagStamp(c,x,y){
   const cls=stampClass(c), st = COUNTRIES[c] && got(c).length;
-  return `<button class="cst mk ${cls}" data-country="${c}" style="left:${x-2}px;top:${y-2}px" aria-label="${CNAME[c]||c}${st?', stamped':''}"><span class="fl">${flagSVG(c)}</span><span class="nm">${CNAME[c]||c}</span>${st?`<span class="badge">${done(c)?L(LU.star,9,3):L(LU.check,9,3.5)}</span>`:''}</button>`;
+  const ev = COUNTRIES[c] && COUNTRIES[c].cities.map(id=>activeEvent(id)).find(Boolean);
+  return `<button class="cst mk ${cls} ${ev?'hasev':''}" data-country="${c}" style="left:${x-2}px;top:${y-2}px" aria-label="${CNAME[c]||c}${st?', stamped':''}${ev?', '+esc(ev.name)+' on now':''}">${ev?`<span class="fev">${L(LU.spark,10,2.6)}${esc(ev.name)}</span>`:''}<span class="fl">${flagSVG(c)}</span><span class="nm">${CNAME[c]||c}</span>${st?`<span class="badge">${done(c)?L(LU.star,9,3):L(LU.check,9,3.5)}</span>`:''}</button>`;
 }
 
 function pinHTML(id, left, top, i=0){
@@ -3170,10 +3174,10 @@ function stampsInner(g){ const ids=Object.keys(visited).filter(id=>CITIES[id]&&C
 /* small moving things: a paper plane on a route, drifting clouds, two boats */
 function ambientInner(g){ if(reduced()) return ''; let out='';
   const route=(pts,dur,beg)=>{ const P=pts.map(([la,lo])=>wLL(g,la,lo)); let d=`M${P[0][0].toFixed(1)} ${P[0][1].toFixed(1)}`; for(let i=1;i<P.length;i++){ const [x1,y1]=P[i-1], [x2,y2]=P[i]; d+=` Q${((x1+x2)/2).toFixed(1)} ${(Math.min(y1,y2)-26).toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`; }
-    return `<g class="wplane"><path d="M-7 -5 L9 0 L-7 5 L-3 0Z" fill="#FFF8E7" stroke="#1B1F4B" stroke-width="1.4" stroke-linejoin="round"/><animateMotion dur="${dur}s" begin="${beg}s" repeatCount="indefinite" rotate="auto" path="${d}"/></g>`; };
-  out+=route([[38,-9],[41,29],[25,55],[13,100]],26,0)+route([[-34,151],[1,104],[35,139],[49,-123]],34,-12);
+    return `<g class="wplane"><path d="M-17 1.5 h-5 M-15 4 h-3" stroke="#FFF8E7" stroke-width="1.6" stroke-linecap="round" opacity=".7"/><g stroke="#1B1F4B" stroke-width="1.1" stroke-linejoin="round" transform="scale(1.3)"><path d="M13 0 L-11 -9 L-4 0Z" fill="#FFFFFF"/><path d="M13 0 L-4 0 L-7 3Z" fill="#B9C0DA"/><path d="M13 0 L-7 3 L-11 8Z" fill="#E3E7F3"/></g><animateMotion dur="${dur}s" begin="${beg}s" repeatCount="indefinite" rotate="auto" path="${d}"/></g>`; };
+  out+=route([[38,-9],[41,29],[25,55],[13,100]],26,0)+route([[-34,151],[1,104],[35,139],[49,-123]],34,-12)+route([[40.7,-74],[51.5,-0.1],[30,31.2],[-1.3,36.8]],30,-20);
   [[52,-30,1],[8,78,.8],[-18,-118,.9],[30,160,.7]].forEach(([la,lo,s],i)=>{ const [x,y]=wLL(g,la,lo); out+=`<g class="wcloud" style="--d:${-i*5}s" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${s})"><g><ellipse cx="0" cy="0" rx="22" ry="9" fill="#fff" opacity=".85"/><ellipse cx="-8" cy="-6" rx="10" ry="8" fill="#fff" opacity=".85"/><ellipse cx="7" cy="-7" rx="12" ry="9" fill="#fff" opacity=".85"/></g></g>`; });
-  [[16,-150],[22,-38],[-18,75]].forEach(([la,lo],i)=>{ const [x,y]=wLL(g,la,lo); out+=`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><g class="wboat" style="--d:${-i*7}s"><path d="M-9 0 H9 L6 5 H-6Z" fill="#E8382A" stroke="#1B1F4B" stroke-width="1.3" stroke-linejoin="round"/><path d="M0 0 V-12 L7 -2 H0" fill="#FFF8E7" stroke="#1B1F4B" stroke-width="1.2" stroke-linejoin="round"/><path d="M-14 7 q3 -2 6 0 q3 -2 6 0" stroke="#fff" stroke-width="1.4" fill="none" opacity=".8"/></g></g>`; });
+  [[16,-150],[22,-38],[-18,75],[-32,-14]].forEach(([la,lo],i)=>{ const [x,y]=wLL(g,la,lo); out+=`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><g class="wboat" style="--d:${-i*7}s"><path d="M-9 0 H9 L6 5 H-6Z" fill="#E8382A" stroke="#1B1F4B" stroke-width="1.3" stroke-linejoin="round"/><path d="M0 0 V-12 L7 -2 H0" fill="#FFF8E7" stroke="#1B1F4B" stroke-width="1.2" stroke-linejoin="round"/><path d="M-14 7 q3 -2 6 0 q3 -2 6 0" stroke="#fff" stroke-width="1.4" fill="none" opacity=".8"/></g></g>`; });
   return out; }
 let cotdPick=null;
 const CTZ={PT:'Europe/Lisbon',JP:'Asia/Tokyo',MX:'America/Mexico_City',AU:'Australia/Sydney',IT:'Europe/Rome',TH:'Asia/Bangkok',MA:'Africa/Casablanca',BR:'America/Sao_Paulo',US:'America/New_York',UK:'Europe/London',CH:'Europe/Zurich',IN:'Asia/Kolkata',NP:'Asia/Kathmandu',LK:'Asia/Colombo',CN:'Asia/Shanghai',ES:'Europe/Madrid',FR:'Europe/Paris',NL:'Europe/Amsterdam',DE:'Europe/Berlin',AT:'Europe/Vienna',GR:'Europe/Athens',TR:'Europe/Istanbul',KR:'Asia/Seoul',AE:'Asia/Dubai',EG:'Africa/Cairo',ZA:'Africa/Johannesburg',IE:'Europe/Dublin',NO:'Europe/Oslo',CZ:'Europe/Prague',HR:'Europe/Zagreb',VN:'Asia/Ho_Chi_Minh',ID:'Asia/Jakarta',SG:'Asia/Singapore',NZ:'Pacific/Auckland',CA:'America/Toronto',PE:'America/Lima',AR:'America/Argentina/Buenos_Aires',KE:'Africa/Nairobi',KH:'Asia/Phnom_Penh',LA:'Asia/Vientiane',PH:'Asia/Manila',MY:'Asia/Kuala_Lumpur',CO:'America/Bogota',BO:'America/La_Paz',CL:'America/Santiago',HU:'Europe/Budapest',PL:'Europe/Warsaw',IS:'Atlantic/Reykjavik',GT:'America/Guatemala',CR:'America/Costa_Rica',CU:'America/Havana',JO:'Asia/Amman',TZ:'Africa/Dar_es_Salaam',EC:'America/Guayaquil'};
@@ -3187,14 +3191,18 @@ const cotdNowHTML = id => { const n=cityNow(id); return `<span class="ctm ${n.da
 setInterval(()=>{ const c=document.querySelector('#ui-world .cotd'); if(!c || document.hidden) return; const t=c.querySelector('.ctm'); if(t) t.outerHTML=cotdNowHTML(c.dataset.cotd); }, 60000);
 function cityOfDay(){ if(cotdPick && cotdPick.d===today()) return cotdPick.id;
   const all=Object.keys(CITIES).filter(id=>CITY_LL[id]&&CITIES[id].eat), pool=all.filter(id=>!visited[id]), list=pool.length?pool:all;
-  const n=Math.floor((Date.now()-new Date().getTimezoneOffset()*6e4)/864e5); let id=list[(n*37+11)%list.length]; if(id===dailyCity()) id=list[(n*37+12)%list.length];
+  const n=Math.floor((Date.now()-new Date().getTimezoneOffset()*6e4)/864e5), mine=Object.keys(visited).filter(id=>CITIES[id]&&CITY_LL[id]&&visited[id]<today());
+  if(mine.length && n%3===0){ const id=mine[(n*17+5)%mine.length]; cotdPick={d:today(), id, rw:true}; return id; }
+  let id=list[(n*37+11)%list.length]; if(id===dailyCity()) id=list[(n*37+12)%list.length];
   cotdPick={d:today(), id}; return id; }
+const cotdIsMemory = () => { cityOfDay(); return !!(cotdPick && cotdPick.rw); };
+function agoText(iso){ const d=Math.round((new Date(today()+'T00:00')-new Date(iso+'T00:00'))/864e5); if(d<14) return d<=1?'yesterday':`${d} days ago`; if(d<60) return `${Math.round(d/7)} weeks ago`; if(d<730) return `${Math.round(d/30.4)} months ago`; return `${Math.round(d/365)} years ago`; }
 /* tappable pins over the map: events on today, the city of the day, friends where they last stamped */
 function pinsHTML(g){ let out='';
   const seen=new Set();
   EVENTS.forEach(e=>e.cities.forEach(id=>{ const ev=activeEvent(id); if(!ev||ev.id!==e.id||seen.has(id)||!CITY_LL[id]) return; seen.add(id); const [x,y]=wLL(g,...CITY_LL[id]);
-    out+=`<button class="wev" data-wev="${id}" style="left:${(x-15).toFixed(1)}px;top:${(y-34).toFixed(1)}px" aria-label="${esc(e.name)} is on now in ${CITIES[id].name}">${L(LU.spark,14,2.4)}<span>${esc(e.name)}</span></button>`; }));
-  const cd=cityOfDay(); if(CITY_LL[cd]){ const [x,y]=wLL(g,...CITY_LL[cd]); out+=`<button class="wcotd" data-cotd="${cd}" style="left:${(x-13).toFixed(1)}px;top:${(y-30).toFixed(1)}px" aria-label="City of the day: ${CITIES[cd].name}">${L(LU.star,13,2.6)}</button>`; }
+    out+=`<button class="wev" data-wev="${id}" style="left:${(x-13).toFixed(1)}px;top:${(y-32).toFixed(1)}px" aria-label="${esc(e.name)} is on now in ${CITIES[id].name}">${L(LU.spark,14,2.4)}</button>`; }));
+  const cd=cityOfDay(); if(CITY_LL[cd]){ const [x,y]=wLL(g,...CITY_LL[cd]); const rw=cotdIsMemory(); out+=`<button class="wcotd ${rw?'rw':''}" data-cotd="${cd}" style="left:${(x-13).toFixed(1)}px;top:${(y-30).toFixed(1)}px" aria-label="${rw?'Remember when':'City of the day'}: ${CITIES[cd].name}">${rw?L(LU.cal,13,2.4):L(LU.star,13,2.6)}</button>`; }
   const spots={};
   friendList().forEach(f=>{ const last=Object.entries(f.visited||{}).filter(([k])=>CITIES[k]&&CITY_LL[k]).sort((a,b)=>String(a[1]).localeCompare(String(b[1]))).pop(); if(!last) return;
     const k=last[0], n=spots[k]=(spots[k]||0)+1, [x,y]=wLL(g,...CITY_LL[k]);
@@ -3331,7 +3339,9 @@ function regionCard(name, n, of, hint){
 function uiHTML(lv){
   const back = p => `<button class="chip" data-back="${p}">${L(LU.left,18)}<span>${LVNAME[p]}</span></button>`;
   if(lv==='world') return `${showHint?`<div class="hint" id="hint"><div class="bubble swipe" style="left:50%;top:112px">Swipe or pinch the map, then tap a number</div></div>`:''}<div class="toprow" style="margin-top:8px"><div class="search">${L(LU.search,20)}<span>Search a city or region</span></div><button class="mailbtn ${mailSeen()?'':'new'}" id="mailBtn" aria-label="Today’s postcard${mailSeen()?'':', unread'}">${L(LU.mail,20)}<i></i></button></div>
-    ${(()=>{ const id=cityOfDay(), C=CITIES[id]; return `<button class="cotd" data-cotd="${id}"><span class="ci">${L(LU.star,16,2.6)}</span><span class="ct"><small>CITY OF THE DAY</small><b>${miniFlag(C.c)}${C.name}</b>${cotdNowHTML(id)}<em>Try: ${esc(C.eat)}</em></span></button>`; })()}
+    ${(()=>{ const id=cityOfDay(), C=CITIES[id], rw=cotdIsMemory(); return rw
+      ? `<button class="cotd rw" data-cotd="${id}"><span class="ci">${L(LU.cal,16,2.4)}</span><span class="ct"><small>REMEMBER WHEN</small><b>${miniFlag(C.c)}${C.name}</b>${cotdNowHTML(id)}<em>You stamped it ${agoText(visited[id])}, on ${dLong(visited[id])}</em></span></button>`
+      : `<button class="cotd" data-cotd="${id}"><span class="ci">${L(LU.star,16,2.6)}</span><span class="ct"><small>CITY OF THE DAY</small><b>${miniFlag(C.c)}${C.name}</b>${cotdNowHTML(id)}<em>Try: ${esc(C.eat)}</em></span></button>`; })()}
     <div class="regions ${REG_MIN?'min':''}" id="regions"><button class="regtog" id="regTog" aria-expanded="${!REG_MIN}"><h2>Pick a region</h2><span class="chev">${L(LU.right,20,2.6)}</span></button>
     ${REGIONS.map(r=>`<button class="rrow ${r.open?'':'off'}" data-region="${r.id}">${r.name}<span>${regionCount(r)} stamped ${L(LU.right,18)}</span></button>`).join('')}</div>`;
   if(lv==='europe') return `<div class="toprow">${back('world')}<div class="search">${L(LU.search,18)}<span>Search in Europe</span></div></div>${regionCard('Europe',countryCount('europe'),regionTotal('europe'),'Tap a country stamp to zoom in and see its cities.')}`;
