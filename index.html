@@ -1356,6 +1356,19 @@ svg.wov.wnl{z-index:1}
 .schips i{font-style:normal;font-size:10.5px;color:var(--ink-soft);font-weight:800}
 .bqz{position:absolute;inset:0;z-index:40;background:rgba(27,31,75,.45);display:flex;align-items:flex-end;opacity:0;transition:opacity .25s}
 .bqz.on{opacity:1}
+.sndc{width:100%;padding:16px 18px 30px;border-radius:24px 24px 0 0;border:2px solid var(--ink-navy);border-bottom:0;background:linear-gradient(180deg,#EDE7FF,#FFF8E7 45%);transform:translateY(40px);transition:transform .3s cubic-bezier(.3,1.3,.5,1)}
+.bqz.on .sndc{transform:none}
+.sndh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.sndh small{font-size:10px;font-weight:800;letter-spacing:.12em;color:#7B4BE0}.sndh h2{font:900 26px/1.1 var(--font-display);color:var(--ink-navy);margin:2px 0 0}
+.srow{display:flex;align-items:center;gap:12px;padding:12px;margin-top:10px;border:2px solid var(--ink-navy);border-radius:16px;background:var(--paper-card);box-shadow:3px 3px 0 var(--ink-navy);transition:opacity .2s}
+.srow.off{opacity:.62}
+.srow .si{flex-shrink:0;width:38px;height:38px;border-radius:12px;background:#7B4BE0;color:#fff;display:flex;align-items:center;justify-content:center}
+.srow.off .si{background:#9AA0B8}
+.srow .st{flex:1;min-width:0}.srow b{display:block;font-size:15px;font-weight:800;color:var(--ink-navy)}.srow small{display:block;font-size:12px;color:var(--ink-soft);line-height:1.3;margin-top:1px}
+.srow input[type=range]{width:100%;margin:8px 0 0;accent-color:#7B4BE0;height:22px}
+.sw{flex-shrink:0;width:50px;height:30px;border-radius:999px;border:2px solid var(--ink-navy);background:#D8DBE8;position:relative;padding:0;transition:background .2s}
+.sw i{position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:#fff;border:2px solid var(--ink-navy);transition:transform .22s cubic-bezier(.3,1.4,.5,1)}
+.sw.on{background:#2FBF71}.sw.on i{transform:translateX(20px)}
 .bqc{width:100%;max-height:92%;overflow:auto;padding:16px 18px 28px;border-radius:24px 24px 0 0;border:2px solid var(--ink-navy);border-bottom:0;background:linear-gradient(180deg,#E4F4FB,#FFF8E7 40%);transform:translateY(40px);transition:transform .3s cubic-bezier(.3,1.3,.5,1)}
 .bqz.on .bqc{transform:none}
 .bqh{display:flex;align-items:center;gap:10px}
@@ -1669,6 +1682,9 @@ const POSE = {"point": "<g transform=\"translate(150 118) rotate(22)\"><rect x=\
 /* ---------- icons ---------- */
 const L = (d,s=24,sw=2) => `<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
 const LU = {
+  music:'<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
+  waves:'<path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>',
+  moon:'<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
   map:'<path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/>',
   stamp:'<path d="M5 22h14"/><path d="M19.27 13.73A2.5 2.5 0 0 0 17.5 13h-11A2.5 2.5 0 0 0 4 15.5V17a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-1.5c0-.66-.26-1.3-.73-1.77Z"/><path d="M14 13V8.5C14 7 15 7 15 5a3 3 0 0 0-3-3c-1.66 0-3 1-3 3s1 2 1 3.5V13"/>',
   brief:'<path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/>',
@@ -3052,7 +3068,10 @@ let eventStamps = {};   /* city id -> {ev, date} */
 const md = iso => iso.slice(5);
 const activeEvent = (id, iso=today()) => EVENTS.find(e=>e.cities.includes(id) && md(iso)>=e.from && md(iso)<=e.to);
 const nextEvent = id => { const evs=EVENTS.filter(e=>e.cities.includes(id)); if(!evs.length) return null; const t=md(today()); return evs.slice().sort((a,b)=>((a.from<t?'1':'0')+a.from)<((b.from<t?'1':'0')+b.from)?-1:1)[0]; };
-let soundOn = (()=>{ try{ return localStorage.getItem('pm-snd')!=='0'; }catch(e){ return true; } })(), combo = 0, lastStampT = 0;
+const SNDP = (k,d) => { try{ const v=localStorage.getItem(k); return v===null?d:v; }catch(e){ return d; } };
+let soundOn = SNDP('pm-snd','1')!=='0', combo = 0, lastStampT = 0;
+const SND = { music: SNDP('pm-mus','1')!=='0', musV: +SNDP('pm-musv','0.6'), fxV: +SNDP('pm-fxv','0.9'), ambV: +SNDP('pm-ambv','0.6'), amb: SNDP('pm-amb','1')!=='0', quiet: SNDP('pm-quiet','0')==='1' };
+const saveSnd = () => { try{ localStorage.setItem('pm-snd', soundOn?'1':'0'); localStorage.setItem('pm-mus', SND.music?'1':'0'); localStorage.setItem('pm-musv', SND.musV); localStorage.setItem('pm-fxv', SND.fxV); localStorage.setItem('pm-ambv', SND.ambV); localStorage.setItem('pm-amb', SND.amb?'1':'0'); localStorage.setItem('pm-quiet', SND.quiet?'1':'0'); }catch(e){} };
 let trip = {};
 
 /* ---------- helpers ---------- */
@@ -4234,19 +4253,22 @@ $('#sheet').addEventListener('click', e=>{
 let AC=null, BUS=null, NB=null;
 function makeIR(a, sec, decay){ const L=Math.floor(a.sampleRate*sec), b=a.createBuffer(2,L,a.sampleRate);
   for(let c=0;c<2;c++){ const d=b.getChannelData(c); for(let i=0;i<L;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/L, decay); } return b; }
-function audio(){ if(!soundOn) return null; try{
+let allowQ=0;
+function audio(){ if(!soundOn || (SND.quiet && !allowQ)) return null; return ctx(); }
+function ctx(){ try{
   if(!AC){ AC=new (window.AudioContext||window.webkitAudioContext)();
     const comp=AC.createDynamicsCompressor(); comp.threshold.value=-16; comp.knee.value=10; comp.ratio.value=4; comp.attack.value=.003; comp.release.value=.18;
     const warm=AC.createBiquadFilter(); warm.type='lowpass'; warm.frequency.value=9500;
     const master=AC.createGain(); master.gain.value=.85;
     const dry=AC.createGain(), wet=AC.createGain(), rv=AC.createConvolver(); rv.buffer=makeIR(AC,1.3,2.8); wet.gain.value=.22;
     dry.connect(warm); wet.connect(rv); rv.connect(warm); warm.connect(comp); comp.connect(master); master.connect(AC.destination);
-    BUS={dry,wet,master}; }
+    const fxD=AC.createGain(), fxW=AC.createGain(); fxD.gain.value=fxW.gain.value=SND.fxV; fxD.connect(dry); fxW.connect(wet);
+    BUS={dry,wet,master,fxD,fxW}; }
   if(AC.state==='suspended') AC.resume();
   return AC; }catch(e){ return null; } }
 const AX = () => audio();
 function noise(a){ if(!NB){ NB=a.createBuffer(1,a.sampleRate*2,a.sampleRate); const d=NB.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1; } return NB; }
-function sendOut(node, wet){ node.connect(BUS.dry); if(wet){ const g=AC.createGain(); g.gain.value=wet; node.connect(g); g.connect(BUS.wet); } }
+function sendOut(node, wet){ node.connect(BUS.fxD); if(wet){ const g=AC.createGain(); g.gain.value=wet; node.connect(g); g.connect(BUS.fxW); } }
 function envP(g,t,vol,len,att=.004){ g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(Math.max(vol,.0002),t+att); g.gain.exponentialRampToValueAtTime(.0001,t+Math.max(len,att+.01)); }
 function tone(t0,type,f,len,vol,f2,wet=.3){ const a=audio(); if(!a) return; const t=a.currentTime+t0, o=a.createOscillator(), g=a.createGain(); o.type=type; o.frequency.setValueAtTime(f,t); if(f2) o.frequency.exponentialRampToValueAtTime(f2,t+len);
   let src=o; if(type==='square'||type==='sawtooth'){ const lp=a.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=Math.min(5000,Math.max(f,f2||0)*3.5); o.connect(lp); src=lp; vol*=.75; }
@@ -4260,10 +4282,10 @@ function bell(t0,f,vol,wet=.45){ tone(t0,'sine',f,1.1,vol,null,wet); tone(t0,'si
 function buzzV(p){ try{ navigator.vibrate && navigator.vibrate(p); }catch(e){} }
 /* the stamp: a low rubber thump, the slap of paper and a little ink squish */
 function thud(freq=110, len=.3){
-  const a=audio(); if(a){ const t=a.currentTime, o=a.createOscillator(), g=a.createGain();
+  allowQ++; if(len>=.25) MUS.duck(); const a=audio(); allowQ--; if(a){ allowQ++; const t=a.currentTime, o=a.createOscillator(), g=a.createGain();
     o.type='sine'; o.frequency.setValueAtTime(freq*1.7,t); o.frequency.exponentialRampToValueAtTime(Math.max(36,freq*.42),t+len); envP(g,t,.8,len,.002); o.connect(g); sendOut(g,.1); o.start(t); o.stop(t+len+.05);
     hiss(0,Math.min(.08,len*.35),freq<90?900:1500,.32,.7,'bandpass',.15);
-    if(len>=.25) hiss(.03,.16,500,.12,.9,'lowpass',.05,180); }
+    if(len>=.25) hiss(.03,.16,500,.12,.9,'lowpass',.05,180); allowQ--; }
   buzzV(freq<90?[40,30,40]:25);
 }
 function chime(){ [784,988,1319].forEach((f,i)=>bell(i*.08,f,.12)); hiss(.18,.5,7500,.03,.6,'highpass',.4); }
@@ -4278,7 +4300,7 @@ const SFX = {
   plane(){ whoosh(0,1.1,600,2600,.18,'bandpass',.35); tone(0,'sawtooth',190,1,.04,150,.2); },
   right(){ [659,880,1319].forEach((f,i)=>bell(i*.075,f,.13)); },
   wrong(){ tone(0,'triangle',330,.14,.09,310,.15); tone(.13,'triangle',247,.24,.09,220,.15); },
-  fanfare(){ [523,659,784,1047].forEach((f,i)=>bell(i*.09,f,.12)); [523,659,784,1047].forEach(f=>tone(.38,'triangle',f,1.1,.045,null,.6)); hiss(.38,.9,7000,.04,.5,'highpass',.5); },
+  fanfare(){ MUS.duck(1.6); [523,659,784,1047].forEach((f,i)=>bell(i*.09,f,.12)); [523,659,784,1047].forEach(f=>tone(.38,'triangle',f,1.1,.045,null,.6)); hiss(.38,.9,7000,.04,.5,'highpass',.5); },
   sparkle(){ for(let i=0;i<6;i++) bell(i*.05,1800+Math.random()*1600,.035); },
   yawn(){ tone(0,'triangle',280,.55,.08,520,.25); tone(.5,'triangle',520,.5,.07,240,.25); },
   send(){ whoosh(0,.55,700,4200,.15); tone(.1,'sine',600,.4,.05,1400,.3); }
@@ -4316,9 +4338,113 @@ function countryJingle(c){
   [0,1,2].forEach(i=>{ const n=scale[(h>>(i*3))%scale.length]+(i===2?12:0); playNote(inst,.06+i*.1,440*Math.pow(2,(root+n-69)/12)); });
   buzzV([15,40,15]);
 }
-document.addEventListener('pointerdown', ()=>{ if(AC && AC.state==='suspended') AC.resume(); }, {passive:true});
+/* ---------- background music: a gentle generative loop whose mood follows the continent you're looking at ---------- */
+const MOODS = {
+  world:   {name:'Around the world', bpm:92,  beats:4, root:60, scale:[0,2,4,7,9],      prog:[[0,4,7],[7,11,14],[9,12,16],[5,9,12]], lead:'glock',    bass:'pulse', perc:'soft',   dens:.5},
+  europe:  {name:'Europe',           bpm:126, beats:3, root:65, scale:[0,2,4,5,7,9,11], prog:[[0,4,7],[5,9,12],[7,11,14],[0,4,7]],   lead:'accordion',bass:'waltz', perc:null,     dens:.6},
+  asia:    {name:'Asia',             bpm:74,  beats:4, root:62, scale:[0,3,5,7,10],     prog:[[0,7,12],[5,12,17],[3,10,15],[7,14,19]],lead:'koto',     bass:'drone', perc:null,     dens:.38},
+  africa:  {name:'Africa',           bpm:104, beats:4, root:57, scale:[0,3,5,7,10],     prog:[[0,3,7],[5,8,12],[3,7,10],[7,10,14]],  lead:'kalimba',  bass:'pulse', perc:'shaker', dens:.62},
+  americas:{name:'The Americas',     bpm:100, beats:4, root:55, scale:[0,2,4,7,9],      prog:[[0,4,7],[5,9,12],[7,11,14],[5,9,12]],  lead:'marimba',  bass:'pulse', perc:'clave',  dens:.58},
+  islands: {name:'Islands',          bpm:100, beats:4, root:60, scale:[0,2,4,7,9],      prog:[[0,4,7],[5,9,12],[7,11,14],[0,4,7]],   lead:'steel',    bass:'pulse', perc:'shaker', dens:.55}
+};
+const ISLAND_LV = new Set(['maldives','fiji','tonga','mauritius','seychelles']);
+function moodFor(lv){ if(!lv || lv==='world') return 'world'; if(ISLAND_LV.has(lv)) return 'islands'; let r=lv; while(r && PARENT[r] && PARENT[r]!=='world') r=PARENT[r];
+  return ({europe:'europe',asia:'asia',africa:'africa',na:'americas',sa:'americas',oc:'islands'})[r]||'world'; }
+const MUS = { started:false, out:null, duckG:null, next:0, step:0, mood:'world', motifs:null, phrase:0, timer:null, li:2,
+  duck(len=.9){ if(!this.duckG || !AC) return; const t=AC.currentTime, g=this.duckG.gain; g.cancelScheduledValues(t); g.setValueAtTime(g.value,t); g.linearRampToValueAtTime(.3,t+.05); g.setValueAtTime(.3,t+len*.5); g.linearRampToValueAtTime(1,t+len); },
+  level(){ return SND.music && !SND.quiet ? 1.0*SND.musV : 0; },
+  apply(){ if(!this.out || !AC) return; const t=AC.currentTime; this.out.gain.cancelScheduledValues(t); this.out.gain.setValueAtTime(this.out.gain.value,t); this.out.gain.linearRampToValueAtTime(this.level(), t+.6); },
+  start(){ if(this.started || !SND.music || SND.quiet) return; const a=ctx(); if(!a) return; this.started=true;
+    this.out=a.createGain(); this.out.gain.value=0; this.duckG=a.createGain(); this.duckG.connect(this.out); this.out.connect(BUS.dry); const w=a.createGain(); w.gain.value=.45; this.out.connect(w); w.connect(BUS.wet);
+    this.out.gain.linearRampToValueAtTime(this.level(), a.currentTime+2.5);
+    this.mood=moodFor(typeof level!=='undefined'?level:'world'); this.newMotifs(); this.next=a.currentTime+.15; this.step=0;
+    this.timer=setInterval(()=>this.tick(), 90);
+    let seen=false; try{ seen=localStorage.getItem('pm-mushint')==='1'; localStorage.setItem('pm-mushint','1'); }catch(e){ seen=true; }
+    if(!seen) setTimeout(()=>toast('Music on. Change it with the speaker button in your Passport.'), 2600); },
+  newMotifs(){ const M=MOODS[this.mood], spb=M.beats*2, len=spb*2, sc=M.scale.length; let i=this.li;
+    const gen=()=>Array.from({length:len},(_,k)=>{ const strong=k%2===0, p=strong?M.dens+.15:M.dens-.2; if(k===len-1 || Math.random()>p) return null; i=Math.max(0,Math.min(sc*2-1,i+[-2,-1,-1,0,1,1,2][Math.floor(Math.random()*7)])); return i; });
+    const A=gen(), B=A.map((n,k)=>n===null?null:(k>=len/2&&Math.random()<.6? Math.max(0,Math.min(sc*2-1,n+(Math.random()<.5?-1:1))):n)), C=gen();
+    this.motifs=[A,A,B,C]; this.li=i; },
+  noteF(M,idx,oct=0){ const sc=M.scale, n=sc[idx%sc.length]+12*Math.floor(idx/sc.length); return 440*Math.pow(2,(M.root+12+n+oct*12-69)/12); },
+  tick(){ if(!AC || AC.state!=='running') return; const M=MOODS[this.mood], sp=60/M.bpm/2, spb=M.beats*2;
+    while(this.next < AC.currentTime+.35){ const t=this.next, k=this.step, inBar=k%spb, bar=Math.floor(k/spb);
+      if(inBar===0){ const want=moodFor(curTab==='map'?level:this.lastLv||'world'); if(curTab==='map') this.lastLv=level;
+        if(want!==this.mood && bar%2===0){ this.mood=want; this.newMotifs(); this.step=0; this.phrase=0; continue; }
+        const ch=M.prog[bar%M.prog.length]; ch.forEach(iv=>this.v('pad',t,440*Math.pow(2,(M.root+iv-69)/12),sp*spb*1.05,.028));
+        if(bar%8===0 && bar && k) this.newMotifs(); }
+      const ch=M.prog[bar%M.prog.length], rootF=440*Math.pow(2,(M.root+ch[0]-24-69)/12);
+      if(M.bass==='pulse' && inBar%4===0) this.v('bass',t,rootF,sp*3,.13);
+      if(M.bass==='waltz'){ if(inBar===0) this.v('bass',t,rootF,sp*2,.13); if(inBar===2||inBar===4) ch.forEach(iv=>this.v('stab',t,440*Math.pow(2,(M.root+iv-69)/12),sp*.9,.03)); }
+      if(M.bass==='drone' && inBar===0) this.v('bass',t,rootF,sp*spb,.08);
+      if(M.perc==='soft'){ if(inBar===0) this.v('kick',t,0,.2,.12); if(inBar%2===1) this.v('shk',t,0,.05,.018); }
+      if(M.perc==='shaker'){ if(inBar%4===0) this.v('kick',t,0,.2,.14); this.v('shk',t,0,.05,inBar%2?.03:.014); }
+      if(M.perc==='clave'){ if([0,3,6].includes(inBar%8)) this.v('clave',t,0,.06,.05); if(inBar%4===0) this.v('kick',t,0,.2,.12); }
+      const motif=this.motifs[Math.floor(k/(spb*2))%4], ni=motif[k%(spb*2)];
+      if(ni!==null && ni!==undefined) this.v(M.lead,t,this.noteF(M,ni),sp*(M.lead==='accordion'?1.8:2.2),M.lead==='accordion'?.05:.08);
+      this.next+=sp; this.step++; } },
+  v(kind,t,f,len,vol){ const a=AC, dst=this.duckG; const osc=(type,fr,f2,gv,att,dec,flt)=>{ const o=a.createOscillator(), g=a.createGain(); o.type=type; o.frequency.setValueAtTime(fr,t); if(f2) o.frequency.exponentialRampToValueAtTime(f2,t+.05);
+      let src=o; if(flt){ const lp=a.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=flt; o.connect(lp); src=lp; }
+      g.gain.setValueAtTime(.0001,t); g.gain.linearRampToValueAtTime(gv,t+att); g.gain.exponentialRampToValueAtTime(.0001,t+att+dec); src.connect(g); g.connect(dst); o.start(t); o.stop(t+att+dec+.05); return o; };
+    const nz=(len2,f1,q,gv,type='bandpass')=>{ const sr=a.createBufferSource(), bp=a.createBiquadFilter(), g=a.createGain(); sr.buffer=noise(a); bp.type=type; bp.frequency.value=f1; bp.Q.value=q; g.gain.setValueAtTime(gv,t); g.gain.exponentialRampToValueAtTime(.0001,t+len2); sr.connect(bp); bp.connect(g); g.connect(dst); sr.start(t,Math.random()); sr.stop(t+len2+.05); };
+    switch(kind){
+      case 'pad': osc('triangle',f,null,vol,.5,len,1400); osc('sine',f*1.003,null,vol*.6,.6,len,0); break;
+      case 'bass': osc('sine',f,null,vol,.01,len,0); osc('triangle',f*2,null,vol*.12,.01,len*.5,600); break;
+      case 'stab': osc('sawtooth',f,null,vol,.01,len,1500); break;
+      case 'kick': { const o=a.createOscillator(), g=a.createGain(); o.frequency.setValueAtTime(130,t); o.frequency.exponentialRampToValueAtTime(42,t+.15); g.gain.setValueAtTime(vol,t); g.gain.exponentialRampToValueAtTime(.0001,t+.22); o.connect(g); g.connect(dst); o.start(t); o.stop(t+.25); break; }
+      case 'shk': nz(len,7000,.8,vol,'highpass'); break;
+      case 'clave': osc('sine',2200,null,vol,.002,.06,0); break;
+      case 'glock': osc('sine',f,null,vol,.004,1.1,0); osc('sine',f*2.76,null,vol*.25,.004,.25,0); break;
+      case 'accordion': { const o1=osc('sawtooth',f,null,vol,.04,len,1700), o2=osc('sawtooth',f*1.005,null,vol*.8,.04,len,1700); const l=a.createOscillator(), lg=a.createGain(); l.frequency.value=5.2; lg.gain.value=f*.006; l.connect(lg); lg.connect(o1.frequency); l.start(t); l.stop(t+len+.1); break; }
+      case 'koto': osc('triangle',f*.97,f,vol,.003,.8,3000); osc('sine',f*2,null,vol*.25,.003,.25,0); break;
+      case 'kalimba': osc('sine',f,null,vol,.003,.8,0); osc('sine',f*4.02,null,vol*.3,.002,.07,0); break;
+      case 'marimba': osc('sine',f,null,vol*1.1,.003,.45,0); osc('sine',f*3.98,null,vol*.3,.002,.05,0); break;
+      case 'steel': osc('sine',f*1.015,f,vol,.004,.6,0); osc('sine',f*2,null,vol*.4,.004,.4,0); osc('sine',f*3,null,vol*.15,.004,.2,0); break;
+    } }
+};
+/* ---------- ambience: faint waves and wind on the world map, with the odd seagull ---------- */
+const AMB = { on:false, g:null,
+  want(){ return SND.amb && !SND.quiet && curTab==='map' && level==='world' ? .9*SND.ambV : 0; },
+  start(){ if(this.on || !SND.amb || SND.quiet) return; const a=ctx(); if(!a) return; this.on=true; this.g=a.createGain(); this.g.gain.value=0; this.g.connect(BUS.dry);
+    const mk=(type,f,q,base,rate,depth)=>{ const sr=a.createBufferSource(); sr.buffer=noise(a); sr.loop=true; const flt=a.createBiquadFilter(); flt.type=type; flt.frequency.value=f; flt.Q.value=q; const g=a.createGain(); g.gain.value=base;
+      const l=a.createOscillator(), lg=a.createGain(); l.frequency.value=rate; lg.gain.value=depth; l.connect(lg); lg.connect(g.gain); sr.connect(flt); flt.connect(g); g.connect(this.g); sr.start(); l.start(); };
+    mk('lowpass',480,.7,.05,.11,.04); mk('lowpass',900,.5,.018,.17,.012); mk('bandpass',700,.6,.012,.06,.01);
+    setInterval(()=>this.apply(), 700);
+    setInterval(()=>{ if(this.want()>0 && Math.random()<.22) this.gull(); }, 5000); },
+  apply(){ if(!this.g || !AC) return; const t=AC.currentTime; this.g.gain.setTargetAtTime(this.want(), t, .6); },
+  gull(){ const a=AC, t=a.currentTime+.05, pan=a.createStereoPanner?a.createStereoPanner():null; const g0=a.createGain(); g0.gain.value=.5*SND.ambV; if(pan){ pan.pan.value=Math.random()*1.6-.8; g0.connect(pan); pan.connect(BUS.wet); pan.connect(BUS.dry); } else g0.connect(BUS.dry);
+    const n=1+Math.floor(Math.random()*3); for(let i=0;i<n;i++){ const s=t+i*.32, o=a.createOscillator(), g=a.createGain(), f=1250+Math.random()*250; o.type='triangle';
+      o.frequency.setValueAtTime(f,s); o.frequency.linearRampToValueAtTime(f*1.5,s+.07); o.frequency.linearRampToValueAtTime(f*.85,s+.24);
+      g.gain.setValueAtTime(.0001,s); g.gain.linearRampToValueAtTime(.05,s+.03); g.gain.exponentialRampToValueAtTime(.0001,s+.26); o.connect(g); g.connect(g0); o.start(s); o.stop(s+.3); } }
+};
+function soundStart(){ const a=ctx(); if(!a) return; if(a.state==='suspended') a.resume(); MUS.start(); AMB.start(); }
+document.addEventListener('pointerdown', soundStart, {passive:true});
+document.addEventListener('visibilitychange', ()=>{ if(!AC) return; if(document.hidden) AC.suspend(); else if(MUS.started||AMB.on) AC.resume(); });
+/* ---------- sound settings sheet ---------- */
+function sndSheetHTML(){ const row=(k,ic,title,sub,on,vol)=>`<div class="srow ${on?'':'off'}"><span class="si">${L(ic,20)}</span><div class="st"><b>${title}</b><small>${sub}</small>${vol!==null?`<input type="range" min="0" max="100" value="${Math.round(vol*100)}" data-sndv="${k}" aria-label="${title} volume" ${on?'':'disabled'}>`:''}</div><button class="sw ${on?'on':''}" data-snd="${k}" role="switch" aria-checked="${on}" aria-label="${title}"><i></i></button></div>`;
+  return `<div class="sndc"><div class="sndh"><div><small>SETTINGS</small><h2>Sound</h2></div><button class="xbtn" data-sndclose aria-label="Close">${L(LU.x,20)}</button></div>
+    ${row('mus',LU.music,'Music', MUS.started&&SND.music&&!SND.quiet?`Now playing: ${MOODS[MUS.mood].name}`:'Changes with each continent you explore', SND.music&&!SND.quiet, SND.musV)}
+    ${row('fx',LU.vol,'Sound effects','Taps, stamps, animals and postcards', soundOn&&!SND.quiet, SND.fxV)}
+    ${row('amb',LU.waves,'Ocean and wind','Faint waves and seagulls on the world map', SND.amb&&!SND.quiet, SND.ambV)}
+    ${row('quiet',LU.moon,'Quiet mode','Only the stamp sound. Great on a plane.', SND.quiet, null)}</div>`; }
+function openSnd(){ let el=$('#sndz'); if(!el){ $('#phone').insertAdjacentHTML('beforeend','<div id="sndz" class="bqz" role="dialog" aria-label="Sound settings"></div>'); el=$('#sndz'); }
+  el.innerHTML=sndSheetHTML(); requestAnimationFrame(()=>el.classList.add('on')); }
+function closeSnd(){ const el=$('#sndz'); if(!el) return; el.classList.remove('on'); setTimeout(()=>{ if(!el.classList.contains('on')) el.remove(); }, 300); if(!$('#passport').hidden){ const y=$('#pscroll').scrollTop; renderPassport(); $('#pscroll').scrollTop=y; } }
+function sndApply(){ saveSnd(); ctx(); if(BUS){ const t=AC.currentTime; BUS.fxD.gain.setTargetAtTime(SND.fxV,t,.05); BUS.fxW.gain.setTargetAtTime(SND.fxV,t,.05); }
+  if(SND.music && !SND.quiet){ if(!MUS.started) MUS.start(); else MUS.apply(); } else MUS.apply(); if(SND.amb && !AMB.on) AMB.start(); AMB.apply(); }
+document.addEventListener('click', e=>{ const z=e.target.closest('#sndz'); if(!z) return;
+  if(e.target.closest('[data-sndclose]') || e.target===z) return closeSnd();
+  const b=e.target.closest('[data-snd]'); if(!b) return; const k=b.dataset.snd;
+  if(k==='mus'){ if(SND.quiet){ SND.quiet=false; SND.music=true; } else SND.music=!SND.music; }
+  if(k==='fx'){ if(SND.quiet){ SND.quiet=false; soundOn=true; } else soundOn=!soundOn; }
+  if(k==='amb'){ if(SND.quiet){ SND.quiet=false; SND.amb=true; } else SND.amb=!SND.amb; }
+  if(k==='quiet') SND.quiet=!SND.quiet;
+  sndApply(); z.innerHTML=sndSheetHTML(); if(soundOn && !SND.quiet && k!=='quiet') SFX.pop(); if(k==='quiet' && SND.quiet) thud(110,.2); });
+document.addEventListener('input', e=>{ const r=e.target.closest('[data-sndv]'); if(!r) return; const v=r.value/100, k=r.dataset.sndv;
+  if(k==='mus') SND.musV=v; if(k==='fx') SND.fxV=v; if(k==='amb') SND.ambV=v; sndApply(); });
+document.addEventListener('change', e=>{ const r=e.target.closest('[data-sndv]'); if(r && r.dataset.sndv==='fx') SFX.pop(); });
 /* Each country's stamp has its own voice: azulejo tile clink, wood block, maracas, didgeridoo. */
-function stampSound(c){
+function stampSound(c){ allowQ++; try{ stampSound0(c); }finally{ allowQ--; } }
+function stampSound0(c){
   const buzz = p => { try{ navigator.vibrate && navigator.vibrate(p); }catch(e){} };
   try{
     if(!['PT','JP','MX','IT','TH','MA','BR','AU'].includes(c)) return countryJingle(c);
@@ -6047,7 +6173,7 @@ function renderPassport(){ saveState();
   const head = cs.length ? `${cs.length} ${cs.length>1?'countries':'country'} and ${nc} ${nc>1?'cities':'city'} stamped on the spot.` : (nm?'No on-the-spot stamps yet.':'No stamps yet.');
   const jump = Object.keys(visited).length ? `<nav class="pjump" aria-label="Passport sections"><button data-jump="#pStamps"><i class="r"></i>Stamps <b>${nc}</b></button><button data-jump="#pMem"><i class="b"></i>Memories <b>${nm}</b></button><button data-jump="#pCol">Collections</button><button data-jump="#pEv">Events</button><button data-jump="#pAni">Animals</button><button data-jump="#pRew">Rewards</button></nav>` : '';
   $('#passport').className = 'cover-'+cover;
-  $('#passport').innerHTML = `<div id="pscroll"><div class="phead"><button class="sndbtn" id="sndBtn" aria-label="${soundOn?'Mute sounds':'Turn sounds on'}">${L(soundOn?LU.vol:LU.mute,20)}</button><span class="eyebrow">Postmark</span><h1>Your passport</h1><p>${head}</p>${syncPillHTML()}${Object.keys(verified).filter(k=>visited[k]).length?`<span class="honest">${L(LU.shield,14)}Verified traveller · ${Object.keys(verified).filter(k=>visited[k]).length} stamps checked by location</span>`:''}${jump}</div>
+  $('#passport').innerHTML = `<div id="pscroll"><div class="phead"><button class="sndbtn" id="sndBtn" aria-label="Sound settings">${L(SND.quiet?LU.moon:(soundOn||SND.music)?LU.vol:LU.mute,20)}</button><span class="eyebrow">Postmark</span><h1>Your passport</h1><p>${head}</p>${syncPillHTML()}${Object.keys(verified).filter(k=>visited[k]).length?`<span class="honest">${L(LU.shield,14)}Verified traveller · ${Object.keys(verified).filter(k=>visited[k]).length} stamps checked by location</span>`:''}${jump}</div>
   ${guestNagHTML()}
   ${bioHTML()}
   ${stampLogHTML()}
@@ -6115,7 +6241,7 @@ $('#passport').addEventListener('click', e=>{
   const ow=e.target.closest('[data-outfit]'); if(ow){ const o=OUTFITS.find(x=>x.id===ow.dataset.outfit); if(!unlockedBy(o.set)) return toast(`Complete ${SETS.find(st=>st.id===o.set).name} to unlock`); outfit=o.id; renderPassport();
     const r=toPhone(ow.querySelector('.prev')); stamping=true; return handStamp({x:r.x+r.w/2, y:r.y+r.h/2, s:.42, c:'JP', hit:()=>{}}).then(()=>{ stamping=false; }); }
   const cw=e.target.closest('[data-cover]'); if(cw){ const c2=COVERS.find(x=>x.id===cw.dataset.cover); if(!unlockedBy(c2.set)) return toast(`Complete ${SETS.find(st=>st.id===c2.set).name} to unlock`); cover=c2.id; renderPassport(); $('#pscroll').scrollTop=0; return toast(`${c2.name} cover on`); }
-  if(e.target.closest('#sndBtn')){ soundOn=!soundOn; try{ localStorage.setItem('pm-snd', soundOn?'1':'0'); }catch(err){} renderPassport(); if(soundOn) chime(); return toast(soundOn?'Sounds on':'Sounds off'); }
+  if(e.target.closest('#sndBtn')) return openSnd();
   const pcb=e.target.closest('[data-pc]'); if(pcb){ const p=sent[+pcb.dataset.pc]; return openPostcard(p.id, p.msg, true); }
   const rs=e.target.closest('[data-restamp]');
   if(rs && !stamping){ stamping=true; const r=toPhone(rs.querySelector('.sq'));
@@ -6153,7 +6279,7 @@ $('#onboard').addEventListener('click', e=>{
 
 /* ---------- tabs ---------- */
 let curTab='map';
-function tab(t){ if(t!==curTab){ curTab=t; SFX.swish(); }
+function tab(t){ if(t!==curTab){ curTab=t; SFX.swish(); AMB.apply(); }
   $('#passport').hidden = t!=='passport'; $('#trips').hidden = t!=='trips'; $('#friends').hidden = t!=='friends';
   [['tMap','map'],['tPass','passport'],['tTrips','trips'],['tFriends','friends']].forEach(([b,k])=>{ $('#'+b).classList.toggle('on', t===k); $('#'+b).toggleAttribute('aria-current', t===k); });
   if(t==='passport') renderPassport(); else if(t==='trips'){ tripView=null; renderTrips(); if(TOG.sb) togPoll(); } else if(t==='friends'){ friendView=null; renderFriends(); loadFriends(); if(TOG.sb) togPoll(); } else renderAll();
