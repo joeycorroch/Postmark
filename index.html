@@ -3070,7 +3070,7 @@ const activeEvent = (id, iso=today()) => EVENTS.find(e=>e.cities.includes(id) &&
 const nextEvent = id => { const evs=EVENTS.filter(e=>e.cities.includes(id)); if(!evs.length) return null; const t=md(today()); return evs.slice().sort((a,b)=>((a.from<t?'1':'0')+a.from)<((b.from<t?'1':'0')+b.from)?-1:1)[0]; };
 const SNDP = (k,d) => { try{ const v=localStorage.getItem(k); return v===null?d:v; }catch(e){ return d; } };
 let soundOn = SNDP('pm-snd','1')!=='0', combo = 0, lastStampT = 0;
-const SND = { music: SNDP('pm-mus','1')!=='0', musV: +SNDP('pm-musv','0.6'), fxV: +SNDP('pm-fxv','0.9'), ambV: +SNDP('pm-ambv','0.6'), amb: SNDP('pm-amb','1')!=='0', quiet: SNDP('pm-quiet','0')==='1' };
+const SND = { music: SNDP('pm-mus','1')!=='0', musV: +SNDP('pm-musv','0.05'), fxV: +SNDP('pm-fxv','0.9'), ambV: +SNDP('pm-ambv','0.6'), amb: SNDP('pm-amb','1')!=='0', quiet: SNDP('pm-quiet','0')==='1' };
 const saveSnd = () => { try{ localStorage.setItem('pm-snd', soundOn?'1':'0'); localStorage.setItem('pm-mus', SND.music?'1':'0'); localStorage.setItem('pm-musv', SND.musV); localStorage.setItem('pm-fxv', SND.fxV); localStorage.setItem('pm-ambv', SND.ambV); localStorage.setItem('pm-amb', SND.amb?'1':'0'); localStorage.setItem('pm-quiet', SND.quiet?'1':'0'); }catch(e){} };
 let trip = {};
 
