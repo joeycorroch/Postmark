@@ -92,6 +92,11 @@ html.fresh .toprow .chip{font-family:var(--font-display);font-weight:700}
 html.fresh .bcard{border:0;border-radius:24px;box-shadow:0 14px 34px rgba(30,43,51,.16);background:linear-gradient(180deg,#fff,#F4FBF6)}
 html.fresh .bcard .bar{border:0;background:#E3F4E9;height:10px}
 html.fresh .bcard .bar i{background:linear-gradient(90deg,#00C56E,#3FDB8E);border-radius:999px}
+html.fresh svg.map .grat path{fill:none;vector-effect:non-scaling-stroke;stroke-linecap:round}
+html.fresh svg.map .grat .gsh{stroke:#16697C;stroke-opacity:.22;stroke-width:3.4px;transform:translateY(1.1px)}
+html.fresh svg.map .grat .gln{stroke:#fff;stroke-opacity:.88;stroke-width:1.25px}
+html.fresh svg.map .grat .geq{stroke:#FFC531;stroke-opacity:1;stroke-width:1.8px}
+html.fresh .art .wtile svg.map .grat .gsh{transform:translateY(.4px)}
 html.fresh svg.map .topo .tlow{fill:#BFE3A2;fill-opacity:.55}
 html.fresh svg.map .topo .thigh{fill:#FFF2DC;fill-opacity:.5}
 html.fresh .art svg.map .speck{display:none}
@@ -105,6 +110,10 @@ html.fresh svg.map .topo .tl.h.g{stroke-opacity:.3}
 #onboard .obpip{display:flex;align-items:flex-end;gap:6px;margin:-6px 0 8px}
 #onboard .obpip .postie{flex-shrink:0;animation:waddle 2.6s ease-in-out infinite;transform-origin:50% 95%}
 #onboard .obpip span{margin-bottom:34px;padding:9px 12px;border-radius:16px 16px 16px 4px;background:#fff;box-shadow:0 8px 18px rgba(30,43,51,.12);font:600 13px/1.35 var(--font-body);color:var(--ink-navy)}
+#pipPop{position:absolute;left:10px;bottom:96px;z-index:95;display:flex;align-items:flex-end;gap:2px;pointer-events:none;transform:translateY(140%);opacity:0;transition:transform .45s cubic-bezier(.3,1.5,.5,1),opacity .3s}
+#pipPop.on{transform:none;opacity:1}
+#pipPop.on .postie{animation:phop .5s .35s cubic-bezier(.3,1.6,.5,1) 2;transform-origin:50% 95%}
+#pipPop span{margin-bottom:44px;padding:9px 12px;border-radius:16px 16px 16px 4px;background:#fff;box-shadow:0 10px 24px rgba(30,43,51,.18);font:700 13px/1.2 var(--font-display);color:var(--ink-navy);white-space:nowrap}
 .piptip{display:flex;align-items:center;gap:10px;margin:18px 20px 0;padding:12px 14px 12px 6px;border-radius:24px;background:linear-gradient(135deg,#E3F8EB,#FFF6D6);box-shadow:0 10px 26px rgba(30,43,51,.08)}
 .piptip .pz{flex-shrink:0;display:flex}.piptip .postie{animation:waddle 2.6s ease-in-out infinite;transform-origin:50% 95%}
 .piptip small{display:block;font:800 10.5px/1 var(--font-body);letter-spacing:.1em;text-transform:uppercase;color:#00A35A}
@@ -3661,7 +3670,7 @@ const REWARDS = {
   ancient:{kind:'outfit', id:'expl', name:'Explorer hat', blurb:'A safari hat and khaki sleeve for your stamp hand.'},
   sun:{kind:'cover', id:'sunset', name:'Sunset cover', blurb:'A sunset passport cover in orange, pink and purple.'}
 };
-const OUTFITS = [{id:'postie', name:'Postie', set:null}, {id:'cond', name:'Conductor', set:'tram'}, {id:'chef', name:'Chef', set:'food'}, {id:'expl', name:'Explorer', set:'ancient'}];
+const OUTFITS = [{id:'postie', name:'Mail carrier', set:null}, {id:'cond', name:'Conductor', set:'tram'}, {id:'chef', name:'Chef', set:'food'}, {id:'expl', name:'Explorer', set:'ancient'}];
 const COVERS = [{id:'classic', name:'Classic', set:null}, {id:'sunset', name:'Sunset', set:'sun'}];
 let outfit='postie', cover='classic';
 const unlockedBy = setId => !setId || doneSets().some(st=>st.id===setId);
@@ -3876,6 +3885,19 @@ document.body.insertAdjacentHTML('afterbegin', `<svg width="0" height="0" style=
 const CONT_TONES=[[15,52,28,16,'eu'],[95,45,55,22,'as'],[100,15,28,14,'as'],[45,27,18,11,'me'],[20,5,30,32,'af'],[-100,48,45,25,'na'],[-90,15,15,10,'na'],[-60,-18,22,32,'sa'],[135,-25,24,15,'oc'],[172,-41,6,8,'oc'],[-42,73,18,11,'po'],[0,-78,200,10,'po']];
 const HIGHLANDS=[[88,33,13,5.5],[76,35,5,3.5],[95,28,6,3],[102,30,4,6],[-77,-5,3.5,10],[-69,-21,4.5,9],[-71,-38,3.2,9],[-115,46,7,11],[-108,37,5,6],[-120,58,4,6],[-101,22,4,5],[10,46,5,1.8],[-4,32,6,2],[39,9,5,5.5],[44,42.5,4.5,1.3],[55,32,9,4],[69,38,4,3],[60,58,3.4,8],[14,64,4.5,6],[29,-29,4,4],[148,-29,3.6,9],[-45,-17,6,6],[-80,38,3,6],[100,47,9,3],[135,36,3,4],[172,-43,2,4],[-3,40,4,2.5],[24,42,3,2],[37,0,3.5,4]];
 /* organic contour lines: each highland is a stack of wobbly rings, each lowland a soft green blob */
+const GRAT_CACHE={};
+/* globe lines: meridians and parallels drawn on the sea, under the raised land, each with a soft shadow for depth */
+function gratSVG(lv, aff, offs){
+  const key=lv+':'+aff.map(v=>v.toFixed(3)).join(','); if(GRAT_CACHE[key]) return GRAT_CACHE[key];
+  const [ax,bx,ay,by]=aff, span=390/Math.abs(ax), step=[1,2,5,10,15,30].find(v=>span/v<=7)||30;
+  const la1=(844-by)/ay, la2=(0-by)/ay, lat0=Math.ceil(Math.max(-80,Math.min(la1,la2))/step)*step, lat1=Math.floor(Math.min(80,Math.max(la1,la2))/step)*step;
+  const L=[], E=[];
+  for(let la=lat0; la<=lat1; la+=step){ const y=ay*la+by; if(y<-10||y>854) continue; (la===0&&lv==='world'?E:L).push(`M-60 ${y.toFixed(2)}H450`); }
+  offs.forEach(o=>{ const lo0=Math.ceil(((-60-bx)/ax-o)/step)*step, lo1=Math.floor(((450-bx)/ax-o)/step)*step;
+    for(let lo=lo0; lo<=lo1; lo+=step){ if(lo<-180||lo>180) continue; const x=ax*(lo+o)+bx, yA=ay*80+by, yB=ay*-80+by; L.push(`M${x.toFixed(2)} ${Math.max(-10,Math.min(yA,yB)).toFixed(2)}V${Math.min(854,Math.max(yA,yB)).toFixed(2)}`); } });
+  const d=L.join(''), e=E.join('');
+  return GRAT_CACHE[key]=`<g class="grat"><path d="${d}" class="gsh"/><path d="${d}" class="gln"/>${e?`<path d="${e}" class="gsh"/><path d="${e}" class="geq"/>`:''}</g>`;
+}
 const TOPO_CACHE={};
 function topoSVG(lv, aff, offs){
   const key=lv+':'+aff.map(v=>v.toFixed(3)).join(','); if(TOPO_CACHE[key]) return TOPO_CACHE[key];
@@ -3974,14 +3996,13 @@ function biomeWrap(lv, inner){
   const elF=(lon,lat,rx,ry,fill,op=1)=>offs.map(o=>{ const x=ax*(lon+o)+bx, y=ay*lat+by, RX=Math.abs(ax*rx), RY=Math.abs(ay*ry);
     if(x+RX<-40||x-RX>430||y+RY<-40||y-RY>884) return ''; return `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${RX.toFixed(1)}" ry="${RY.toFixed(1)}" fill="${fill}"${op<1?` fill-opacity="${op}"`:''}/>`; }).join('');
   const topo = FR ? CONT_TONES.map(([lon,lat,rx,ry,k])=>elF(lon,lat,rx,ry,`url(#ctw-${k})`)).join('')
-    + topoSVG(lv, aff, offs)
     + BIOMES.concat(seasonBiomes()).filter(b=>b[4]==='snow').map(b=>elF(b[0],b[1],b[2],b[3],'#FFFFFF',.85)).join('') : '';
   const ALL=BIOMES.concat(seasonBiomes()), land=FR?topo:ALL.filter(b=>b[4]!=='deep').map(b=>el(...b)).join(''), sea0=FR?'':ALL.filter(b=>b[4]==='deep').map(b=>el(...b)).join('');
   const k=lv==='world'?1/(WG.z||2):1, snowy=new Date().getMonth()+1, winter=[12,1,2,3].includes(snowy);
   const SEA=new Set(['wave','iceberg','compass']);
   const dd=t=>DOODLES.filter(d=>(t==='sea')===SEA.has(d[2])).map(([lon,lat,kind])=>offs.map(o=>{ const x=ax*(lon+o)+bx, y=ay*lat+by; if(x<-20||x>410||y<-20||y>864) return '';
     const sym = kind==='pine' && winter && lat>50 ? 'pinesnow' : kind; return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${k.toFixed(3)})">${DOODLE[sym]}</g>`; }).join('')).join('');
-  const sea=sea0+`<g class="doodle">${dd('sea')}</g>`, landD=FR?'':`<g class="doodle">${dd('land')}</g>`;
+  const sea=sea0+(FR?gratSVG(lv,aff,offs):'')+`<g class="doodle">${dd('sea')}</g>`, landD=FR?'':`<g class="doodle">${dd('land')}</g>`;
   let out=inner; const m=inner.match(/<g class="land"[^>]*>([\s\S]*?)<\/g>/);
   if(m && land){ const id='bc-'+lv; out=inner.replace(m[0], m[0]+`<clipPath id="${id}">${m[1]}</clipPath><g class="biome" clip-path="url(#${id})">${land}</g>`); }
   const lastG=out.lastIndexOf('</g>');
@@ -4420,7 +4441,7 @@ function renderBQ(){ const el=$('#bqz'); if(!el) return; const qs=dailyQuiz(BQ.d
 $('#phone').addEventListener('click', e=>{ const box=$('#bqz'); if(!box || !box.contains(e.target)) return;
   if(e.target.closest('[data-bqclose]') || e.target===box) return closeBQuiz();
   const o=e.target.closest('[data-bqopt]'); if(o && !bqRev){ const qs=dailyQuiz(BQ.d), i=BQ.picks.length, k=+o.dataset.bqopt; if(i>=7) return;
-    BQ.picks.push(k); bqRev=true; const right=k===qs[i].a, before=bqTotal; if(right){ bqTotal++; SFX.right(); } else SFX.wrong();
+    BQ.picks.push(k); bqRev=true; const right=k===qs[i].a, before=bqTotal; if(right){ bqTotal++; SFX.right(); try{ pipReact('right'); }catch(e){} } else SFX.wrong();
     if(BQ.picks.length===7 && bqStreak.last!==BQ.d){ bqStreak.n = bqStreak.last===addDays(BQ.d,-1) ? bqStreak.n+1 : 1; bqStreak.last=BQ.d; bqStreak.best=Math.max(bqStreak.best||0, bqStreak.n); }
     saveState(); renderBQ(); if(before<10 && bqTotal>=10) setTimeout(()=>{ checkUnlocks(); toast('10 right answers! The Balloonist cap is yours.'); }, 700); return; }
   if(e.target.closest('[data-bqnext]')){ bqRev=false; renderBQ(); }
@@ -4624,6 +4645,14 @@ function postieLine(){ if(LOC.on && LOC.pos){ const n=Object.keys(CITIES).filter
     : h<21 ? ['Evening! Perfect time for a postcard.',`Sunset somewhere lovely. Fancy ${C.name}?`,'Zoom in to spot animals and message bottles.']
     : ['Getting late. One more city before bed?','Night owl? Tap me for a surprise city.','The planes are still flying. Zoom in!'];
   return T[(new Date().getDate()+Object.keys(visited).length)%T.length]; }
+let pipT=0;
+function pipReact(kind){ if(!document.documentElement.classList.contains('fresh')) return;
+  const say={stamp:['Coo! Nice stamp!','Another one for the passport!','Stamped! Where next?','Ooh, that one’s shiny!'],right:['Correct! Coo!','You know your stuff!','Nailed it!','Smarty pigeon approves!']}[kind];
+  const line=say[Math.floor(Math.random()*say.length)];
+  const wp=$('#wPostie'); if(wp && level==='world' && ['#passport','#trips','#friends'].every(q=>$(q).hidden) && wp.getBoundingClientRect().width && !document.querySelector('.bqz.on,#sheet.on,#post.on')){ wp.classList.remove('hop'); void wp.offsetWidth; wp.classList.add('hop'); const b=wp.querySelector('.wsay'); if(b){ b.textContent=line; b.style.animation='none'; void b.offsetWidth; b.style.animation=''; } return; }
+  let el=$('#pipPop'); if(!el){ $('#phone').insertAdjacentHTML('beforeend','<div id="pipPop" aria-live="polite"></div>'); el=$('#pipPop'); }
+  el.innerHTML=`${POSTIE(70,'Pip')}<span>${line}</span>`; el.classList.remove('on'); void el.offsetWidth; el.classList.add('on');
+  clearTimeout(pipT); pipT=setTimeout(()=>el.classList.remove('on'), 2600); }
 const PIP_TIPS=[
   ['Stamp it on the spot','Open a city card when you’re actually there and tap “Stamp here”. Those stamps count for gold borders.'],
   ['Remember old trips','Been somewhere before? Add it from the city card and it becomes a blue memory stamp.'],
@@ -5341,7 +5370,7 @@ document.addEventListener('input', e=>{ const r=e.target.closest('[data-sndv]');
   if(k==='mus') SND.musV=v; if(k==='fx') SND.fxV=v; if(k==='amb') SND.ambV=v; sndApply(); });
 document.addEventListener('change', e=>{ const r=e.target.closest('[data-sndv]'); if(r && r.dataset.sndv==='fx') SFX.pop(); });
 /* Each country's stamp has its own voice: azulejo tile clink, wood block, maracas, didgeridoo. */
-function stampSound(c){ allowQ++; try{ stampSound0(c); }finally{ allowQ--; } }
+function stampSound(c){ try{ pipReact('stamp'); }catch(e){} allowQ++; try{ stampSound0(c); }finally{ allowQ--; } }
 function stampSound0(c){
   const buzz = p => { try{ navigator.vibrate && navigator.vibrate(p); }catch(e){} };
   try{
