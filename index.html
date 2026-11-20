@@ -78,6 +78,79 @@ html.fresh #art-world .land path{fill:url(#landW)}
 .wstat{display:flex;align-items:center;gap:5px;height:38px;padding:0 11px;border-radius:13px;background:rgba(255,255,255,.94);box-shadow:0 6px 14px rgba(30,43,51,.10);font:700 15px/1 var(--font-display);color:var(--ink-navy)}
 .wtop .mailbtn{width:46px;height:46px;border-radius:14px;border:0;background:rgba(255,255,255,.94);box-shadow:0 6px 14px rgba(30,43,51,.10)}
 html.fresh #art-world rect[fill="url(#foil)"]{display:none}
+html.fresh .art:not(#art-world) svg.map > g > rect:first-child{fill:url(#oceanC)!important}
+html.fresh .art:not(#art-world) svg.map .sea path{fill:url(#oceanC);stroke:#7FD9A0}
+html.fresh .art:not(#art-world) svg.map .land:not(.speck){filter:url(#landRaise2)}
+html.fresh .art:not(#art-world) svg.map .land path{fill:url(#landC)}
+html.fresh .art:not(#art-world) svg.map .hl:not(.speck){filter:url(#hlRaise)}
+html.fresh .art:not(#art-world) svg.map .hl path{fill:url(#hlC);stroke:#F2B705}
+html.fresh .art:not(#art-world) rect[fill="url(#foil)"]{display:none}
+html.fresh .art:not(#art-world) svg.map>g[filter]{filter:none}
+html.fresh .toprow .search,html.fresh .toprow .chip{border:0!important;border-radius:16px!important;background:rgba(255,255,255,.96)!important;box-shadow:0 8px 20px rgba(30,43,51,.12)!important}
+html.fresh .toprow .search{color:#6B7A82}html.fresh .toprow .search .ic{color:#00B062}
+html.fresh .toprow .chip{font-family:var(--font-display);font-weight:700}
+html.fresh .bcard{border:0;border-radius:24px;box-shadow:0 14px 34px rgba(30,43,51,.16);background:linear-gradient(180deg,#fff,#F4FBF6)}
+html.fresh .bcard .bar{border:0;background:#E3F4E9;height:10px}
+html.fresh .bcard .bar i{background:linear-gradient(90deg,#00C56E,#3FDB8E);border-radius:999px}
+/* ---------- fresh: passport ---------- */
+html.fresh #passport{background:linear-gradient(180deg,#D9F5E3 0,#EAFAF0 260px,#F4FBF6 520px)}
+html.fresh .phead h1{font-weight:800;letter-spacing:-.02em}
+.pstats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0 4px}
+.pstats>span{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:10px 10px 9px;border-radius:18px;box-shadow:0 8px 18px rgba(30,43,51,.08)}
+.pstats svg{width:18px;height:18px}
+.pstats b{font:800 22px/1 var(--font-display);color:var(--ink-navy);margin-top:4px}
+.pstats small{font:600 11px/1.1 var(--font-body);color:rgba(30,43,51,.62)}
+.pstats .ps1{background:linear-gradient(160deg,#FFE1DC,#FFC9C1);color:#E2483A}
+.pstats .ps2{background:linear-gradient(160deg,#D8F1FF,#BFE6FB);color:#1E86C8}
+.pstats .ps3{background:linear-gradient(160deg,#FFF1C2,#FFE08A);color:#D98A00}
+.pstats .ps4{background:linear-gradient(160deg,#D8F8E4,#B6EDCB);color:#00A35A}
+html.fresh .pjump button{border:0;background:rgba(255,255,255,.9);box-shadow:0 4px 12px rgba(30,43,51,.08);font-family:var(--font-display);font-weight:600}
+html.fresh .pjump b{background:#E3F4E9;color:#00A35A}
+html.fresh .sndbtn{border:0}
+html.fresh :is(.bio,.slog,.pcard,.acct,.week,.yircard){border:0!important;border-radius:24px;box-shadow:0 12px 30px rgba(30,43,51,.10)!important}
+html.fresh .pcard.gold{box-shadow:0 0 0 3px #FFC531,0 12px 30px rgba(217,138,0,.22)!important}
+html.fresh .tile{border:2px dashed #CFE3D7;border-radius:16px;background:#F6FBF8}
+html.fresh .tile.lock{border-color:#DDE9E2;background:#FAFDFB;color:#8FA59A}
+html.fresh .tile .sq{border:0;border-radius:12px}
+html.fresh .tile:has(.sq):not(.lock):not(.mem):not(.past){border:0;background:#fff;box-shadow:0 6px 16px rgba(30,43,51,.10)}
+html.fresh .tile.mem,html.fresh .tile.past{border-color:#A9C5FF;background:#EEF4FF}
+html.fresh .tile .vdot,html.fresh .tile .pdot,html.fresh .tile .evb{border:2px solid #fff}
+html.fresh .beenpage{border:0;border-radius:26px;background:linear-gradient(180deg,#E7F0FF,#D9E8FF);box-shadow:0 14px 34px rgba(61,123,255,.16)}
+html.fresh .beenpage .bstats>div{border:0;border-radius:16px;background:#fff;box-shadow:0 4px 12px rgba(61,123,255,.10)}
+html.fresh .addpast,html.fresh #addPast{border:0!important;box-shadow:0 8px 18px rgba(61,123,255,.28)!important}
+html.fresh .week{background:linear-gradient(150deg,#E5DAFF,#FFD1DC 55%,#FFEDB0)}
+html.fresh .chal{border:0;border-radius:18px;box-shadow:0 6px 16px rgba(30,43,51,.08)}
+html.fresh .yircard{background:linear-gradient(135deg,#1E2B33,#2C4250)!important;box-shadow:0 14px 30px rgba(30,43,51,.28)!important}
+html.fresh :is(.setc,.anic){border:0;border-radius:20px;background:#fff;box-shadow:0 8px 20px rgba(30,43,51,.08)}
+html.fresh .anic{border-radius:16px}
+html.fresh .evrow{border:0!important;border-radius:16px;box-shadow:0 6px 16px rgba(30,43,51,.08)}
+html.fresh .evrow.live{box-shadow:0 0 0 2px #00C56E,0 6px 16px rgba(0,197,110,.18)!important}
+html.fresh .lmore{border:0;background:#E3F4E9;color:#00874A;border-radius:14px}
+html.fresh .ward{border:0;border-radius:18px;box-shadow:0 6px 16px rgba(30,43,51,.08)}
+html.fresh .ward.lock{background:#EEF6F1;box-shadow:none}
+html.fresh .ward.on{box-shadow:0 0 0 2px #00C56E,0 6px 16px rgba(0,197,110,.2)}
+html.fresh .locrow{border:0;border-radius:16px;background:#F1FAF4}
+html.fresh .acct .btns button{border:0;border-radius:12px;background:#EEF6F1}
+html.fresh .acct .btns .danger{background:#FFE8E5;color:#C9362A}
+/* ---------- fresh: trips ---------- */
+html.fresh #trips{background:linear-gradient(180deg,#D9F5E3 0,#EAFAF0 260px,#F4FBF6 520px)}
+html.fresh .tcard{border:0;border-radius:24px;box-shadow:0 12px 30px rgba(30,43,51,.12)}
+html.fresh .tband{min-height:96px;background-image:linear-gradient(160deg,rgba(255,255,255,.22),rgba(255,255,255,0) 60%)!important}
+html.fresh .tband b,html.fresh .thero h2,html.fresh .thero .big b{text-shadow:0 2px 10px rgba(0,0,0,.14)}
+html.fresh .tcount{border:0!important;border-radius:16px!important;box-shadow:0 6px 14px rgba(0,0,0,.12)!important}
+html.fresh .tstop{border:0;background:#F1FAF4;box-shadow:inset 0 0 0 1.5px #D5ECDD}
+html.fresh .tstop.done{background:#FFF4CF;box-shadow:inset 0 0 0 1.5px #FFD45C}
+html.fresh .tstop .sq{border:0}
+html.fresh .thero{border:0;border-radius:26px;box-shadow:0 14px 34px rgba(0,150,80,.24);background-image:linear-gradient(160deg,rgba(255,255,255,.2),rgba(255,255,255,0) 55%)!important}
+html.fresh .rmap{border:0;border-radius:22px;box-shadow:0 12px 28px rgba(30,90,107,.18)}
+html.fresh .rstop{border:0;border-radius:18px;background:#fff;box-shadow:0 6px 16px rgba(30,43,51,.09)}
+html.fresh .rstop.done{background:linear-gradient(90deg,#FFF6D8,#fff 70%)}
+html.fresh .rstop .sq{border:0;border-radius:14px}
+html.fresh .rstop .num{border:2px solid #fff;background:#00C56E}
+html.fresh .timing{border:0}
+html.fresh .empty{border:0;border-radius:28px;background:linear-gradient(180deg,#fff,#EAFAF0);box-shadow:0 14px 34px rgba(30,43,51,.10)}
+html.fresh .chip{border-color:transparent}
+
 html.fresh #art-world svg.map>g[filter]{filter:none}
 .wsearch{flex:none!important;margin:12px 16px 0;height:50px;border:0!important;border-radius:16px!important;background:rgba(255,255,255,.96)!important;box-shadow:0 8px 20px rgba(30,43,51,.12)!important;font-size:15.5px;color:#6B7A82}
 .wsearch .ic{color:#00B062}
@@ -89,7 +162,19 @@ html.fresh #art-world svg.map>g[filter]{filter:none}
 @keyframes sayout{to{opacity:0;transform:translateY(6px) scale(.9);visibility:hidden}}
 .wpostie:hover .wsay{animation:none;opacity:1}
 .wsheet{position:absolute;left:0;right:0;bottom:84px;height:236px;z-index:6;box-sizing:border-box;padding:10px 16px 0;border-radius:30px 30px 0 0;background:linear-gradient(180deg,#E9FAEF,#DDF6E6);box-shadow:0 -10px 30px rgba(30,90,107,.16);display:flex;flex-direction:column;gap:12px}
-.wsheet .grab{align-self:center;width:40px;height:5px;border-radius:999px;background:#B7E4C7}
+.wsheet{transition:transform .38s cubic-bezier(.3,.8,.25,1);touch-action:none}
+.wsheet.drag{transition:none}
+.wsheet.min{transform:translateY(186px)}
+.wsheet .grab{align-self:center;flex-shrink:0;width:120px;height:22px;margin:-8px 0 -10px;padding:0;border:0;background:none;display:flex;align-items:center;justify-content:center;cursor:grab}
+.wsheet .grab i{width:44px;height:5px;border-radius:999px;background:#9FD9B5;transition:width .2s}
+.wsheet .grab:hover i{width:56px;background:#7FCE9E}
+.wpeek{position:absolute;left:0;right:0;top:20px;display:flex;align-items:center;justify-content:center;gap:5px;font:600 12.5px/1 var(--font-body);color:#3F6B57;opacity:0;pointer-events:none;transition:opacity .25s}
+.wpeek b{font-family:var(--font-display);color:var(--ink-navy)}
+.wsheet.min .wpeek{opacity:1}
+.wsheet.min>:not(.grab):not(.wpeek){opacity:0;pointer-events:none}
+.wsheet>*{transition:opacity .25s}
+.wpostie{transition:bottom .38s cubic-bezier(.3,.8,.25,1)}
+.wpostie.lo{bottom:142px}
 .wcd{display:flex;align-items:center;gap:12px;padding:12px;border-radius:22px;background:linear-gradient(120deg,#FFE4DC,#FFD0C2);box-shadow:0 8px 18px rgba(255,107,91,.18)}
 .wcd.rw{background:linear-gradient(120deg,#E3ECFF,#C9DAFF);box-shadow:0 8px 18px rgba(61,123,255,.18)}
 .wcdi{flex-shrink:0;width:56px;height:56px;border-radius:16px;background:#fff;box-shadow:0 4px 10px rgba(255,107,91,.2);display:flex;align-items:center;justify-content:center}
@@ -1782,7 +1867,7 @@ svg.wov.wnl{z-index:1}
     <div id="onboard" role="dialog" aria-modal="true" aria-label="Getting started"></div>
     <div id="auth" role="dialog" aria-modal="true" aria-label="Sign in"></div>
     <div id="srch" role="dialog" aria-modal="true" aria-label="Search"></div>
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="oceanW" gradientUnits="userSpaceOnUse" x1="0" y1="110" x2="0" y2="300"><stop offset="0" stop-color="#A9E7F1"/><stop offset="1" stop-color="#5CC6DF"/></linearGradient><linearGradient id="landW" gradientUnits="userSpaceOnUse" x1="0" y1="125" x2="0" y2="280"><stop offset="0" stop-color="#EEFCF0"/><stop offset="1" stop-color="#BDEFCB"/></linearGradient><filter id="landRaise" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="2" stdDeviation=".9" flood-color="#1B6E80" flood-opacity=".5"/><feDropShadow dx="0" dy=".6" stdDeviation=".2" flood-color="#5FBF86" flood-opacity=".9"/></filter><filter id="fade" x="0" y="0" width="1" height="1"><feColorMatrix type="saturate" values=".88"/><feComponentTransfer><feFuncR type="linear" slope=".92" intercept=".08"/><feFuncG type="linear" slope=".92" intercept=".08"/><feFuncB type="linear" slope=".92" intercept=".07"/></feComponentTransfer></filter><filter id="rough" filterUnits="userSpaceOnUse" x="-100" y="-100" width="590" height="1044"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="30" xChannelSelector="R" yChannelSelector="G"/></filter><pattern id="foil" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><line x1="0" y1="0" x2="0" y2="7" stroke="#FFFFFF" stroke-width="1.6" opacity=".14"/></pattern><filter id="ink" x="-6%" y="-6%" width="112%" height="112%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.2" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="2" seed="9" result="b"/><feColorMatrix in="b" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.75 0 0 0 1.2" result="m"/><feComposite in="d" in2="m" operator="in"/></filter></defs></svg>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="oceanW" gradientUnits="userSpaceOnUse" x1="0" y1="110" x2="0" y2="300"><stop offset="0" stop-color="#A9E7F1"/><stop offset="1" stop-color="#5CC6DF"/></linearGradient><linearGradient id="landW" gradientUnits="userSpaceOnUse" x1="0" y1="125" x2="0" y2="280"><stop offset="0" stop-color="#EEFCF0"/><stop offset="1" stop-color="#BDEFCB"/></linearGradient><linearGradient id="oceanR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A9E7F1"/><stop offset="1" stop-color="#5CC6DF"/></linearGradient><linearGradient id="oceanC" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="844"><stop offset="0" stop-color="#B4EBF3"/><stop offset="1" stop-color="#5CC6DF"/></linearGradient><linearGradient id="landC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2FDF4"/><stop offset="1" stop-color="#BDEFCB"/></linearGradient><linearGradient id="hlC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF1BE"/><stop offset="1" stop-color="#FFD45C"/></linearGradient><filter id="landRaise2" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="5" stdDeviation="3" flood-color="#1B6E80" flood-opacity=".42"/><feDropShadow dx="0" dy="1.6" stdDeviation=".4" flood-color="#5FBF86" flood-opacity=".9"/></filter><filter id="hlRaise" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="6" stdDeviation="3.5" flood-color="#8A5A00" flood-opacity=".35"/><feDropShadow dx="0" dy="2" stdDeviation=".4" flood-color="#E0A100" flood-opacity=".95"/></filter><filter id="landRaise" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="2" stdDeviation=".9" flood-color="#1B6E80" flood-opacity=".5"/><feDropShadow dx="0" dy=".6" stdDeviation=".2" flood-color="#5FBF86" flood-opacity=".9"/></filter><filter id="fade" x="0" y="0" width="1" height="1"><feColorMatrix type="saturate" values=".88"/><feComponentTransfer><feFuncR type="linear" slope=".92" intercept=".08"/><feFuncG type="linear" slope=".92" intercept=".08"/><feFuncB type="linear" slope=".92" intercept=".07"/></feComponentTransfer></filter><filter id="rough" filterUnits="userSpaceOnUse" x="-100" y="-100" width="590" height="1044"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="30" xChannelSelector="R" yChannelSelector="G"/></filter><pattern id="foil" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><line x1="0" y1="0" x2="0" y2="7" stroke="#FFFFFF" stroke-width="1.6" opacity=".14"/></pattern><filter id="ink" x="-6%" y="-6%" width="112%" height="112%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.2" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="2" seed="9" result="b"/><feColorMatrix in="b" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.75 0 0 0 1.2" result="m"/><feComposite in="d" in2="m" operator="in"/></filter></defs></svg>
   </div>
 </div>
 
@@ -4012,10 +4097,10 @@ async function loadReal(){
 /* ---------- world map: a flat globe you swipe left and right; it wraps round, and grows to fill the space above the region panel ---------- */
 const WTURN = 388.8;                      /* 360° of longitude in the world art's own units */
 let worldPan = null, WG = {z:1.9, oy:0, w:WTURN*1.9};
-let WZ=1, WY=0;            /* world zoom on top of the fitted size, and vertical offset once zoomed */
+let WZ=1, WY=0; let WSMIN=false; try{ WSMIN=localStorage.getItem('pm-wsmin')==='1'; }catch(e){}            /* world zoom on top of the fitted size, and vertical offset once zoomed */
 const WZMAX=2.5;
 function worldGeom(){
-  const H=parseFloat($('#phone').style.height)||844, top=136, bottom = H-84-(document.documentElement.classList.contains('fresh')?236:20);
+  const H=parseFloat($('#phone').style.height)||844, top=136, bottom = H-84-(document.documentElement.classList.contains('fresh')?(WSMIN?50:236):20);
   const z0=Math.max(1.35, Math.min(3.1, (bottom-top)/141*.96)), cy=(top+bottom)/2, z=z0*WZ;
   /* the stamped world band (map units 136–277) must keep covering the space between search bar and panel */
   let oy=cy-206.5*z+WY; const lo=bottom-277*z, hi=top-136*z; oy = lo<=hi ? Math.min(hi,Math.max(lo,oy)) : (lo+hi)/2; WY=oy-(cy-206.5*z);
@@ -4389,9 +4474,10 @@ function worldUI(){
       <span class="wstat" aria-label="${streakNow()} day quiz streak">${FLAME_I}${streakNow()}</span><span class="wstat" aria-label="${nSt} stamps">${STAMP_I}${nSt}</span><span class="wstat" aria-label="${nC} countries">${GLOBE_I}${nC}</span>
       <button class="mailbtn ${mailSeen()?'':'new'}" id="mailBtn" aria-label="Today’s postcard${mailSeen()?'':', unread'}">${L(LU.mail,20)}<i></i></button></div>
     <div class="search wsearch">${L(LU.search,20)}<span>Where to next?</span></div>
-    <button class="wpostie" id="wPostie" aria-label="Postie: ${esc(postieLine())}">${POSTIE(84)}<span class="wsay">${esc(postieLine())}</span></button>
-    <div class="wsheet">
-      <span class="grab" aria-hidden="true"></span>
+    <button class="wpostie ${WSMIN?'lo':''}" id="wPostie" aria-label="Postie: ${esc(postieLine())}">${POSTIE(84)}<span class="wsay">${esc(postieLine())}</span></button>
+    <div class="wsheet ${WSMIN?'min':''}" id="wSheet">
+      <button class="grab" id="wGrab" aria-label="${WSMIN?'Show today’s cards':'Hide today’s cards'}" aria-expanded="${!WSMIN}"><i></i></button>
+      <span class="wpeek" aria-hidden="true">${L(LU.left,14).replace('<svg','<svg style="transform:rotate(90deg)"')}<b>Today</b> · ${C.name} · quiz ${qn}/7 · week ${wdone}/${wk.length}</span>
       <div class="wcd ${rw?'rw':''}"><span class="wcdi">${lm(C.icon,'on').replace('<svg','<svg width="40" height="40"')}</span>
         <span class="wcdt"><small>${rw?'Remember when':'City of the day'}</small><b>${miniFlag(C.c)}${C.name}</b><em>${rw?`You stamped it ${agoText(visited[id])}`:`${cotdTimeText(id)} · try ${esc(C.eat.split(',')[0])}`}</em></span>
         <button class="wgo" data-cotd="${id}">Go</button></div>
@@ -4401,6 +4487,23 @@ function worldUI(){
       </div>
     </div>`;
 }
+function setSheet(min){ if(min===WSMIN) return; const lonC=((195-worldPan)/WG.z-195.5)/1.08; WSMIN=min; try{ localStorage.setItem('pm-wsmin', min?'1':'0'); }catch(e){}
+  const sh=$('#wSheet'); if(sh){ sh.classList.toggle('min',min); sh.style.transform=''; const g=$('#wGrab'); g.setAttribute('aria-expanded',String(!min)); g.setAttribute('aria-label',min?'Show today’s cards':'Hide today’s cards'); }
+  const pz=$('#wPostie'); if(pz) pz.classList.toggle('lo',min); try{ SFX.swish&&SFX.swish(); }catch(e){}
+  WY=0; worldGeom(); worldPan=wrapPan(195-(1.08*lonC+195.5)*WG.z); $('#art-world').innerHTML=artHTML('world'); paintWorldZoom(); setTimeout(()=>placeZoom('world'),400); }
+(()=>{ let d=null, block=0;
+  addEventListener('pointerdown', e=>{ const sh=e.target.closest('#wSheet'); if(!sh || level!=='world') return;
+    d={y:e.clientY, t:performance.now(), sh, moved:false, base:WSMIN?186:0, k:($('#phone').getBoundingClientRect().width/390)||1}; });
+  addEventListener('pointermove', e=>{ if(!d) return; const dy=(e.clientY-d.y)/d.k; if(!d.moved && Math.abs(dy)<6) return; d.moved=true; d.sh.classList.add('drag');
+    d.sh.style.transform=`translateY(${Math.max(-12,Math.min(200,d.base+dy)).toFixed(1)}px)`; });
+  addEventListener('pointerup', e=>{ if(!d) return; const {sh,moved,base,k}=d, dy=(e.clientY-d.y)/k, v=dy/Math.max(1,performance.now()-d.t); d=null; sh.classList.remove('drag');
+    if(!moved){ sh.style.transform=''; if(e.target.closest('#wGrab') || sh.classList.contains('min')) setSheet(!WSMIN); return; }
+    block=performance.now(); const end=base+dy; sh.style.transform=''; setSheet(v>.5?true:v<-.5?false:end>93); });
+  addEventListener('pointercancel', ()=>{ if(d){ d.sh.classList.remove('drag'); d.sh.style.transform=''; d=null; } });
+  addEventListener('click', e=>{ if(e.detail===0 && e.target.closest('#wGrab')){ e.stopPropagation(); return setSheet(!WSMIN); } if(e.target.closest('#wSheet.min')||e.target.closest('#wGrab')||(e.target.closest('#wSheet')&&performance.now()-block<400)){ e.stopPropagation(); e.preventDefault(); } }, true);
+})();
+function pStatsHTML(){ const nSt=Object.keys(visited).length, nC=Object.keys(COUNTRIES).filter(c=>COUNTRIES[c].cities.some(k=>visited[k])).length, nG=Object.keys(COUNTRIES).filter(c=>done(c)).length;
+  return `<div class="pstats"><span class="ps1">${STAMP_I}<b>${nSt}</b><small>stamps</small></span><span class="ps2">${GLOBE_I}<b>${nC}</b><small>countries</small></span><span class="ps3">${FLAME_I}<b>${streakNow()}</b><small>day streak</small></span><span class="ps4">${L(LU.star||LU.stamp,18)}<b>${nG}</b><small>gold</small></span></div>`; }
 function cotdTimeText(id){ const tz=CITY_TZ[id]||CTZ[CITIES[id].c]; try{ return new Date().toLocaleTimeString('en-AU',{hour:'numeric',minute:'2-digit',timeZone:tz}).replace(/\s?([ap])\.?m\.?/i,(m,a)=>' '+a.toLowerCase()+'m')+' there'; }catch(e){ return 'Today'; } }
 function classicWorldUI(){ return `<div class="toprow" style="margin-top:8px"><div class="search">${L(LU.search,20)}<span>Search a city or region</span></div><button class="mailbtn ${mailSeen()?'':'new'}" id="mailBtn" aria-label="Today’s postcard">${L(LU.mail,20)}<i></i></button></div>`; }
 function uiHTML(lv){
@@ -5984,7 +6087,9 @@ function routeMapSVG(ids, col, W=346, H=200, big=false){
   const P=pts.map((p,i)=>[W/2+(xs[i]-cx)*sc, H/2+(ys[i]-cy)*sc]);
   const d=P.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' '); let len=0; P.forEach((p,i)=>{ if(i) len+=Math.hypot(p[0]-P[i-1][0],p[1]-P[i-1][1]); });
   const grid=[...Array(6)].map((_,i)=>`<line x1="${i*W/5}" y1="0" x2="${i*W/5}" y2="${H}"/><line x1="0" y1="${i*H/5}" x2="${W}" y2="${i*H/5}"/>`).join('');
-  return `<svg viewBox="0 0 ${W} ${H}" width="100%" height="${big?'auto':H}" aria-hidden="true"><rect width="${W}" height="${H}" fill="${big?'#5FC6E8':'#6FD3F0'}"/><g stroke="#fff" stroke-opacity=".35" stroke-dasharray="2 4">${grid}</g>
+  let land=''; try{ const [ax,bx,ay,by]=lvAff('world'); const a1=kx*sc/ax, e1=W/2+(-bx/ax*kx-cx)*sc, d1=-sc/ay, f1=H/2+(by/ay-cy)*sc;
+    if([a1,e1,d1,f1].every(isFinite)) land=`<g filter="url(#landRaise2)"><g transform="matrix(${a1.toFixed(4)} 0 0 ${d1.toFixed(4)} ${e1.toFixed(2)} ${f1.toFixed(2)})">${MAPS.world.map(p=>`<path d="${p}" fill="url(#landC)" stroke="#7FD9A0" stroke-width="1.2" vector-effect="non-scaling-stroke"/>`).join('')}</g></g>`; }catch(e){}
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" height="${big?'auto':H}" aria-hidden="true"><rect width="${W}" height="${H}" fill="${big?'#5FC6E8':'url(#oceanR)'}"/>${land}<g stroke="#fff" stroke-opacity=".35" stroke-dasharray="2 4">${grid}</g>
     ${P.length>1?`<path d="${d}" fill="none" stroke="#1B1F4B" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" class="${big?'rline2':'rline'}" style="--len:${Math.ceil(len)}"/>`:''}
     ${P.map((p,i)=>`<g class="dot" style="animation-delay:${big?(0.4+i*2.4/Math.max(P.length-1,1)).toFixed(2):0}s"><circle cx="${p[0]}" cy="${p[1]}" r="13" fill="${COUNTRIES[CITIES[ids[i]].c].color}" stroke="#1B1F4B" stroke-width="2.5"/><text x="${p[0]}" y="${p[1]+4.5}" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="800" font-size="13" fill="#1B1F4B">${i+1}</text>
       <text x="${p[0]}" y="${p[1]+(p[1]>H-40?-20:30)}" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="800" font-size="12" fill="#1B1F4B" stroke="#fff" stroke-width="3" paint-order="stroke">${esc(CITIES[ids[i]].name)}</text></g>`).join('')}</svg>`;
@@ -6804,7 +6909,7 @@ function renderPassport(){ saveState();
   const head = cs.length ? `${cs.length} ${cs.length>1?'countries':'country'} and ${nc} ${nc>1?'cities':'city'} stamped on the spot.` : (nm?'No on-the-spot stamps yet.':'No stamps yet.');
   const jump = Object.keys(visited).length ? `<nav class="pjump" aria-label="Passport sections"><button data-jump="#pStamps"><i class="r"></i>Stamps <b>${nc}</b></button><button data-jump="#pMem"><i class="b"></i>Memories <b>${nm}</b></button><button data-jump="#pCol">Collections</button><button data-jump="#pEv">Events</button><button data-jump="#pAni">Animals</button><button data-jump="#pRew">Rewards</button></nav>` : '';
   $('#passport').className = 'cover-'+cover;
-  $('#passport').innerHTML = `<div id="pscroll"><div class="phead"><button class="sndbtn" id="sndBtn" aria-label="Sound settings">${L(SND.quiet?LU.moon:(soundOn||SND.music)?LU.vol:LU.mute,20)}</button><span class="eyebrow">Postmark</span><h1>Your passport</h1><p>${head}</p>${syncPillHTML()}${Object.keys(verified).filter(k=>visited[k]).length?`<span class="honest">${L(LU.shield,14)}Verified traveller · ${Object.keys(verified).filter(k=>visited[k]).length} stamps checked by location</span>`:''}${jump}</div>
+  $('#passport').innerHTML = `<div id="pscroll"><div class="phead"><button class="sndbtn" id="sndBtn" aria-label="Sound settings">${L(SND.quiet?LU.moon:(soundOn||SND.music)?LU.vol:LU.mute,20)}</button><span class="eyebrow">Postmark</span><h1>Your passport</h1><p>${head}</p>${document.documentElement.classList.contains('fresh')?pStatsHTML():''}${syncPillHTML()}${Object.keys(verified).filter(k=>visited[k]).length?`<span class="honest">${L(LU.shield,14)}Verified traveller · ${Object.keys(verified).filter(k=>visited[k]).length} stamps checked by location</span>`:''}${jump}</div>
   ${guestNagHTML()}
   ${bioHTML()}
   ${stampLogHTML()}
