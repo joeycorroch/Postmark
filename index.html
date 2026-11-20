@@ -92,6 +92,63 @@ html.fresh .toprow .chip{font-family:var(--font-display);font-weight:700}
 html.fresh .bcard{border:0;border-radius:24px;box-shadow:0 14px 34px rgba(30,43,51,.16);background:linear-gradient(180deg,#fff,#F4FBF6)}
 html.fresh .bcard .bar{border:0;background:#E3F4E9;height:10px}
 html.fresh .bcard .bar i{background:linear-gradient(90deg,#00C56E,#3FDB8E);border-radius:999px}
+html.fresh svg.map .topo{opacity:.95}
+/* ---------- fresh: city card ---------- */
+html.fresh #sheet{background:rgba(20,40,48,.38);backdrop-filter:blur(2px)}
+html.fresh .ccard{border:0;border-radius:30px;box-shadow:0 20px 50px rgba(20,40,48,.25)}
+html.fresh .ccard .banner{border:0;border-radius:24px;background-image:linear-gradient(160deg,rgba(255,255,255,.24),rgba(255,255,255,0) 55%),radial-gradient(circle at 12% 18%,rgba(255,255,255,.18) 0 60px,transparent 61px)!important;box-shadow:0 12px 26px rgba(20,40,48,.18)}
+html.fresh .ccard .banner .stp,html.fresh .pcfront .stp{border:2px dashed rgba(30,43,51,.25);border-radius:10px;background:#fff;box-shadow:0 8px 18px rgba(0,0,0,.18)}
+html.fresh .ccard .banner .post{border-color:rgba(255,255,255,.7)}
+html.fresh .ccard .tags span{border:0;font-weight:700;padding:0 13px;line-height:30px;height:30px}
+html.fresh .ccard .tags span:nth-child(3n+1){background:#FFE3DE;color:#C8392B}
+html.fresh .ccard .tags span:nth-child(3n+2){background:#D6F5E2;color:#00874A}
+html.fresh .ccard .tags span:nth-child(3n){background:#FFF0BF;color:#8A6200}
+html.fresh .ccard .fact{display:flex;align-items:center;gap:12px}
+html.fresh .ccard .fact>svg{flex-shrink:0;box-sizing:border-box;width:38px!important;height:38px!important;padding:9px;border-radius:13px;background:#FFE3DE;color:#E2483A}
+html.fresh .ccard .fact:nth-of-type(2)>svg{background:#D8F1FF;color:#1E86C8}
+html.fresh .ccard .fact:nth-of-type(3)>svg{background:#FFF0BF;color:#C98600}
+html.fresh .ccard .fact:nth-of-type(4)>svg{background:#D6F5E2;color:#00A35A}
+html.fresh .ccard .fact:nth-of-type(5)>svg{background:#EDE3FF;color:#7A4FD6}
+html.fresh .lockbox{border:0!important;border-radius:20px;background:linear-gradient(135deg,#FFF3C8,#FFE08A)!important;box-shadow:0 8px 20px rgba(217,138,0,.18)}
+html.fresh .lockbox .lk{border-radius:12px}
+html.fresh .lockbox .unl{border-radius:999px;background:linear-gradient(180deg,#FFB300,#E69500)!important;box-shadow:0 4px 0 #B87400!important}
+html.fresh .kpanel{border:0!important;border-radius:24px;background:linear-gradient(180deg,#FFF8DE,#FFF1BE)!important;box-shadow:0 10px 26px rgba(217,138,0,.16)!important}
+html.fresh .kt{border-radius:16px}
+html.fresh .kt.todo{border:2px dashed #EBCB78!important;background:rgba(255,255,255,.55)!important}
+html.fresh .kpanel .bar{border:0!important;background:#fff!important;height:10px}
+html.fresh .kpanel .bar i{background:linear-gradient(90deg,#FFB300,#FFD45C)!important;border-radius:999px}
+html.fresh .xbtn{border:0!important;box-shadow:0 6px 16px rgba(30,43,51,.14)!important}
+html.fresh .ghost{border-radius:999px}
+/* ---------- fresh: friends ---------- */
+html.fresh #friends{background:linear-gradient(180deg,#D9F5E3 0,#EAFAF0 260px,#F4FBF6 520px)}
+html.fresh .fsign{border:0!important;border-radius:26px;background:linear-gradient(150deg,#fff 40%,#E3F8EB)!important;box-shadow:0 14px 34px rgba(0,150,80,.16)!important}
+html.fresh .fsign .face,html.fresh .fcard .face{border:3px solid #fff!important;box-shadow:0 6px 14px rgba(30,43,51,.14)}
+html.fresh .fsb button{border:0!important;border-radius:16px}
+html.fresh .fsb .pri{background:linear-gradient(180deg,#FF7A6B,#F2584A)!important;box-shadow:0 4px 0 #D4463A!important;color:#fff}
+html.fresh .fsb button:not(.pri){background:#fff!important;box-shadow:0 6px 14px rgba(30,43,51,.10)!important}
+html.fresh .fcard{border:0!important;border-radius:24px;box-shadow:0 12px 30px rgba(30,43,51,.10)!important}
+html.fresh .fcard:nth-of-type(3n+1) .face{background:#FFE3DE!important}
+html.fresh .fcard:nth-of-type(3n+2) .face{background:#D8F1FF!important}
+html.fresh .fcard:nth-of-type(3n) .face{background:#FFF0BF!important}
+html.fresh .fbtns button{border:0!important;border-radius:14px;background:#EEF6F1!important}
+html.fresh .fbtns .pri{background:linear-gradient(180deg,#00D277,#00B062)!important;color:#fff;box-shadow:0 3px 0 #009A55!important}
+html.fresh .fmeta span{color:#5B6B73}
+/* ---------- fresh: postcard ---------- */
+html.fresh #post{background:linear-gradient(180deg,#D9F5E3 0,#EAFAF0 300px,#F4FBF6 600px)}
+html.fresh .pcf{border:0!important;border-radius:22px;box-shadow:0 18px 40px rgba(20,40,48,.22)!important}
+html.fresh .pcfront{background-image:linear-gradient(160deg,rgba(255,255,255,.22),rgba(255,255,255,0) 55%)!important}
+html.fresh .pcback{background:linear-gradient(180deg,#fff,#FBFDF9)!important}
+html.fresh .pcst{border:2px dashed rgba(30,43,51,.25)!important;border-radius:8px}
+html.fresh .flipbtn{border:0!important;box-shadow:0 6px 16px rgba(30,43,51,.12)!important;font-family:var(--font-display);font-weight:600}
+html.fresh .pcform label{color:#00A35A}
+html.fresh .sendto button,html.fresh .pchips button{border:0!important;background:#fff;box-shadow:0 4px 12px rgba(30,43,51,.08)}
+html.fresh .sendto button.on,html.fresh .pchips button.on{background:linear-gradient(180deg,#00D277,#00B062)!important;color:#fff;box-shadow:0 3px 0 #009A55}
+html.fresh .envpick button{border:0!important;border-radius:16px;background:#fff;box-shadow:0 6px 14px rgba(30,43,51,.08)}
+html.fresh .envpick button.on{background:#FFF3C8!important;box-shadow:0 0 0 2.5px #FFC531,0 6px 14px rgba(217,138,0,.2)}
+html.fresh .envpick button.lock{background:#F1F6F3;box-shadow:none}
+html.fresh #pcMsg{border:0!important;border-radius:18px;box-shadow:0 6px 16px rgba(30,43,51,.08)}
+html.fresh .pcform .eyebrow,html.fresh .mhead .eyebrow{color:#FF6B5B}
+
 /* ---------- fresh: passport ---------- */
 html.fresh #passport{background:linear-gradient(180deg,#D9F5E3 0,#EAFAF0 260px,#F4FBF6 520px)}
 html.fresh .phead h1{font-weight:800;letter-spacing:-.02em}
@@ -1867,7 +1924,7 @@ svg.wov.wnl{z-index:1}
     <div id="onboard" role="dialog" aria-modal="true" aria-label="Getting started"></div>
     <div id="auth" role="dialog" aria-modal="true" aria-label="Sign in"></div>
     <div id="srch" role="dialog" aria-modal="true" aria-label="Search"></div>
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="oceanW" gradientUnits="userSpaceOnUse" x1="0" y1="110" x2="0" y2="300"><stop offset="0" stop-color="#A9E7F1"/><stop offset="1" stop-color="#5CC6DF"/></linearGradient><linearGradient id="landW" gradientUnits="userSpaceOnUse" x1="0" y1="125" x2="0" y2="280"><stop offset="0" stop-color="#EEFCF0"/><stop offset="1" stop-color="#BDEFCB"/></linearGradient><linearGradient id="oceanR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A9E7F1"/><stop offset="1" stop-color="#5CC6DF"/></linearGradient><linearGradient id="oceanC" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="844"><stop offset="0" stop-color="#B4EBF3"/><stop offset="1" stop-color="#5CC6DF"/></linearGradient><linearGradient id="landC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2FDF4"/><stop offset="1" stop-color="#BDEFCB"/></linearGradient><linearGradient id="hlC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF1BE"/><stop offset="1" stop-color="#FFD45C"/></linearGradient><filter id="landRaise2" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="5" stdDeviation="3" flood-color="#1B6E80" flood-opacity=".42"/><feDropShadow dx="0" dy="1.6" stdDeviation=".4" flood-color="#5FBF86" flood-opacity=".9"/></filter><filter id="hlRaise" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="6" stdDeviation="3.5" flood-color="#8A5A00" flood-opacity=".35"/><feDropShadow dx="0" dy="2" stdDeviation=".4" flood-color="#E0A100" flood-opacity=".95"/></filter><filter id="landRaise" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="2" stdDeviation=".9" flood-color="#1B6E80" flood-opacity=".5"/><feDropShadow dx="0" dy=".6" stdDeviation=".2" flood-color="#5FBF86" flood-opacity=".9"/></filter><filter id="fade" x="0" y="0" width="1" height="1"><feColorMatrix type="saturate" values=".88"/><feComponentTransfer><feFuncR type="linear" slope=".92" intercept=".08"/><feFuncG type="linear" slope=".92" intercept=".08"/><feFuncB type="linear" slope=".92" intercept=".07"/></feComponentTransfer></filter><filter id="rough" filterUnits="userSpaceOnUse" x="-100" y="-100" width="590" height="1044"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="30" xChannelSelector="R" yChannelSelector="G"/></filter><pattern id="foil" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><line x1="0" y1="0" x2="0" y2="7" stroke="#FFFFFF" stroke-width="1.6" opacity=".14"/></pattern><filter id="ink" x="-6%" y="-6%" width="112%" height="112%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.2" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="2" seed="9" result="b"/><feColorMatrix in="b" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.75 0 0 0 1.2" result="m"/><feComposite in="d" in2="m" operator="in"/></filter></defs></svg>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="oceanW" gradientUnits="userSpaceOnUse" x1="0" y1="110" x2="0" y2="300"><stop offset="0" stop-color="#A9E7F1"/><stop offset="1" stop-color="#5CC6DF"/></linearGradient><linearGradient id="landW" gradientUnits="userSpaceOnUse" x1="0" y1="125" x2="0" y2="280"><stop offset="0" stop-color="#EEFCF0"/><stop offset="1" stop-color="#BDEFCB"/></linearGradient><radialGradient id="ctw-eu"><stop offset="0" stop-color="#BFEBD9" stop-opacity=".95"/><stop offset=".62" stop-color="#BFEBD9" stop-opacity=".85"/><stop offset="1" stop-color="#BFEBD9" stop-opacity="0"/></radialGradient><radialGradient id="ctw-as"><stop offset="0" stop-color="#DDF0B4" stop-opacity=".95"/><stop offset=".62" stop-color="#DDF0B4" stop-opacity=".85"/><stop offset="1" stop-color="#DDF0B4" stop-opacity="0"/></radialGradient><radialGradient id="ctw-af"><stop offset="0" stop-color="#FFE5B5" stop-opacity=".95"/><stop offset=".62" stop-color="#FFE5B5" stop-opacity=".85"/><stop offset="1" stop-color="#FFE5B5" stop-opacity="0"/></radialGradient><radialGradient id="ctw-na"><stop offset="0" stop-color="#C9EFC9" stop-opacity=".95"/><stop offset=".62" stop-color="#C9EFC9" stop-opacity=".85"/><stop offset="1" stop-color="#C9EFC9" stop-opacity="0"/></radialGradient><radialGradient id="ctw-sa"><stop offset="0" stop-color="#B5ECC0" stop-opacity=".95"/><stop offset=".62" stop-color="#B5ECC0" stop-opacity=".85"/><stop offset="1" stop-color="#B5ECC0" stop-opacity="0"/></radialGradient><radialGradient id="ctw-oc"><stop offset="0" stop-color="#FFDCC2" stop-opacity=".95"/><stop offset=".62" stop-color="#FFDCC2" stop-opacity=".85"/><stop offset="1" stop-color="#FFDCC2" stop-opacity="0"/></radialGradient><radialGradient id="ctw-me"><stop offset="0" stop-color="#F7E7B8" stop-opacity=".95"/><stop offset=".62" stop-color="#F7E7B8" stop-opacity=".85"/><stop offset="1" stop-color="#F7E7B8" stop-opacity="0"/></radialGradient><radialGradient id="ctw-po"><stop offset="0" stop-color="#F4FBFF" stop-opacity=".95"/><stop offset=".62" stop-color="#F4FBFF" stop-opacity=".85"/><stop offset="1" stop-color="#F4FBFF" stop-opacity="0"/></radialGradient><filter id="topoEdge" x="-5%" y="-5%" width="110%" height="110%"><feMorphology in="SourceAlpha" operator="dilate" radius=".55" result="d"/><feComposite in="d" in2="SourceAlpha" operator="out" result="e"/><feFlood flood-color="#8C9A5B" flood-opacity=".3"/><feComposite in2="e" operator="in" result="l"/><feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="l"/></feMerge></filter><filter id="landRaiseR" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="2.2" stdDeviation="1.4" flood-color="#1B6E80" flood-opacity=".4"/></filter><linearGradient id="oceanR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A9E7F1"/><stop offset="1" stop-color="#5CC6DF"/></linearGradient><linearGradient id="oceanC" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="844"><stop offset="0" stop-color="#B4EBF3"/><stop offset="1" stop-color="#5CC6DF"/></linearGradient><linearGradient id="landC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2FDF4"/><stop offset="1" stop-color="#BDEFCB"/></linearGradient><linearGradient id="hlC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF1BE"/><stop offset="1" stop-color="#FFD45C"/></linearGradient><filter id="landRaise2" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="5" stdDeviation="3" flood-color="#1B6E80" flood-opacity=".42"/><feDropShadow dx="0" dy="1.6" stdDeviation=".4" flood-color="#5FBF86" flood-opacity=".9"/></filter><filter id="hlRaise" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="6" stdDeviation="3.5" flood-color="#8A5A00" flood-opacity=".35"/><feDropShadow dx="0" dy="2" stdDeviation=".4" flood-color="#E0A100" flood-opacity=".95"/></filter><filter id="landRaise" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="2" stdDeviation=".9" flood-color="#1B6E80" flood-opacity=".5"/><feDropShadow dx="0" dy=".6" stdDeviation=".2" flood-color="#5FBF86" flood-opacity=".9"/></filter><filter id="fade" x="0" y="0" width="1" height="1"><feColorMatrix type="saturate" values=".88"/><feComponentTransfer><feFuncR type="linear" slope=".92" intercept=".08"/><feFuncG type="linear" slope=".92" intercept=".08"/><feFuncB type="linear" slope=".92" intercept=".07"/></feComponentTransfer></filter><filter id="rough" filterUnits="userSpaceOnUse" x="-100" y="-100" width="590" height="1044"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="30" xChannelSelector="R" yChannelSelector="G"/></filter><pattern id="foil" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><line x1="0" y1="0" x2="0" y2="7" stroke="#FFFFFF" stroke-width="1.6" opacity=".14"/></pattern><filter id="ink" x="-6%" y="-6%" width="112%" height="112%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.2" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="2" seed="9" result="b"/><feColorMatrix in="b" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.75 0 0 0 1.2" result="m"/><feComposite in="d" in2="m" operator="in"/></filter></defs></svg>
   </div>
 </div>
 
@@ -3764,6 +3821,9 @@ document.body.insertAdjacentHTML('afterbegin', `<svg width="0" height="0" style=
   ${[['bmf',{desert:['#FFD98A',.85],jungle:['#4FD08A',.7],temperate:['#9BE3A8',.75],taiga:['#6CC98F',.7],savanna:['#F6E08A',.8],mountain:['#D5C4A2',.8],snow:['#FFFFFF',1],tundra:['#CFE9D6',.8],deep:['#4CC3E0',.16],autumn:['#FFB37A',.65],spring:['#8EE68A',.75]}],['bm',{desert:['#F2A94A',.95],jungle:['#3E9A4E',.95],temperate:['#86C460',.9],taiga:['#4F8F5E',.92],savanna:['#D6BE45',.88],mountain:['#A2865F',.92],snow:['#FFFFFF',1],tundra:['#BCCDA4',.85],deep:['#2F78A8',.55],autumn:['#E0782F',.72],spring:['#6CCB4E',.8]}]].map(([pre,set])=>Object.entries(set).map(([k,[c,a]])=>`<radialGradient id="${pre}-${k}"><stop offset="0" stop-color="${c}" stop-opacity="${a}"/><stop offset=".55" stop-color="${c}" stop-opacity="${(a*.72).toFixed(2)}"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient>`).join('')).join('')}</defs></svg>`);
 /* ---------- natural shading: deserts, forests, mountains, snow and deep ocean, as soft washes under the paper grain ---------- */
 /* [lon, lat, radius in degrees across, radius down, kind, tilt] */
+/* fresh map: soft tint per continent, then simple terraced highlands (lon, lat, rx, ry) */
+const CONT_TONES=[[15,52,28,16,'eu'],[95,45,55,22,'as'],[100,15,28,14,'as'],[45,27,18,11,'me'],[20,5,30,32,'af'],[-100,48,45,25,'na'],[-90,15,15,10,'na'],[-60,-18,22,32,'sa'],[135,-25,24,15,'oc'],[172,-41,6,8,'oc'],[-42,73,18,11,'po'],[0,-78,200,10,'po']];
+const HIGHLANDS=[[88,33,13,5.5],[76,35,5,3.5],[95,28,6,3],[102,30,4,6],[-77,-5,3.5,10],[-69,-21,4.5,9],[-71,-38,3.2,9],[-115,46,7,11],[-108,37,5,6],[-120,58,4,6],[-101,22,4,5],[10,46,5,1.8],[-4,32,6,2],[39,9,5,5.5],[44,42.5,4.5,1.3],[55,32,9,4],[69,38,4,3],[60,58,3.4,8],[14,64,4.5,6],[29,-29,4,4],[148,-29,3.6,9],[-45,-17,6,6],[-80,38,3,6],[100,47,9,3],[135,36,3,4],[172,-43,2,4],[-3,40,4,2.5],[24,42,3,2],[37,0,3.5,4]];
 const BIOMES=[
   [12,22,26,8,'desert'],[-5,25,10,7,'desert'],[46,23,10,7,'desert'],[71,27,4,3,'desert'],[57,31,8,4,'desert'],[103,42,14,4,'desert'],[83,39,7,3,'desert'],[132,-24,14,7,'desert'],[21,-23,6,4,'desert'],[-69,-22,2.5,6,'desert'],[-113,34,7,5,'desert'],[15,-22,2,6,'desert'],
   [-62,-4,14,8,'jungle'],[21,1,10,6,'jungle'],[102,14,8,8,'jungle'],[113,-2,13,4,'jungle'],[-87,14,5,4,'jungle'],[142,-5,6,3,'jungle'],[-75,5,5,5,'jungle'],
@@ -3821,12 +3881,18 @@ function biomeWrap(lv, inner){
   const el=(lon,lat,rx,ry,t,rot=0)=>offs.map(o=>{ const x=ax*(lon+o)+bx, y=ay*lat+by, RX=Math.abs(ax*rx), RY=Math.abs(ay*ry);
     if(x+RX<-40||x-RX>430||y+RY<-40||y-RY>884) return '';
     return `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${RX.toFixed(1)}" ry="${RY.toFixed(1)}" fill="url(#${document.documentElement.classList.contains('fresh')?'bmf':'bm'}-${t})"${rot?` transform="rotate(${rot} ${x.toFixed(1)} ${y.toFixed(1)})"`:''}/>`; }).join('');
-  const ALL=BIOMES.concat(seasonBiomes()), land=ALL.filter(b=>b[4]!=='deep').map(b=>el(...b)).join(''), sea0=ALL.filter(b=>b[4]==='deep').map(b=>el(...b)).join('');
+  const FR=document.documentElement.classList.contains('fresh');
+  const elF=(lon,lat,rx,ry,fill,op=1)=>offs.map(o=>{ const x=ax*(lon+o)+bx, y=ay*lat+by, RX=Math.abs(ax*rx), RY=Math.abs(ay*ry);
+    if(x+RX<-40||x-RX>430||y+RY<-40||y-RY>884) return ''; return `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${RX.toFixed(1)}" ry="${RY.toFixed(1)}" fill="${fill}"${op<1?` fill-opacity="${op}"`:''}/>`; }).join('');
+  const topo = FR ? CONT_TONES.map(([lon,lat,rx,ry,k])=>elF(lon,lat,rx,ry,`url(#ctw-${k})`)).join('')
+    + [[1,'#D9EDB5',.75],[.66,'#E8DDAF',.9],[.36,'#F6F0DC',.95]].map(([f,c,op])=>`<g class="topo" filter="url(#topoEdge)">${HIGHLANDS.map(([lon,lat,rx,ry])=>elF(lon,lat,rx*f,ry*f,c,op)).join('')}</g>`).join('')
+    + BIOMES.concat(seasonBiomes()).filter(b=>b[4]==='snow').map(b=>elF(b[0],b[1],b[2],b[3],'#FFFFFF',.85)).join('') : '';
+  const ALL=BIOMES.concat(seasonBiomes()), land=FR?topo:ALL.filter(b=>b[4]!=='deep').map(b=>el(...b)).join(''), sea0=FR?'':ALL.filter(b=>b[4]==='deep').map(b=>el(...b)).join('');
   const k=lv==='world'?1/(WG.z||2):1, snowy=new Date().getMonth()+1, winter=[12,1,2,3].includes(snowy);
   const SEA=new Set(['wave','iceberg','compass']);
   const dd=t=>DOODLES.filter(d=>(t==='sea')===SEA.has(d[2])).map(([lon,lat,kind])=>offs.map(o=>{ const x=ax*(lon+o)+bx, y=ay*lat+by; if(x<-20||x>410||y<-20||y>864) return '';
     const sym = kind==='pine' && winter && lat>50 ? 'pinesnow' : kind; return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${k.toFixed(3)})">${DOODLE[sym]}</g>`; }).join('')).join('');
-  const sea=sea0+`<g class="doodle">${dd('sea')}</g>`, landD=`<g class="doodle">${dd('land')}</g>`;
+  const sea=sea0+`<g class="doodle">${dd('sea')}</g>`, landD=FR?'':`<g class="doodle">${dd('land')}</g>`;
   let out=inner; const m=inner.match(/<g class="land"[^>]*>([\s\S]*?)<\/g>/);
   if(m && land){ const id='bc-'+lv; out=inner.replace(m[0], m[0]+`<clipPath id="${id}">${m[1]}</clipPath><g class="biome" clip-path="url(#${id})">${land}</g>`); }
   const lastG=out.lastIndexOf('</g>');
@@ -6087,8 +6153,17 @@ function routeMapSVG(ids, col, W=346, H=200, big=false){
   const P=pts.map((p,i)=>[W/2+(xs[i]-cx)*sc, H/2+(ys[i]-cy)*sc]);
   const d=P.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' '); let len=0; P.forEach((p,i)=>{ if(i) len+=Math.hypot(p[0]-P[i-1][0],p[1]-P[i-1][1]); });
   const grid=[...Array(6)].map((_,i)=>`<line x1="${i*W/5}" y1="0" x2="${i*W/5}" y2="${H}"/><line x1="0" y1="${i*H/5}" x2="${W}" y2="${i*H/5}"/>`).join('');
-  let land=''; try{ const [ax,bx,ay,by]=lvAff('world'); const a1=kx*sc/ax, e1=W/2+(-bx/ax*kx-cx)*sc, d1=-sc/ay, f1=H/2+(by/ay-cy)*sc;
-    if([a1,e1,d1,f1].every(isFinite)) land=`<g filter="url(#landRaise2)"><g transform="matrix(${a1.toFixed(4)} 0 0 ${d1.toFixed(4)} ${e1.toFixed(2)} ${f1.toFixed(2)})">${MAPS.world.map(p=>`<path d="${p}" fill="url(#landC)" stroke="#7FD9A0" stroke-width="1.2" vector-effect="non-scaling-stroke"/>`).join('')}</g></g>`; }catch(e){}
+  let land=''; try{
+    /* frame corners in lon/lat, then the most detailed map level that covers them */
+    const fr=[[0,0],[W,H]].map(([x,y])=>[((x-W/2)/sc+cx)/kx, -((y-H/2)/sc+cy)]), lonA=Math.min(fr[0][0],fr[1][0]), lonB=Math.max(fr[0][0],fr[1][0]), latA=Math.min(fr[0][1],fr[1][1]), latB=Math.max(fr[0][1],fr[1][1]);
+    const cs=[...new Set(ids.map(id=>CITIES[id].c))], LVL=c=>Object.keys(CL2).find(l=>CL2[l]===c)||Object.keys(CLEVEL).find(l=>CLEVEL[l]===c);
+    const cand=[]; if(cs.length===1 && LVL(cs[0])) cand.push(LVL(cs[0])); const pars=[...new Set(cs.map(c=>{ const l=LVL(c); return l?PARENT[l]:null; }))]; if(pars.length===1 && pars[0]) cand.push(pars[0]); cand.push('world');
+    const covers=lv=>{ if(lv==='world') return true; const [ax,bx,ay,by]=lvAff(lv); const l0=(0-bx)/ax, l1=(390-bx)/ax, t0=(0-by)/ay, t1=(844-by)/ay; return lonA>=Math.min(l0,l1)-.5 && lonB<=Math.max(l0,l1)+.5 && latA>=Math.min(t0,t1)-.5 && latB<=Math.max(t0,t1)+.5; };
+    const lv=cand.find(l=>{ try{ return MAPS[l] && covers(l); }catch(e){ return false; } })||'world';
+    const M=MAPS[lv], LAND=Array.isArray(M)?M:(M.land||[]), HL=lv==='portugal'?MAPS.portugalHl:(lv==='world'?[]:(M.hl||[])), SEA=lv==='europe'?(MAPS.europeSea||[]):(Array.isArray(M)?[]:(M.sea||[]));
+    const [ax,bx,ay,by]=lvAff(lv); const a1=kx*sc/ax, e1=W/2+(-bx/ax*kx-cx)*sc, d1=-sc/ay, f1=H/2+(by/ay-cy)*sc;
+    const P2=(arr,fill,st)=>arr.map(p=>`<path d="${p}" fill="${fill}" stroke="${st}" stroke-width="1.2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`).join('');
+    if([a1,e1,d1,f1].every(isFinite)) land=`<g transform="matrix(${a1.toFixed(4)} 0 0 ${d1.toFixed(4)} ${e1.toFixed(2)} ${f1.toFixed(2)})"><g filter="url(#landRaiseR)">${P2(LAND,'url(#landC)','#7FD9A0')}</g>${HL.length?`<g filter="url(#landRaiseR)">${P2(HL,'url(#hlC)','#F2B705')}</g>`:''}${P2(SEA,'url(#oceanR)','#7FD9A0')}</g>`; }catch(e){}
   return `<svg viewBox="0 0 ${W} ${H}" width="100%" height="${big?'auto':H}" aria-hidden="true"><rect width="${W}" height="${H}" fill="${big?'#5FC6E8':'url(#oceanR)'}"/>${land}<g stroke="#fff" stroke-opacity=".35" stroke-dasharray="2 4">${grid}</g>
     ${P.length>1?`<path d="${d}" fill="none" stroke="#1B1F4B" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" class="${big?'rline2':'rline'}" style="--len:${Math.ceil(len)}"/>`:''}
     ${P.map((p,i)=>`<g class="dot" style="animation-delay:${big?(0.4+i*2.4/Math.max(P.length-1,1)).toFixed(2):0}s"><circle cx="${p[0]}" cy="${p[1]}" r="13" fill="${COUNTRIES[CITIES[ids[i]].c].color}" stroke="#1B1F4B" stroke-width="2.5"/><text x="${p[0]}" y="${p[1]+4.5}" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="800" font-size="13" fill="#1B1F4B">${i+1}</text>
