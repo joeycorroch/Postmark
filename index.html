@@ -250,6 +250,48 @@ html.fresh .anic.on{background:#E3F8EB;box-shadow:0 0 0 2.5px #00C56E,0 4px 12px
 html.fresh .anic.on .ai{background:#FFF6D8}
 html.fresh .anic:not(.on) .ai{background:#EEF2F0;box-shadow:0 0 0 2px #B8C4BE}
 .aniset{display:flex;justify-content:space-between;align-items:baseline;margin:14px 2px 8px}.aniset b{font:700 15px/1 var(--font-display);color:var(--ink-navy)}.aniset span{font-size:12px;font-weight:700;color:#00A35A}
+.wcloud{pointer-events:auto;cursor:pointer}
+.wcloud.poof>g{animation:cpoof .5s ease-out}
+@keyframes cpoof{50%{transform:scale(1.25)}}
+#art-world.drag .wcloud{pointer-events:none}
+.gmz{z-index:60}
+.gmc{max-height:94%}
+.gmh{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.gmh .gmi{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;box-shadow:0 4px 10px rgba(30,43,51,.1)}
+.gmh small{display:block;font-size:10px;font-weight:800;letter-spacing:.12em;color:#00A35A}
+.gmh b{display:block;font:700 19px/1.2 var(--font-display);color:var(--ink-navy)}
+.gmh .x{margin-left:auto;width:38px;height:38px;border-radius:50%;border:0;background:#fff;box-shadow:0 4px 12px rgba(30,43,51,.12);display:flex;align-items:center;justify-content:center}
+.gprog{display:flex;gap:5px;margin:2px 0 6px}.gprog i{flex:1;height:6px;border-radius:999px;background:#DCEBE2}.gprog i.on{background:#00C56E}.gprog i.cur{background:#FFC531}
+.gqn{display:block;font-size:11px;font-weight:800;letter-spacing:.06em;color:#7A8A92;text-transform:uppercase}
+.gmc h3{margin:6px 0 10px;font:700 21px/1.25 var(--font-display);color:var(--ink-navy)}
+.ghint{margin:-6px 0 10px;font-size:13px;color:#56656D}
+.gsub{margin:0 0 10px;font-size:13px;color:#56656D}
+.gflag{width:120px;height:80px;margin:8px auto 4px;border-radius:12px;overflow:hidden;box-shadow:0 0 0 3px #fff,0 0 0 5px #222B48,0 8px 18px rgba(30,43,51,.2)}.gflag svg{width:100%;height:100%;display:block}
+.gfoot{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:center}.gfoot .btn{width:100%}
+.gfoot .ghost{flex:1;height:44px;border-radius:14px;border:0;background:#fff;box-shadow:0 4px 12px rgba(30,43,51,.1);font:700 14px var(--font-display);color:var(--ink-navy)}
+.gres{text-align:center;padding:4px 0 4px}.gpip{display:flex;align-items:flex-end;justify-content:center;gap:4px;margin-bottom:8px}.gpip>span:not(.pip){margin-bottom:40px;padding:8px 12px;border-radius:14px 14px 14px 4px;background:#fff;box-shadow:0 6px 16px rgba(30,43,51,.12);font:700 13px var(--font-display);color:var(--ink-navy)}
+#phone:has(#gamez.on) :is(#pipPop,.wpostie,.piptip .pz){opacity:0;visibility:hidden}.gres .gsc{font:800 46px/1 var(--font-display);color:var(--ink-navy)}.gres.good .gsc{color:#00A35A}
+.gres p{margin:10px 0 6px;font-size:15px;color:var(--ink-navy)}.gres small{display:block;font-size:12px;color:#7A8A92}
+.gnew{display:inline-block;margin:2px 0 6px;padding:4px 10px;border-radius:999px;background:#FFC531;font:800 12px var(--font-display);color:#1E2B33}
+.gmaze{background:#fff;border-radius:20px;padding:6px;box-shadow:0 6px 16px rgba(30,43,51,.08);touch-action:none;max-width:300px;margin:0 auto}
+.gmaze svg{display:block}.gplane{transition:transform .12s}
+.gpad{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:10px}.gpad>div{display:flex;align-items:center;gap:6px}
+.gpad button{width:52px;height:44px;border:0;border-radius:14px;background:#fff;box-shadow:0 4px 10px rgba(30,43,51,.12);font-size:18px;color:var(--ink-navy)}
+.gpad span{width:90px;text-align:center;font:700 13px var(--font-display);color:#56656D}
+.gslide{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;width:270px;height:256px;margin:0 auto;padding:6px;border-radius:18px;background:#2C3A5C}
+.gslide button,.gslide .gap{border:0;border-radius:10px;background-color:#E3F8EB;background-size:300% 300%;position:relative;padding:0}
+.gslide .gap{background:rgba(255,255,255,.12)}
+.gslide em{position:absolute;right:4px;bottom:3px;font:800 10px var(--font-display);font-style:normal;color:#fff;background:rgba(30,43,51,.5);border-radius:6px;padding:1px 5px}
+.gmini{display:flex;align-items:center;justify-content:space-between;width:270px;margin:10px auto 0;font:700 13px var(--font-display);color:#56656D}
+.gpeek{width:52px;height:50px;border-radius:10px;background:#E3F8EB center/contain no-repeat;box-shadow:0 0 0 2px #fff,0 0 0 4px #222B48}
+.gword{display:flex;justify-content:center;gap:6px;margin:6px 0 14px}.gword span{width:32px;height:40px;border-radius:10px;background:#fff;box-shadow:inset 0 -3px 0 #DCEBE2,0 3px 8px rgba(30,43,51,.08);display:flex;align-items:center;justify-content:center;font:800 20px var(--font-display);color:var(--ink-navy)}
+.gword.shake{animation:shake .35s}
+.gletters{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}.gletters button{width:44px;height:48px;border:0;border-radius:14px;background:#FFC531;box-shadow:0 4px 0 #D9A400;font:800 20px var(--font-display);color:#1E2B33}
+.gletters button:disabled{opacity:.25;box-shadow:none}
+.ggrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.gcard{display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:12px;border:0;border-radius:20px;background:#fff;box-shadow:0 6px 16px rgba(30,43,51,.08);text-align:left}
+.gcard .gmi{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:4px}
+.gcard b{font:700 14px/1.2 var(--font-display);color:var(--ink-navy)}.gcard small{font-size:11.5px;color:#56656D;line-height:1.3}.gcard em{font-style:normal;font-size:11px;font-weight:800;color:#00A35A;margin-top:2px}
 /* springy taps */
 html.fresh :is(button,.wcard,.wcd,.tcard,.fcard,.setc,.anic,.chip,.tile,.kt,.sr,.step){transition:transform .18s cubic-bezier(.3,1.6,.5,1),box-shadow .18s}
 html.fresh :is(button,.wcard,.tcard,.fcard,.sr,.step):active:not(:disabled){transform:scale(.955)}
@@ -5059,6 +5101,123 @@ function postieLine(){ if(AWAY_DAYS>=2 && !awayShown){ const nm=((AVA.bio&&AVA.b
   return T[(new Date().getDate()+Object.keys(visited).length)%T.length]; }
 /* big inline pictures become short blob: links once, so re-rendering the map doesn't re-copy them */
 function blobURL(d){ try{ const i=d.indexOf(','), mime=d.slice(5,d.indexOf(';')), bin=atob(d.slice(i+1)), u=new Uint8Array(bin.length); for(let k=0;k<bin.length;k++) u[k]=bin.charCodeAt(k); return URL.createObjectURL(new Blob([u],{type:mime})); }catch(e){ return d; } }
+/* ================= mini games: started from planes, boats and clouds on the world map, or from Passport ================= */
+const GAMES={
+  capitals:{name:'Capital cities', icon:'🏛️', blurb:'Name the capital', col:'#FFE3DE'},
+  flags:{name:'Flag match', icon:'🚩', blurb:'Which country flies this flag?', col:'#D8F1FF'},
+  where:{name:'Where in the world?', icon:'🧭', blurb:'Continents and countries', col:'#D6F5E2'},
+  maze:{name:'Paper plane maze', icon:'✈️', blurb:'Fly the letter to the postbox', col:'#FFF0BF'},
+  slide:{name:'Pip puzzle', icon:'🧩', blurb:'Slide the tiles back together', col:'#EDE3FF'},
+  scramble:{name:'City scramble', icon:'🔤', blurb:'Unscramble the city name', col:'#FFDCC2'}};
+let GST={}; try{ GST=JSON.parse(localStorage.getItem('pm-games')||'{}')||{}; }catch(e){ GST={}; }
+const gSave=()=>{ try{ localStorage.setItem('pm-games', JSON.stringify(GST)); }catch(e){} };
+const REGNAME={europe:'Europe',asia:'Asia',africa:'Africa',na:'North America',sa:'South America',oc:'Oceania'};
+const shuf=a=>{ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const pick1=a=>a[Math.floor(Math.random()*a.length)];
+let G=null;
+function gShell(body, foot=''){ const g=GAMES[G.kind];
+  return `<div class="bqc gmc"><div class="gmh"><span class="gmi" style="background:${g.col}">${g.icon}</span><div><small>MINI GAME${G.from?` · ${G.from.toUpperCase()}`:''}</small><b>${g.name}</b></div><button class="x" data-gx aria-label="Close">${L(LU.x,18)}</button></div>${body}${foot}</div>`; }
+function gPaint(){ const el=$('#gamez'); if(!el||!G) return; el.innerHTML=GR[G.kind](); }
+function openGame(kind, from, after){ if(!GAMES[kind]) return; G={kind, from, after, step:0, score:0, moves:0, t0:Date.now(), done:false}; GI[kind]();
+  let el=$('#gamez'); if(!el){ $('#phone').insertAdjacentHTML('beforeend','<div id="gamez" class="bqz gmz" role="dialog" aria-label="Mini game"></div>'); el=$('#gamez'); }
+  gPaint(); requestAnimationFrame(()=>el.classList.add('on')); try{ SFX.pop(1.1); }catch(e){} }
+function closeGame(){ const el=$('#gamez'); if(!el) return; el.classList.remove('on'); const after=G&&G.done&&G.after; G=null; setTimeout(()=>{ if(!el.classList.contains('on')) el.remove(); }, 300); }
+function gFinish(score, max, line){ G.done=true; G.score=score; G.max=max; const k=G.kind, s=GST[k]||{p:0,b:null};
+  s.p++; const better = k==='maze'||k==='slide' ? (s.b===null||score<s.b) : (s.b===null||score>s.b); if(better) s.b=score; GST[k]=s; gSave();
+  const good = k==='maze'||k==='slide' ? true : score>=Math.ceil(max*.6);
+  try{ good?SFX.fanfare():SFX.sparkle&&SFX.sparkle(); }catch(e){}
+  G.result={good, better, line}; gPaint(); }
+function gResult(){ const r=G.result, k=G.kind, s=GST[k];
+  const sc = k==='maze' ? `${G.score} moves` : k==='slide' ? `${G.score} moves` : `${G.score} / ${G.max}`;
+  const extra = G.after ? `<button class="btn navy big" data-gafter>${G.after.label}</button>` : '';
+  return gShell(`<div class="gres ${r.good?'good':''}"><div class="gpip">${POSTIE(64,'Pip',r.good?'cheer':'')}<span>${r.good?'Brilliant! Coo coo!':'Nice try! Play again?'}</span></div><div class="gsc">${sc}</div><p>${esc(r.line)}</p>${r.better&&s.p>1?'<span class="gnew">New best!</span>':''}<small>Best: ${k==='maze'||k==='slide'?`${s.b} moves`:`${s.b} / ${G.max}`} · played ${s.p} ${s.p===1?'time':'times'}</small></div>`,
+    `<div class="gfoot">${extra}<button class="ghost" data-gagain>Play again</button><button class="ghost" data-gx>Done</button></div>`); }
+/* ---- quiz-style games ---- */
+function quizRounds(kind){ const cs=Object.keys(COUNTRIES).filter(c=>COUNTRIES[c].cities&&COUNTRIES[c].cities.length), N=6, out=[];
+  const used=new Set();
+  while(out.length<N){ const c=pick1(cs); if(used.has(c)) continue; used.add(c); const K=COUNTRIES[c];
+    if(kind==='capitals'){ if(!CAPITALS[c]) continue; const wrong=shuf(cs.filter(x=>x!==c&&CAPITALS[x]&&CAPITALS[x]!==CAPITALS[c])).slice(0,3).map(x=>CAPITALS[x]); out.push({q:`What is the capital of ${K.name}?`, flag:c, opts:shuf([CAPITALS[c],...wrong]), a:CAPITALS[c]}); }
+    else if(kind==='flags'){ if(!FLAGS[c]) continue; const same=cs.filter(x=>x!==c&&COUNTRIES[x].region===K.region), wrong=shuf(same.length>=3?same:cs.filter(x=>x!==c)).slice(0,3).map(x=>COUNTRIES[x].name); out.push({q:'Which country flies this flag?', big:c, opts:shuf([K.name,...wrong]), a:K.name}); }
+    else { const id=pick1(K.cities), C=CITIES[id];
+      if(Math.random()<.5){ out.push({q:`Which continent is ${C.name} in?`, flag:c, opts:[], a:REGNAME[K.region]}); const o=out[out.length-1]; o.opts=shuf([REGNAME[K.region],...shuf(Object.values(REGNAME).filter(v=>v!==REGNAME[K.region])).slice(0,3)]); }
+      else { const wrong=shuf(cs.filter(x=>x!==c&&COUNTRIES[x].region===K.region)).slice(0,3).map(x=>COUNTRIES[x].name); if(wrong.length<3) continue; out.push({q:`Which country is ${C.name} in?`, hint:C.lmName, opts:shuf([K.name,...wrong]), a:K.name}); } } }
+  return out; }
+function quizInit(){ G.rounds=quizRounds(G.kind); G.pickd=null; }
+function quizRender(){ if(G.result) return gResult(); const r=G.rounds[G.step], N=G.rounds.length;
+  return gShell(`<div class="gprog">${G.rounds.map((_,i)=>`<i class="${i<G.step?'on':i===G.step?'cur':''}"></i>`).join('')}</div><small class="gqn">Question ${G.step+1} of ${N}</small>
+    ${r.big?`<div class="gflag">${flagSVG(r.big).replace('<svg','<svg preserveAspectRatio="none"')}</div>`:''}<h3>${esc(r.q)}</h3>${r.hint?`<p class="ghint">Home of ${esc(r.hint)}</p>`:''}
+    <div class="bqopts">${r.opts.map(o=>{ const st=G.pickd===null?'':o===r.a?'ok':o===G.pickd?'no':'dim'; return `<button data-gopt="${esc(o)}" class="${st}" ${G.pickd!==null?'disabled':''}>${esc(o)}${st==='ok'?`<i>${L(LU.check,14,3)}</i>`:''}</button>`; }).join('')}</div>`,
+    G.pickd!==null?`<div class="gfoot"><button class="btn navy big" data-gnext>${G.step+1<N?'Next question':'See my score'}</button></div>`:''); }
+function quizPick(v){ if(G.pickd!==null) return; const r=G.rounds[G.step]; G.pickd=v; if(v===r.a){ G.score++; SFX.right(); } else SFX.wrong(); gPaint(); }
+function quizNext(){ G.step++; G.pickd=null; if(G.step>=G.rounds.length){ const n=G.score, N=G.rounds.length; return gFinish(n,N, n===N?'Perfect score! You really know your world.':n>=4?'Great work, world traveller!':'Every trip starts somewhere. Try another round!'); } gPaint(); }
+/* ---- maze ---- */
+function mazeInit(){ const W=7,H=9, cells=[...Array(W*H)].map(()=>({n:1,e:1,s:1,w:1,v:0})), st=[0]; cells[0].v=1;
+  while(st.length){ const c=st[st.length-1], x=c%W, y=Math.floor(c/W), nb=[];
+    if(y>0&&!cells[c-W].v) nb.push(['n',c-W,'s']); if(x<W-1&&!cells[c+1].v) nb.push(['e',c+1,'w']); if(y<H-1&&!cells[c+W].v) nb.push(['s',c+W,'n']); if(x>0&&!cells[c-1].v) nb.push(['w',c-1,'e']);
+    if(!nb.length){ st.pop(); continue; } const [d,n,o]=pick1(nb); cells[c][d]=0; cells[n][o]=0; cells[n].v=1; st.push(n); }
+  G.mz={W,H,cells,p:0,trail:[0]}; }
+function mazeRender(){ if(G.result) return gResult(); const {W,H,cells,p,trail}=G.mz, S=38, pad=4, w=W*S+pad*2, h=H*S+pad*2;
+  let walls=''; cells.forEach((c,i)=>{ const x=pad+(i%W)*S, y=pad+Math.floor(i/W)*S; if(c.n) walls+=`M${x} ${y}h${S}`; if(c.w) walls+=`M${x} ${y}v${S}`; if(i%W===W-1&&c.e) walls+=`M${x+S} ${y}v${S}`; if(Math.floor(i/W)===H-1&&c.s) walls+=`M${x} ${y+S}h${S}`; });
+  const ctr=i=>[pad+(i%W)*S+S/2, pad+Math.floor(i/W)*S+S/2], [px,py]=ctr(p), [gx,gy]=ctr(W*H-1);
+  const tr=trail.map(ctr).map(([x,y],i)=>(i?'L':'M')+x+' '+y).join('');
+  return gShell(`<p class="gsub">Guide the paper plane to the postbox. Swipe, use the arrows or your keyboard.</p><div class="gmaze" id="gMaze"><svg viewBox="0 0 ${w} ${h}" width="100%"><rect x="2" y="2" width="${w-4}" height="${h-4}" rx="10" fill="#E8F8EE"/>
+    <path d="${tr}" fill="none" stroke="#9EDCB7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 9"/>
+    <path d="${walls}" stroke="#2C3A5C" stroke-width="5" stroke-linecap="round"/>
+    <g transform="translate(${gx} ${gy})"><rect x="-11" y="-12" width="22" height="20" rx="5" fill="#FF6B5B" stroke="#222B48" stroke-width="2"/><rect x="-7" y="-6" width="14" height="3" rx="1.5" fill="#222B48"/><rect x="-2" y="8" width="4" height="7" fill="#222B48"/></g>
+    <g transform="translate(${px} ${py})" class="gplane"><image href="${PLANE_URL}" x="-15" y="-10" width="30" height="20"/></g></svg></div>
+    <div class="gpad"><button data-gmv="n" aria-label="Up">▲</button><div><button data-gmv="w" aria-label="Left">◀</button><span>${G.moves} moves</span><button data-gmv="e" aria-label="Right">▶</button></div><button data-gmv="s" aria-label="Down">▼</button></div>`); }
+function mazeMove(d){ if(G.result) return; const {W,H,cells}=G.mz, p=G.mz.p; if(cells[p][d]) { try{ SFX.pop(.6); }catch(e){} return; }
+  const n={n:p-W,s:p+W,e:p+1,w:p-1}[d]; G.mz.p=n; G.moves++; const t=G.mz.trail; if(t.length>1&&t[t.length-2]===n) t.pop(); else t.push(n); try{ tone(0,'triangle',600+Math.random()*200,.04,.03); }catch(e){}
+  if(n===W*H-1){ return gFinish(G.moves,0,'Delivered! The postbox is happy.'); } gPaint(); }
+/* ---- sliding puzzle ---- */
+function slideInit(){ let t=[0,1,2,3,4,5,6,7,8], e=8, last=-1; for(let i=0;i<120;i++){ const nb=[e-3,e+3,e%3?e-1:-1,e%3<2?e+1:-1].filter(n=>n>=0&&n<9&&n!==last); const n=pick1(nb); [t[e],t[n]]=[t[n],t[e]]; last=e; e=n; }
+  if(t.every((v,i)=>v===i)) return slideInit(); G.sl={t}; }
+function slideRender(){ if(G.result) return gResult(); const t=G.sl.t;
+  return gShell(`<p class="gsub">Tap a tile next to the gap to slide it. Put Pip back together!</p><div class="gslide">${t.map((v,i)=>v===8?'<span class="gap"></span>':`<button data-gsl="${i}" style="background-image:url(${PIP_SRC});background-position:${(v%3)*50}% ${Math.floor(v/3)*50}%"><em>${v+1}</em></button>`).join('')}</div>
+    <div class="gmini"><span>${G.moves} moves</span><span class="gpeek" style="background-image:url(${PIP_SRC})"></span></div>`); }
+function slideTap(i){ const t=G.sl.t, e=t.indexOf(8); if(!(Math.abs(i-e)===3||(Math.abs(i-e)===1&&Math.floor(i/3)===Math.floor(e/3)))) return;
+  [t[i],t[e]]=[t[e],t[i]]; G.moves++; try{ tone(0,'triangle',520,.05,.04,700); }catch(e){} if(t.every((v,k)=>v===k)) return gFinish(G.moves,0,'Pip is back in one piece!'); gPaint(); }
+/* ---- city scramble ---- */
+function scrInit(){ const ids=shuf(Object.keys(CITIES).filter(id=>/^[A-Za-z]{4,8}$/.test(CITIES[id].name))).slice(0,5);
+  G.sc={ids, sel:[], letters:null, wrong:false}; scrDeal(); }
+function scrDeal(){ const w=CITIES[G.sc.ids[G.step]].name.toUpperCase(); let L2; do{ L2=shuf(w.split('')); }while(L2.join('')===w); G.sc.letters=L2; G.sc.sel=[]; G.sc.wrong=false; }
+function scrRender(){ if(G.result) return gResult(); const id=G.sc.ids[G.step], C=CITIES[id], w=C.name.toUpperCase(), sel=G.sc.sel;
+  return gShell(`<div class="gprog">${G.sc.ids.map((_,i)=>`<i class="${i<G.step?'on':i===G.step?'cur':''}"></i>`).join('')}</div><small class="gqn">Word ${G.step+1} of ${G.sc.ids.length}</small>
+    <h3>A city in ${esc(COUNTRIES[C.c].name)}</h3><p class="ghint">Home of ${esc(C.lmName)}</p>
+    <div class="gword ${G.sc.wrong?'shake':''}">${w.split('').map((_,i)=>`<span>${sel[i]!==undefined?G.sc.letters[sel[i]]:''}</span>`).join('')}</div>
+    <div class="gletters">${G.sc.letters.map((l,i)=>`<button data-glt="${i}" ${sel.includes(i)?'disabled':''}>${l}</button>`).join('')}</div>`,
+    `<div class="gfoot"><button class="ghost" data-gback>Undo</button><button class="ghost" data-gskip>Skip</button></div>`); }
+function scrTap(i){ const sc=G.sc, w=CITIES[sc.ids[G.step]].name.toUpperCase(); if(sc.sel.includes(i)) return; sc.sel.push(i); sc.wrong=false; try{ tone(0,'triangle',700+sc.sel.length*60,.04,.04); }catch(e){}
+  if(sc.sel.length===w.length){ const g=sc.sel.map(k=>sc.letters[k]).join(''); if(g===w){ G.score++; SFX.right(); return setTimeout(scrNext, 450), gPaint(); } SFX.wrong(); sc.wrong=true; sc.sel=[]; }
+  gPaint(); }
+function scrNext(){ if(!G||G.kind!=='scramble') return; G.step++; if(G.step>=G.sc.ids.length){ const n=G.score; return gFinish(n,G.sc.ids.length, n===5?'All five unscrambled. Word wizard!':n>=3?'Nicely done!':'Tricky ones! Have another go.'); } scrDeal(); gPaint(); }
+const GI={capitals:quizInit, flags:quizInit, where:quizInit, maze:mazeInit, slide:slideInit, scramble:scrInit};
+const GR={capitals:quizRender, flags:quizRender, where:quizRender, maze:mazeRender, slide:slideRender, scramble:scrRender};
+document.addEventListener('click', e=>{ const el=e.target.closest('#gamez'); if(!el||!G) { if(el && e.target.closest('[data-gx]')) closeGame(); return; }
+  if(e.target===el || e.target.closest('[data-gx]')) return closeGame();
+  const q=s=>e.target.closest(s);
+  if(q('[data-gagain]')){ const {kind,from,after}=G; return openGame(kind,from,after); }
+  if(q('[data-gafter]')){ const a=G.after; closeGame(); return setTimeout(()=>a.go(), 320); }
+  const o=q('[data-gopt]'); if(o) return quizPick(o.dataset.gopt);
+  if(q('[data-gnext]')) return quizNext();
+  const mv=q('[data-gmv]'); if(mv) return mazeMove(mv.dataset.gmv);
+  const sl=q('[data-gsl]'); if(sl) return slideTap(+sl.dataset.gsl);
+  const lt=q('[data-glt]'); if(lt) return scrTap(+lt.dataset.glt);
+  if(q('[data-gback]')){ G.sc.sel.pop(); return gPaint(); }
+  if(q('[data-gskip]')) return scrNext();
+});
+addEventListener('keydown', e=>{ if(!G||G.kind!=='maze'||!$('#gamez')) return; const d={ArrowUp:'n',ArrowDown:'s',ArrowLeft:'w',ArrowRight:'e'}[e.key]; if(d){ e.preventDefault(); mazeMove(d); } });
+(()=>{ let s=null; addEventListener('pointerdown', e=>{ if(G&&G.kind==='maze'&&e.target.closest('#gMaze')) s=[e.clientX,e.clientY]; });
+  addEventListener('pointerup', e=>{ if(!s) return; const dx=e.clientX-s[0], dy=e.clientY-s[1]; s=null; if(Math.max(Math.abs(dx),Math.abs(dy))<18) return; mazeMove(Math.abs(dx)>Math.abs(dy)?(dx>0?'e':'w'):(dy>0?'s':'n')); }); })();
+/* which game each map object starts */
+let gTurn={boat:0,cloud:0};
+function boatGame(bt){ const k=['capitals','where','flags'][gTurn.boat++%3]; openGame(k,'boat',{label:'Open the message in a bottle', go:()=>bottleNote(null)}); }
+function cloudGame(){ const k=['slide','scramble'][gTurn.cloud++%2]; openGame(k,'cloud'); }
+function planeGame(pl){ openGame('maze','plane',{label:'Fly to a surprise city', go:()=>{ const id=pickRandom(k=>!visited[k]); if(id){ toast(`Surprise! Flying you to ${CITIES[id].name}`); SFX.plane(); flyToCity(id); } }}); }
+function gamesHTML(){ return `<div class="psec" id="pGames"><div class="psh"><h2>Mini games</h2><span>${Object.values(GST).reduce((n,s)=>n+(s.p||0),0)} played</span></div><p class="psub">Tap planes, boats and clouds on the world map to play, or start one here.</p>
+  <div class="ggrid">${Object.entries(GAMES).map(([k,g])=>{ const s=GST[k]; return `<button class="gcard" data-gplay="${k}"><span class="gmi" style="background:${g.col}">${g.icon}</span><b>${g.name}</b><small>${g.blurb}</small><em>${s&&s.b!==null&&s.b!==undefined?(k==='maze'||k==='slide'?`Best ${s.b} moves`:`Best ${s.b}/${k==='scramble'?5:6}`):'Not played yet'}</em></button>`; }).join('')}</div></div>`; }
+document.addEventListener('click', e=>{ const b=e.target.closest('[data-gplay]'); if(b) openGame(b.dataset.gplay,'passport'); });
+
 let tapT=0;
 addEventListener('pointerdown', e=>{ if(!document.documentElement.classList.contains('fresh')) return; const b=e.target.closest('button,.wcard,.tcard,.fcard,.sr,[data-city],[data-country],[data-region]'); if(!b || b.disabled) return;
   const now=performance.now(); if(now-tapT<70) return; tapT=now; try{ tone(0,'sine',1180,.045,.028,1560,.15); }catch(err){} }, true);
@@ -5329,10 +5488,11 @@ $('#srch').addEventListener('click', e=>{
 $('#phone').addEventListener('click', e=>{
   const pcb=e.target.closest('[data-cotdpc]'); if(pcb){ if(stamping) return; return openPostcard(pcb.dataset.cotdpc); }
   if(level==='world' && !busy && !stamping){
-    const pl=e.target.closest('.wplane'); if(pl){ const id=pickRandom(k=>!visited[k]); if(id){ toast(`Surprise! Flying you to ${CITIES[id].name}`); SFX.plane(); flyToCity(id, pl); } return; }
+    const pl=e.target.closest('.wplane'); if(pl){ SFX.plane(); return planeGame(pl); }
+    const cl=e.target.closest('.wcloud'); if(cl){ cl.classList.remove('poof'); void cl.getBoundingClientRect(); cl.classList.add('poof'); return cloudGame(); }
     const an=e.target.closest('[data-wani]'); if(an) return animalFact(an.dataset.wani, an);
     const bl=e.target.closest('[data-wball]'); if(bl){ const n=$('#wnote'); if(n) n.remove(); bl.classList.remove('puff'); void bl.offsetWidth; bl.classList.add('puff'); SFX.burner(); setTimeout(()=>bl.classList.remove('puff'), 1300); if(document.documentElement.classList.contains('fresh')){ letterDrop(bl); return setTimeout(openBQuiz, 950); } return setTimeout(openBQuiz, 380); }
-    const bt=e.target.closest('.wboatw'); if(bt){ const f=$('#wfact'); if(f) f.remove(); return bottleNote(bt); }
+    const bt=e.target.closest('.wboatw'); if(bt){ const f=$('#wfact'); if(f) f.remove(); try{ SFX.uncork(); }catch(err){} return boatGame(bt); }
     if(e.target.closest('[data-wnx]')) return bottleNote(null);
     if(e.target.closest('[data-wnclose]')){ const n=$('#wnote'); if(n) n.remove(); return; }
     const sl=e.target.closest('[data-wsail]'); if(sl){ const id=sl.dataset.wsail; const n=$('#wnote'); if(n) n.remove(); return flyToCity(id); }
@@ -7671,7 +7831,7 @@ function renderPassport(){ saveState();
   <div class="psec" id="pCol"><div class="psh"><h2>Collections</h2><span>${doneSets().length} of ${SETS.length} complete</span></div><p class="psub">Only stamps made on the spot count toward collections and gold.</p>
     <div class="sets">${SETS.map(st=>{const n=setGot(st).length, on=n===st.cities.length;
       return `<div class="setc ${on?'on':''}">${badgeSVG(st,on,58)}<b>${st.name}</b><span>${on?'Complete':`${n} of ${st.cities.length}`}</span><small>${st.cities.map(id=>vst(id)?`<i>${CITIES[id].name}</i>`:CITIES[id].name).join(' · ')}</small></div>`}).join('')}</div></div>
-  <div class="psec" id="pAni"><div class="psh"><h2>Animal spotter</h2><span>${animalsSeen.filter(k=>ANIMALS.some(a=>a.k===k)).length} of ${ANIMALS.length} spotted</span></div><p class="psub">Tap the animals on the world map to spot them. Each full set of 12 wins a reward.</p>
+  ${gamesHTML()}<div class="psec" id="pAni"><div class="psh"><h2>Animal spotter</h2><span>${animalsSeen.filter(k=>ANIMALS.some(a=>a.k===k)).length} of ${ANIMALS.length} spotted</span></div><p class="psub">Tap the animals on the world map to spot them. Each full set of 12 wins a reward.</p>
     ${[1,2].map(st=>{ const L2=ANIMALS.filter(a=>(a.set||1)===st), got=L2.filter(a=>animalsSeen.includes(a.k)).length; return `<div class="aniset"><b>Set ${st}</b><span>${got} of ${L2.length} · ${st===1?'Safari hat':'Ranger badge'}</span></div><div class="anigrid">${L2.map(a=>{ const on=animalsSeen.includes(a.k); return `<div class="anic ${on?'on':''}"><span class="ai"><svg viewBox="-13 -13 26 26" width="40" height="40" aria-hidden="true">${a.svg}</svg>${on?'':'<em>?</em>'}</span><b>${on?esc(a.name):'Not yet'}</b><small>${esc(a.where)}</small></div>`; }).join('')}</div>`; }).join('')}</div>
   <div class="psec" id="pEv"><div class="psh"><h2>Event stamps</h2><span>${Object.keys(eventStamps).length} collected</span></div><div class="evlist">${evShown().map(e=>{ const got2=Object.entries(eventStamps).find(([,v])=>v.ev===e.id), live=e.cities.some(c=>activeEvent(c)&&activeEvent(c).id===e.id), C0=CITIES[got2?got2[0]:e.cities[0]], K0=COUNTRIES[C0.c];
       return `<div class="evrow ${got2?'got':live?'live':''}"><span class="sq" style="background:${K0.color}">${lm(C0.icon,'on').replace('<svg','<svg width="26" height="26"')}</span><div><b>${e.name}</b><span>${e.cities.map(c=>CITIES[c].name).join(' or ')} · ${got2?'collected '+dLong(got2[1].date):e.when}</span></div>${got2?`<em>${L(LU.check,10,3)}</em>`:live?'<em style="background:var(--city-kyoto)">ON NOW</em>':''}</div>`; }).join('')}${evShown().length<EVENTS.length?`<button class="lmore" id="evMore">Show all ${EVENTS.length} events</button>`:''}</div></div>
