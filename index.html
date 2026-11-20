@@ -68,7 +68,7 @@ html.fresh .bubble{border:0;box-shadow:0 10px 24px rgba(30,43,51,.16);border-rad
 html.fresh .empty{border:2px dashed rgba(30,43,51,.14)}
 html.fresh .wnight{opacity:.35}
 /* ---------- Fresh world screen ---------- */
-html.fresh #art-world svg.map > g > rect:first-child{fill:url(#oceanW)!important}
+html.fresh #art-world svg.map > g > rect:first-child{fill:transparent!important}
 html.fresh #art-world .land{filter:url(#landRaise)}
 html.fresh #art-world .land path{fill:url(#landW)}
 .wtop{display:flex;align-items:center;gap:8px;margin:14px 16px 0}
@@ -92,6 +92,13 @@ html.fresh .toprow .chip{font-family:var(--font-display);font-weight:700}
 html.fresh .bcard{border:0;border-radius:24px;box-shadow:0 14px 34px rgba(30,43,51,.16);background:linear-gradient(180deg,#fff,#F4FBF6)}
 html.fresh .bcard .bar{border:0;background:#E3F4E9;height:10px}
 html.fresh .bcard .bar i{background:linear-gradient(90deg,#00C56E,#3FDB8E);border-radius:999px}
+html.fresh #art-world{background:linear-gradient(180deg,#A9E7F1 0%,#7FD6E8 45%,#5CC6DF 100%)}
+.wglobe{position:absolute;left:0;top:0;width:390px;height:100%;pointer-events:none;overflow:visible}
+.wglobe .grat path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.wglobe .grat .gsh{stroke:#16697C;stroke-opacity:.2;stroke-width:3.4px;transform:translateY(1.2px)}
+.wglobe .grat .gln{stroke:#fff;stroke-opacity:.8;stroke-width:1.2px}
+.wglobe .grat .geq{stroke:#FFC531;stroke-width:1.9px}
+#art-world .wpan{z-index:1}
 html.fresh svg.map .grat path{fill:none;vector-effect:non-scaling-stroke;stroke-linecap:round}
 html.fresh svg.map .grat .gsh{stroke:#16697C;stroke-opacity:.22;stroke-width:3.4px;transform:translateY(1.1px)}
 html.fresh svg.map .grat .gln{stroke:#fff;stroke-opacity:.88;stroke-width:1.25px}
@@ -110,7 +117,19 @@ html.fresh svg.map .topo .tl.h.g{stroke-opacity:.3}
 #onboard .obpip{display:flex;align-items:flex-end;gap:6px;margin:-6px 0 8px}
 #onboard .obpip .postie{flex-shrink:0;animation:waddle 2.6s ease-in-out infinite;transform-origin:50% 95%}
 #onboard .obpip span{margin-bottom:34px;padding:9px 12px;border-radius:16px 16px 16px 4px;background:#fff;box-shadow:0 8px 18px rgba(30,43,51,.12);font:600 13px/1.35 var(--font-body);color:var(--ink-navy)}
-#pipPop{position:absolute;left:10px;bottom:96px;z-index:95;display:flex;align-items:flex-end;gap:2px;pointer-events:none;transform:translateY(140%);opacity:0;transition:transform .45s cubic-bezier(.3,1.5,.5,1),opacity .3s}
+.wpostie .zz{display:none;position:absolute;left:58px;top:-4px;font:800 14px/1 var(--font-display);color:#3E7F57}
+.wpostie.sleepy .zz{display:block}
+.wpostie .zz i{position:absolute;font-style:normal;opacity:0;animation:zzz 3s ease-in-out infinite}
+.wpostie .zz i:nth-child(2){animation-delay:1s;font-size:17px}.wpostie .zz i:nth-child(3){animation-delay:2s;font-size:21px}
+@keyframes zzz{0%{opacity:0;transform:translate(0,6px)}30%{opacity:1}100%{opacity:0;transform:translate(18px,-26px)}}
+.wpostie.sleepy .postie{animation:snooze 3.4s ease-in-out infinite}
+@keyframes snooze{0%,100%{transform:rotate(-3deg) scaleY(1)}50%{transform:rotate(3deg) scaleY(.97)}}
+/* you are here, fresh */
+html.fresh .mering::before,html.fresh .mering::after{border-color:#00C56E;border-width:3px;background:rgba(0,197,110,.12)}
+html.fresh .mering{z-index:1}
+html.fresh .me.here u{width:12px;height:12px;background:#00C56E;border:3px solid #fff;box-shadow:0 0 0 4px rgba(0,197,110,.25),0 3px 8px rgba(0,0,0,.2)}
+html.fresh .me i{background:#00C56E!important;color:#fff!important;border:0!important;border-radius:999px;box-shadow:0 3px 8px rgba(0,150,80,.3)}
+#pipPop{position:absolute;left:10px;bottom:96px;z-index:200;display:flex;align-items:flex-end;gap:2px;pointer-events:none;transform:translateY(140%);opacity:0;transition:transform .45s cubic-bezier(.3,1.5,.5,1),opacity .3s}
 #pipPop.on{transform:none;opacity:1}
 #pipPop.on .postie{animation:phop .5s .35s cubic-bezier(.3,1.6,.5,1) 2;transform-origin:50% 95%}
 #pipPop span{margin-bottom:44px;padding:9px 12px;border-radius:16px 16px 16px 4px;background:#fff;box-shadow:0 10px 24px rgba(30,43,51,.18);font:700 13px/1.2 var(--font-display);color:var(--ink-navy);white-space:nowrap}
@@ -3885,6 +3904,20 @@ document.body.insertAdjacentHTML('afterbegin', `<svg width="0" height="0" style=
 const CONT_TONES=[[15,52,28,16,'eu'],[95,45,55,22,'as'],[100,15,28,14,'as'],[45,27,18,11,'me'],[20,5,30,32,'af'],[-100,48,45,25,'na'],[-90,15,15,10,'na'],[-60,-18,22,32,'sa'],[135,-25,24,15,'oc'],[172,-41,6,8,'oc'],[-42,73,18,11,'po'],[0,-78,200,10,'po']];
 const HIGHLANDS=[[88,33,13,5.5],[76,35,5,3.5],[95,28,6,3],[102,30,4,6],[-77,-5,3.5,10],[-69,-21,4.5,9],[-71,-38,3.2,9],[-115,46,7,11],[-108,37,5,6],[-120,58,4,6],[-101,22,4,5],[10,46,5,1.8],[-4,32,6,2],[39,9,5,5.5],[44,42.5,4.5,1.3],[55,32,9,4],[69,38,4,3],[60,58,3.4,8],[14,64,4.5,6],[29,-29,4,4],[148,-29,3.6,9],[-45,-17,6,6],[-80,38,3,6],[100,47,9,3],[135,36,3,4],[172,-43,2,4],[-3,40,4,2.5],[24,42,3,2],[37,0,3.5,4]];
 /* organic contour lines: each highland is a stack of wobbly rings, each lowland a soft green blob */
+/* the world's globe lines live in screen space: they follow the pan and zoom, and bend gently like a globe */
+let globeKey='';
+function paintGlobe(){ const el=$('#wGlobe'), p=$('#wpan'); if(!el||!p||level!=='world') return;
+  if(!el.dataset.on){ el.dataset.on='1'; globeKey=''; } let m; try{ m=new DOMMatrix(getComputedStyle(p).transform); }catch(e){ return; }
+  const H=parseFloat($('#phone').style.height)||844, g=WG, key=[m.a,m.e,m.f,g.z,g.oy,H].map(v=>(+v).toFixed(1)).join(); if(key===globeKey) return; globeKey=key;
+  const [ax,bx,ay,by]=lvAff('world'), s=m.a, X=lon=>m.e+s*(ax*lon+bx)*g.z, Y=lat=>m.f+s*((ay*lat+by)*g.z+g.oy);
+  const px15=Math.abs(X(15)-X(0)), step=[5,10,15,30].find(v=>px15*v/15>=38)||30, xc=195, yc=Math.max(-200,Math.min(H+200,Y(0))), R=H*.62;
+  const bendM=(x,y)=>xc+(x-xc)*(1-.11*Math.min(1.6,((y-yc)/R)**2)), bendP=(x,y)=>y+10*(1-Math.min(1,((x-xc)/215)**2));
+  let mer='', par='', eq='';
+  const l0=Math.ceil(((-80-m.e)/s/g.z-bx)/ax/step)*step, l1=Math.floor(((470-m.e)/s/g.z-bx)/ax/step)*step;
+  for(let lo=l0; lo<=l1; lo+=step){ const x=X(lo), yA=Math.max(-20,Y(82)), yB=Math.min(H+20,Y(-82)); if(yB<=yA) continue; let d=''; for(let y=yA; y<=yB+.1; y+=Math.max(8,(yB-yA)/24)){ d+=(d?'L':'M')+bendM(x,y).toFixed(1)+' '+y.toFixed(1); } mer+=d; }
+  for(let la=-75; la<=75; la+=15){ const y=Y(la); if(y<-30||y>H+30) continue; let d=''; for(let x=-20; x<=410; x+=14.33){ d+=(d?'L':'M')+x.toFixed(1)+' '+bendP(x,y).toFixed(1); } if(la===0) eq=d; else par+=d; }
+  const all=mer+par; el.querySelector('.grat').innerHTML=`<path d="${all}" class="gsh"/><path d="${all}" class="gln"/>${eq?`<path d="${eq}" class="gsh"/><path d="${eq}" class="geq"/>`:''}`; }
+(function globeLoop(){ try{ if(level==='world' && document.documentElement.classList.contains('fresh') && !document.hidden) paintGlobe(); }catch(e){} requestAnimationFrame(globeLoop); })();
 const GRAT_CACHE={};
 /* globe lines: meridians and parallels drawn on the sea, under the raised land, each with a soft shadow for depth */
 function gratSVG(lv, aff, offs){
@@ -4002,7 +4035,7 @@ function biomeWrap(lv, inner){
   const SEA=new Set(['wave','iceberg','compass']);
   const dd=t=>DOODLES.filter(d=>(t==='sea')===SEA.has(d[2])).map(([lon,lat,kind])=>offs.map(o=>{ const x=ax*(lon+o)+bx, y=ay*lat+by; if(x<-20||x>410||y<-20||y>864) return '';
     const sym = kind==='pine' && winter && lat>50 ? 'pinesnow' : kind; return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${k.toFixed(3)})">${DOODLE[sym]}</g>`; }).join('')).join('');
-  const sea=sea0+(FR?gratSVG(lv,aff,offs):'')+`<g class="doodle">${dd('sea')}</g>`, landD=FR?'':`<g class="doodle">${dd('land')}</g>`;
+  const sea=sea0+(FR&&lv!=='world'?gratSVG(lv,aff,offs):'')+`<g class="doodle">${dd('sea')}</g>`, landD=FR?'':`<g class="doodle">${dd('land')}</g>`;
   let out=inner; const m=inner.match(/<g class="land"[^>]*>([\s\S]*?)<\/g>/);
   if(m && land){ const id='bc-'+lv; out=inner.replace(m[0], m[0]+`<clipPath id="${id}">${m[1]}</clipPath><g class="biome" clip-path="url(#${id})">${land}</g>`); }
   const lastG=out.lastIndexOf('</g>');
@@ -4522,7 +4555,7 @@ function worldArtHTML(){
   else { const id=lastCity(); if(id){ const r=REGIONS.find(r=>r.id===COUNTRIES[CITIES[id].c].region), [X,Y]=at(r.x+15,r.y+15); me=`<div class="me" style="left:${(X-24).toFixed(1)}px;top:${(Y-112).toFixed(1)}px" aria-hidden="true">${face(40)}<i>YOU</i></div>`; } }
   const night=nightInner(g), ov=k=>`<svg class="wov" width="1" height="1" aria-hidden="true"><g class="wstamps">${stp}</g><g class="wamb">${amb}</g></svg>`, amb=ambientInner(g), stp=stampsInner(g), pins=pinsHTML(g);
   const tile=k=>`<div class="wtile" style="left:${(k*g.w).toFixed(1)}px" ${k?'aria-hidden="true"':''}>${svg}${ov(k)}${pins}${bubs}${me}</div>`;
-  return `<div class="wpan" id="wpan" style="transform:translateX(${worldPan.toFixed(1)}px)">${tile(-1)}${tile(0)}${tile(1)}<svg class="wov wnl" width="1" height="1" aria-hidden="true"><g class="wnight">${night}</g></svg></div>`;
+  return (document.documentElement.classList.contains('fresh')?'<svg class="wglobe" id="wGlobe" aria-hidden="true"><defs><radialGradient id="gShine" cx=".3" cy=".2" r=".55"><stop offset="0" stop-color="#fff" stop-opacity=".5"/><stop offset=".45" stop-color="#fff" stop-opacity=".14"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><radialGradient id="gVig" cx=".5" cy=".42" r=".75"><stop offset=".55" stop-color="#0E5E70" stop-opacity="0"/><stop offset="1" stop-color="#0E5E70" stop-opacity=".32"/></radialGradient></defs><g class="grat"></g><rect class="gvig" width="100%" height="100%" fill="url(#gVig)"/><rect class="gshine" width="100%" height="100%" fill="url(#gShine)"/></svg>':'')+`<div class="wpan" id="wpan" style="transform:translateX(${worldPan.toFixed(1)}px)">${tile(-1)}${tile(0)}${tile(1)}<svg class="wov wnl" width="1" height="1" aria-hidden="true"><g class="wnight">${night}</g></svg></div>`;
 }
 /* Redraw the world crisply at a new zoom k (relative to now), keeping the screen point (mx,my) fixed. */
 function worldIntro(force){ let d=''; try{ d=localStorage.getItem('pm-wintro')||''; }catch(e){}
@@ -4647,9 +4680,9 @@ function postieLine(){ if(LOC.on && LOC.pos){ const n=Object.keys(CITIES).filter
   return T[(new Date().getDate()+Object.keys(visited).length)%T.length]; }
 let pipT=0;
 function pipReact(kind){ if(!document.documentElement.classList.contains('fresh')) return;
-  const say={stamp:['Coo! Nice stamp!','Another one for the passport!','Stamped! Where next?','Ooh, that one’s shiny!'],right:['Correct! Coo!','You know your stuff!','Nailed it!','Smarty pigeon approves!']}[kind];
+  const say={gold:['Gold border! Coo coo!','Shiny gold! I’m so proud!','Gold! Time for a victory lap!'],stamp:['Coo! Nice stamp!','Another one for the passport!','Stamped! Where next?','Ooh, that one’s shiny!'],right:['Correct! Coo!','You know your stuff!','Nailed it!','Smarty pigeon approves!']}[kind];
   const line=say[Math.floor(Math.random()*say.length)];
-  const wp=$('#wPostie'); if(wp && level==='world' && ['#passport','#trips','#friends'].every(q=>$(q).hidden) && wp.getBoundingClientRect().width && !document.querySelector('.bqz.on,#sheet.on,#post.on')){ wp.classList.remove('hop'); void wp.offsetWidth; wp.classList.add('hop'); const b=wp.querySelector('.wsay'); if(b){ b.textContent=line; b.style.animation='none'; void b.offsetWidth; b.style.animation=''; } return; }
+  const wp=$('#wPostie'); if(kind!=='gold' && wp && level==='world' && ['#passport','#trips','#friends'].every(q=>$(q).hidden) && wp.getBoundingClientRect().width && !document.querySelector('.bqz.on,#sheet.on,#post.on')){ wp.classList.remove('hop'); void wp.offsetWidth; wp.classList.add('hop'); const b=wp.querySelector('.wsay'); if(b){ b.textContent=line; b.style.animation='none'; void b.offsetWidth; b.style.animation=''; } return; }
   let el=$('#pipPop'); if(!el){ $('#phone').insertAdjacentHTML('beforeend','<div id="pipPop" aria-live="polite"></div>'); el=$('#pipPop'); }
   el.innerHTML=`${POSTIE(70,'Pip')}<span>${line}</span>`; el.classList.remove('on'); void el.offsetWidth; el.classList.add('on');
   clearTimeout(pipT); pipT=setTimeout(()=>el.classList.remove('on'), 2600); }
@@ -4673,7 +4706,7 @@ function worldUI(){
       <span class="wstat" aria-label="${streakNow()} day quiz streak">${FLAME_I}${streakNow()}</span><span class="wstat" aria-label="${nSt} stamps">${STAMP_I}${nSt}</span><span class="wstat" aria-label="${nC} countries">${GLOBE_I}${nC}</span>
       <button class="mailbtn ${mailSeen()?'':'new'}" id="mailBtn" aria-label="Today’s postcard${mailSeen()?'':', unread'}">${L(LU.mail,20)}<i></i></button></div>
     <div class="search wsearch">${L(LU.search,20)}<span>Where to next?</span></div>
-    <button class="wpostie ${WSMIN?'lo':''}" id="wPostie" aria-label="Pip: ${esc(postieLine())}">${POSTIE(84)}<span class="wsay">${esc(postieLine())}</span></button>
+    <button class="wpostie ${WSMIN?'lo':''} ${(new Date().getHours()>=22||new Date().getHours()<5)?'sleepy':''}" id="wPostie" aria-label="Pip: ${esc(postieLine())}">${POSTIE(84)}<span class="zz" aria-hidden="true"><i>z</i><i>z</i><i>Z</i></span><span class="wsay">${esc(postieLine())}</span></button>
     <div class="wsheet ${WSMIN?'min':''}" id="wSheet">
       <button class="grab" id="wGrab" aria-label="${WSMIN?'Show today’s cards':'Hide today’s cards'}" aria-expanded="${!WSMIN}"><i></i></button>
       <span class="wpeek" aria-hidden="true">${L(LU.left,14).replace('<svg','<svg style="transform:rotate(90deg)"')}<b>Today</b> · ${C.name} · quiz ${qn}/7 · week ${wdone}/${wk.length}</span>
@@ -5501,6 +5534,7 @@ function cityMoment(id, after){
   requestAnimationFrame(()=>requestAnimationFrame(()=>{ const b=$('#cmbar'); if(b) b.style.width=`${Math.min(1,n/goldNeed(C.c))*100}%`; }));
 }
 function goldMoment(c, after){
+  setTimeout(()=>{ try{ pipReact('gold'); }catch(e){} }, 900);
   const K2=COUNTRIES[c];
   showMoment(`<div class="full goldbg">
     <div class="mhead"><div><div class="eyebrow" style="color:var(--stamp-gold)">Gold unlocked</div><h1>${K2.name} complete</h1></div>
