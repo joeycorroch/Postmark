@@ -310,6 +310,20 @@ html.fresh .evbanner{position:relative;overflow:hidden;border:0!important;border
 html.fresh .evbanner::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.6) 50%,transparent 60%);animation:shinesweep 3s ease-in-out infinite;pointer-events:none}
 html.fresh .evbanner.soon{background:#F1F6F3!important;box-shadow:none}html.fresh .evbanner.soon::after{display:none}
 html.fresh .evrow.got{border:0!important;background:linear-gradient(120deg,#FFE9A8,#FFD1E0 50%,#E1D6FF)!important}
+.wlive{display:flex;align-items:center;gap:8px;align-self:flex-start;margin:8px 16px 0;padding:6px 12px 6px 8px;border:0;border-radius:999px;background:linear-gradient(120deg,#FFE9A8,#FFD1E0 55%,#E1D6FF);box-shadow:0 6px 16px rgba(157,78,255,.22);position:relative;overflow:hidden;z-index:5}
+.wlive::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.7) 50%,transparent 60%);animation:shinesweep 3s ease-in-out infinite;pointer-events:none}
+.wlive .wlg{font-size:15px;letter-spacing:-2px}.wlive b{font:700 13px var(--font-display);color:var(--ink-navy)}.wlive i{font-style:normal;font-size:10px;font-weight:800;letter-spacing:.06em;color:#7A4FD6;text-transform:uppercase}
+.wev .evi{font-size:14px;line-height:1;filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+.evrow .sq{position:relative}.evemo{position:absolute;right:-6px;bottom:-6px;font-size:14px;font-style:normal;line-height:1}
+.evemo2{font-style:normal;font-size:12px;line-height:1}
+.evbi{margin-right:6px}
+.lvrow{display:flex;gap:10px;padding:10px;margin-top:8px;border-radius:18px;background:#fff;box-shadow:0 4px 12px rgba(30,43,51,.07)}
+.lvrow.on{background:linear-gradient(120deg,#FFF3CC,#FFE3EC 55%,#EEE7FF)}
+.lvi{width:42px;height:42px;flex-shrink:0;border-radius:14px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 3px 8px rgba(30,43,51,.1)}
+.lvrow b{display:block;font:700 15px var(--font-display);color:var(--ink-navy)}.lvrow small{font-size:11.5px;font-weight:700;color:#7A4FD6}.lvrow:not(.on) small{color:#7A8A92}
+.lvc{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.lvc button{display:flex;align-items:center;gap:5px;height:28px;padding:0 10px 0 6px;border:0;border-radius:999px;background:#fff;box-shadow:0 2px 6px rgba(30,43,51,.1);font:700 12px var(--font-display);color:var(--ink-navy)}
+.lvc .miniflag{width:16px;height:16px}
+.lvh{margin:16px 0 0;font:700 14px var(--font-display);color:#56656D}
 /* springy taps */
 html.fresh :is(button,.wcard,.wcd,.tcard,.fcard,.setc,.anic,.chip,.tile,.kt,.sr,.step){transition:transform .18s cubic-bezier(.3,1.6,.5,1),box-shadow .18s}
 html.fresh :is(button,.wcard,.tcard,.fcard,.sr,.step):active:not(:disabled){transform:scale(.955)}
@@ -783,6 +797,7 @@ button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--stamp-red)
 .cmprog div:first-child{display:flex;justify-content:space-between;font-size:13px;font-weight:500}
 #toast{position:absolute;left:50%;top:66px;transform:translate(-50%,-8px);background:var(--ink-navy);color:var(--paper-cream);font-size:13px;font-weight:500;padding:9px 16px;border-radius:999px;z-index:60;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;white-space:nowrap;max-width:350px;overflow:hidden;text-overflow:ellipsis}
 #toast.on{opacity:1;transform:translate(-50%,0)}
+#toast.wrap{white-space:normal;width:330px;border-radius:18px;text-align:center;line-height:1.35;padding:10px 16px}
 /* ---------- depth: paper grain, offset shadows, ink ---------- */
 .ccard,#passport,.full,.pcard,.page,.citymoment,.bcard,.regions,#nav,.kpanel{background-image:var(--grain)}
 .art::after{content:"";position:absolute;inset:0;background-image:var(--grain);mix-blend-mode:multiply;opacity:.7;pointer-events:none}
@@ -4143,11 +4158,25 @@ const EVENTS = [
   {id:'marley', cities:['kingston'], name:'Bob Marley’s birthday', from:'02-06', to:'02-06', when:'6 February'},
   {id:'intiraymi', cities:['cusco'], name:'Inti Raymi', from:'06-24', to:'06-24', when:'24 June'},
   {id:'elgrito', cities:['mexicocity'], name:'Independence night (El Grito)', from:'09-15', to:'09-16', when:'15–16 September'},
-  {id:'mashramani', cities:['georgetown'], name:'Mashramani', from:'02-23', to:'02-23', when:'23 February'}
+  {id:'mashramani', cities:['georgetown'], name:'Mashramani', from:'02-23', to:'02-23', when:'23 February'},
+  {id:'ghindep', cities:['accra'], name:'Independence Day', from:'03-06', to:'03-06', when:'6 March'},
+  {id:'calving', cities:['serengeti'], name:'Great Migration calving season', from:'01-20', to:'02-28', when:'late January – February'},
+  {id:'crossings', cities:['maasaimara'], name:'Mara River crossings', from:'07-15', to:'10-15', when:'mid July – mid October'},
+  {id:'etoshadry', cities:['etosha'], name:'Dry-season waterhole gatherings', from:'07-01', to:'10-31', when:'July – October'},
+  {id:'kreol', cities:['mahe'], name:'Festival Kreol', from:'10-25', to:'10-31', when:'last week of October'},
+  {id:'muindep', cities:['portlouis'], name:'Independence Day', from:'03-12', to:'03-12', when:'12 March'},
+  {id:'matariki', cities:['rotorua','wellington','auckland'], name:'Matariki (Māori New Year)', years:{2026:['07-09','07-11'],2027:['06-24','06-26']}, when:'late June or July'},
+  {id:'whales', cities:['vavau'], name:'Humpback whale season', from:'07-01', to:'10-31', when:'July – October'},
+  {id:'wsindep', cities:['apia'], name:'Independence celebrations', from:'06-01', to:'06-02', when:'1–2 June'},
+  {id:'pwindep', cities:['koror'], name:'Independence Day', from:'10-01', to:'10-01', when:'1 October'},
+  {id:'pgindep', cities:['portmoresby'], name:'Independence Day', from:'09-16', to:'09-16', when:'16 September'},
+  {id:'ausopen', cities:['melbourne'], name:'Australian Open tennis', from:'01-18', to:'01-31', when:'second half of January'}
 ];
 let eventStamps = {};   /* city id -> {ev, date} */
 const md = iso => iso.slice(5);
 /* an event's dates in a given year: fixed ones repeat, moving ones (lunar, Easter, weekday-based) list each year; ranges may run over New Year */
+const EV_ICON={"yipeng": "🏮", "loykrathong": "🪷", "dotd": "💀", "radish": "🥕", "nye": "🎆", "sakura": "🌸", "vcarnival": "🎭", "carnaval": "💃", "santos": "🐟", "spring": "🏇", "stpatricks": "☘️", "bloomsday": "📖", "kingsday": "👑", "bastille": "🎆", "hogmanay": "🎇", "fringe": "🎪", "londonnye": "🎆", "oktoberfest": "🍺", "xmasmarkets": "🎄", "santaseason": "🎅", "saojoao": "🔨", "midsummer": "🌼", "semanasanta": "🕯️", "merce": "🎡", "sanisidro": "💐", "tulips": "🌷", "lunarny": "🧧", "holi": "🎨", "diwali": "🪔", "songkran": "💦", "gion": "🏮", "midautumn": "🥮", "naadam": "🐎", "equinox": "🌅", "dubainye": "🎆", "tweedenuwejaar": "🎺", "mardigras": "🎭", "macys": "🎈", "balldrop": "🎉", "junkanoo": "🥁", "marley": "🎸", "intiraymi": "☀️", "elgrito": "🔔", "mashramani": "🎊", "ghindep": "⭐", "calving": "🦓", "crossings": "🐃", "etoshadry": "🐘", "kreol": "🎶", "muindep": "🎉", "matariki": "✨", "whales": "🐋", "wsindep": "🎉", "pwindep": "🎉", "pgindep": "🦜", "ausopen": "🎾"};
+const evIcon = e => (e&&EV_ICON[e.id])||'✦';
 const evRange = (e,y) => e.years ? (e.years[y]||null) : [e.from,e.to];
 const evOn = (e,iso) => { const y=+iso.slice(0,4), m=md(iso); for(const yy of [y,y-1]){ const r=evRange(e,yy); if(!r) continue; const [f,t]=r;
     if(f<=t){ if(yy===y && m>=f && m<=t) return true; } else { if(yy===y && m>=f) return true; if(yy===y-1 && m<=t) return true; } } return false; };
@@ -5007,7 +5036,7 @@ function pinsHTML(g){ let out='';
   { BALG=g; const [x,y]=wLL(g,...balloonLL()); out+=`<button class="wball" data-wball style="left:${(x-17).toFixed(1)}px;top:${(y-70).toFixed(1)}px" aria-label="Hot air balloon: tap for today’s quiz">${BALLOON}</button>`; }
   const seen=new Set();
   const seen2=new Set(); EVENTS.forEach(e=>e.cities.forEach(id=>{ const ev=activeEvent(id); if(!ev||ev.id!==e.id||seen.has(id)||!CITY_LL[id]) return; seen.add(id); const [x,y]=wLL(g,...CITY_LL[id]);
-    const lead=!seen2.has(e.id); seen2.add(e.id); out+=`<button class="wev ${lead?'lead':''}" data-wev="${id}" style="left:${(x-13).toFixed(1)}px;top:${(y-32).toFixed(1)}px" aria-label="${esc(e.name)} is on now in ${CITIES[id].name}">${L(LU.spark,14,2.4)}</button>`; }));
+    const lead=!seen2.has(e.id); seen2.add(e.id); out+=`<button class="wev ${lead?'lead':''}" data-wev="${id}" style="left:${(x-13).toFixed(1)}px;top:${(y-32).toFixed(1)}px" aria-label="${esc(e.name)} is on now in ${CITIES[id].name}">${document.documentElement.classList.contains('fresh')?`<span class="evi">${evIcon(e)}</span>`:L(LU.spark,14,2.4)}</button>`; }));
   const cd=cityOfDay(); if(CITY_LL[cd]){ const [x,y]=wLL(g,...CITY_LL[cd]); const rw=cotdIsMemory(); out+=`<button class="wcotd ${rw?'rw':''}" data-cotd="${cd}" style="left:${(x-13).toFixed(1)}px;top:${(y-30).toFixed(1)}px" aria-label="${rw?'Remember when':'City of the day'}: ${CITIES[cd].name}">${rw?L(LU.cal,13,2.4):L(LU.star,13,2.6)}</button>`; }
   const spots={};
   friendList().forEach(f=>{ const last=Object.entries(f.visited||{}).filter(([k])=>CITIES[k]&&CITY_LL[k]).sort((a,b)=>String(a[1]).localeCompare(String(b[1]))).pop(); if(!last) return;
@@ -5320,6 +5349,25 @@ function avWave(){ if(!document.documentElement.classList.contains('fresh')) ret
     const tgt=f.classList.contains('face')?f:f; tgt.classList.remove('hiwave'); void tgt.offsetWidth; tgt.classList.add('hiwave'); setTimeout(()=>tgt.classList.remove('hiwave'),1500);
     const r=f.getBoundingClientRect(), h=document.createElement('span'); h.className='wavehand'; h.innerHTML=hand; h.style.left=((r.right-pr.left)/k-14)+'px'; h.style.top=((r.top-pr.top)/k+r.height/k*.35-10)+'px'; ph.appendChild(h); setTimeout(()=>h.remove(),1600); });
   try{ tone(0,'sine',660,.08,.06,990); tone(.12,'sine',880,.08,.05,1320); }catch(e){} }
+function openLive(){ const lv=EVENTS.filter(evLive), soon=EVENTS.filter(e=>!evLive(e)).sort((a,b)=>evNextStart(a)<evNextStart(b)?-1:1).slice(0,3);
+  let el=$('#livez'); if(!el){ $('#phone').insertAdjacentHTML('beforeend','<div id="livez" class="bqz gmz" role="dialog" aria-label="Festivals on now"></div>'); el=$('#livez'); }
+  const row=(e,on)=>`<div class="lvrow ${on?'on':''}"><span class="lvi">${evIcon(e)}</span><div><b>${esc(e.name)}</b><small>${on?'On now':esc(e.when)}</small><span class="lvc">${e.cities.map(c=>`<button data-lvgo="${c}">${miniFlag(CITIES[c].c)}${esc(CITIES[c].name)}${eventStamps[c]&&eventStamps[c].ev===e.id?' ✓':''}</button>`).join('')}</span></div></div>`;
+  el.innerHTML=`<div class="bqc gmc"><div class="gmh"><span class="gmi" style="background:linear-gradient(135deg,#FFE9A8,#FFD1E0,#E1D6FF)">✦</span><div><small>SHINY STAMPS</small><b>Happening now</b></div><button class="x" data-lvx aria-label="Close">${L(LU.x,18)}</button></div>
+    <p class="gsub">Stamp one of these cities while its festival is on to get a rare shiny stamp. Tap a city to fly there.</p>${lv.map(e=>row(e,true)).join('')}<h4 class="lvh">Coming up</h4>${soon.map(e=>row(e,false)).join('')}</div>`;
+  requestAnimationFrame(()=>el.classList.add('on')); try{ SFX.sparkle(); }catch(e){} }
+function closeLive(){ const el=$('#livez'); if(!el) return; el.classList.remove('on'); setTimeout(()=>{ if(!el.classList.contains('on')) el.remove(); },300); }
+document.addEventListener('click', e=>{ if(e.target.closest('#wLive')) return openLive(); const lz=e.target.closest('#livez'); if(!lz) return;
+  if(e.target===lz||e.target.closest('[data-lvx]')) return closeLive(); const g=e.target.closest('[data-lvgo]'); if(g){ closeLive(); const id=g.dataset.lvgo; setTimeout(()=>{ if(level!=='world'){ busy=false; jumpTo('world'); } flyToCity(id); },320); } });
+/* 3. heads-up when a festival is about to start in a city on one of your trips */
+function tripEventAlerts(){ const t=today(), out=[]; let seen={}; try{ seen=JSON.parse(localStorage.getItem('pm-evwarn')||'{}'); }catch(e){}
+  (trips||[]).filter(tr=>!tr.end||tr.end>=t).forEach(tr=>tr.cities.forEach(c=>EVENTS.filter(e=>e.cities.includes(c)).forEach(e=>{ const st=evNextStart(e), days=Math.round((new Date(st+'T12:00')-new Date(t+'T12:00'))/864e5);
+    const live=evLive(e); if(!(live||(days>=0&&days<=7))) return; const key=e.id+':'+c+':'+st.slice(0,4); if(seen[key]) return; out.push({e,c,tr,days,live,key}); })));
+  return out; }
+function showTripAlerts(){ const a=tripEventAlerts(); if(!a.length) return; const x=a[0]; let seen={}; try{ seen=JSON.parse(localStorage.getItem('pm-evwarn')||'{}'); }catch(e){}
+  a.forEach(y=>seen[y.key]=1); try{ localStorage.setItem('pm-evwarn', JSON.stringify(seen)); }catch(e){}
+  const msg = x.live ? `${evIcon(x.e)} ${x.e.name} is on now in ${CITIES[x.c].name}, on your trip “${x.tr.name}”. Stamp it for a shiny!` : `${evIcon(x.e)} Heads up! ${x.e.name} starts in ${x.days===0?'today':x.days===1?'1 day':x.days+' days'} in ${CITIES[x.c].name}, on your trip “${x.tr.name}”.`;
+  setTimeout(()=>{ toast(msg); const t=$('#toast'); t.classList.add('wrap'); clearTimeout(toastT); toastT=setTimeout(()=>{ t.classList.remove('on'); setTimeout(()=>t.classList.remove('wrap'),300); },5200); }, 2500); }
+setTimeout(showTripAlerts, 4000);
 let pipT=0, handStamping=false, stampUses=0;
 try{ stampUses=+(localStorage.getItem('pm-inkuse')||0); }catch(e){}
 function letterDrop(bl){ if(reduced()) return; const ph=$('#phone'), r=bl.getBoundingClientRect(), pr=ph.getBoundingClientRect(), k=pr.width/390, x=(r.left-pr.left)/k+r.width/k/2, y=(r.top-pr.top)/k+r.height/k-6;
@@ -5360,6 +5408,7 @@ function worldUI(){
       <span class="wstat" aria-label="${streakNow()} day quiz streak">${FLAME_I}${streakNow()}</span><span class="wstat" aria-label="${nSt} stamps">${STAMP_I}${nSt}</span><span class="wstat" aria-label="${nC} countries">${GLOBE_I}${nC}</span>
       <button class="mailbtn ${mailSeen()?'':'new'}" id="mailBtn" aria-label="Today’s postcard${mailSeen()?'':', unread'}">${L(LU.mail,20)}<i></i></button></div>
     <div class="search wsearch">${L(LU.search,20)}<span>Where to next?</span></div>
+    ${(()=>{ const lv=EVENTS.filter(evLive); return lv.length?`<button class="wlive" id="wLive"><span class="wlg">${lv.slice(0,3).map(evIcon).join('')}</span><b>${lv.length} ${lv.length===1?'festival':'festivals'} on now</b><i>Shiny stamps</i></button>`:''; })()}
     <button class="wpostie ${WSMIN?'lo':''} ${(new Date().getHours()>=22||new Date().getHours()<5)&&!(AWAY_DAYS>=2&&!awayShown)?'sleepy':''}" id="wPostie" aria-label="Pip: ${esc(postieLine())}">${POSTIE(84,'Pip',AWAY_DAYS>=2&&!awayShown?'wave':'')}<span class="zz" aria-hidden="true"><i>z</i><i>z</i><i>Z</i></span><span class="wsay">${esc(postieLine())}</span></button>
     <div class="wsheet ${WSMIN?'min':''}" id="wSheet">
       <button class="grab" id="wGrab" aria-label="${WSMIN?'Show today’s cards':'Hide today’s cards'}" aria-expanded="${!WSMIN}"><i></i></button>
@@ -5650,9 +5699,9 @@ function cardHTML(id){
     </div>
     ${v?`<span class="vchip ${verified[id]?'':'past'}">${L(verified[id]?LU.shield:LU.cal,14)}${verified[id]?'Verified: stamped in '+C.name:'Past visit · blue memory stamp'}</span>`:''}
     ${(()=>{ const ev=activeEvent(id), es=eventStamps[id], nx=nextEvent(id);
-      if(es){ const e=EVENTS.find(x=>x.id===es.ev); return `<div class="evbanner"><b>${L(LU.spark,16)}Shiny stamp collected</b>You stamped ${C.name} during ${e.name} on ${dLong(es.date)}.</div>`; }
-      if(ev) return `<div class="evbanner live"><b>${L(LU.spark,16)}${ev.name} is on now</b>Stamp ${C.name} before it ends to get the rare shiny stamp.</div>`;
-      if(nx) return `<div class="evbanner soon"><b>${L(LU.cal,16)}Shiny stamp: ${nx.name}</b>Be in ${C.name} in ${nx.when} to collect it.</div>`;
+      if(es){ const e=EVENTS.find(x=>x.id===es.ev); return `<div class="evbanner"><b><span class="evbi">${evIcon(e)}</span>Shiny stamp collected</b>You stamped ${C.name} during ${e.name} on ${dLong(es.date)}.</div>`; }
+      if(ev) return `<div class="evbanner live"><b><span class="evbi">${evIcon(ev)}</span>${ev.name} is on now</b>Stamp ${C.name} before it ends to get the rare shiny stamp.</div>`;
+      if(nx) return `<div class="evbanner soon"><b><span class="evbi">${evIcon(nx)}</span>Shiny stamp: ${nx.name}</b>Be in ${C.name} in ${nx.when} to collect it.</div>`;
       return ''; })()}
     <div class="kpanel">
       <div class="hd"><b>${K.name} key cities</b><span>${n} of ${total}</span></div>
@@ -7915,7 +7964,7 @@ function renderPassport(){ saveState();
         <div class="pinfo"><b style="display:flex;align-items:center">${miniFlag(c)}${K.name}</b><span>${g?(n<K.cities.length?`Gold · ${n} of ${K.cities.length} cities stamped`:`All ${K.cities.length} cities stamped`):`${n} of ${K.cities.length} key cities`}${mem.length?`<em class="memn">${mem.length} in memories</em>`:''}</span>
           <div class="bar ${g?'gold':''}"><i style="width:${Math.min(1,n/goldNeed(c))*100}%"></i></div></div></div>
       <div class="tiles">${shown.map(k=>verified[k]&&visited[k]
-        ? `<button class="tile re ${eventStamps[k]?'evst':''}" data-restamp="${k}" aria-label="Stamp ${CITIES[k].name} again"><span class="vdot" title="Verified">${L(LU.check,11,3)}</span>${eventStamps[k]?`<span class="evb">${L(LU.spark,12,2.4)}</span>`:''}<div class="sq" style="background:${K.color}">${lm(CITIES[k].icon,'on').replace('<svg','<svg width="36" height="36"')}</div><b>${CITIES[k].short||CITIES[k].name}</b></button>`
+        ? `<button class="tile re ${eventStamps[k]?'evst':''}" data-restamp="${k}" aria-label="Stamp ${CITIES[k].name} again"><span class="vdot" title="Verified">${L(LU.check,11,3)}</span>${eventStamps[k]?`<span class="evb">${document.documentElement.classList.contains('fresh')?`<i class="evemo2">${evIcon(EVENTS.find(x=>x.id===eventStamps[k].ev))}</i>`:L(LU.spark,12,2.4)}</span>`:''}<div class="sq" style="background:${K.color}">${lm(CITIES[k].icon,'on').replace('<svg','<svg width="36" height="36"')}</div><b>${CITIES[k].short||CITIES[k].name}</b></button>`
         : visited[k] ? `<button class="tile mem" data-popen="${k}" aria-label="${CITIES[k].name}: on your memory page. Stamp it on the spot to verify">${L(LU.cal,18,2.2)}<b>${CITIES[k].short||CITIES[k].name}</b><small>Memory</small></button>`
         : `<div class="tile lock">${L(LU.lock,18)}<b>${CITIES[k].short||CITIES[k].name}</b></div>`).join('')}${more>0?`<button class="tile more" data-pexp="${c}" aria-label="Show ${more} more cities"><b>+${more}</b><small>more</small></button>`:''}</div></section>`;}).join('')}</div>
   ${beenHTML()}
@@ -7927,7 +7976,7 @@ function renderPassport(){ saveState();
   ${gamesHTML()}<div class="psec" id="pAni"><div class="psh"><h2>Animal spotter</h2><span>${animalsSeen.filter(k=>ANIMALS.some(a=>a.k===k)).length} of ${ANIMALS.length} spotted</span></div><p class="psub">Tap the animals on the world map to spot them. Each full set of 12 wins a reward.</p>
     ${[1,2].map(st=>{ const L2=ANIMALS.filter(a=>(a.set||1)===st), got=L2.filter(a=>animalsSeen.includes(a.k)).length; return `<div class="aniset"><b>Set ${st}</b><span>${got} of ${L2.length} · ${st===1?'Safari hat':'Ranger badge'}</span></div><div class="anigrid">${L2.map(a=>{ const on=animalsSeen.includes(a.k); return `<div class="anic ${on?'on':''}"><span class="ai"><svg viewBox="-13 -13 26 26" width="40" height="40" aria-hidden="true">${a.svg}</svg>${on?'':'<em>?</em>'}</span><b>${on?esc(a.name):'Not yet'}</b><small>${esc(a.where)}</small></div>`; }).join('')}</div>`; }).join('')}</div>
   <div class="psec" id="pEv"><div class="psh"><h2>Shiny stamps</h2><span>${Object.keys(eventStamps).length} collected</span></div><p class="psub">Stamp a city during its festival to get a rare shiny version. ${EVENTS.filter(evLive).length?`<b>${EVENTS.filter(evLive).length} on right now!</b>`:`Next up: ${esc(EVENTS.slice().sort((a,b)=>evNextStart(a)<evNextStart(b)?-1:1)[0].name)}.`}</p><div class="evlist">${evShown().map(e=>{ const got2=Object.entries(eventStamps).find(([,v])=>v.ev===e.id), live=e.cities.some(c=>activeEvent(c)&&activeEvent(c).id===e.id), C0=CITIES[got2?got2[0]:e.cities[0]], K0=COUNTRIES[C0.c];
-      return `<div class="evrow ${got2?'got':live?'live':''}"><span class="sq" style="background:${K0.color}">${lm(C0.icon,'on').replace('<svg','<svg width="26" height="26"')}</span><div><b>${e.name}</b><span>${e.cities.map(c=>CITIES[c].name).join(' or ')} · ${got2?'collected '+dLong(got2[1].date):e.when}</span></div>${got2?`<em>${L(LU.check,10,3)}</em>`:live?'<em style="background:var(--city-kyoto)">ON NOW</em>':''}</div>`; }).join('')}${evShown().length<EVENTS.length?`<button class="lmore" id="evMore">Show all ${EVENTS.length} events</button>`:''}</div></div>
+      return `<div class="evrow ${got2?'got':live?'live':''}"><span class="sq" style="background:${K0.color}">${lm(C0.icon,'on').replace('<svg','<svg width="26" height="26"')}<i class="evemo">${evIcon(e)}</i></span><div><b>${e.name}</b><span>${e.cities.map(c=>CITIES[c].name).join(' or ')} · ${got2?'collected '+dLong(got2[1].date):e.when}</span></div>${got2?`<em>${L(LU.check,10,3)}</em>`:live?'<em style="background:var(--city-kyoto)">ON NOW</em>':''}</div>`; }).join('')}${evShown().length<EVENTS.length?`<button class="lmore" id="evMore">Show all ${EVENTS.length} events</button>`:''}</div></div>
   <div class="psec" id="pRew"><div class="psh"><h2>Rewards</h2><span>Complete collections to unlock</span></div>
     <div class="wardrobe">${OUTFITS.map(o=>{const ok=unlockedBy(o.set); return `<button class="ward ${ok?'':'lock'} ${outfit===o.id?'on':''}" data-outfit="${o.id}" ${ok?'':'aria-disabled="true"'}><span class="prev">${miniHand(o.id,84)}</span><b>${o.name}</b><small>${ok?(outfit===o.id?'Wearing':'Tap to wear'):'Complete '+SETS.find(st=>st.id===o.set).name}</small></button>`}).join('')}
       ${COVERS.map(cv2=>{const ok=unlockedBy(cv2.set); return `<button class="ward ${ok?'':'lock'} ${cover===cv2.id?'on':''}" data-cover="${cv2.id}" ${ok?'':'aria-disabled="true"'}><span class="prev"><span class="covsw ${cv2.id}"></span></span><b>${cv2.name} cover</b><small>${ok?(cover===cv2.id?'On your passport':'Tap to use'):'Complete '+SETS.find(st=>st.id===cv2.set).name}</small></button>`}).join('')}</div></div>
