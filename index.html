@@ -48,7 +48,7 @@ html.fresh{
   --paper-cream:#EEF9F2; --paper-card:#FFFFFF; --ink-navy:#1E2B33; --ink-soft:#56656D;
   --stamp-red:#FF6B5B; --stamp-gold:#B07D00; --stamp-gold-wash:#FFE8A3;
   --city-lisbon:#FFC531; --city-kyoto:#00C56E; --city-capetown:#2A9FD6; --accent-plum:#8B6CFF;
-  --map-ocean:#7FD3E6; --map-land:#D8F6E0; --map-land-edge:#6FCF97; --map-hl:#FFD866;
+  --map-ocean:#8EDCEB; --map-land:#E3F9E8; --map-land-edge:#7FD9A0; --map-hl:#FFD866;
   --surround:#CFEFDB; --frame:#1E2B33; --grain:none;
   --mint:#00C56E; --mint-edge:#009A55; --mint-soft:#C8F5D6;
   --line:rgba(30,43,51,.10);
@@ -66,6 +66,7 @@ html.fresh #splash{background:radial-gradient(circle at 50% 36%,#FFFFFF 0,rgba(2
 html.fresh .brand{text-shadow:0 2px 0 #fff,0 0 24px rgba(255,255,255,.8);letter-spacing:-.02em}
 html.fresh .bubble{border:0;box-shadow:0 10px 24px rgba(30,43,51,.16);border-radius:18px}
 html.fresh .empty{border:2px dashed rgba(30,43,51,.14)}
+html.fresh .wnight{opacity:.35}
 html.fresh .cotd{max-width:236px;padding:8px 12px 8px 8px;border:0;border-radius:18px;background:linear-gradient(120deg,#FFE9E2,#FFD6CA);box-shadow:0 10px 22px rgba(255,107,91,.22)}
 html.fresh .cotd .ci{width:34px;height:34px;border-radius:11px;border:0;background:#fff;box-shadow:0 3px 8px rgba(255,107,91,.25);color:#E0503F}
 html.fresh .cotd small{font-size:10.5px;color:#B23A2C}
@@ -1378,6 +1379,10 @@ svg.wov.wnl{z-index:1}
 .wsign i{font-style:normal;font-size:8.5px;font-weight:800;color:#5A3A22;letter-spacing:.03em}
 .wsign .ink{position:absolute;right:-9px;top:-9px;width:18px;height:18px;border-radius:50%;border:2px solid rgba(232,56,42,.9);box-shadow:inset 0 0 0 2px rgba(255,248,231,.6),inset 0 0 0 3.5px rgba(232,56,42,.75);transform:rotate(-14deg);background:rgba(255,248,231,.5)}
 .wsign .sg{transform:none}
+.ctexts text{font-family:var(--font-display);font-weight:900;letter-spacing:0;fill:#FFFFFF;fill-opacity:.92;stroke:#3FBF7A;stroke-opacity:.75;stroke-width:.9;stroke-linejoin:round;paint-order:stroke;pointer-events:visiblePainted;cursor:pointer}
+#art-world.drag .ctexts text{pointer-events:none}
+.wsign .pill b{display:none}
+.wsign .pill{padding:0 4px;height:28px;gap:0}
 .wsign .pill{display:flex;align-items:center;gap:6px;height:32px;padding:0 5px 0 12px;border-radius:999px;background:#fff;box-shadow:0 8px 18px rgba(30,43,51,.18);white-space:nowrap;transition:transform .15s}
 .wsign:active .pill{transform:scale(.95)}
 .wsign .pill b{font:700 13px/1 var(--font-display);color:var(--ink-navy)}
@@ -3620,7 +3625,9 @@ const paths = (arr, cls, sw) => `<g class="${cls}" style="stroke-width:${sw}px">
 document.body.insertAdjacentHTML('afterbegin', `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <pattern id="pmSpeck" width="9" height="9" patternUnits="userSpaceOnUse">${[[1.2,1.6,.5],[5.6,2.4,.38],[3.4,5.2,.42],[7.8,6.8,.5],[1.8,7.6,.34],[6.4,4.6,.3]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#8A6A2E" opacity=".22"/>`).join('')}<path d="M2.5 3.8 l1.6 .7 M6.2 8.1 l1.4 -.6" stroke="#8A6A2E" stroke-width=".35" opacity=".18"/></pattern>
   <pattern id="pmSpeckW" width="9" height="9" patternUnits="userSpaceOnUse" href="#pmSpeck"></pattern>
-  ${Object.entries({desert:['#F2A94A',.95],jungle:['#3E9A4E',.95],temperate:['#86C460',.9],taiga:['#4F8F5E',.92],savanna:['#D6BE45',.88],mountain:['#A2865F',.92],snow:['#FFFFFF',1],tundra:['#BCCDA4',.85],deep:['#2F78A8',.55],autumn:['#E0782F',.72],spring:['#6CCB4E',.8]}).map(([k,[c,a]])=>`<radialGradient id="bm-${k}"><stop offset="0" stop-color="${c}" stop-opacity="${a}"/><stop offset=".55" stop-color="${c}" stop-opacity="${(a*.72).toFixed(2)}"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient>`).join('')}</defs></svg>`);
+  ${Object.entries(document.documentElement.classList.contains('fresh')
+      ? {desert:['#FFD98A',.85],jungle:['#4FD08A',.7],temperate:['#9BE3A8',.75],taiga:['#6CC98F',.7],savanna:['#F6E08A',.8],mountain:['#D5C4A2',.8],snow:['#FFFFFF',1],tundra:['#CFE9D6',.8],deep:['#4CC3E0',.16],autumn:['#FFB37A',.65],spring:['#8EE68A',.75]}
+      : {desert:['#F2A94A',.95],jungle:['#3E9A4E',.95],temperate:['#86C460',.9],taiga:['#4F8F5E',.92],savanna:['#D6BE45',.88],mountain:['#A2865F',.92],snow:['#FFFFFF',1],tundra:['#BCCDA4',.85],deep:['#2F78A8',.55],autumn:['#E0782F',.72],spring:['#6CCB4E',.8]}).map(([k,[c,a]])=>`<radialGradient id="bm-${k}"><stop offset="0" stop-color="${c}" stop-opacity="${a}"/><stop offset=".55" stop-color="${c}" stop-opacity="${(a*.72).toFixed(2)}"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient>`).join('')}</defs></svg>`);
 /* ---------- natural shading: deserts, forests, mountains, snow and deep ocean, as soft washes under the paper grain ---------- */
 /* [lon, lat, radius in degrees across, radius down, kind, tilt] */
 const BIOMES=[
@@ -3718,6 +3725,43 @@ const REGIONS = [
   {id:'sa', name:'South America', x:116, y:218, open:true},
   {id:'oc', name:'Oceania', x:326, y:228, open:true}
 ];
+
+/* continent names warped to fill each continent's shape: one band per line, every line stretched to the land's width at that height */
+const CONT_SHAPES = {
+  na:{lines:['NORTH','AMERICA'], poly:[[-168,66],[-140,70],[-95,72],[-80,70],[-62,60],[-55,50],[-66,44],[-76,35],[-81,26],[-90,29],[-97,26],[-97,20],[-87,21],[-83,10],[-78,8],[-86,13],[-95,16],[-105,20],[-112,30],[-118,34],[-124,40],[-125,48],[-132,55],[-150,60],[-165,60]], pad:[.10,.08]},
+  sa:{lines:['SOUTH','AMER','ICA'], poly:[[-80,9],[-72,12],[-62,10],[-52,5],[-35,-6],[-39,-14],[-48,-26],[-58,-35],[-65,-42],[-68,-54],[-74,-50],[-72,-35],[-71,-18],[-80,-5]], pad:[.06,.12]},
+  europe:{lines:['EUROPE'], poly:[[-10,36],[-9,43],[-1,46],[-4,48],[3,51],[8,55],[5,62],[15,69],[28,71],[40,67],[40,45],[28,41],[26,36],[15,38],[10,44],[3,43],[-5,36]], pad:[.30,.10]},
+  africa:{lines:['AFR','ICA'], poly:[[-17,21],[-10,35],[10,37],[20,32],[32,31],[35,24],[43,12],[51,12],[41,-2],[40,-15],[35,-25],[20,-35],[12,-18],[9,-2],[-8,4],[-17,14]], pad:[.10,.10]},
+  asia:{lines:['ASIA'], poly:[[40,45],[40,67],[70,73],[110,77],[140,72],[170,68],[180,66],[160,58],[142,52],[135,43],[125,40],[121,30],[110,20],[105,10],[100,13],[95,16],[90,22],[78,8],[72,20],[60,25],[55,26],[48,30],[35,33],[36,40]], pad:[.34,.30]},
+  oc:{lines:['OCEA','NIA'], poly:[[114,-22],[122,-17],[130,-12],[137,-12],[142,-11],[146,-19],[153,-26],[150,-37],[141,-38],[130,-32],[115,-34]], pad:[.08,.10]}
+};
+function spanAt(P, y){ const xs=[]; for(let i=0;i<P.length;i++){ const [x1,y1]=P[i], [x2,y2]=P[(i+1)%P.length]; if((y1<=y&&y2>y)||(y2<=y&&y1>y)) xs.push(x1+(y-y1)*(x2-x1)/(y2-y1)); } xs.sort((a,b)=>a-b); return xs.length>=2 ? [xs[0], xs[xs.length-1]] : null; }
+let contTextCache=null; const CONT_POS={};
+function contText(){
+  if(contTextCache) return contTextCache;
+  let aff; try{ aff=lvAff('world'); }catch(e){ return ''; } const [ax,bx,ay,by]=aff; let out='';
+  for(const [id,C] of Object.entries(CONT_SHAPES)){
+    const P=C.poly.map(([lon,lat])=>[ax*lon+bx, ay*lat+by]); const ys=P.map(p=>p[1]); let y0=Math.min(...ys), y1=Math.max(...ys); const H=y1-y0;
+    y0+=H*C.pad[0]; y1-=H*C.pad[1]; const n=C.lines.length, avail=y1-y0, CW=.74, CAP=.72;
+    /* line heights follow the land's width: wide parts get big letters, narrow parts small ones */
+    let hs=C.lines.map(()=>avail/n), fit=[];
+    for(let pass=0; pass<3; pass++){
+      const gap=avail*.05, tot=hs.reduce((a,b)=>a+b,0)+gap*(n-1), k=avail/tot; hs=hs.map(h=>h*k); let y=y0; fit=[];
+      C.lines.forEach((t,i)=>{ const top=y, bot=y+hs[i]; let L=-1e9, Rr=1e9;
+        [top+hs[i]*.1, top+hs[i]*.5, bot-hs[i]*.05].forEach(yy=>{ const sp=spanAt(P,yy); if(sp){ L=Math.max(L,sp[0]); Rr=Math.min(Rr,sp[1]); } });
+        const w=Math.max(0,(Rr-L)*.9); fit.push({t,top,bot,L,w}); y=bot+gap; });
+      hs=fit.map(f=>Math.max(4, Math.min(f.w/(f.t.length*CW)*CAP, avail*.75)));
+    }
+    let lines='', y=y0; const gap=avail*.05, used=hs.reduce((a,b)=>a+b,0)+gap*(n-1); y+= (avail-used)/2;
+    fit.forEach((f,i)=>{ const h=hs[i], bot=y+h; let L=-1e9, Rr=1e9;
+      [y+h*.1, y+h*.5, bot-h*.05].forEach(yy=>{ const sp=spanAt(P,yy); if(sp){ L=Math.max(L,sp[0]); Rr=Math.min(Rr,sp[1]); } });
+      if(Rr>L){ const w=(Rr-L)*.9, x=L+(Rr-L)*.05, fs=h/CAP;
+        lines+=`<text x="${x.toFixed(1)}" y="${bot.toFixed(1)}" font-size="${fs.toFixed(1)}" textLength="${w.toFixed(1)}" lengthAdjust="spacingAndGlyphs">${f.t}</text>`; CONT_POS[id]=[x+w/2, bot+3]; }
+      y=bot+gap; });
+    out+=`<g class="ctext" data-region="${id}">${lines}</g>`;
+  }
+  return contTextCache=`<g class="ctexts" clip-path="url(#bc-world)">${out}</g>`;
+}
 const regionCount = r => r.open ? cityCount(r.id) : r.fixed;
 
 const EU_STAMPS = [['PT',12,299],['ES',47,296],['FR',83,250],['UK',54,205],['NL',110,203],['DE',141,219],['AT',169,243],['IT',155,278],['CH',121,250],['GR',225,299],['TR',292,303],['IE',16,214],['NO',150,160],['CZ',176,207],['HR',190,280],['HU',215,240],['PL',210,196],['IS',4,138],['DK',118,176],['SE',185,146],['BE',84,228],['FI',222,128],['MT',160,316]];
@@ -4156,11 +4200,11 @@ function worldArtHTML(){
   worldPan = worldPan===null ? worldHome() : wrapPan(worldPan/prevW*g.w + 195*(1-g.w/prevW));   /* keep the same spot centred when the size changes */
   const svg = artBase('world').match(/<svg class="map"[\s\S]*?<\/svg>/)[0].replace(/<svg class="map" viewBox="0 0 390 844" aria-hidden="true">([\s\S]*?)<\/svg>/, (m,inner)=>{
     if(MAPSTYLE==='real' && REAL) inner = realInner('world');
-    return scratchSvg('world',biomeWrap('world',inner)); }).replace('<svg class="map"', `<svg class="map" style="--wz:${WZ.toFixed(3)};width:${(390*g.z).toFixed(1)}px;height:${(844*g.z).toFixed(1)}px;top:${g.oy.toFixed(1)}px"`);
+    return scratchSvg('world',biomeWrap('world',inner)+contText()); }).replace('<svg class="map"', `<svg class="map" style="--wz:${WZ.toFixed(3)};width:${(390*g.z).toFixed(1)}px;height:${(844*g.z).toFixed(1)}px;top:${g.oy.toFixed(1)}px"`);
   const at=(x,y)=>[x*g.z, y*g.z+g.oy];
   const pw=document.getElementById('pmSpeckW'); if(pw) pw.setAttribute('patternTransform', `scale(${(1.9/g.z).toFixed(4)})`);
-  const bubs = REGIONS.map((r,i)=>{ const n=regionCount(r), [cx,cy]=at(r.x+15,r.y+15), cc=countryCount(r.id), tot=regionTotal(r.id)||1;
-    return `<button class="wsign mk ${n?'hot':''}" data-region="${r.id}" style="left:${cx.toFixed(1)}px;top:${(cy+14).toFixed(1)}px;--i:${i};--tilt:${[-4,3,-2,4,-3,2][i]}deg" aria-label="${r.name}: ${n} ${n===1?'city':'cities'} stamped, ${cc} of ${tot} countries"><span class="sg"><span class="pill"><b>${r.name}</b><i>${cc}/${tot}</i></span></span></button>`; }).join('');
+  contText(); const bubs = REGIONS.map((r,i)=>{ const n=regionCount(r), [cx,cy]=CONT_POS[r.id]?at(...CONT_POS[r.id]):at(r.x+15,r.y+15), cc=countryCount(r.id), tot=regionTotal(r.id)||1;
+    return `<button class="wsign mk ${n?'hot':''}" data-region="${r.id}" style="left:${cx.toFixed(1)}px;top:${(cy+(CONT_POS[r.id]?30:14)).toFixed(1)}px;--i:${i};--tilt:${[-4,3,-2,4,-3,2][i]}deg" aria-label="${r.name}: ${n} ${n===1?'city':'cities'} stamped, ${cc} of ${tot} countries"><span class="sg"><span class="pill"><b>${r.name}</b><i>${cc}/${tot}</i></span></span></button>`; }).join('');
   let me='';
   if(LOC.on && LOC.pos){ const [ax,bx,ay,by]=lvAff('world'), [X,Y]=at(ax*LOC.pos[1]+bx, ay*LOC.pos[0]+by); me=`<div class="mering" style="left:${X.toFixed(1)}px;top:${Y.toFixed(1)}px"></div><div class="me here" style="left:${(X-24).toFixed(1)}px;top:${(Y-58).toFixed(1)}px" aria-hidden="true">${face(40)}<i>YOU</i><u></u></div>`;
     const near=Object.keys(CITIES).filter(id=>!vst(id)&&CITY_LL[id]&&kmTo(LOC.pos,CITY_LL[id])<350).sort((a,b)=>kmTo(LOC.pos,CITY_LL[a])-kmTo(LOC.pos,CITY_LL[b]));
