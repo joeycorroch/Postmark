@@ -141,6 +141,32 @@ html.fresh .wball svg{animation:bob 3.2s ease-in-out infinite,bsway 7s ease-in-o
 html.fresh .wplane>*{animation:pbob 4.6s ease-in-out infinite}
 @keyframes pbob{0%,100%{translate:0 0}50%{translate:0 -3px}}
 html.fresh .wboatw>*{animation:pbob 3.8s ease-in-out infinite}
+
+/* ---------- consistency pass ---------- */
+html.fresh .cst{box-shadow:0 4px 10px rgba(30,43,51,.22)!important;border-radius:50%}
+html.fresh .cst .fl{border:2px dashed rgba(30,43,51,.28)}
+html.fresh .cst.got .fl,html.fresh .cst.gold .fl{border-style:solid;border-color:#fff}
+html.fresh .cst .badge{border:2px solid #fff}
+html.fresh .cst .nm{border:0;box-shadow:0 3px 8px rgba(30,43,51,.14)}
+html.fresh .lbody{border-top:2px dashed #CFE3D7}
+html.fresh .lockbox.quiz .opts button{border:0!important;border-radius:14px;background:#fff;box-shadow:0 4px 12px rgba(180,120,0,.14)}
+html.fresh .lockbox.quiz .opts button.ok{background:#D6F5E2;color:#00874A;box-shadow:0 0 0 2.5px #00C56E}
+html.fresh .lockbox.quiz .opts button.no{background:#FFE3DE;color:#C8392B;box-shadow:0 0 0 2.5px #FF6B5B}
+html.fresh .dcard{border:0!important;border-radius:22px;box-shadow:0 18px 40px rgba(0,0,0,.28)!important}
+html.fresh .dcard .stp{border:2px dashed rgba(30,43,51,.25);border-radius:10px;background:#fff;box-shadow:0 8px 18px rgba(0,0,0,.18)}
+html.fresh .dcard .stp .in{border-radius:6px}
+html.fresh #yir{background:radial-gradient(circle at 50% 30%,rgba(0,197,110,.25),transparent 60%),rgba(16,30,40,.94)}
+html.fresh #yir .ycard{border-radius:26px;box-shadow:0 0 0 3px #fff,0 24px 60px rgba(0,0,0,.45)}
+html.fresh #yir .ybtns .btn{border-radius:16px}
+html.fresh input:not([type=range]):not([type=checkbox]),html.fresh select,html.fresh textarea{border-color:#DCEBE2!important;border-radius:14px}
+html.fresh input:focus,html.fresh select:focus,html.fresh textarea:focus{outline:none;border-color:#00C56E!important;box-shadow:0 0 0 3px rgba(0,197,110,.18)}
+/* springy taps */
+html.fresh :is(button,.wcard,.wcd,.tcard,.fcard,.setc,.anic,.chip,.tile,.kt,.sr,.step){transition:transform .18s cubic-bezier(.3,1.6,.5,1),box-shadow .18s}
+html.fresh :is(button,.wcard,.tcard,.fcard,.sr,.step):active:not(:disabled){transform:scale(.955)}
+html.fresh .wstars .wstar{fill:#fff;animation:twk 4s var(--d,0s) ease-in-out infinite}
+html.fresh .wstars .wstar.big{fill:#FFF6CF}
+@keyframes twk{0%,100%{opacity:.45}50%{opacity:1}}
+html.fresh .wstars{filter:drop-shadow(0 0 1.2px rgba(255,255,255,.9))}
 /* you are here, fresh */
 html.fresh .mering::before,html.fresh .mering::after{border-color:#00C56E;border-width:3px;background:rgba(0,197,110,.12)}
 html.fresh .mering{z-index:1}
@@ -3938,6 +3964,13 @@ function paintGlobe(){ const el=$('#wGlobe'), p=$('#wpan'); if(!el||!p||level!==
   for(let la=-75; la<=75; la+=15){ const y=Y(la); if(y<-30||y>H+30) continue; let d=''; for(let x=-20; x<=410; x+=14.33){ d+=(d?'L':'M')+x.toFixed(1)+' '+bendP(x,y).toFixed(1); } if(la===0) eq=d; else par+=d; }
   const all=mer+par; el.querySelector('.grat').innerHTML=`<path d="${all}" class="gsh"/><path d="${all}" class="gln"/>${eq?`<path d="${eq}" class="gsh"/><path d="${eq}" class="geq"/>`:''}`; }
 (function globeLoop(){ try{ if(level==='world' && document.documentElement.classList.contains('fresh') && !document.hidden) paintGlobe(); }catch(e){} requestAnimationFrame(globeLoop); })();
+/* stars over the night-side ocean: fixed spots, shown only where the sun is down; the land hides any that fall on it */
+const STARS=(()=>{ let sd=20261120; const r=()=>{ sd=(sd*1664525+1013904223)>>>0; return sd/4294967296; }; return [...Array(320)].map(()=>[r()*130-62, r()*360-180, r(), r()]); })();
+function starsSVG(aff, offs){ let S; try{ S=sunNow(); }catch(e){ return ''; } const [ax,bx,ay,by]=aff; let out='';
+  STARS.forEach(([lat,lon,sz,ph])=>{ if(sunElev(S,lat,lon)>-7) return; offs.forEach(o=>{ const x=ax*(lon+o)+bx, y=ay*lat+by;
+    out+= sz>.9 ? `<path class="wstar big" d="M${x.toFixed(1)} ${(y-2.6).toFixed(1)}Q${(x+.25).toFixed(1)} ${(y-.25).toFixed(1)} ${(x+2.6).toFixed(1)} ${y.toFixed(1)}Q${(x+.25).toFixed(1)} ${(y+.25).toFixed(1)} ${x.toFixed(1)} ${(y+2.6).toFixed(1)}Q${(x-.25).toFixed(1)} ${(y+.25).toFixed(1)} ${(x-2.6).toFixed(1)} ${y.toFixed(1)}Q${(x-.25).toFixed(1)} ${(y-.25).toFixed(1)} ${x.toFixed(1)} ${(y-2.6).toFixed(1)}Z" style="--d:${(ph*4).toFixed(2)}s"/>`
+      : `<circle class="wstar" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(.45+sz*.5).toFixed(2)}" style="--d:${(ph*4).toFixed(2)}s"/>`; }); });
+  return `<g class="wstars">${out}</g>`; }
 const GRAT_CACHE={};
 /* globe lines: meridians and parallels drawn on the sea, under the raised land, each with a soft shadow for depth */
 function gratSVG(lv, aff, offs){
@@ -4055,7 +4088,7 @@ function biomeWrap(lv, inner){
   const SEA=new Set(['wave','iceberg','compass']);
   const dd=t=>DOODLES.filter(d=>(t==='sea')===SEA.has(d[2])).map(([lon,lat,kind])=>offs.map(o=>{ const x=ax*(lon+o)+bx, y=ay*lat+by; if(x<-20||x>410||y<-20||y>864) return '';
     const sym = kind==='pine' && winter && lat>50 ? 'pinesnow' : kind; return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${k.toFixed(3)})">${DOODLE[sym]}</g>`; }).join('')).join('');
-  const sea=sea0+(FR&&lv!=='world'?gratSVG(lv,aff,offs):'')+`<g class="doodle">${dd('sea')}</g>`, landD=FR?'':`<g class="doodle">${dd('land')}</g>`;
+  const sea=sea0+(FR&&lv!=='world'?gratSVG(lv,aff,offs):'')+(FR&&lv==='world'?starsSVG(aff,offs):'')+`<g class="doodle">${dd('sea')}</g>`, landD=FR?'':`<g class="doodle">${dd('land')}</g>`;
   let out=inner; const m=inner.match(/<g class="land"[^>]*>([\s\S]*?)<\/g>/);
   if(m && land){ const id='bc-'+lv; out=inner.replace(m[0], m[0]+`<clipPath id="${id}">${m[1]}</clipPath><g class="biome" clip-path="url(#${id})">${land}</g>`); }
   const lastG=out.lastIndexOf('</g>');
@@ -4354,7 +4387,7 @@ function nightInner(g){ const S=sunNow(), south=S.dec>=0; let out='';  /* drawn 
     const cap=south?-120:120, A=wLL(g,cap,540), B=wLL(g,cap,-540);
     out+=`<path d="M${pts.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' L')} L${A[0].toFixed(1)} ${A[1].toFixed(1)} L${B[0].toFixed(1)} ${B[1].toFixed(1)}Z" fill="${document.documentElement.classList.contains('fresh')?'#0F2A55':'#141838'}" opacity="${document.documentElement.classList.contains('fresh')?(op*2.2).toFixed(2):op}"/>`; });
   /* city lights on the dark side */
-  Object.keys(CITIES).forEach(id=>{ const ll=CITY_LL[id]; if(!ll || sunElev(S,ll[0],ll[1])>-4) return; [-360,0,360].forEach(off=>{ const [x,y]=wLL(g,ll[0],ll[1]+off);
+  if(!document.documentElement.classList.contains('fresh')) Object.keys(CITIES).forEach(id=>{ const ll=CITY_LL[id]; if(!ll || sunElev(S,ll[0],ll[1])>-4) return; [-360,0,360].forEach(off=>{ const [x,y]=wLL(g,ll[0],ll[1]+off);
     out+=`<circle class="wglow" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" fill="#FFD25A" opacity=".22" style="--d:${(id.length%7)*.4}s"/><circle class="wlt" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="1.5" fill="#FFF1B8" style="--d:${(id.length%7)*.4}s"/>`; }); });
   return out; }
 /* stamped cities, gold countries and the routes between them */
@@ -4698,6 +4731,9 @@ function postieLine(){ if(LOC.on && LOC.pos){ const n=Object.keys(CITIES).filter
     : h<21 ? [`Evening${hi}! Perfect time for a postcard.`,`Sunset somewhere lovely. Fancy ${C.name}?`,'Zoom in to spot animals and message bottles.']
     : [`Getting late${hi}. One more city before bed?`,'Night owl? Tap me for a surprise city.','The planes are still flying. Zoom in!'];
   return T[(new Date().getDate()+Object.keys(visited).length)%T.length]; }
+let tapT=0;
+addEventListener('pointerdown', e=>{ if(!document.documentElement.classList.contains('fresh')) return; const b=e.target.closest('button,.wcard,.tcard,.fcard,.sr,[data-city],[data-country],[data-region]'); if(!b || b.disabled) return;
+  const now=performance.now(); if(now-tapT<70) return; tapT=now; try{ tone(0,'sine',1180,.045,.028,1560,.15); }catch(err){} }, true);
 let pipT=0;
 function pipReact(kind){ if(!document.documentElement.classList.contains('fresh')) return;
   const say={gold:['Gold border! Coo coo!','Shiny gold! I’m so proud!','Gold! Time for a victory lap!'],stamp:['Coo! Nice stamp!','Another one for the passport!','Stamped! Where next?','Ooh, that one’s shiny!'],right:['Correct! Coo!','You know your stuff!','Nailed it!','Smarty pigeon approves!']}[kind];
@@ -6089,11 +6125,11 @@ function yirData(){
 function yirCardHTML(){ const d=yirData();
   return `<button class="yircard" id="yirBtn"><span class="yi">${L(LU.star,28)}</span><span><small>YEAR IN REVIEW</small><b>${d.label==='All time'?'Your stamps so far':`Your ${d.Y} in stamps`}</b><span class="m">${d.ids.length} cit${d.ids.length===1?'y':'ies'} · ${d.cs.length} countr${d.cs.length===1?'y':'ies'} · ${d.km.toLocaleString()} km</span></span><span class="go">${L(LU.right||LU.plane,18)}</span></button>`; }
 function yirSVG(d){
-  const W=360,H=640, N='#1B1F4B', C='#FFF3D6', Y='#FFC21F', ser='Georgia, serif', sans='Helvetica, Arial, sans-serif';
+  const FRY=document.documentElement.classList.contains('fresh'), W=360,H=640, N=FRY?'#17323B':'#1B1F4B', C=FRY?'#FFFFFF':'#FFF3D6', Y=FRY?'#FFC531':'#FFC21F', ser=FRY?'Poppins, Helvetica, sans-serif':'Georgia, serif', sans=FRY?'Inter, Helvetica, Arial, sans-serif':'Helvetica, Arial, sans-serif';
   const rays=Array.from({length:18},(_,i)=>{ const a=i*20*Math.PI/180, b=(i*20+9)*Math.PI/180; return `<path d="M180 150 L${180+600*Math.cos(a)} ${150+600*Math.sin(a)} L${180+600*Math.cos(b)} ${150+600*Math.sin(b)}Z" fill="rgba(255,194,31,.08)"/>`; }).join('');
   const nowh=t=>t.replace(/^<svg([^>]*?) width="[^"]*"/,'<svg$1').replace(/^<svg([^>]*?) height="[^"]*"/,'<svg$1');
   const av=`<clipPath id="yav"><circle cx="180" cy="150" r="50"/></clipPath><g clip-path="url(#yav)">${nowh(avatarSVG(AVA,92)).replace('<svg',`<svg x="128" y="98" width="104" height="130"`)}</g>`;
-  const stat=(x,y,n,t,col)=>`<g class="yn"><rect x="${x}" y="${y}" width="150" height="66" rx="14" fill="${C}" stroke="${N}" stroke-width="3"/><text x="${x+75}" y="${y+36}" text-anchor="middle" font-family="${ser}" font-weight="900" font-size="28" fill="${col}">${n}</text><text x="${x+75}" y="${y+55}" text-anchor="middle" font-family="${sans}" font-weight="700" font-size="10" letter-spacing="1.5" fill="${N}">${t}</text></g>`;
+  const stat=(x,y,n,t,col)=>`<g class="yn"><rect x="${x}" y="${y}" width="150" height="66" rx="${FRY?18:14}" fill="${C}" stroke="${N}" stroke-width="${FRY?0:3}"/><text x="${x+75}" y="${y+36}" text-anchor="middle" font-family="${ser}" font-weight="900" font-size="28" fill="${col}">${n}</text><text x="${x+75}" y="${y+55}" text-anchor="middle" font-family="${sans}" font-weight="700" font-size="10" letter-spacing="1.5" fill="${N}">${t}</text></g>`;
   const show=d.ids.slice(-8), cell=(i)=>[24+(i%4)*80, 384+Math.floor(i/4)*84];
   const stamps=show.map((id,i)=>{ const C2=CITIES[id], K=COUNTRIES[C2.c], [x,y]=cell(i), r=[-6,4,-3,7,5,-5,3,-7][i];
     return `<g class="ys" style="animation-delay:${.5+i*.12}s" transform="rotate(${r} ${x+36} ${y+38})"><rect x="${x}" y="${y}" width="72" height="76" fill="${C}" stroke="${N}" stroke-width="2" stroke-dasharray="5 3"/><rect x="${x+8}" y="${y+7}" width="56" height="48" fill="${cv(K.color)}" stroke="${N}" stroke-width="2"/>${nowh(lm(C2.icon,'on')).replace('<svg',`<svg x="${x+16}" y="${y+9}" width="40" height="44"`)}<text x="${x+36}" y="${y+69}" text-anchor="middle" font-family="${ser}" font-weight="900" font-size="10" fill="${N}">${esc(C2.short||C2.name)}</text></g>`; }).join('');
