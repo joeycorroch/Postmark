@@ -67,6 +67,58 @@ html.fresh .brand{text-shadow:0 2px 0 #fff,0 0 24px rgba(255,255,255,.8);letter-
 html.fresh .bubble{border:0;box-shadow:0 10px 24px rgba(30,43,51,.16);border-radius:18px}
 html.fresh .empty{border:2px dashed rgba(30,43,51,.14)}
 html.fresh .wnight{opacity:.35}
+/* ---------- Fresh world screen ---------- */
+html.fresh #art-world svg.map > g > rect:first-child{fill:url(#oceanW)!important}
+html.fresh #art-world .land{filter:url(#landRaise)}
+html.fresh #art-world .land path{fill:url(#landW)}
+.wtop{display:flex;align-items:center;gap:8px;margin:14px 16px 0}
+.wtop .wsp{flex:1}
+.wav{width:46px;height:46px;border-radius:50%;padding:0;background:radial-gradient(circle at 35% 30%,#FFF0B8,#FFC531);box-shadow:0 0 0 3px #fff,0 6px 14px rgba(30,43,51,.18);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.wav .face{width:40px;height:40px;border-radius:50%;overflow:hidden}
+.wstat{display:flex;align-items:center;gap:5px;height:38px;padding:0 11px;border-radius:13px;background:rgba(255,255,255,.94);box-shadow:0 6px 14px rgba(30,43,51,.10);font:700 15px/1 var(--font-display);color:var(--ink-navy)}
+.wtop .mailbtn{width:46px;height:46px;border-radius:14px;border:0;background:rgba(255,255,255,.94);box-shadow:0 6px 14px rgba(30,43,51,.10)}
+html.fresh #art-world rect[fill="url(#foil)"]{display:none}
+html.fresh #art-world svg.map>g[filter]{filter:none}
+.wsearch{flex:none!important;margin:12px 16px 0;height:50px;border:0!important;border-radius:16px!important;background:rgba(255,255,255,.96)!important;box-shadow:0 8px 20px rgba(30,43,51,.12)!important;font-size:15.5px;color:#6B7A82}
+.wsearch .ic{color:#00B062}
+.wpostie{position:absolute;left:8px;bottom:326px;z-index:6;display:flex;align-items:flex-end;gap:2px;padding:0;background:none;text-align:left}
+.wpostie .postie{flex-shrink:0;animation:waddle 2.6s ease-in-out infinite;transform-origin:50% 95%}
+.wpostie.hop .postie{animation:phop .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes phop{40%{transform:translateY(-16px) rotate(-6deg)}}
+.wsay{margin-bottom:50px;max-width:186px;padding:10px 13px;border-radius:18px 18px 18px 6px;background:#fff;box-shadow:0 10px 24px rgba(30,43,51,.16);font:600 13px/1.35 var(--font-body);color:var(--ink-navy);animation:rise .4s .3s both,sayout .5s 9s forwards}
+@keyframes sayout{to{opacity:0;transform:translateY(6px) scale(.9);visibility:hidden}}
+.wpostie:hover .wsay{animation:none;opacity:1}
+.wsheet{position:absolute;left:0;right:0;bottom:84px;height:236px;z-index:6;box-sizing:border-box;padding:10px 16px 0;border-radius:30px 30px 0 0;background:linear-gradient(180deg,#E9FAEF,#DDF6E6);box-shadow:0 -10px 30px rgba(30,90,107,.16);display:flex;flex-direction:column;gap:12px}
+.wsheet .grab{align-self:center;width:40px;height:5px;border-radius:999px;background:#B7E4C7}
+.wcd{display:flex;align-items:center;gap:12px;padding:12px;border-radius:22px;background:linear-gradient(120deg,#FFE4DC,#FFD0C2);box-shadow:0 8px 18px rgba(255,107,91,.18)}
+.wcd.rw{background:linear-gradient(120deg,#E3ECFF,#C9DAFF);box-shadow:0 8px 18px rgba(61,123,255,.18)}
+.wcdi{flex-shrink:0;width:56px;height:56px;border-radius:16px;background:#fff;box-shadow:0 4px 10px rgba(255,107,91,.2);display:flex;align-items:center;justify-content:center}
+.wcdt{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.wcdt small{font:700 11px/1 var(--font-body);letter-spacing:.1em;text-transform:uppercase;color:#B23A2C}
+.wcd.rw .wcdt small{color:#2D5BB8}
+.wcdt b{display:flex;align-items:center;font:700 18px/1.2 var(--font-display);color:var(--ink-navy)}
+.wcdt b .miniflag{width:15px;height:15px;margin-right:6px}
+.wcdt em{font-style:normal;font:500 13px/1.3 var(--font-body);color:#6A3A31;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wgo{flex-shrink:0;height:40px;padding:0 18px;border-radius:12px;background:linear-gradient(180deg,#19D480,#00B865);color:#fff;font:700 14px/1 var(--font-display);box-shadow:0 3px 0 #009A55,0 6px 14px rgba(0,150,79,.25)}
+.wgo:active{transform:translateY(2px);box-shadow:0 1px 0 #009A55}
+.wgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.wcard{display:flex;flex-direction:column;align-items:stretch;gap:8px;padding:14px;border-radius:22px;text-align:left}
+.wcard.wq{background:linear-gradient(140deg,#FFF0B8,#FFD966);box-shadow:0 8px 18px rgba(245,180,0,.2)}
+.wcard.ww{background:linear-gradient(140deg,#D6EEFF,#A9D8FF);box-shadow:0 8px 18px rgba(42,159,214,.2)}
+.wch{display:flex;justify-content:space-between;align-items:center}
+.wch b{font:700 15px/1 var(--font-display);color:var(--ink-navy)}
+.wch i{font-style:normal;font:700 13px/1 var(--font-body);color:#6E4E00}
+.ww .wch i{color:#1B5A86}
+.wbar{height:10px;border-radius:999px;background:rgba(255,255,255,.7);overflow:hidden}
+.wbar u{display:block;height:100%;border-radius:999px;background:var(--ink-navy)}
+.wsegs{display:flex;gap:5px}.wsegs u{flex:1;height:10px;border-radius:999px;background:rgba(255,255,255,.7)}.wsegs u.on{background:#2A7FD6}
+.wsub{font:500 12px/1.3 var(--font-body);color:#5A4300;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ww .wsub{color:#1F4A6B}
+.wcard:active,.wcd:active{transform:scale(.98)}
+html.fresh #nav{border-top:0;box-shadow:0 -6px 18px rgba(30,43,51,.06);background:#fff;padding:8px 10px 18px;gap:6px;align-items:stretch}
+html.fresh #nav button{flex:1;justify-content:center;border-radius:16px;color:#6B7A82;font-weight:600}
+html.fresh #nav button.on{background:linear-gradient(180deg,#D7F8E3,#BDF0CF);color:#00663A;font-weight:700}
+
 html.fresh .cotd{max-width:236px;padding:8px 12px 8px 8px;border:0;border-radius:18px;background:linear-gradient(120deg,#FFE9E2,#FFD6CA);box-shadow:0 10px 22px rgba(255,107,91,.22)}
 html.fresh .cotd .ci{width:34px;height:34px;border-radius:11px;border:0;background:#fff;box-shadow:0 3px 8px rgba(255,107,91,.25);color:#E0503F}
 html.fresh .cotd small{font-size:10.5px;color:#B23A2C}
@@ -1381,8 +1433,7 @@ svg.wov.wnl{z-index:1}
 .wsign .sg{transform:none}
 .ctexts text{font-family:var(--font-display);font-weight:900;letter-spacing:0;fill:#FFFFFF;fill-opacity:.92;stroke:#3FBF7A;stroke-opacity:.75;stroke-width:.9;stroke-linejoin:round;paint-order:stroke;pointer-events:visiblePainted;cursor:pointer}
 #art-world.drag .ctexts text{pointer-events:none}
-.wsign .pill b{display:none}
-.wsign .pill{padding:0 4px;height:28px;gap:0}
+
 .wsign .pill{display:flex;align-items:center;gap:6px;height:32px;padding:0 5px 0 12px;border-radius:999px;background:#fff;box-shadow:0 8px 18px rgba(30,43,51,.18);white-space:nowrap;transition:transform .15s}
 .wsign:active .pill{transform:scale(.95)}
 .wsign .pill b{font:700 13px/1 var(--font-display);color:var(--ink-navy)}
@@ -1731,7 +1782,7 @@ svg.wov.wnl{z-index:1}
     <div id="onboard" role="dialog" aria-modal="true" aria-label="Getting started"></div>
     <div id="auth" role="dialog" aria-modal="true" aria-label="Sign in"></div>
     <div id="srch" role="dialog" aria-modal="true" aria-label="Search"></div>
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><filter id="fade" x="0" y="0" width="1" height="1"><feColorMatrix type="saturate" values=".88"/><feComponentTransfer><feFuncR type="linear" slope=".92" intercept=".08"/><feFuncG type="linear" slope=".92" intercept=".08"/><feFuncB type="linear" slope=".92" intercept=".07"/></feComponentTransfer></filter><filter id="rough" filterUnits="userSpaceOnUse" x="-100" y="-100" width="590" height="1044"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="30" xChannelSelector="R" yChannelSelector="G"/></filter><pattern id="foil" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><line x1="0" y1="0" x2="0" y2="7" stroke="#FFFFFF" stroke-width="1.6" opacity=".14"/></pattern><filter id="ink" x="-6%" y="-6%" width="112%" height="112%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.2" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="2" seed="9" result="b"/><feColorMatrix in="b" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.75 0 0 0 1.2" result="m"/><feComposite in="d" in2="m" operator="in"/></filter></defs></svg>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="oceanW" gradientUnits="userSpaceOnUse" x1="0" y1="110" x2="0" y2="300"><stop offset="0" stop-color="#A9E7F1"/><stop offset="1" stop-color="#5CC6DF"/></linearGradient><linearGradient id="landW" gradientUnits="userSpaceOnUse" x1="0" y1="125" x2="0" y2="280"><stop offset="0" stop-color="#EEFCF0"/><stop offset="1" stop-color="#BDEFCB"/></linearGradient><filter id="landRaise" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="2" stdDeviation=".9" flood-color="#1B6E80" flood-opacity=".5"/><feDropShadow dx="0" dy=".6" stdDeviation=".2" flood-color="#5FBF86" flood-opacity=".9"/></filter><filter id="fade" x="0" y="0" width="1" height="1"><feColorMatrix type="saturate" values=".88"/><feComponentTransfer><feFuncR type="linear" slope=".92" intercept=".08"/><feFuncG type="linear" slope=".92" intercept=".08"/><feFuncB type="linear" slope=".92" intercept=".07"/></feComponentTransfer></filter><filter id="rough" filterUnits="userSpaceOnUse" x="-100" y="-100" width="590" height="1044"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="30" xChannelSelector="R" yChannelSelector="G"/></filter><pattern id="foil" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><line x1="0" y1="0" x2="0" y2="7" stroke="#FFFFFF" stroke-width="1.6" opacity=".14"/></pattern><filter id="ink" x="-6%" y="-6%" width="112%" height="112%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.2" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="2" seed="9" result="b"/><feColorMatrix in="b" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.75 0 0 0 1.2" result="m"/><feComposite in="d" in2="m" operator="in"/></filter></defs></svg>
   </div>
 </div>
 
@@ -3625,9 +3676,7 @@ const paths = (arr, cls, sw) => `<g class="${cls}" style="stroke-width:${sw}px">
 document.body.insertAdjacentHTML('afterbegin', `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <pattern id="pmSpeck" width="9" height="9" patternUnits="userSpaceOnUse">${[[1.2,1.6,.5],[5.6,2.4,.38],[3.4,5.2,.42],[7.8,6.8,.5],[1.8,7.6,.34],[6.4,4.6,.3]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#8A6A2E" opacity=".22"/>`).join('')}<path d="M2.5 3.8 l1.6 .7 M6.2 8.1 l1.4 -.6" stroke="#8A6A2E" stroke-width=".35" opacity=".18"/></pattern>
   <pattern id="pmSpeckW" width="9" height="9" patternUnits="userSpaceOnUse" href="#pmSpeck"></pattern>
-  ${Object.entries(document.documentElement.classList.contains('fresh')
-      ? {desert:['#FFD98A',.85],jungle:['#4FD08A',.7],temperate:['#9BE3A8',.75],taiga:['#6CC98F',.7],savanna:['#F6E08A',.8],mountain:['#D5C4A2',.8],snow:['#FFFFFF',1],tundra:['#CFE9D6',.8],deep:['#4CC3E0',.16],autumn:['#FFB37A',.65],spring:['#8EE68A',.75]}
-      : {desert:['#F2A94A',.95],jungle:['#3E9A4E',.95],temperate:['#86C460',.9],taiga:['#4F8F5E',.92],savanna:['#D6BE45',.88],mountain:['#A2865F',.92],snow:['#FFFFFF',1],tundra:['#BCCDA4',.85],deep:['#2F78A8',.55],autumn:['#E0782F',.72],spring:['#6CCB4E',.8]}).map(([k,[c,a]])=>`<radialGradient id="bm-${k}"><stop offset="0" stop-color="${c}" stop-opacity="${a}"/><stop offset=".55" stop-color="${c}" stop-opacity="${(a*.72).toFixed(2)}"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient>`).join('')}</defs></svg>`);
+  ${[['bmf',{desert:['#FFD98A',.85],jungle:['#4FD08A',.7],temperate:['#9BE3A8',.75],taiga:['#6CC98F',.7],savanna:['#F6E08A',.8],mountain:['#D5C4A2',.8],snow:['#FFFFFF',1],tundra:['#CFE9D6',.8],deep:['#4CC3E0',.16],autumn:['#FFB37A',.65],spring:['#8EE68A',.75]}],['bm',{desert:['#F2A94A',.95],jungle:['#3E9A4E',.95],temperate:['#86C460',.9],taiga:['#4F8F5E',.92],savanna:['#D6BE45',.88],mountain:['#A2865F',.92],snow:['#FFFFFF',1],tundra:['#BCCDA4',.85],deep:['#2F78A8',.55],autumn:['#E0782F',.72],spring:['#6CCB4E',.8]}]].map(([pre,set])=>Object.entries(set).map(([k,[c,a]])=>`<radialGradient id="${pre}-${k}"><stop offset="0" stop-color="${c}" stop-opacity="${a}"/><stop offset=".55" stop-color="${c}" stop-opacity="${(a*.72).toFixed(2)}"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient>`).join('')).join('')}</defs></svg>`);
 /* ---------- natural shading: deserts, forests, mountains, snow and deep ocean, as soft washes under the paper grain ---------- */
 /* [lon, lat, radius in degrees across, radius down, kind, tilt] */
 const BIOMES=[
@@ -3686,7 +3735,7 @@ function biomeWrap(lv, inner){
   const [ax,bx,ay,by]=aff, offs=lv==='world'?[-360,0,360]:[0];
   const el=(lon,lat,rx,ry,t,rot=0)=>offs.map(o=>{ const x=ax*(lon+o)+bx, y=ay*lat+by, RX=Math.abs(ax*rx), RY=Math.abs(ay*ry);
     if(x+RX<-40||x-RX>430||y+RY<-40||y-RY>884) return '';
-    return `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${RX.toFixed(1)}" ry="${RY.toFixed(1)}" fill="url(#bm-${t})"${rot?` transform="rotate(${rot} ${x.toFixed(1)} ${y.toFixed(1)})"`:''}/>`; }).join('');
+    return `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${RX.toFixed(1)}" ry="${RY.toFixed(1)}" fill="url(#${document.documentElement.classList.contains('fresh')?'bmf':'bm'}-${t})"${rot?` transform="rotate(${rot} ${x.toFixed(1)} ${y.toFixed(1)})"`:''}/>`; }).join('');
   const ALL=BIOMES.concat(seasonBiomes()), land=ALL.filter(b=>b[4]!=='deep').map(b=>el(...b)).join(''), sea0=ALL.filter(b=>b[4]==='deep').map(b=>el(...b)).join('');
   const k=lv==='world'?1/(WG.z||2):1, snowy=new Date().getMonth()+1, winter=[12,1,2,3].includes(snowy);
   const SEA=new Set(['wave','iceberg','compass']);
@@ -3966,7 +4015,7 @@ let worldPan = null, WG = {z:1.9, oy:0, w:WTURN*1.9};
 let WZ=1, WY=0;            /* world zoom on top of the fitted size, and vertical offset once zoomed */
 const WZMAX=2.5;
 function worldGeom(){
-  const H=parseFloat($('#phone').style.height)||844, top=116, bottom = H-104;
+  const H=parseFloat($('#phone').style.height)||844, top=136, bottom = H-84-(document.documentElement.classList.contains('fresh')?236:20);
   const z0=Math.max(1.35, Math.min(3.1, (bottom-top)/141*.96)), cy=(top+bottom)/2, z=z0*WZ;
   /* the stamped world band (map units 136–277) must keep covering the space between search bar and panel */
   let oy=cy-206.5*z+WY; const lo=bottom-277*z, hi=top-136*z; oy = lo<=hi ? Math.min(hi,Math.max(lo,oy)) : (lo+hi)/2; WY=oy-(cy-206.5*z);
@@ -4200,11 +4249,11 @@ function worldArtHTML(){
   worldPan = worldPan===null ? worldHome() : wrapPan(worldPan/prevW*g.w + 195*(1-g.w/prevW));   /* keep the same spot centred when the size changes */
   const svg = artBase('world').match(/<svg class="map"[\s\S]*?<\/svg>/)[0].replace(/<svg class="map" viewBox="0 0 390 844" aria-hidden="true">([\s\S]*?)<\/svg>/, (m,inner)=>{
     if(MAPSTYLE==='real' && REAL) inner = realInner('world');
-    return scratchSvg('world',biomeWrap('world',inner)+contText()); }).replace('<svg class="map"', `<svg class="map" style="--wz:${WZ.toFixed(3)};width:${(390*g.z).toFixed(1)}px;height:${(844*g.z).toFixed(1)}px;top:${g.oy.toFixed(1)}px"`);
+    return scratchSvg('world',biomeWrap('world',inner)); }).replace('<svg class="map"', `<svg class="map" style="--wz:${WZ.toFixed(3)};width:${(390*g.z).toFixed(1)}px;height:${(844*g.z).toFixed(1)}px;top:${g.oy.toFixed(1)}px"`);
   const at=(x,y)=>[x*g.z, y*g.z+g.oy];
   const pw=document.getElementById('pmSpeckW'); if(pw) pw.setAttribute('patternTransform', `scale(${(1.9/g.z).toFixed(4)})`);
-  contText(); const bubs = REGIONS.map((r,i)=>{ const n=regionCount(r), [cx,cy]=CONT_POS[r.id]?at(...CONT_POS[r.id]):at(r.x+15,r.y+15), cc=countryCount(r.id), tot=regionTotal(r.id)||1;
-    return `<button class="wsign mk ${n?'hot':''}" data-region="${r.id}" style="left:${cx.toFixed(1)}px;top:${(cy+(CONT_POS[r.id]?30:14)).toFixed(1)}px;--i:${i};--tilt:${[-4,3,-2,4,-3,2][i]}deg" aria-label="${r.name}: ${n} ${n===1?'city':'cities'} stamped, ${cc} of ${tot} countries"><span class="sg"><span class="pill"><b>${r.name}</b><i>${cc}/${tot}</i></span></span></button>`; }).join('');
+  const bubs = REGIONS.map((r,i)=>{ const n=regionCount(r), [cx,cy]=at(r.x+15,r.y+15), cc=countryCount(r.id), tot=regionTotal(r.id)||1;
+    return `<button class="wsign mk ${n?'hot':''}" data-region="${r.id}" style="left:${cx.toFixed(1)}px;top:${(cy+14).toFixed(1)}px;--i:${i};--tilt:${[-4,3,-2,4,-3,2][i]}deg" aria-label="${r.name}: ${n} ${n===1?'city':'cities'} stamped, ${cc} of ${tot} countries"><span class="sg"><span class="pill"><b>${r.name}</b><i>${cc}/${tot}</i></span></span></button>`; }).join('');
   let me='';
   if(LOC.on && LOC.pos){ const [ax,bx,ay,by]=lvAff('world'), [X,Y]=at(ax*LOC.pos[1]+bx, ay*LOC.pos[0]+by); me=`<div class="mering" style="left:${X.toFixed(1)}px;top:${Y.toFixed(1)}px"></div><div class="me here" style="left:${(X-24).toFixed(1)}px;top:${(Y-58).toFixed(1)}px" aria-hidden="true">${face(40)}<i>YOU</i><u></u></div>`;
     const near=Object.keys(CITIES).filter(id=>!vst(id)&&CITY_LL[id]&&kmTo(LOC.pos,CITY_LL[id])<350).sort((a,b)=>kmTo(LOC.pos,CITY_LL[a])-kmTo(LOC.pos,CITY_LL[b]));
@@ -4257,7 +4306,7 @@ function worldZoomTo(k, mx, my){ const p=$('#wpan'); const nz=Math.max(1,Math.mi
       else apply(); setTimeout(()=>{ moved=false; }, 60); return; }
     if(!d) return; const dd=d; d=null; el().classList.remove('drag');
     if(!moved){ /* double tap on the ocean or land: zoom in there, or back out */
-      if(!e.target.closest('.bub,.wsign,.me,button,.wev,.wfr,.wcotd,.wplane,.wball,.wboatw,.wani')){ const now=performance.now(); if(now-lastTap<320 && Math.hypot(pe[0]-lastXY[0],pe[1]-lastXY[1])<40){ lastTap=0; if(WZ>1.4) worldZoomTo(1/WZ,195,pe[1]); else worldZoomTo(2.2,pe[0],pe[1]); } else { lastTap=now; lastXY=pe; } }
+      if(!e.target.closest('.bub,.wsign,.me,button,.wev,.wfr,.wcotd,.wplane,.wball,.wboatw,.wani,.wsheet')){ const now=performance.now(); if(now-lastTap<320 && Math.hypot(pe[0]-lastXY[0],pe[1]-lastXY[1])<40){ lastTap=0; if(WZ>1.4) worldZoomTo(1/WZ,195,pe[1]); else worldZoomTo(2.2,pe[0],pe[1]); } else { lastTap=now; lastXY=pe; } }
       return; }
     if(dd.dy){ WY+=dd.dy; $('#art-world').innerHTML=artHTML('world'); }
     const glide=()=>{ vel*=.94; if(Math.abs(vel)<.25 || level!=='world') return; worldPan=wrapPan(worldPan+vel); apply(); raf=requestAnimationFrame(glide); };
@@ -4323,13 +4372,40 @@ function regionCard(name, n, of, hint){
   return `<div class="bcard"><div class="hd"><b>${name}</b><span>${n} of ${of} ${of>1?'countries':'country'} stamped</span></div>
     <div class="bar"><i style="width:${n/of*100}%"></i></div><p>${hint}</p></div>`;
 }
+
+const FLAME_I = '<svg width="18" height="18" viewBox="0 0 24 24" fill="#FFB199" stroke="#FF6B5B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>';
+const GLOBE_I = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2A9FD6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>';
+const STAMP_I = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00B062" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 22h14"/><path d="M19.27 13.73A2.5 2.5 0 0 0 17.5 13h-11A2.5 2.5 0 0 0 4 15.5V17a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-1.5c0-.66-.26-1.3-.73-1.77Z"/><path d="M14 13V8.5C14 7 15 7 15 5a3 3 0 0 0-6 0c0 2 1 2 1 3.5V13"/></svg>';
+function postieLine(){ if(LOC.on && LOC.pos){ const n=Object.keys(CITIES).filter(id=>!vst(id)&&CITY_LL[id]&&kmTo(LOC.pos,CITY_LL[id])<350).length; if(n) return `${n} ${n===1?'city':'cities'} to stamp near you. Shall we fly?`; }
+  const lines=['Tap a continent to explore, or tap me for a surprise city!','Psst… the balloon has today’s quiz.','Where shall we fly today? Tap me and I’ll pick.','Zoom in to spot animals and message bottles.'];
+  return lines[(new Date().getDate()+Object.keys(visited).length)%lines.length]; }
+function worldUI(){
+  if(!document.documentElement.classList.contains('fresh')) return classicWorldUI();
+  const nSt=Object.keys(visited).length, nC=Object.keys(COUNTRIES).filter(c=>COUNTRIES[c].cities.some(k=>visited[k])).length;
+  const id=cityOfDay(), C=CITIES[id], rw=cotdIsMemory();
+  const qs=dailyQuiz(BQ.d===today()?BQ.d:today()), qn=BQ.d===today()?BQ.picks.length:0;
+  const wk=weekly(), wdone=wk.filter(c=>c.cur>=c.target).length, next=wk.find(c=>c.cur<c.target);
+  return `<div class="wtop"><button class="wav" id="wAvatar" aria-label="Open your passport">${face(40)}</button><span class="wsp"></span>
+      <span class="wstat" aria-label="${streakNow()} day quiz streak">${FLAME_I}${streakNow()}</span><span class="wstat" aria-label="${nSt} stamps">${STAMP_I}${nSt}</span><span class="wstat" aria-label="${nC} countries">${GLOBE_I}${nC}</span>
+      <button class="mailbtn ${mailSeen()?'':'new'}" id="mailBtn" aria-label="Today’s postcard${mailSeen()?'':', unread'}">${L(LU.mail,20)}<i></i></button></div>
+    <div class="search wsearch">${L(LU.search,20)}<span>Where to next?</span></div>
+    <button class="wpostie" id="wPostie" aria-label="Postie: ${esc(postieLine())}">${POSTIE(84)}<span class="wsay">${esc(postieLine())}</span></button>
+    <div class="wsheet">
+      <span class="grab" aria-hidden="true"></span>
+      <div class="wcd ${rw?'rw':''}"><span class="wcdi">${lm(C.icon,'on').replace('<svg','<svg width="40" height="40"')}</span>
+        <span class="wcdt"><small>${rw?'Remember when':'City of the day'}</small><b>${miniFlag(C.c)}${C.name}</b><em>${rw?`You stamped it ${agoText(visited[id])}`:`${cotdTimeText(id)} · try ${esc(C.eat.split(',')[0])}`}</em></span>
+        <button class="wgo" data-cotd="${id}">Go</button></div>
+      <div class="wgrid">
+        <button class="wcard wq" data-wball><span class="wch"><b>Daily quiz</b><i>${qn}/7</i></span><span class="wbar"><u style="width:${Math.max(6,qn/7*100).toFixed(0)}%"></u></span><span class="wsub">${qn>=7?'All done. New questions at midnight':'New questions at midnight'}</span></button>
+        <button class="wcard ww" id="wWeek"><span class="wch"><b>This week</b><i>${wdone}/${wk.length}</i></span><span class="wsegs">${wk.map(c=>`<u class="${c.cur>=c.target?'on':''}"></u>`).join('')}</span><span class="wsub">${next?esc(next.text):'All done. Rewards claimed!'}</span></button>
+      </div>
+    </div>`;
+}
+function cotdTimeText(id){ const tz=CITY_TZ[id]||CTZ[CITIES[id].c]; try{ return new Date().toLocaleTimeString('en-AU',{hour:'numeric',minute:'2-digit',timeZone:tz}).replace(/\s?([ap])\.?m\.?/i,(m,a)=>' '+a.toLowerCase()+'m')+' there'; }catch(e){ return 'Today'; } }
+function classicWorldUI(){ return `<div class="toprow" style="margin-top:8px"><div class="search">${L(LU.search,20)}<span>Search a city or region</span></div><button class="mailbtn ${mailSeen()?'':'new'}" id="mailBtn" aria-label="Today’s postcard">${L(LU.mail,20)}<i></i></button></div>`; }
 function uiHTML(lv){
   const back = p => `<button class="chip" data-back="${p}">${L(LU.left,18)}<span>${LVNAME[p]}</span></button>`;
-  if(lv==='world') return `${showHint?`<div class="hint" id="hint"><div class="bubble swipe" style="left:50%;top:118px">Tap a continent to explore, or the balloon for today’s quiz. Zoom in to find animals and boats.</div></div>`:''}<div class="toprow" style="margin-top:8px"><div class="search">${L(LU.search,20)}<span>Search a city or region</span></div><button class="mailbtn ${mailSeen()?'':'new'}" id="mailBtn" aria-label="Today’s postcard${mailSeen()?'':', unread'}">${L(LU.mail,20)}<i></i></button></div>
-    ${(()=>{ const id=cityOfDay(), C=CITIES[id], rw=cotdIsMemory(); return rw
-      ? `<div class="cotd rw"><button class="cm" data-cotd="${id}"><span class="ci">${L(LU.cal,16,2.4)}</span><span class="ct"><small>REMEMBER WHEN</small><b>${miniFlag(C.c)}${C.name}</b>${cotdNowHTML(id)}<em>You stamped it ${agoText(visited[id])}, on ${dLong(visited[id])}</em></span></button><button class="cotdpc" data-cotdpc="${id}">${L(LU.mail,13,2.4)}Send a postcard about it</button></div>`
-      : `<div class="cotd"><button class="cm" data-cotd="${id}"><span class="ci">${L(LU.star,16,2.6)}</span><span class="ct"><small>CITY OF THE DAY</small><b>${miniFlag(C.c)}${C.name}</b>${cotdNowHTML(id)}<em>Try: ${esc(C.eat)}</em></span></button></div>`; })()}
-`;
+  if(lv==='world') return worldUI();
   if(lv==='europe') return `<div class="toprow">${back('world')}<div class="search">${L(LU.search,18)}<span>Search in Europe</span></div></div>${regionCard('Europe',countryCount('europe'),regionTotal('europe'),'Tap a country stamp to zoom in and see its cities.')}`;
   if(lv==='asia') return `<div class="toprow">${back('world')}<div class="search">${L(LU.search,18)}<span>Search in Asia</span></div></div>${regionCard('Asia',countryCount('asia'),regionTotal('asia'),'Tap a country stamp to zoom in and see its cities.')}`;
   if(lv==='portugal') return `<div class="toprow">${back('europe')}<div class="search">${L(LU.search,18)}<span>Search in Portugal</span></div></div>${countryCard('PT')}`;
@@ -4352,7 +4428,7 @@ function renderLevel(lv){
 /* + and − sit at the bottom right, just above the level's bottom panel */
 function placeZoom(lv){ const ui=$('#ui-'+lv); if(!ui) return; const ctl=ui.querySelector('.zoomctl'); if(!ctl) return;
   const pr=$('#phone').getBoundingClientRect(); if(!pr.width) return; const k=pr.width/390; let top=844-84-8;
-  [...ui.querySelectorAll('.bcard,.regions'), ...document.querySelectorAll('#art-'+lv+' .regions')].forEach(p=>{ const r=p.getBoundingClientRect(); if(r.height) top=Math.min(top,(r.top-pr.top)/k); });
+  [...ui.querySelectorAll('.bcard,.regions,.wsheet'), ...document.querySelectorAll('#art-'+lv+' .regions')].forEach(p=>{ const r=p.getBoundingClientRect(); if(r.height) top=Math.min(top,(r.top-pr.top)/k); });
   ctl.style.bottom=Math.round(844-top+12)+'px'; const cd=ui.querySelector('.cotd'); if(cd) cd.style.bottom=Math.round(844-top+12)+'px'; }
 addEventListener('resize', ()=>placeZoom(level));
 /* ---------- zoom: the map spreads out while stamps and pins keep their size ---------- */
@@ -4535,6 +4611,11 @@ $('#phone').addEventListener('click', e=>{
   if(e.target.closest('.search')){ if(stamping) return; return openSearch(level==='world'?null:level); }
   if(e.target.closest('#regTog')){ REG_MIN=!REG_MIN; try{ localStorage.setItem('pm-regmin', REG_MIN?'1':'0'); }catch(err){} const el=$('#regions'); el.classList.toggle('min', REG_MIN); $('#regTog').setAttribute('aria-expanded', String(!REG_MIN)); $('#art-world').innerHTML=artHTML('world'); placeZoom('world'); return; }
   if(e.target.closest('#mailBtn')) return openDaily();
+  if(e.target.closest('#wAvatar')) return tab('passport');
+  if(e.target.closest('#wWeek')){ tab('passport'); setTimeout(()=>{ const w=document.querySelector('#pscroll .week'); if(w) w.scrollIntoView({behavior:'smooth',block:'center'}); }, 120); return; }
+  if(e.target.closest('#wPostie')){ if(busy||stamping) return; const p=$('#wPostie'); p.classList.remove('hop'); void p.offsetWidth; p.classList.add('hop'); SFX.pop(1.2);
+    let id=null; if(LOC.on && LOC.pos){ id=Object.keys(CITIES).filter(k=>!vst(k)&&CITY_LL[k]&&kmTo(LOC.pos,CITY_LL[k])<350).sort((a,b)=>kmTo(LOC.pos,CITY_LL[a])-kmTo(LOC.pos,CITY_LL[b]))[0]; }
+    if(!id) id=pickRandom(k=>!visited[k]); if(id){ toast(`Coo! Flying you to ${CITIES[id].name}`); setTimeout(()=>flyToCity(id), 350); } return; }
   const t = e.target.closest('[data-region],[data-country],[data-city],[data-back]'); if(!t) return;
   if(t.dataset.back) return backTo(t.dataset.back);
   if(t.dataset.region){
