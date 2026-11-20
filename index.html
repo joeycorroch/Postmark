@@ -92,7 +92,58 @@ html.fresh .toprow .chip{font-family:var(--font-display);font-weight:700}
 html.fresh .bcard{border:0;border-radius:24px;box-shadow:0 14px 34px rgba(30,43,51,.16);background:linear-gradient(180deg,#fff,#F4FBF6)}
 html.fresh .bcard .bar{border:0;background:#E3F4E9;height:10px}
 html.fresh .bcard .bar i{background:linear-gradient(90deg,#00C56E,#3FDB8E);border-radius:999px}
-html.fresh svg.map .topo{opacity:.95}
+html.fresh svg.map .topo .tlow{fill:#BFE3A2;fill-opacity:.55}
+html.fresh svg.map .topo .thigh{fill:#FFF2DC;fill-opacity:.5}
+html.fresh .art svg.map .speck{display:none}
+html.fresh svg.map .topo .tpeak{fill:#FFFBF1;fill-opacity:.9}
+html.fresh svg.map .topo .tl{fill:none;stroke-width:.9px;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+html.fresh svg.map .topo .tl.g{stroke:#3E7F57;stroke-opacity:.42}
+html.fresh svg.map .topo .tl.y{stroke:#E0AE2A;stroke-opacity:.75}
+html.fresh svg.map .topo .tl.h.g{stroke-opacity:.3}
+/* ---------- Pip ---------- */
+.ssay{position:absolute;left:-14px;top:-30px;white-space:nowrap;padding:7px 11px;border-radius:14px 14px 4px 14px;background:#fff;box-shadow:0 8px 18px rgba(30,43,51,.16);font:700 12.5px/1 var(--font-display);color:var(--ink-navy);animation:rise .4s 3.2s both}
+#onboard .obpip{display:flex;align-items:flex-end;gap:6px;margin:-6px 0 8px}
+#onboard .obpip .postie{flex-shrink:0;animation:waddle 2.6s ease-in-out infinite;transform-origin:50% 95%}
+#onboard .obpip span{margin-bottom:34px;padding:9px 12px;border-radius:16px 16px 16px 4px;background:#fff;box-shadow:0 8px 18px rgba(30,43,51,.12);font:600 13px/1.35 var(--font-body);color:var(--ink-navy)}
+.piptip{display:flex;align-items:center;gap:10px;margin:18px 20px 0;padding:12px 14px 12px 6px;border-radius:24px;background:linear-gradient(135deg,#E3F8EB,#FFF6D6);box-shadow:0 10px 26px rgba(30,43,51,.08)}
+.piptip .pz{flex-shrink:0;display:flex}.piptip .postie{animation:waddle 2.6s ease-in-out infinite;transform-origin:50% 95%}
+.piptip small{display:block;font:800 10.5px/1 var(--font-body);letter-spacing:.1em;text-transform:uppercase;color:#00A35A}
+.piptip b{display:block;margin:4px 0 2px;font:700 16px/1.2 var(--font-display);color:var(--ink-navy)}
+.piptip p{margin:0;font-size:12.5px;line-height:1.4;color:#56656D}
+#fscroll>.piptip{margin-bottom:8px}
+/* ---------- fresh: welcome ---------- */
+html.fresh #onboard .ob{border:0!important;border-radius:30px 30px 0 0;background:linear-gradient(180deg,#E9FAEF,#F4FBF6 50%)!important}
+html.fresh #onboard .step{border:0!important;border-radius:20px;background:#fff;box-shadow:0 8px 20px rgba(30,43,51,.08)!important}
+html.fresh #onboard .step .n{border:0;background:#00C56E;color:#fff}
+html.fresh #onboard .step:nth-of-type(2) .n{background:#3DA5F5}html.fresh #onboard .step:nth-of-type(3) .n{background:#FF6B5B}
+html.fresh #onboard .step.ok{background:#E3F8EB}
+html.fresh #onboard .obh .face{border:3px solid #fff;box-shadow:0 6px 14px rgba(30,43,51,.14)}
+/* ---------- fresh: search ---------- */
+html.fresh #srch{background:linear-gradient(180deg,#E3F8EB 0,#F4FBF6 220px)}
+html.fresh #srch .sin{border:0;border-radius:16px;box-shadow:0 8px 20px rgba(30,43,51,.10)}
+html.fresh #srch .sin svg:first-child{color:#00B062}
+html.fresh #srch h4{color:#00A35A}
+html.fresh .schips button{border:0!important;box-shadow:0 4px 12px rgba(30,43,51,.07);font-family:var(--font-display);font-weight:600}
+html.fresh .schips button:nth-child(6n+1){background:#D6F5E2}html.fresh .schips button:nth-child(6n+2){background:#FFF0BF}html.fresh .schips button:nth-child(6n+3){background:#FFE3DE}
+html.fresh .schips button:nth-child(6n+4){background:#D8F1FF}html.fresh .schips button:nth-child(6n+5){background:#C9EFC9}html.fresh .schips button:nth-child(6n){background:#FFDCC2}
+html.fresh #srch .sr .ic{border:0!important;border-radius:14px;box-shadow:0 4px 10px rgba(30,43,51,.10)}
+html.fresh #srch mark{background:#FFE08A;border-radius:4px}
+/* ---------- fresh: balloon quiz + sound ---------- */
+html.fresh .bqz{background:rgba(20,40,48,.38)}
+html.fresh .bqc,html.fresh .sndc{border:0!important;border-radius:30px 30px 0 0;background:linear-gradient(180deg,#E3F8EB,#F4FBF6 35%,#FFF8E4)!important;box-shadow:0 -14px 40px rgba(20,40,48,.18)}
+html.fresh .bqopts button{border:0!important;border-radius:18px;box-shadow:0 6px 16px rgba(30,43,51,.08)!important}
+html.fresh .bqopts button.ok{background:#D6F5E2;color:#00874A;box-shadow:0 0 0 2.5px #00C56E,0 6px 16px rgba(0,197,110,.2)!important}
+html.fresh .bqopts button.no{background:#FFE3DE;color:#C8392B;box-shadow:0 0 0 2.5px #FF6B5B,0 6px 16px rgba(255,107,91,.2)!important}
+html.fresh .sndh small{color:#00A35A}
+html.fresh .srow{border:0!important;border-radius:20px;box-shadow:0 6px 16px rgba(30,43,51,.08)!important}
+html.fresh .srow:nth-of-type(2) .si{background:linear-gradient(160deg,#FF8A7B,#FF6B5B)}
+html.fresh .srow:nth-of-type(3) .si{background:linear-gradient(160deg,#2EDB8A,#00B062)}
+html.fresh .srow:nth-of-type(4) .si{background:linear-gradient(160deg,#5BC0F8,#2D9CDB)}
+html.fresh .srow:nth-of-type(5) .si{background:linear-gradient(160deg,#FFD45C,#F2B705)}
+html.fresh .srow.off .si{background:#C9D3CE}
+html.fresh .srow input[type=range]{accent-color:#00B062}
+
+html.fresh .art:not(#art-world) svg.map .topo .tl{stroke-width:1.15px}
 /* ---------- fresh: city card ---------- */
 html.fresh #sheet{background:rgba(20,40,48,.38);backdrop-filter:blur(2px)}
 html.fresh .ccard{border:0;border-radius:30px;box-shadow:0 20px 50px rgba(20,40,48,.25)}
@@ -3824,6 +3875,44 @@ document.body.insertAdjacentHTML('afterbegin', `<svg width="0" height="0" style=
 /* fresh map: soft tint per continent, then simple terraced highlands (lon, lat, rx, ry) */
 const CONT_TONES=[[15,52,28,16,'eu'],[95,45,55,22,'as'],[100,15,28,14,'as'],[45,27,18,11,'me'],[20,5,30,32,'af'],[-100,48,45,25,'na'],[-90,15,15,10,'na'],[-60,-18,22,32,'sa'],[135,-25,24,15,'oc'],[172,-41,6,8,'oc'],[-42,73,18,11,'po'],[0,-78,200,10,'po']];
 const HIGHLANDS=[[88,33,13,5.5],[76,35,5,3.5],[95,28,6,3],[102,30,4,6],[-77,-5,3.5,10],[-69,-21,4.5,9],[-71,-38,3.2,9],[-115,46,7,11],[-108,37,5,6],[-120,58,4,6],[-101,22,4,5],[10,46,5,1.8],[-4,32,6,2],[39,9,5,5.5],[44,42.5,4.5,1.3],[55,32,9,4],[69,38,4,3],[60,58,3.4,8],[14,64,4.5,6],[29,-29,4,4],[148,-29,3.6,9],[-45,-17,6,6],[-80,38,3,6],[100,47,9,3],[135,36,3,4],[172,-43,2,4],[-3,40,4,2.5],[24,42,3,2],[37,0,3.5,4]];
+/* organic contour lines: each highland is a stack of wobbly rings, each lowland a soft green blob */
+const TOPO_CACHE={};
+function topoSVG(lv, aff, offs){
+  const key=lv+':'+aff.map(v=>v.toFixed(3)).join(','); if(TOPO_CACHE[key]) return TOPO_CACHE[key];
+  const [ax,bx,ay,by]=aff;
+  const rng=seed=>()=>{ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; };
+  const smooth=P=>{ const n=P.length; let d=`M${P[0][0].toFixed(2)} ${P[0][1].toFixed(2)}`;
+    for(let i=0;i<n;i++){ const p0=P[(i-1+n)%n], p1=P[i], p2=P[(i+1)%n], p3=P[(i+2)%n];
+      d+=`C${(p1[0]+(p2[0]-p0[0])/6).toFixed(2)} ${(p1[1]+(p2[1]-p0[1])/6).toFixed(2)} ${(p2[0]-(p3[0]-p1[0])/6).toFixed(2)} ${(p2[1]-(p3[1]-p1[1])/6).toFixed(2)} ${p2[0].toFixed(2)} ${p2[1].toFixed(2)}`; }
+    return d+'Z'; };
+  /* one shape = harmonics that drift a little from ring to ring, plus a peak the rings creep towards */
+  const shape=(seed)=>{ const r=rng(seed*7919+13); return { h:[2,3,4,5].map(k=>[k,(r()*.16+.05)/(k-1),r()*6.283,(r()-.5)*1.2]), px:(r()-.5)*.8, py:(r()-.5)*.8, rot:(r()-.5)*1.4 }; };
+  const ring=(cx,cy,RX,RY,S,f,i)=>{ const P=[], N=48, c=Math.cos(S.rot), sn=Math.sin(S.rot);
+    for(let j=0;j<N;j++){ const t=j/N*6.283; let n=0; S.h.forEach(([k,a,ph,dr])=>{ n+=a*Math.sin(k*t+ph+i*dr); });
+      const r=f*Math.max(.35,1+n), ox=(1-f)*S.px*RX, oy=(1-f)*S.py*RY, x=Math.cos(t)*RX*r, y=Math.sin(t)*RY*r;
+      P.push([cx+ox+x*c-y*sn, cy+oy+x*sn+y*c]); }
+    return smooth(P); };
+  const at=(lon,lat,o)=>[ax*(lon+o)+bx, ay*lat+by];
+  const vis=(x,y,RX,RY)=>!(x+RX<-60||x-RX>450||y+RY<-60||y-RY>904);
+  let low='', fills='', lines='';
+  /* green lowlands */
+  BIOMES.filter(b=>['temperate','jungle','taiga'].includes(b[4])).forEach((b,bi)=>{ const S=shape(500+bi);
+    offs.forEach(o=>{ const [x,y]=at(b[0],b[1],o), RX=Math.abs(ax*b[2])*.8, RY=Math.abs(ay*b[3])*.8; if(!vis(x,y,RX,RY)) return;
+      low+=`<path d="${ring(x,y,RX,RY,S,1,0)}" class="tlow"/>`; lines+=`<path d="${ring(x,y,RX,RY,S,1,0)}" class="tl g"/><path d="${ring(x,y,RX,RY,S,.62,1)}" class="tl g"/>`; }); });
+  /* rolling hills: loose rings scattered over every continent (clipped to land later) */
+  const hr=rng(4242); CONT_TONES.filter(c=>c[4]!=='po').forEach((c,ci)=>{ const cnt=Math.max(2,Math.min(9,Math.round(c[2]*c[3]/70)));
+    for(let q=0;q<cnt;q++){ const a=hr()*6.283, d=Math.sqrt(hr())*.85, lon=c[0]+Math.cos(a)*c[2]*d, lat=c[1]+Math.sin(a)*c[3]*d, rx=3+hr()*6, ry=rx*(.55+hr()*.6), S=shape(900+ci*20+q), nr=2+Math.floor(hr()*3);
+      offs.forEach(o=>{ const [x,y]=at(lon,lat,o), RX=Math.abs(ax*rx), RY=Math.abs(ay*ry); if(!vis(x,y,RX,RY)) return;
+        let f=1; for(let i=0;i<nr;i++){ lines+=`<path d="${ring(x,y,RX,RY,S,f,i)}" class="tl ${i===nr-1&&nr>2?'y':'g'} h"/>`; f-=.2+hr()*.14; } }); } });
+  /* highlands */
+  HIGHLANDS.forEach((h,hi)=>{ const S=shape(hi+1);
+    offs.forEach(o=>{ const [x,y]=at(h[0],h[1],o), RX=Math.abs(ax*h[2])*1.15, RY=Math.abs(ay*h[3])*1.15; if(!vis(x,y,RX,RY)) return;
+      const n=Math.max(3,Math.min(8,Math.round(Math.min(RX,RY)/2.6)));
+      let f=1; const fr=rng(77+hi); for(let i=0;i<n;i++){ const d=ring(x,y,RX,RY,S,f,i); f-=(.86/n)*(.6+fr()*.8); if(f<.08) f=.08;
+        if(i===0) fills+=`<path d="${d}" class="thigh"/>`; if(i===n-2) fills+=`<path d="${d}" class="tpeak"/>`;
+        lines+=`<path d="${d}" class="tl ${i>=2&&i%2===0?'y':'g'}"/>`; } }); });
+  return TOPO_CACHE[key]=`<g class="topo">${low}${fills}${lines}</g>`;
+}
 const BIOMES=[
   [12,22,26,8,'desert'],[-5,25,10,7,'desert'],[46,23,10,7,'desert'],[71,27,4,3,'desert'],[57,31,8,4,'desert'],[103,42,14,4,'desert'],[83,39,7,3,'desert'],[132,-24,14,7,'desert'],[21,-23,6,4,'desert'],[-69,-22,2.5,6,'desert'],[-113,34,7,5,'desert'],[15,-22,2,6,'desert'],
   [-62,-4,14,8,'jungle'],[21,1,10,6,'jungle'],[102,14,8,8,'jungle'],[113,-2,13,4,'jungle'],[-87,14,5,4,'jungle'],[142,-5,6,3,'jungle'],[-75,5,5,5,'jungle'],
@@ -3885,7 +3974,7 @@ function biomeWrap(lv, inner){
   const elF=(lon,lat,rx,ry,fill,op=1)=>offs.map(o=>{ const x=ax*(lon+o)+bx, y=ay*lat+by, RX=Math.abs(ax*rx), RY=Math.abs(ay*ry);
     if(x+RX<-40||x-RX>430||y+RY<-40||y-RY>884) return ''; return `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${RX.toFixed(1)}" ry="${RY.toFixed(1)}" fill="${fill}"${op<1?` fill-opacity="${op}"`:''}/>`; }).join('');
   const topo = FR ? CONT_TONES.map(([lon,lat,rx,ry,k])=>elF(lon,lat,rx,ry,`url(#ctw-${k})`)).join('')
-    + [[1,'#D9EDB5',.75],[.66,'#E8DDAF',.9],[.36,'#F6F0DC',.95]].map(([f,c,op])=>`<g class="topo" filter="url(#topoEdge)">${HIGHLANDS.map(([lon,lat,rx,ry])=>elF(lon,lat,rx*f,ry*f,c,op)).join('')}</g>`).join('')
+    + topoSVG(lv, aff, offs)
     + BIOMES.concat(seasonBiomes()).filter(b=>b[4]==='snow').map(b=>elF(b[0],b[1],b[2],b[3],'#FFFFFF',.85)).join('') : '';
   const ALL=BIOMES.concat(seasonBiomes()), land=FR?topo:ALL.filter(b=>b[4]!=='deep').map(b=>el(...b)).join(''), sea0=FR?'':ALL.filter(b=>b[4]==='deep').map(b=>el(...b)).join('');
   const k=lv==='world'?1/(WG.z||2):1, snowy=new Date().getMonth()+1, winter=[12,1,2,3].includes(snowy);
@@ -4528,8 +4617,23 @@ const FLAME_I = '<svg width="18" height="18" viewBox="0 0 24 24" fill="#FFB199" 
 const GLOBE_I = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2A9FD6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>';
 const STAMP_I = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00B062" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 22h14"/><path d="M19.27 13.73A2.5 2.5 0 0 0 17.5 13h-11A2.5 2.5 0 0 0 4 15.5V17a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-1.5c0-.66-.26-1.3-.73-1.77Z"/><path d="M14 13V8.5C14 7 15 7 15 5a3 3 0 0 0-6 0c0 2 1 2 1 3.5V13"/></svg>';
 function postieLine(){ if(LOC.on && LOC.pos){ const n=Object.keys(CITIES).filter(id=>!vst(id)&&CITY_LL[id]&&kmTo(LOC.pos,CITY_LL[id])<350).length; if(n) return `${n} ${n===1?'city':'cities'} to stamp near you. Shall we fly?`; }
-  const lines=['Tap a continent to explore, or tap me for a surprise city!','Psst… the balloon has today’s quiz.','Where shall we fly today? Tap me and I’ll pick.','Zoom in to spot animals and message bottles.'];
-  return lines[(new Date().getDate()+Object.keys(visited).length)%lines.length]; }
+  const h=new Date().getHours(), C=CITIES[cityOfDay()];
+  const T = h<5 ? ['Still up? Me too. Somewhere it’s already breakfast.','Night flight? Tap me and I’ll pick a city.','Shh… the animals are asleep. Zoom in and see.']
+    : h<11 ? ['Morning! I’m Pip. Tap me for a surprise city.',`Good morning! Today’s city is ${C.name}.`,'Coffee first, then a new stamp?']
+    : h<17 ? ['Afternoon! Tap a continent to explore.','Psst… the balloon has today’s quiz.','Where shall we fly today? Tap me and I’ll pick.']
+    : h<21 ? ['Evening! Perfect time for a postcard.',`Sunset somewhere lovely. Fancy ${C.name}?`,'Zoom in to spot animals and message bottles.']
+    : ['Getting late. One more city before bed?','Night owl? Tap me for a surprise city.','The planes are still flying. Zoom in!'];
+  return T[(new Date().getDate()+Object.keys(visited).length)%T.length]; }
+const PIP_TIPS=[
+  ['Stamp it on the spot','Open a city card when you’re actually there and tap “Stamp here”. Those stamps count for gold borders.'],
+  ['Remember old trips','Been somewhere before? Add it from the city card and it becomes a blue memory stamp.'],
+  ['Spot the animals','Zoom into the world map. Twelve animals are hiding, and finding them all wins the safari hat.'],
+  ['Daily quiz','Tap the balloon for seven quick questions. Ten right answers unlock the Balloonist cap.'],
+  ['Postcards','Send a friend a postcard from any city you’ve stamped. I’ll fly it there myself.'],
+  ['Plan a trip','Add cities to a trip and tap Smart order. I’ll find the shortest route.'],
+  ['Tuck the panel away','Swipe the panel on the map down to see more of the world.']];
+function pipTip(where){ const i=(new Date().getDate()+(where==='friends'?3:0))%PIP_TIPS.length, [t,d]=PIP_TIPS[i];
+  return `<div class="piptip"><span class="pz">${POSTIE(64,'Pip')}</span><div><small>Pip’s tip</small><b>${t}</b><p>${d}</p></div></div>`; }
 function worldUI(){
   if(!document.documentElement.classList.contains('fresh')) return classicWorldUI();
   const nSt=Object.keys(visited).length, nC=Object.keys(COUNTRIES).filter(c=>COUNTRIES[c].cities.some(k=>visited[k])).length;
@@ -4540,7 +4644,7 @@ function worldUI(){
       <span class="wstat" aria-label="${streakNow()} day quiz streak">${FLAME_I}${streakNow()}</span><span class="wstat" aria-label="${nSt} stamps">${STAMP_I}${nSt}</span><span class="wstat" aria-label="${nC} countries">${GLOBE_I}${nC}</span>
       <button class="mailbtn ${mailSeen()?'':'new'}" id="mailBtn" aria-label="Today’s postcard${mailSeen()?'':', unread'}">${L(LU.mail,20)}<i></i></button></div>
     <div class="search wsearch">${L(LU.search,20)}<span>Where to next?</span></div>
-    <button class="wpostie ${WSMIN?'lo':''}" id="wPostie" aria-label="Postie: ${esc(postieLine())}">${POSTIE(84)}<span class="wsay">${esc(postieLine())}</span></button>
+    <button class="wpostie ${WSMIN?'lo':''}" id="wPostie" aria-label="Pip: ${esc(postieLine())}">${POSTIE(84)}<span class="wsay">${esc(postieLine())}</span></button>
     <div class="wsheet ${WSMIN?'min':''}" id="wSheet">
       <button class="grab" id="wGrab" aria-label="${WSMIN?'Show today’s cards':'Hide today’s cards'}" aria-expanded="${!WSMIN}"><i></i></button>
       <span class="wpeek" aria-hidden="true">${L(LU.left,14).replace('<svg','<svg style="transform:rotate(90deg)"')}<b>Today</b> · ${C.name} · quiz ${qn}/7 · week ${wdone}/${wk.length}</span>
@@ -4784,7 +4888,7 @@ $('#phone').addEventListener('click', e=>{
   if(e.target.closest('#wWeek')){ tab('passport'); setTimeout(()=>{ const w=document.querySelector('#pscroll .week'); if(w) w.scrollIntoView({behavior:'smooth',block:'center'}); }, 120); return; }
   if(e.target.closest('#wPostie')){ if(busy||stamping) return; const p=$('#wPostie'); p.classList.remove('hop'); void p.offsetWidth; p.classList.add('hop'); SFX.pop(1.2);
     let id=null; if(LOC.on && LOC.pos){ id=Object.keys(CITIES).filter(k=>!vst(k)&&CITY_LL[k]&&kmTo(LOC.pos,CITY_LL[k])<350).sort((a,b)=>kmTo(LOC.pos,CITY_LL[a])-kmTo(LOC.pos,CITY_LL[b]))[0]; }
-    if(!id) id=pickRandom(k=>!visited[k]); if(id){ toast(`Coo! Flying you to ${CITIES[id].name}`); setTimeout(()=>flyToCity(id), 350); } return; }
+    if(!id) id=pickRandom(k=>!visited[k]); if(id){ toast(`Coo! Pip is flying you to ${CITIES[id].name}`); setTimeout(()=>flyToCity(id), 350); } return; }
   const t = e.target.closest('[data-region],[data-country],[data-city],[data-back]'); if(!t) return;
   if(t.dataset.back) return backTo(t.dataset.back);
   if(t.dataset.region){
@@ -4973,7 +5077,7 @@ const POSTIE_DEFS = `<svg width="0" height="0" style="position:absolute" aria-hi
 </defs></svg>`;
 document.body.insertAdjacentHTML('afterbegin', POSTIE_DEFS);
 const POSTIE_CAP = (cx,cy,k=1) => `<g transform="translate(${cx-60*k} ${cy-8*k}) scale(${k})"><path d="M35 30 C35 14 46 8 60 8 C74 8 85 14 85 30 Z" fill="url(#pzCap)"/><path d="M35.5 25.5 C46 29 74 29 84.5 25.5 L85 30 C74 33.5 46 33.5 35 30Z" fill="url(#pzBand)"/><path d="M31 30.5 C44 36 76 36 89 30.5 C91 31.5 90.5 34.8 87.5 36 C74 40 46 40 32.5 36 C29.5 34.8 29 31.5 31 30.5Z" fill="#1E2B33"/><path d="M44 14.5 C49 11.5 55 10.5 60 10.5" stroke="#fff" stroke-width="2.4" opacity=".22" stroke-linecap="round" fill="none"/><circle cx="60" cy="18" r="5.5" fill="url(#pzBadge)"/></g>`;
-const POSTIE = (w=110, label='Postie the pigeon') => `<svg class="postie" width="${w}" height="${Math.round(w*1.1)}" viewBox="0 0 120 132" role="img" aria-label="${label}">
+const POSTIE = (w=110, label='Pip the pigeon') => `<svg class="postie" width="${w}" height="${Math.round(w*1.1)}" viewBox="0 0 120 132" role="img" aria-label="${label}">
 <ellipse cx="60" cy="125" rx="30" ry="5" fill="#1E2B33" opacity=".18" filter="url(#pzBlur)"/>
 <g class="pz-feet"><path d="M50 112 v7 M70 112 v7" stroke="url(#pzFoot)" stroke-width="4" stroke-linecap="round"/><ellipse cx="49" cy="121" rx="6.5" ry="3" fill="url(#pzFoot)"/><ellipse cx="71" cy="121" rx="6.5" ry="3" fill="url(#pzFoot)"/></g>
 <g filter="url(#pzSoft)">
@@ -6063,7 +6167,7 @@ function showSplash(){
   const sp=$('#splash'); sp.className='';
   sp.innerHTML=`<div class="launch">${ICON(112,'l')}</div><div class="sun-rays"></div>
     ${[[40,120,22,0],[318,170,16,.4],[60,330,14,.8],[330,360,24,.2],[200,96,12,1.1],[290,470,12,.6]].map(([x,y,s2,d])=>`<span class="spk2" style="left:${x}px;top:${y}px;animation-delay:${d}s">${STAR4(s2)}</span>`).join('')}
-    <div class="logo-wrap"><div class="logo-glow"></div>${LOGO}<div class="spostie">${POSTIE(96)}</div></div>
+    <div class="logo-wrap"><div class="logo-glow"></div>${LOGO}<div class="spostie">${POSTIE(96)}<span class="ssay">Hi, I’m Pip!</span></div></div>
     <h1 class="brand">Postmark</h1><p class="tagline">Stamp the world, one city at a time.</p>
     <div class="splashbtns">${STANDALONE && AUTH.configured && !DEMO && !isGuest() && !likelySignedIn()
       ? `<button class="btn navy big" id="signinBtn">${L(LU.shield,18)}Sign in or create account</button><button class="btn line big guestbtn" id="guestBtn">${L(LU.map,18)}Continue as a guest</button><span class="guestnote">No account needed. You can sign up later and keep your stamps.</span>`
@@ -6631,6 +6735,7 @@ function renderFriends(){ saveState();
       ${friendList().map(fr=>{const st=friendStats(fr);return `<div class="fcard"><button class="ftop" data-friend="${fr.id}"><span class="face">${ffaceSVG(fr,58)}</span><span class="fmeta"><b>${esc(fr.name)}${fr.real?'':'<span class="ftag">SAMPLE</span>'}</b><span>${fr.missing?'Loading passport…':`${fr.home?esc(fr.home)+' · ':''}${st.n} stamps · ${st.countries} countries`}</span><em>You share ${st.both.length} ${st.both.length===1?'city':'cities'}</em></span>${L(LU.right,18)}</button>
         <div class="fbtns"><button data-friend="${fr.id}">${L(LU.stamp,16)}Passport</button>${sentToday(fr.id)?`<button class="pri done" data-fsend="${fr.id}">${L(LU.check,16,3)}Sent today</button>`:`<button class="pri" data-fsend="${fr.id}">${L(LU.mail,16)}Postcard</button>`}</div>${fr.real?`<button class="rm" data-frm="${fr.id}" aria-label="Remove ${esc(fr.name)}">${L(LU.x,14)}</button>`:''}</div>`}).join('')}</div>`;
   }
+  if(!friendView && document.documentElement.classList.contains('fresh')){ const fs=$('#fscroll'); if(fs) fs.insertAdjacentHTML('beforeend', pipTip('friends')); }
   $('#fDot').hidden = !(unread || friendNotes.some(n=>!n.seen));
   if(!f && !$('#friends').hidden && friendNotes.some(n=>!n.seen)){ friendNotes.forEach(n=>n.seen=true); setTimeout(()=>{ $('#fDot').hidden=!inbox.some(m=>!m.read); saveState(); }, 1500); }
 }
@@ -6904,7 +7009,7 @@ function takeRemote(remote){
 let resetArm=false;
 function accountHTML(){
   const st=SYNC.status, on=ACCT.signedIn, n=Object.keys(visited).length, v=Object.keys(visited).filter(id=>verified[id]).length;
-  return `<section class="acct" aria-label="Account"><div class="who"><span class="face">${avatarSVG(AVA,48)}</span><div><small>ACCOUNT</small><b id="acctName">${on?(ACCT.name?'Signed in as '+esc(ACCT.name):'Signed in'):isGuest()?'Guest explorer':'Not signed in'}</b><span class="s">${on?'Your passport follows you to any device':isGuest()?'Guest passport · saved on this device only':'Saved on this device only'}</span></div></div>
+  return (document.documentElement.classList.contains('fresh')?pipTip('passport'):'')+`<section class="acct" aria-label="Account"><div class="who"><span class="face">${avatarSVG(AVA,48)}</span><div><small>ACCOUNT</small><b id="acctName">${on?(ACCT.name?'Signed in as '+esc(ACCT.name):'Signed in'):isGuest()?'Guest explorer':'Not signed in'}</b><span class="s">${on?'Your passport follows you to any device':isGuest()?'Guest passport · saved on this device only':'Saved on this device only'}</span></div></div>
     <div class="rows"><div>${L(st==='synced'?LU.cloudok:LU.cloud,14)}<span>${on?{loading:'Connecting…', saving:'Saving…', synced:'Backed up'+(SYNC.at?' · '+SYNC.at.toLocaleString([], {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):''), offline:'Offline. Changes are kept here and sync when you’re back online.', error:'Couldn’t reach your account. Changes are kept on this device.', local:'Saved on this device'}[st]:(STANDALONE?'Sign in to back up your passport and use it on other devices.':'Open Postmark while signed in to Claude to back up your passport and use it on other devices.')}</span></div>
       <div>${L(LU.shield,14)}<span>${n} stamp${n===1?'':'s'} · ${v} verified by location</span></div></div>
     ${locRowHTML()}
@@ -7073,7 +7178,7 @@ const obSeen = () => { try{ return localStorage.getItem('pm-onb')==='1'; }catch(
 function openOnboard(force){
   if(!force && (obSeen() || DEMO || Object.keys(visited).length)) return false;
   const st=obSteps(), all=st.every(x=>x.ok);
-  $('#onboard').innerHTML=`<div class="ob"><div class="obh"><span class="face">${avatarSVG(AVA,60)}</span><div><h2>${all?'You’re all set':'Welcome to Postmark'}</h2></div></div>
+  $('#onboard').innerHTML=`<div class="ob"><div class="obpip">${POSTIE(70,'Pip')}<span>${all?'Lovely work! Your passport is ready to go.':'I’m Pip, your postie. Let’s fill this passport!'}</span></div><div class="obh"><span class="face">${avatarSVG(AVA,60)}</span><div><h2>${all?'You’re all set':'Welcome to Postmark'}</h2></div></div>
     <p>${all?'Your passport is ready. Keep stamping.':'Your passport is empty and ready. Three quick steps to get going:'}</p>
     ${st.map((x,i)=>`<button class="step ${x.ok?'ok':''}" data-ob="${x.k}"><span class="n">${x.ok?L(LU.check,18,3):i+1}</span><span><b>${x.t}</b><span class="d">${x.d}</span></span><span class="go">${L(LU.right||LU.plane,18)}</span></button>`).join('')}
     <button class="skip" id="obSkip">${all?'Done':'I’ll explore on my own'}</button></div>`;
