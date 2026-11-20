@@ -228,6 +228,16 @@ html.fresh .bqh .bqb .bnew{width:34px;height:51px;animation:bob 3s ease-in-out i
 .pippeek>span:not(.pip){margin-bottom:58px;padding:9px 12px;border-radius:16px 16px 4px 16px;background:#fff;box-shadow:0 10px 24px rgba(30,43,51,.18);font:700 13px/1.2 var(--font-display);color:var(--ink-navy);white-space:nowrap}
 .ldrop{position:absolute;z-index:70;pointer-events:none;filter:drop-shadow(0 4px 6px rgba(30,43,51,.2))}
 .handwrap .inkmark{mix-blend-mode:multiply;transition:opacity .2s}
+html.fresh .th button{border:0;border-radius:18px;background:#fff;box-shadow:0 4px 12px rgba(30,43,51,.08);padding:4px 2px 7px}
+html.fresh .th button::before{content:"";position:absolute;left:50%;top:5px;width:58px;height:58px;margin-left:-29px;border-radius:50%;background:#B9D8F5;border:3px solid #fff;box-shadow:0 0 0 2px #222B48,0 4px 8px rgba(30,43,51,.15);box-sizing:border-box}
+html.fresh .th button svg{position:relative;width:56px;height:70px;border-radius:0;clip-path:circle(26px at 28px 29px);margin:0 0 -10px}
+html.fresh .th button.on{background:#E3F8EB;outline:0;box-shadow:0 0 0 2.5px #00C56E,0 4px 12px rgba(0,197,110,.2)}
+html.fresh .th button.on::before{box-shadow:0 0 0 2.5px #00C56E,0 4px 8px rgba(30,43,51,.15)}
+html.fresh .th button.lock{background:#F1F6F3;box-shadow:none}
+.face.hiwave>svg,#editAv.hiwave svg{animation:avhi 1.4s ease-in-out}
+@keyframes avhi{0%,100%{transform:none}15%{transform:rotate(-8deg) scale(1.06)}30%{transform:rotate(7deg) scale(1.06)}45%{transform:rotate(-6deg) scale(1.04)}60%{transform:rotate(4deg)}75%{transform:rotate(-2deg)}}
+.wavehand{position:absolute;z-index:120;pointer-events:none;width:30px;height:30px;transform-origin:50% 90%;animation:handwave 1.5s ease-in-out forwards}
+@keyframes handwave{0%{opacity:0;transform:scale(.4) rotate(0)}12%{opacity:1;transform:scale(1) rotate(-18deg)}28%{transform:rotate(22deg)}44%{transform:rotate(-18deg)}60%{transform:rotate(18deg)}76%{opacity:1;transform:rotate(-8deg)}100%{opacity:0;transform:scale(.8) rotate(0)}}
 .avstk .avol *{fill:#222B48!important;stroke:#222B48!important;stroke-width:4.6px!important;stroke-linejoin:round!important;opacity:1!important}
 /* springy taps */
 html.fresh :is(button,.wcard,.wcd,.tcard,.fcard,.setc,.anic,.chip,.tile,.kt,.sr,.step){transition:transform .18s cubic-bezier(.3,1.6,.5,1),box-shadow .18s}
@@ -4809,6 +4819,12 @@ function postieLine(){ if(AWAY_DAYS>=2 && !awayShown){ const nm=((AVA.bio&&AVA.b
 let tapT=0;
 addEventListener('pointerdown', e=>{ if(!document.documentElement.classList.contains('fresh')) return; const b=e.target.closest('button,.wcard,.tcard,.fcard,.sr,[data-city],[data-country],[data-region]'); if(!b || b.disabled) return;
   const now=performance.now(); if(now-tapT<70) return; tapT=now; try{ tone(0,'sine',1180,.045,.028,1560,.15); }catch(err){} }, true);
+function avWave(){ if(!document.documentElement.classList.contains('fresh')) return; const ph=$('#phone'), pr=ph.getBoundingClientRect(), k=pr.width/390||1;
+  const hand=`<svg viewBox="0 0 30 30"><path d="M9 27 Q4 22 5 15 L5 9 Q5 6.5 7.5 6.5 Q10 6.5 10 9 L10 13 L10 5 Q10 2.5 12.5 2.5 Q15 2.5 15 5 L15 12 L15 4 Q15 1.5 17.5 1.5 Q20 1.5 20 4 L20 13 L20 7 Q20 4.5 22.5 4.5 Q25 4.5 25 7 L25 18 Q25 26 17 28 Q12 28.5 9 27Z" fill="${SKIN[AVA.skin]||SKIN[1]}" stroke="#222B48" stroke-width="2" stroke-linejoin="round"/></svg>`;
+  [...document.querySelectorAll('.face, #editAv')].filter(f=>{ const r=f.getBoundingClientRect(); return r.width>20 && r.bottom>0 && r.top<pr.bottom && r.left<pr.right && r.right>pr.left && f.offsetParent; }).slice(0,2).forEach(f=>{
+    const tgt=f.classList.contains('face')?f:f; tgt.classList.remove('hiwave'); void tgt.offsetWidth; tgt.classList.add('hiwave'); setTimeout(()=>tgt.classList.remove('hiwave'),1500);
+    const r=f.getBoundingClientRect(), h=document.createElement('span'); h.className='wavehand'; h.innerHTML=hand; h.style.left=((r.right-pr.left)/k-14)+'px'; h.style.top=((r.top-pr.top)/k+r.height/k*.35-10)+'px'; ph.appendChild(h); setTimeout(()=>h.remove(),1600); });
+  try{ tone(0,'sine',660,.08,.06,990); tone(.12,'sine',880,.08,.05,1320); }catch(e){} }
 let pipT=0, handStamping=false, stampUses=0;
 try{ stampUses=+(localStorage.getItem('pm-inkuse')||0); }catch(e){}
 function letterDrop(bl){ if(reduced()) return; const ph=$('#phone'), r=bl.getBoundingClientRect(), pr=ph.getBoundingClientRect(), k=pr.width/390, x=(r.left-pr.left)/k+r.width/k/2, y=(r.top-pr.top)/k+r.height/k-6;
@@ -6157,10 +6173,10 @@ function stickerAvatar(a,w,id,v){ const {sk,sd,hc,hd,ec,tc,H,BR,fem,jaw,hide}=v,
   const hat=HATS_AV[a.hat]||'';
   return `<svg viewBox="0 0 120 150" width="${w}" height="${Math.round(w*1.25)}" aria-hidden="true" class="avstk">
   ${bgSVG(a,id)}${auraSVG(a,id)}
-  ${H.back?olWrap(H.back(hc,hd))+H.back(hc,hd):''}
-  <rect x="${fem?52.5:51}" y="86" width="${fem?15:18}" height="24" rx="7" fill="${sd}" stroke="${OL}" stroke-width="2.2"/>
-  ${outfitSVG(a,tc,sk,id)}<path d="${BODY[a.body]||BODY.m}" fill="none" stroke="${OL}" stroke-width="2.6" stroke-linejoin="round"/>
-  <g stroke="${OL}" stroke-width="2.4"><circle cx="33" cy="70" r="6.8" fill="${sk}"/><circle cx="87" cy="70" r="6.8" fill="${sk}"/></g><path d="M35 67 Q31 70 34.5 73.5 M85 67 Q89 70 85.5 73.5" fill="none" stroke="${sd}" stroke-width="1.8" stroke-linecap="round"/>
+  <g transform="translate(60 100) scale(1.1) translate(-60 -100)">${H.back?olWrap(H.back(hc,hd))+H.back(hc,hd):''}</g>
+  <g transform="translate(60 150) scale(.88 1) translate(-60 -150)"><rect x="${fem?52.5:51}" y="86" width="${fem?15:18}" height="24" rx="7" fill="${sd}" stroke="${OL}" stroke-width="2.2"/>
+  ${outfitSVG(a,tc,sk,id)}<path d="${BODY[a.body]||BODY.m}" fill="none" stroke="${OL}" stroke-width="2.6" stroke-linejoin="round"/></g>
+  <g transform="translate(60 100) scale(1.1) translate(-60 -100)"><g stroke="${OL}" stroke-width="2.4"><circle cx="33" cy="70" r="6.8" fill="${sk}"/><circle cx="87" cy="70" r="6.8" fill="${sk}"/></g><path d="M35 67 Q31 70 34.5 73.5 M85 67 Q89 70 85.5 73.5" fill="none" stroke="${sd}" stroke-width="1.8" stroke-linecap="round"/>
   <ellipse cx="60" cy="68" rx="27" ry="31" fill="${sk}" stroke="${OL}" stroke-width="2.6"/>
   <ellipse cx="42.5" cy="79.5" rx="5.6" ry="3.4" fill="#FF8C96" opacity="${a.freckles==='rosy'?.75:.55}"/><ellipse cx="77.5" cy="79.5" rx="5.6" ry="3.4" fill="#FF8C96" opacity="${a.freckles==='rosy'?.75:.55}"/>
   ${a.freckles==='mole'?`<circle cx="72" cy="84" r="1.4" fill="${shade(sk,-.5)}"/>`:''}
@@ -6175,9 +6191,10 @@ function stickerAvatar(a,w,id,v){ const {sk,sd,hc,hd,ec,tc,H,BR,fem,jaw,hide}=v,
   ${a.facial==='handlebar'?`<path d="M60 81 Q54 77 49 81 Q45 84 44 80 Q43 85 48 85.5 Q55 85 60 82.5 Q65 85 72 85.5 Q77 85 76 80 Q75 84 71 81 Q66 77 60 81Z" fill="${hc}" stroke="${OL}" stroke-width="1.2"/>`:''}
   ${a.facial==='tache'||a.facial==='beard'||a.facial==='goatee'?`<path d="M49 82 Q55 77 60 80.5 Q65 77 71 82 Q65 85 60 83 Q55 85 49 82Z" fill="${hc}" stroke="${OL}" stroke-width="1.2"/>`:''}
   ${H.front&&a.hair!=='bald'?olWrap(H.front(hc,hd)):''}${H.front?H.front(hc,hd):''}
+  ${a.hat==='none'&&!['bald','mohawk','buzz','locs'].includes(a.hair)?`<path d="M64 36 Q68.5 40 67 45.5 M74 39 Q78.5 43 77 48" fill="none" stroke="${shade(hd,-.3)}" stroke-width="1.7" stroke-linecap="round" opacity=".55"/><path d="M40 45 Q45 37.5 54 35.5" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" opacity=".38"/><circle cx="57.5" cy="35" r="1.6" fill="#fff" opacity=".38"/>`:''}
   ${a.ears==='studs'?`<circle cx="32" cy="77" r="2.4" fill="#FFC21F" stroke="${OL}" stroke-width="1"/><circle cx="88" cy="77" r="2.4" fill="#FFC21F" stroke="${OL}" stroke-width="1"/>`:''}
   ${a.ears==='hoops'?`<circle cx="32" cy="80" r="4.6" fill="none" stroke="#FFC21F" stroke-width="2"/><circle cx="88" cy="80" r="4.6" fill="none" stroke="#FFC21F" stroke-width="2"/>`:''}
-  ${GLASSES[a.glasses]||''}${OLHATS.includes(a.hat)?olWrap(hat):''}${hat}${NECK[a.neck]||''}</svg>`; }
+  ${GLASSES[a.glasses]||''}${OLHATS.includes(a.hat)?olWrap(hat):''}${hat}</g>${NECK[a.neck]||''}</svg>`; }
 const face = (w, extra='') => `<span class="face ${AVA.frame&&AVA.frame!=='none'?'f-'+AVA.frame:''} ${extra}">${avatarSVG(AVA,w)}</span>`;
 /* ---------- locked avatar items: earned by playing ---------- */
 let demoAll=false, mailEver=false;
@@ -6400,7 +6417,7 @@ $('#avEd').addEventListener('click', e=>{
     renderAv(); $('#avFrame').classList.add('shake'); for(let i=0;i<4;i++) tone(i*.06,'square',300+i*120,.05,.05); return; }
   if(e.target.closest('#avSave')){
     AVA={...draft, made:true}; try{ localStorage.setItem('pm-av', JSON.stringify(AVA)); }catch(err){}
-    closeAvatar(); photoStamped=false; renderAll(); renderPassport(); $('#pscroll').scrollTop=0;
+    closeAvatar(); photoStamped=false; renderAll(); renderPassport(); $('#pscroll').scrollTop=0; setTimeout(avWave, 120);
     const ph=$('#editAv'); if(!ph) return;
     const r=toPhone(ph); stamping=true;
     handStamp({x:r.x+r.w-26, y:r.y+26, s:.5, c:'PT', hit:()=>{ photoStamped=true; ph.classList.add('stamped'); }}).then(()=>{ stamping=false; toast('Passport updated'); });
