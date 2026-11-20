@@ -66,7 +66,7 @@ html.fresh #splash{background:radial-gradient(circle at 50% 36%,#FFFFFF 0,rgba(2
 html.fresh .brand{text-shadow:0 2px 0 #fff,0 0 24px rgba(255,255,255,.8);letter-spacing:-.02em}
 html.fresh .bubble{border:0;box-shadow:0 10px 24px rgba(30,43,51,.16);border-radius:18px}
 html.fresh .empty{border:2px dashed rgba(30,43,51,.14)}
-html.fresh .wnight{opacity:.35}
+html.fresh .wnight{opacity:1}
 /* ---------- Fresh world screen ---------- */
 html.fresh #art-world svg.map > g > rect:first-child{fill:transparent!important}
 html.fresh #art-world .land{filter:url(#landRaise)}
@@ -124,6 +124,23 @@ html.fresh svg.map .topo .tl.h.g{stroke-opacity:.3}
 @keyframes zzz{0%{opacity:0;transform:translate(0,6px)}30%{opacity:1}100%{opacity:0;transform:translate(18px,-26px)}}
 .wpostie.sleepy .postie{animation:snooze 3.4s ease-in-out infinite}
 @keyframes snooze{0%,100%{transform:rotate(-3deg) scaleY(1)}50%{transform:rotate(3deg) scaleY(.97)}}
+
+/* ---------- fresh: celebration moments ---------- */
+html.fresh .full{background:linear-gradient(180deg,#E3F8EB,#F4FBF6 55%)}
+html.fresh .full.goldbg{background:radial-gradient(circle at 50% 38%,#FFF6D2 0,rgba(255,246,210,0) 55%),linear-gradient(180deg,#FFE7A0,#FFF3CC 60%,#FFF8E4)}
+html.fresh .page{border:0!important;border-radius:30px;background:linear-gradient(180deg,#fff,#FFFCF4);box-shadow:0 18px 44px rgba(30,43,51,.16)!important}
+html.fresh .goldbg .page{box-shadow:0 0 0 3px #FFC531,0 0 40px rgba(255,197,49,.55),0 18px 44px rgba(180,120,0,.25)!important}
+html.fresh .goldbg .mhead .eyebrow{color:#D98A00!important}
+html.fresh .goldtiles .kt{border:0!important;border-radius:16px;background:#fff;box-shadow:0 6px 16px rgba(180,120,0,.18)}
+html.fresh .mrow .ghost{border:0!important;background:#fff;box-shadow:0 6px 14px rgba(30,43,51,.10)}
+/* ---------- gentle life on the world map ---------- */
+html.fresh .wcloud>g>*{animation:cbreathe 6s var(--d,0s) ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes cbreathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-1.6px) scale(1.04)}}
+html.fresh .wball svg{animation:bob 3.2s ease-in-out infinite,bsway 7s ease-in-out infinite;transform-origin:50% 0}
+@keyframes bsway{0%,100%{rotate:-3deg}50%{rotate:3deg}}
+html.fresh .wplane>*{animation:pbob 4.6s ease-in-out infinite}
+@keyframes pbob{0%,100%{translate:0 0}50%{translate:0 -3px}}
+html.fresh .wboatw>*{animation:pbob 3.8s ease-in-out infinite}
 /* you are here, fresh */
 html.fresh .mering::before,html.fresh .mering::after{border-color:#00C56E;border-width:3px;background:rgba(0,197,110,.12)}
 html.fresh .mering{z-index:1}
@@ -1629,6 +1646,9 @@ svg .spk{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s e
 svg.wov{position:absolute;left:0;top:0;overflow:visible;pointer-events:none;z-index:2}
 svg.wov.wnl{z-index:1}
 .wlt{animation:wtw 3s var(--d,0s) ease-in-out infinite}
+html.fresh .wnight .wlt{r:1.9px;fill:#FFF6CF}
+html.fresh .wnight .wglow{r:6px;opacity:.35;animation:wglo 3s var(--d,0s) ease-in-out infinite}
+@keyframes wglo{0%,100%{opacity:.18}50%{opacity:.5}}
 @keyframes wtw{50%{opacity:.35}}
 .wline{fill:none;stroke:#E8382A;stroke-width:2;stroke-linecap:round;stroke-dasharray:.1 5.5;opacity:.7;animation:wmarch 1.4s linear infinite}
 @keyframes wmarch{to{stroke-dashoffset:-5.6}}
@@ -4332,10 +4352,10 @@ function nightInner(g){ const S=sunNow(), south=S.dec>=0; let out='';  /* drawn 
       else { for(let lat=90; lat>=-90; lat-=1){ if(sunElev(S,lat,lon)<th) b=lat; else break; } }
       pts.push(wLL(g,b,lon)); }
     const cap=south?-120:120, A=wLL(g,cap,540), B=wLL(g,cap,-540);
-    out+=`<path d="M${pts.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' L')} L${A[0].toFixed(1)} ${A[1].toFixed(1)} L${B[0].toFixed(1)} ${B[1].toFixed(1)}Z" fill="#141838" opacity="${op}"/>`; });
+    out+=`<path d="M${pts.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' L')} L${A[0].toFixed(1)} ${A[1].toFixed(1)} L${B[0].toFixed(1)} ${B[1].toFixed(1)}Z" fill="${document.documentElement.classList.contains('fresh')?'#0F2A55':'#141838'}" opacity="${document.documentElement.classList.contains('fresh')?(op*2.2).toFixed(2):op}"/>`; });
   /* city lights on the dark side */
   Object.keys(CITIES).forEach(id=>{ const ll=CITY_LL[id]; if(!ll || sunElev(S,ll[0],ll[1])>-4) return; [-360,0,360].forEach(off=>{ const [x,y]=wLL(g,ll[0],ll[1]+off);
-    out+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" fill="#FFD25A" opacity=".22"/><circle class="wlt" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="1.5" fill="#FFF1B8" style="--d:${(id.length%7)*.4}s"/>`; }); });
+    out+=`<circle class="wglow" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" fill="#FFD25A" opacity=".22" style="--d:${(id.length%7)*.4}s"/><circle class="wlt" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="1.5" fill="#FFF1B8" style="--d:${(id.length%7)*.4}s"/>`; }); });
   return out; }
 /* stamped cities, gold countries and the routes between them */
 function stampsInner(g){ const ids=Object.keys(visited).filter(id=>CITIES[id]&&CITY_LL[id]).sort((a,b)=>(visited[a]+((verified[a]&&verified[a].at)||'')).localeCompare(visited[b]+((verified[b]&&verified[b].at)||'')));
@@ -4671,12 +4691,12 @@ const FLAME_I = '<svg width="18" height="18" viewBox="0 0 24 24" fill="#FFB199" 
 const GLOBE_I = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2A9FD6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>';
 const STAMP_I = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00B062" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 22h14"/><path d="M19.27 13.73A2.5 2.5 0 0 0 17.5 13h-11A2.5 2.5 0 0 0 4 15.5V17a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-1.5c0-.66-.26-1.3-.73-1.77Z"/><path d="M14 13V8.5C14 7 15 7 15 5a3 3 0 0 0-6 0c0 2 1 2 1 3.5V13"/></svg>';
 function postieLine(){ if(LOC.on && LOC.pos){ const n=Object.keys(CITIES).filter(id=>!vst(id)&&CITY_LL[id]&&kmTo(LOC.pos,CITY_LL[id])<350).length; if(n) return `${n} ${n===1?'city':'cities'} to stamp near you. Shall we fly?`; }
-  const h=new Date().getHours(), C=CITIES[cityOfDay()];
-  const T = h<5 ? ['Still up? Me too. Somewhere it’s already breakfast.','Night flight? Tap me and I’ll pick a city.','Shh… the animals are asleep. Zoom in and see.']
-    : h<11 ? ['Morning! I’m Pip. Tap me for a surprise city.',`Good morning! Today’s city is ${C.name}.`,'Coffee first, then a new stamp?']
-    : h<17 ? ['Afternoon! Tap a continent to explore.','Psst… the balloon has today’s quiz.','Where shall we fly today? Tap me and I’ll pick.']
-    : h<21 ? ['Evening! Perfect time for a postcard.',`Sunset somewhere lovely. Fancy ${C.name}?`,'Zoom in to spot animals and message bottles.']
-    : ['Getting late. One more city before bed?','Night owl? Tap me for a surprise city.','The planes are still flying. Zoom in!'];
+  const h=new Date().getHours(), C=CITIES[cityOfDay()], nm=((AVA.bio&&AVA.bio.given)||'').trim().split(/\s+/)[0], hi=nm?`, ${esc(nm)}`:'';
+  const T = h<5 ? [`Still up${hi}? Me too. Somewhere it’s already breakfast.`,'Night flight? Tap me and I’ll pick a city.','Shh… the animals are asleep. Zoom in and see.']
+    : h<11 ? [`Morning${hi}! I’m Pip. Tap me for a surprise city.`,`Good morning${hi}! Today’s city is ${C.name}.`,'Coffee first, then a new stamp?']
+    : h<17 ? [`Afternoon${hi}! Tap a continent to explore.`,'Psst… the balloon has today’s quiz.','Where shall we fly today? Tap me and I’ll pick.']
+    : h<21 ? [`Evening${hi}! Perfect time for a postcard.`,`Sunset somewhere lovely. Fancy ${C.name}?`,'Zoom in to spot animals and message bottles.']
+    : [`Getting late${hi}. One more city before bed?`,'Night owl? Tap me for a surprise city.','The planes are still flying. Zoom in!'];
   return T[(new Date().getDate()+Object.keys(visited).length)%T.length]; }
 let pipT=0;
 function pipReact(kind){ if(!document.documentElement.classList.contains('fresh')) return;
