@@ -296,6 +296,20 @@ html.fresh .anic:not(.on) .ai{background:#EEF2F0;box-shadow:0 0 0 2px #B8C4BE}
 .gcard{display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:12px;border:0;border-radius:20px;background:#fff;box-shadow:0 6px 16px rgba(30,43,51,.08);text-align:left}
 .gcard .gmi{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:4px}
 .gcard b{font:700 14px/1.2 var(--font-display);color:var(--ink-navy)}.gcard small{font-size:11.5px;color:#56656D;line-height:1.3}.gcard em{font-style:normal;font-size:11px;font-weight:800;color:#00A35A;margin-top:2px}
+/* shiny stamps */
+html.fresh #art-world:not(.zin) .wev.lead{opacity:1;pointer-events:auto}
+html.fresh .wev{border:2px solid #fff;background:conic-gradient(from var(--sh,0deg),#FF8A3D,#FF4F8B,#9D4EFF,#3D7BFF,#00C2B2,#FFC531,#FF8A3D);box-shadow:0 0 0 2px #222B48,0 0 14px 4px rgba(255,197,49,.55);animation:shinyspin 3s linear infinite,shinypulse 1.6s ease-in-out infinite}
+@property --sh{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes shinyspin{to{--sh:360deg}}
+@keyframes shinypulse{0%,100%{scale:1}50%{scale:1.12}}
+html.fresh .tile.evst{position:relative;overflow:hidden}
+html.fresh .tile.evst::after{content:"";position:absolute;inset:-40%;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.75) 50%,transparent 60%);animation:shinesweep 2.8s ease-in-out infinite;pointer-events:none}
+html.fresh .tile.evst::before{content:"✦ SHINY";position:absolute;top:3px;left:50%;translate:-50% 0;z-index:2;padding:1px 6px;border-radius:999px;background:linear-gradient(90deg,#FF4F8B,#9D4EFF,#3D7BFF);color:#fff;font:800 8px/1.4 var(--font-display);letter-spacing:.06em;white-space:nowrap}
+@keyframes shinesweep{0%,40%{transform:translateX(-60%)}80%,100%{transform:translateX(60%)}}
+html.fresh .evbanner{position:relative;overflow:hidden;border:0!important;border-radius:18px;background:linear-gradient(120deg,#FFE9A8,#FFD1E0 50%,#E1D6FF)!important;box-shadow:0 8px 20px rgba(157,78,255,.18)}
+html.fresh .evbanner::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.6) 50%,transparent 60%);animation:shinesweep 3s ease-in-out infinite;pointer-events:none}
+html.fresh .evbanner.soon{background:#F1F6F3!important;box-shadow:none}html.fresh .evbanner.soon::after{display:none}
+html.fresh .evrow.got{border:0!important;background:linear-gradient(120deg,#FFE9A8,#FFD1E0 50%,#E1D6FF)!important}
 /* springy taps */
 html.fresh :is(button,.wcard,.wcd,.tcard,.fcard,.setc,.anic,.chip,.tile,.kt,.sr,.step){transition:transform .18s cubic-bezier(.3,1.6,.5,1),box-shadow .18s}
 html.fresh :is(button,.wcard,.tcard,.fcard,.sr,.step):active:not(:disabled){transform:scale(.955)}
@@ -4095,12 +4109,52 @@ const EVENTS = [
   {id:'vcarnival', cities:['venice'], name:'Carnival of Venice', from:'01-30', to:'02-17', when:'February'},
   {id:'carnaval', cities:['rio','salvador'], name:'Carnival', from:'02-05', to:'02-18', when:'February'},
   {id:'santos', cities:['lisbon'], name:'Santo António festival', from:'06-12', to:'06-13', when:'12–13 June'},
-  {id:'spring', cities:['melbourne'], name:'Spring racing carnival', from:'10-24', to:'11-14', when:'late October – mid November'}
+  {id:'spring', cities:['melbourne'], name:'Spring racing carnival', from:'10-24', to:'11-14', when:'late October – mid November'},
+  {id:'stpatricks', cities:['dublin'], name:'St Patrick’s Festival', from:'03-14', to:'03-18', when:'14–18 March'},
+  {id:'bloomsday', cities:['dublin'], name:'Bloomsday', from:'06-16', to:'06-16', when:'16 June'},
+  {id:'kingsday', cities:['amsterdam'], name:'King’s Day', from:'04-27', to:'04-27', when:'27 April'},
+  {id:'bastille', cities:['paris'], name:'Bastille Day fireworks', from:'07-14', to:'07-14', when:'14 July'},
+  {id:'hogmanay', cities:['edinburgh'], name:'Hogmanay', from:'12-30', to:'01-01', when:'30 December – 1 January'},
+  {id:'fringe', cities:['edinburgh'], name:'Edinburgh Festival Fringe', from:'08-01', to:'08-31', when:'August'},
+  {id:'londonnye', cities:['london'], name:'New Year’s Eve fireworks', from:'12-31', to:'12-31', when:'31 December'},
+  {id:'oktoberfest', cities:['munich'], name:'Oktoberfest', years:{2026:['09-19','10-04'],2027:['09-18','10-03']}, when:'late September – early October'},
+  {id:'xmasmarkets', cities:['vienna','prague','berlin','cologne','tallinn','copenhagen'], name:'Christmas markets', from:'11-20', to:'12-24', when:'late November – Christmas Eve'},
+  {id:'santaseason', cities:['rovaniemi'], name:'Christmas at the Arctic Circle', from:'12-01', to:'12-25', when:'December'},
+  {id:'saojoao', cities:['porto'], name:'São João festival', from:'06-23', to:'06-24', when:'23–24 June'},
+  {id:'midsummer', cities:['stockholm','helsinki'], name:'Midsummer', years:{2026:['06-19','06-20'],2027:['06-25','06-26']}, when:'late June'},
+  {id:'semanasanta', cities:['seville'], name:'Holy Week processions', years:{2026:['03-29','04-05'],2027:['03-21','03-28']}, when:'the week before Easter'},
+  {id:'merce', cities:['barcelona'], name:'La Mercè festival', from:'09-22', to:'09-25', when:'around 24 September'},
+  {id:'sanisidro', cities:['madrid'], name:'San Isidro festival', from:'05-13', to:'05-15', when:'mid May'},
+  {id:'tulips', cities:['istanbul'], name:'Tulip festival', from:'04-01', to:'04-30', when:'April'},
+  {id:'lunarny', cities:['beijing','shanghai','hongkong','singapore','taipei','penang','kualalumpur','seoul','hanoi'], name:'Lunar New Year', years:{2026:['02-17','03-03'],2027:['02-06','02-20']}, when:'Lunar New Year to the Lantern Festival'},
+  {id:'holi', cities:['jaipur','varanasi','delhi'], name:'Holi', years:{2026:['03-03','03-04'],2027:['03-21','03-22']}, when:'March'},
+  {id:'diwali', cities:['jaipur','varanasi','delhi'], name:'Diwali', years:{2026:['11-07','11-09'],2027:['10-28','10-30']}, when:'October or November'},
+  {id:'songkran', cities:['bangkok','chiangmai'], name:'Songkran water festival', from:'04-13', to:'04-15', when:'13–15 April'},
+  {id:'gion', cities:['kyoto'], name:'Gion Matsuri', from:'07-01', to:'07-31', when:'July'},
+  {id:'midautumn', cities:['hongkong','hanoi','taipei'], name:'Mid-Autumn Festival', years:{2026:['09-24','09-26'],2027:['09-14','09-16']}, when:'September'},
+  {id:'naadam', cities:['ulaanbaatar'], name:'Naadam festival', from:'07-11', to:'07-13', when:'11–13 July'},
+  {id:'equinox', cities:['siemreap'], name:'Equinox sunrise at Angkor Wat', from:'03-20', to:'03-21', when:'20–21 March'},
+  {id:'dubainye', cities:['dubai'], name:'New Year’s Eve at the Burj Khalifa', from:'12-31', to:'12-31', when:'31 December'},
+  {id:'tweedenuwejaar', cities:['capetown'], name:'Cape Town Minstrel Carnival', from:'01-02', to:'01-02', when:'2 January'},
+  {id:'mardigras', cities:['neworleans'], name:'Mardi Gras', years:{2026:['02-07','02-17'],2027:['01-30','02-09']}, when:'February'},
+  {id:'macys', cities:['newyork'], name:'Thanksgiving Day Parade', years:{2026:['11-26','11-26'],2027:['11-25','11-25']}, when:'Thanksgiving Day'},
+  {id:'balldrop', cities:['newyork'], name:'Times Square ball drop', from:'12-31', to:'12-31', when:'31 December'},
+  {id:'junkanoo', cities:['nassau'], name:'Junkanoo', from:'12-26', to:'01-01', when:'26 December and 1 January'},
+  {id:'marley', cities:['kingston'], name:'Bob Marley’s birthday', from:'02-06', to:'02-06', when:'6 February'},
+  {id:'intiraymi', cities:['cusco'], name:'Inti Raymi', from:'06-24', to:'06-24', when:'24 June'},
+  {id:'elgrito', cities:['mexicocity'], name:'Independence night (El Grito)', from:'09-15', to:'09-16', when:'15–16 September'},
+  {id:'mashramani', cities:['georgetown'], name:'Mashramani', from:'02-23', to:'02-23', when:'23 February'}
 ];
 let eventStamps = {};   /* city id -> {ev, date} */
 const md = iso => iso.slice(5);
-const activeEvent = (id, iso=today()) => EVENTS.find(e=>e.cities.includes(id) && md(iso)>=e.from && md(iso)<=e.to);
-const nextEvent = id => { const evs=EVENTS.filter(e=>e.cities.includes(id)); if(!evs.length) return null; const t=md(today()); return evs.slice().sort((a,b)=>((a.from<t?'1':'0')+a.from)<((b.from<t?'1':'0')+b.from)?-1:1)[0]; };
+/* an event's dates in a given year: fixed ones repeat, moving ones (lunar, Easter, weekday-based) list each year; ranges may run over New Year */
+const evRange = (e,y) => e.years ? (e.years[y]||null) : [e.from,e.to];
+const evOn = (e,iso) => { const y=+iso.slice(0,4), m=md(iso); for(const yy of [y,y-1]){ const r=evRange(e,yy); if(!r) continue; const [f,t]=r;
+    if(f<=t){ if(yy===y && m>=f && m<=t) return true; } else { if(yy===y && m>=f) return true; if(yy===y-1 && m<=t) return true; } } return false; };
+const activeEvent = (id, iso=today()) => EVENTS.find(e=>e.cities.includes(id) && evOn(e,iso));
+const evNextStart = e => { const t=today(), y=+t.slice(0,4); for(const yy of [y,y+1,y+2]){ const r=evRange(e,yy); if(r && `${yy}-${r[0]}`>=t) return `${yy}-${r[0]}`; } return '9999'; };
+const evLive = e => e.cities.some(c=>{ const a=activeEvent(c); return a&&a.id===e.id; });
+const nextEvent = id => { const evs=EVENTS.filter(e=>e.cities.includes(id)); if(!evs.length) return null; return evs.slice().sort((a,b)=>evNextStart(a)<evNextStart(b)?-1:1)[0]; };
 const SNDP = (k,d) => { try{ const v=localStorage.getItem(k); return v===null?d:v; }catch(e){ return d; } };
 let soundOn = SNDP('pm-snd','1')!=='0', combo = 0, lastStampT = 0;
 const SND = { music: SNDP('pm-mus','1')!=='0', musV: +SNDP('pm-musv','0.05'), fxV: +SNDP('pm-fxv','0.9'), ambV: +SNDP('pm-ambv','0.6'), amb: SNDP('pm-amb','1')!=='0', quiet: SNDP('pm-quiet','0')==='1' };
@@ -4952,8 +5006,8 @@ function pinsHTML(g){ let out='';
     out+=`<button class="wani ${zz?'sleep':''}" data-wani="${a.k}" style="left:${(x-15).toFixed(1)}px;top:${(y-15).toFixed(1)}px;--d:${(i*.37).toFixed(2)}s" aria-label="${esc(a.name)}${zz?' (asleep)':''}: tap for a fact"><svg viewBox="-13 -13 26 26" width="30" height="30" aria-hidden="true">${a.svg}</svg>${zz?'<i class="zz" aria-hidden="true">z<b>z</b><u>z</u></i>':''}</button>`; });
   { BALG=g; const [x,y]=wLL(g,...balloonLL()); out+=`<button class="wball" data-wball style="left:${(x-17).toFixed(1)}px;top:${(y-70).toFixed(1)}px" aria-label="Hot air balloon: tap for today’s quiz">${BALLOON}</button>`; }
   const seen=new Set();
-  EVENTS.forEach(e=>e.cities.forEach(id=>{ const ev=activeEvent(id); if(!ev||ev.id!==e.id||seen.has(id)||!CITY_LL[id]) return; seen.add(id); const [x,y]=wLL(g,...CITY_LL[id]);
-    out+=`<button class="wev" data-wev="${id}" style="left:${(x-13).toFixed(1)}px;top:${(y-32).toFixed(1)}px" aria-label="${esc(e.name)} is on now in ${CITIES[id].name}">${L(LU.spark,14,2.4)}</button>`; }));
+  const seen2=new Set(); EVENTS.forEach(e=>e.cities.forEach(id=>{ const ev=activeEvent(id); if(!ev||ev.id!==e.id||seen.has(id)||!CITY_LL[id]) return; seen.add(id); const [x,y]=wLL(g,...CITY_LL[id]);
+    const lead=!seen2.has(e.id); seen2.add(e.id); out+=`<button class="wev ${lead?'lead':''}" data-wev="${id}" style="left:${(x-13).toFixed(1)}px;top:${(y-32).toFixed(1)}px" aria-label="${esc(e.name)} is on now in ${CITIES[id].name}">${L(LU.spark,14,2.4)}</button>`; }));
   const cd=cityOfDay(); if(CITY_LL[cd]){ const [x,y]=wLL(g,...CITY_LL[cd]); const rw=cotdIsMemory(); out+=`<button class="wcotd ${rw?'rw':''}" data-cotd="${cd}" style="left:${(x-13).toFixed(1)}px;top:${(y-30).toFixed(1)}px" aria-label="${rw?'Remember when':'City of the day'}: ${CITIES[cd].name}">${rw?L(LU.cal,13,2.4):L(LU.star,13,2.6)}</button>`; }
   const spots={};
   friendList().forEach(f=>{ const last=Object.entries(f.visited||{}).filter(([k])=>CITIES[k]&&CITY_LL[k]).sort((a,b)=>String(a[1]).localeCompare(String(b[1]))).pop(); if(!last) return;
@@ -5596,9 +5650,9 @@ function cardHTML(id){
     </div>
     ${v?`<span class="vchip ${verified[id]?'':'past'}">${L(verified[id]?LU.shield:LU.cal,14)}${verified[id]?'Verified: stamped in '+C.name:'Past visit · blue memory stamp'}</span>`:''}
     ${(()=>{ const ev=activeEvent(id), es=eventStamps[id], nx=nextEvent(id);
-      if(es){ const e=EVENTS.find(x=>x.id===es.ev); return `<div class="evbanner"><b>${L(LU.spark,16)}Special edition stamp</b>You stamped ${C.name} during ${e.name} on ${dLong(es.date)}.</div>`; }
-      if(ev) return `<div class="evbanner live"><b>${L(LU.spark,16)}${ev.name} is on now</b>Stamp ${C.name} before it ends for a special-edition stamp.</div>`;
-      if(nx) return `<div class="evbanner soon"><b>${L(LU.cal,16)}Special stamp: ${nx.name}</b>Be in ${C.name} in ${nx.when} to collect it.</div>`;
+      if(es){ const e=EVENTS.find(x=>x.id===es.ev); return `<div class="evbanner"><b>${L(LU.spark,16)}Shiny stamp collected</b>You stamped ${C.name} during ${e.name} on ${dLong(es.date)}.</div>`; }
+      if(ev) return `<div class="evbanner live"><b>${L(LU.spark,16)}${ev.name} is on now</b>Stamp ${C.name} before it ends to get the rare shiny stamp.</div>`;
+      if(nx) return `<div class="evbanner soon"><b>${L(LU.cal,16)}Shiny stamp: ${nx.name}</b>Be in ${C.name} in ${nx.when} to collect it.</div>`;
       return ''; })()}
     <div class="kpanel">
       <div class="hd"><b>${K.name} key cities</b><span>${n} of ${total}</span></div>
@@ -7836,9 +7890,9 @@ function stampLogHTML(){
       <span class="chev">${L(LU.down,18)}</span></button>
     ${logOpen?`<div class="lbody"><div class="lchips">${chip('all','All',all.length)}${chip('spot','On the spot',nv)}${chip('mem','Memories',np)}</div>${rows||'<p class="lnone">Nothing here yet.</p>'}${ids.length>cap?`<button class="lmore" id="logMore">Show all ${ids.length} stamps</button>`:''}</div>`:''}</section>`;
 }
-function evShown(){ if(evAll) return EVENTS;
-  const key=e=>Object.values(eventStamps).some(v=>v.ev===e.id)?0:e.cities.some(c=>activeEvent(c)&&activeEvent(c).id===e.id)?1:2;
-  const sorted=EVENTS.map((e,i)=>[key(e),i,e]).sort((a,b)=>a[0]-b[0]||a[1]-b[1]).map(x=>x[2]);
+function evShown(){ if(evAll) return EVENTS.slice().sort((a,b)=>evNextStart(a)<evNextStart(b)?-1:1);
+  const key=e=>evLive(e)?0:Object.values(eventStamps).some(v=>v.ev===e.id)?1:2;
+  const sorted=EVENTS.map((e,i)=>[key(e),evNextStart(e),e]).sort((a,b)=>a[0]-b[0]||(a[1]<b[1]?-1:a[1]>b[1]?1:0)).map(x=>x[2]);
   return sorted.slice(0,Math.max(4,sorted.filter(e=>key(e)<2).length)); }
 function guestNagHTML(){ if(!isGuest()) return ''; const n=Object.keys(visited).length; if(n<3) return ''; let last=''; try{ last=localStorage.getItem('pm-guestnag')||''; }catch(e){} if(last && last>addDays(today(),-7)) return '';
   return `<div class="gnag"><span class="gi">${L(LU.shield,18)}</span><div><b>Keep your ${n} stamps safe</b><span>You’re exploring as a guest. A free account backs up your passport and lets you add friends.</span><div class="gb"><button id="authNew" class="pri">Create free account</button><button id="gnagLater">Later</button></div></div></div>`; }
@@ -7872,7 +7926,7 @@ function renderPassport(){ saveState();
       return `<div class="setc ${on?'on':''}">${badgeSVG(st,on,58)}<b>${st.name}</b><span>${on?'Complete':`${n} of ${st.cities.length}`}</span><small>${st.cities.map(id=>vst(id)?`<i>${CITIES[id].name}</i>`:CITIES[id].name).join(' · ')}</small></div>`}).join('')}</div></div>
   ${gamesHTML()}<div class="psec" id="pAni"><div class="psh"><h2>Animal spotter</h2><span>${animalsSeen.filter(k=>ANIMALS.some(a=>a.k===k)).length} of ${ANIMALS.length} spotted</span></div><p class="psub">Tap the animals on the world map to spot them. Each full set of 12 wins a reward.</p>
     ${[1,2].map(st=>{ const L2=ANIMALS.filter(a=>(a.set||1)===st), got=L2.filter(a=>animalsSeen.includes(a.k)).length; return `<div class="aniset"><b>Set ${st}</b><span>${got} of ${L2.length} · ${st===1?'Safari hat':'Ranger badge'}</span></div><div class="anigrid">${L2.map(a=>{ const on=animalsSeen.includes(a.k); return `<div class="anic ${on?'on':''}"><span class="ai"><svg viewBox="-13 -13 26 26" width="40" height="40" aria-hidden="true">${a.svg}</svg>${on?'':'<em>?</em>'}</span><b>${on?esc(a.name):'Not yet'}</b><small>${esc(a.where)}</small></div>`; }).join('')}</div>`; }).join('')}</div>
-  <div class="psec" id="pEv"><div class="psh"><h2>Event stamps</h2><span>${Object.keys(eventStamps).length} collected</span></div><div class="evlist">${evShown().map(e=>{ const got2=Object.entries(eventStamps).find(([,v])=>v.ev===e.id), live=e.cities.some(c=>activeEvent(c)&&activeEvent(c).id===e.id), C0=CITIES[got2?got2[0]:e.cities[0]], K0=COUNTRIES[C0.c];
+  <div class="psec" id="pEv"><div class="psh"><h2>Shiny stamps</h2><span>${Object.keys(eventStamps).length} collected</span></div><p class="psub">Stamp a city during its festival to get a rare shiny version. ${EVENTS.filter(evLive).length?`<b>${EVENTS.filter(evLive).length} on right now!</b>`:`Next up: ${esc(EVENTS.slice().sort((a,b)=>evNextStart(a)<evNextStart(b)?-1:1)[0].name)}.`}</p><div class="evlist">${evShown().map(e=>{ const got2=Object.entries(eventStamps).find(([,v])=>v.ev===e.id), live=e.cities.some(c=>activeEvent(c)&&activeEvent(c).id===e.id), C0=CITIES[got2?got2[0]:e.cities[0]], K0=COUNTRIES[C0.c];
       return `<div class="evrow ${got2?'got':live?'live':''}"><span class="sq" style="background:${K0.color}">${lm(C0.icon,'on').replace('<svg','<svg width="26" height="26"')}</span><div><b>${e.name}</b><span>${e.cities.map(c=>CITIES[c].name).join(' or ')} · ${got2?'collected '+dLong(got2[1].date):e.when}</span></div>${got2?`<em>${L(LU.check,10,3)}</em>`:live?'<em style="background:var(--city-kyoto)">ON NOW</em>':''}</div>`; }).join('')}${evShown().length<EVENTS.length?`<button class="lmore" id="evMore">Show all ${EVENTS.length} events</button>`:''}</div></div>
   <div class="psec" id="pRew"><div class="psh"><h2>Rewards</h2><span>Complete collections to unlock</span></div>
     <div class="wardrobe">${OUTFITS.map(o=>{const ok=unlockedBy(o.set); return `<button class="ward ${ok?'':'lock'} ${outfit===o.id?'on':''}" data-outfit="${o.id}" ${ok?'':'aria-disabled="true"'}><span class="prev">${miniHand(o.id,84)}</span><b>${o.name}</b><small>${ok?(outfit===o.id?'Wearing':'Tap to wear'):'Complete '+SETS.find(st=>st.id===o.set).name}</small></button>`}).join('')}
@@ -7955,7 +8009,8 @@ $('#onboard').addEventListener('click', e=>{
 
 /* ---------- tabs ---------- */
 let curTab='map';
-function tab(t){ if(t!==curTab){ curTab=t; SFX.swish(); AMB.apply(); }
+function tab(...a){ const pp=document.getElementById('pipPop'); if(pp) pp.classList.remove('on'); return tab0(...a); }
+function tab0(t){ if(t!==curTab){ curTab=t; SFX.swish(); AMB.apply(); }
   $('#passport').hidden = t!=='passport'; $('#trips').hidden = t!=='trips'; $('#friends').hidden = t!=='friends';
   [['tMap','map'],['tPass','passport'],['tTrips','trips'],['tFriends','friends']].forEach(([b,k])=>{ $('#'+b).classList.toggle('on', t===k); $('#'+b).toggleAttribute('aria-current', t===k); });
   if(t==='passport') renderPassport(); else if(t==='trips'){ tripView=null; renderTrips(); if(TOG.sb) togPoll(); } else if(t==='friends'){ friendView=null; renderFriends(); loadFriends(); if(TOG.sb) togPoll(); } else renderAll();
