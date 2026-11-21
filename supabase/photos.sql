@@ -72,3 +72,44 @@ alter table public.postcards add column if not exists photo text;
 drop policy if exists "photos: postcards sent to you" on storage.objects;
 create policy "photos: postcards sent to you" on storage.objects for select to authenticated
   using (bucket_id = 'photos' and (storage.foldername(name))[2] = 'pc' and (storage.foldername(name))[3] = auth.uid()::text);
+
+-- ---------------------------------------------------------------------------
+-- Part 3 (run after together.sql): friends see each other's stamp photos.
+-- Each traveller's card lists the stamp photo of every city they've stamped (private photos are left out).
+alter table public.profiles add column if not exists covers jsonb;
+
+-- Two people are friends when either has added the other.
+create or replace function public.are_friends(a uuid, b uuid)
+returns boolean language sql stable security definer set search_path = public as $$
+  select exists (select 1 from friend_links where (from_user = a and to_user = b) or (from_user = b and to_user = a))
+$$;
+revoke all on function public.are_friends(uuid, uuid) from public, anon;
+grant execute on function public.are_friends(uuid, uuid) to authenticated;
+
+-- Stamp photo lists, only for people you're friends with.
+create or replace function public.friend_covers(p_ids uuid[])
+returns table (user_id uuid, covers jsonb)
+language sql stable security definer set search_path = public as $$
+  select p.user_id, p.covers from profiles p
+  where p.user_id = any (p_ids) and p.covers is not null and public.are_friends(auth.uid(), p.user_id)
+  limit 200
+$$;
+revoke all on function public.friend_covers(uuid[]) from public, anon;
+grant execute on function public.friend_covers(uuid[]) to authenticated;
+
+-- A friend can open a photo file only while it is one of your listed stamp photos.
+create or replace function public.friend_cover_visible(object_name text)
+returns boolean language sql stable security definer set search_path = public as $$
+  select exists (
+    select 1 from profiles p, jsonb_each_text(coalesce(p.covers, '{}'::jsonb)) c
+    where p.user_id::text = split_part(object_name, '/', 1)
+      and object_name in (p.user_id::text || '/' || c.value || '.jpg', p.user_id::text || '/' || c.value || '_t.jpg')
+      and public.are_friends(auth.uid(), p.user_id)
+  )
+$$;
+revoke all on function public.friend_cover_visible(text) from public, anon;
+grant execute on function public.friend_cover_visible(text) to authenticated;
+
+drop policy if exists "photos: friends' stamp photos" on storage.objects;
+create policy "photos: friends' stamp photos" on storage.objects for select to authenticated
+  using (bucket_id = 'photos' and public.friend_cover_visible(name));

@@ -33,4 +33,6 @@ When signed in on the live site, photos also back up to a private Supabase Stora
 
 Part 2 of the same file (run it after `together.sql`) lets friends on a shared trip see each other's trip photos (any photo can be marked private) and lets postcards carry your own photo on the front. Without it, trips show only your own photos and postcards are sent with the drawn front.
 
+Part 3 lets friends see each other's stamp photos on their friend card and passport page (private photos are never shared).
+
 Every "been there" memory stamp shows the city's chosen stamp photo, and stamp photos appear as pins on the world map when you zoom in.

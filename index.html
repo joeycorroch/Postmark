@@ -366,6 +366,8 @@ html.fresh .evrow.got{border:0!important;background:linear-gradient(120deg,#FFE9
 .pcfront.phf,html.fresh .pcfront.phf{background-image:var(--pcph)!important;background-size:cover!important;background-position:center!important;color:#fff!important}.pcfront.phf .big{display:none}.pcfront.phf::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(transparent 40%,rgba(0,0,0,.55));pointer-events:none}.pcfront.phf>*{position:relative;z-index:1}.pcfront.phf h2,.pcfront.phf .gf,.pcfront.phf .ct{color:#fff!important;text-shadow:0 2px 6px rgba(0,0,0,.4)}
 .phth .who{position:absolute;left:4px;bottom:4px;width:24px;height:24px;border-radius:50%;overflow:hidden;background:#fff;box-shadow:0 0 0 2px #fff}.phth .who svg{width:24px;height:24px}.phth i.lk{background:#1E2B33;color:#fff}
 .phpriv{display:flex;align-items:center;gap:7px;width:100%;margin:0 0 10px;padding:9px 12px;border:0;border-radius:14px;background:rgba(255,255,255,.1);color:#DCEBEF;font:600 12.5px var(--font-body);text-align:left}.phpriv em{margin-left:auto;font-style:normal;font-weight:800;color:#8EE6B5}.phpriv.on{color:#FFE38A}
+.fphs{display:flex;align-items:center;gap:0;margin:-2px 14px 10px 14px;padding:6px 8px;border-radius:14px;background:#F2F8F4;cursor:pointer}.fphs span{width:30px;height:30px;margin-right:-6px;border-radius:50%;background:#DDE9E2 center/cover;box-shadow:0 0 0 2px #fff}.fphs b{margin-left:10px;font:700 11px var(--font-display);color:#5D6D75}.fphs small{display:flex;align-items:center;gap:4px;margin-left:auto;font:700 11px var(--font-body);color:#1F7F99}
+.fcard .fphs{position:relative}
 /* springy taps */
 html.fresh :is(button,.wcard,.wcd,.tcard,.fcard,.setc,.anic,.chip,.tile,.kt,.sr,.step){transition:transform .18s cubic-bezier(.3,1.6,.5,1),box-shadow .18s}
 html.fresh :is(button,.wcard,.tcard,.fcard,.sr,.step):active:not(:disabled){transform:scale(.955)}
@@ -543,7 +545,9 @@ html.fresh #art-world svg.map>g[filter]{filter:none}
 .wpostie .postie{flex-shrink:0;animation:waddle 2.6s ease-in-out infinite;transform-origin:50% 95%}
 .wpostie.hop .postie{animation:phop .5s cubic-bezier(.3,1.6,.5,1)}
 @keyframes phop{40%{transform:translateY(-16px) rotate(-6deg)}}
-.wsay{margin-bottom:50px;max-width:186px;padding:10px 13px;border-radius:18px 18px 18px 6px;background:#fff;box-shadow:0 10px 24px rgba(30,43,51,.16);font:600 13px/1.35 var(--font-body);color:var(--ink-navy);animation:rise .4s .3s both,sayout .5s 9s forwards}
+.wsay{position:relative;margin-bottom:38px;max-width:148px;padding:7px 24px 7px 10px;border-radius:14px 14px 14px 5px;background:#fff;box-shadow:0 6px 16px rgba(30,43,51,.14);font:600 11.5px/1.32 var(--font-body);color:var(--ink-navy);animation:rise .4s .3s both,sayout .5s 6s forwards}
+.wsx{position:absolute;top:4px;right:4px;width:18px;height:18px;border-radius:50%;background:#EEF4F0;color:#5D6D75;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.wpostie.hush .wsay{animation:sayout .25s forwards!important;pointer-events:none}
 @keyframes sayout{to{opacity:0;transform:translateY(6px) scale(.9);visibility:hidden}}
 .wpostie:hover .wsay{animation:none;opacity:1}
 .wsheet{position:absolute;left:0;right:0;bottom:84px;height:236px;z-index:6;box-sizing:border-box;padding:10px 16px 0;border-radius:30px 30px 0 0;background:linear-gradient(180deg,#E9FAEF,#DDF6E6);box-shadow:0 -10px 30px rgba(30,90,107,.16);display:flex;flex-direction:column;gap:12px}
@@ -5130,7 +5134,7 @@ function worldZoomCommit(k, mx, my){
 function paintWorldZoom(){ const aw=$('#art-world'); if(aw){ aw.classList.toggle('zin', WZ>1.3); aw.classList.toggle('zin2', WZ>2.3); } const ui=$('#ui-world'); if(!ui) return; const o=ui.querySelector('[data-wzoom="out"]'), r=ui.querySelector('[data-wzoom="reset"]'); if(o) o.disabled=WZ<=1.01; if(r) r.hidden=WZ<=1.01; }
 const worldZoomCtl = () => `<div class="zoomctl wz" aria-label="Map zoom"><button data-wzoom="in" aria-label="Zoom in">+</button><button data-wzoom="out" aria-label="Zoom out" ${WZ<=1.01?'disabled':''}>−</button><button class="zr" data-wzoom="reset" ${WZ<=1.01?'hidden':''}>Reset</button></div>`;
 /* animate to zoom k around (mx,my) with a quick CSS scale, then redraw crisply */
-function worldZoomTo(k, mx, my){ const p=$('#wpan'); const nz=Math.max(1,Math.min(WZMAX,WZ*k)); k=nz/WZ; if(!p || Math.abs(k-1)<.001) return;
+function worldZoomTo(k, mx, my){ hushPip(); const p=$('#wpan'); const nz=Math.max(1,Math.min(WZMAX,WZ*k)); k=nz/WZ; if(!p || Math.abs(k-1)<.001) return;
   p.classList.add('pinch','tween'); p.style.transform=`translate(${(mx+(worldPan-mx)*k).toFixed(1)}px,${(my-my*k).toFixed(1)}px) scale(${k.toFixed(4)})`;
   setTimeout(()=>{ p.classList.remove('tween'); worldZoomCommit(k, mx, my); }, 270); }
 (function(){
@@ -5145,7 +5149,7 @@ function worldZoomTo(k, mx, my){ const p=$('#wpan'); const nz=Math.max(1,Math.mi
     if(pz && pts.size>=2){ const [a,b]=[...pts.values()], m=[(a[0]+b[0])/2,(a[1]+b[1])/2]; let k=Math.hypot(a[0]-b[0],a[1]-b[1])/pz.d0; k=Math.max(1/WZ, Math.min(WZMAX/WZ, k)); pz.k=k; pz.m=m;
       const p=$('#wpan'); if(p) p.style.transform=`translate(${(m[0]+(worldPan-pz.m0[0])*k).toFixed(1)}px,${(m[1]-pz.m0[1]*k).toFixed(1)}px) scale(${k.toFixed(4)})`; return; }
     if(!d) return; const dx=(e.clientX-d.x)/scale(), dy=(e.clientY-d.y)/scale(); if(!moved && Math.hypot(dx,dy)<7) return;
-    if(!moved){ moved=true; el().classList.add('drag'); if(showHint){ showHint=false; const h=$('#hint'); if(h) h.remove(); } }
+    if(!moved){ moved=true; el().classList.add('drag'); hushPip(); if(showHint){ showHint=false; const h=$('#hint'); if(h) h.remove(); } }
     const now=performance.now(); vel=.7*vel+.3*((e.clientX-d.lx)/scale())/Math.max(1,now-d.t)*16; d.lx=e.clientX; d.t=now;
     worldPan=wrapPan(d.p+dx); d.dy = WZ>1.01 ? dy : 0; apply(d.dy); });
   const end=e=>{ if(!pts.has(e.pointerId)) return; const pe=pts.get(e.pointerId); pts.delete(e.pointerId);
@@ -5525,6 +5529,29 @@ function phOpenFriend(sid, i){ const r=(TOG.tph[sid]||[])[+i]; if(!r) return; co
 document.addEventListener('click', e=>{ const f=e.target.closest('[data-tph]'); if(f){ e.stopPropagation(); const [sid,i]=f.dataset.tph.split(':'); return phOpenFriend(sid,i); }
   const w=e.target.closest('[data-wph]'); if(w){ e.stopPropagation(); return flyToCity(w.dataset.wph); }
   const pv=e.target.closest('[data-phpriv]'); if(pv){ e.stopPropagation(); const p=photos.find(x=>x.id===pv.dataset.phpriv); if(!p) return; p.priv=!p.priv; saveState(); TOG.tphAt={}; toast(p.priv?'Private: only you can see this photo':'Friends on your trips can see this photo'); return phOpen(p.id); } }, true);
+
+/* ---------- friends' stamp photos: each friend shares the stamp photo of every city they've stamped (unless it's private) ---------- */
+var FRPH={};
+async function frCovers(){ const b=typeof phCloud==='function'&&phCloud(); const ids=friendIds.filter(x=>typeof x==='string'); if(!b||!ids.length) return;
+  try{ const {data,error}=await AUTH.client.rpc('friend_covers',{p_ids:ids}); if(error) throw error; const rows=(data||[]).filter(r=>r&&r.covers&&typeof r.covers==='object'), want=[];
+    rows.forEach(r=>{ for(const c in r.covers){ const pid=r.covers[c]; if(CITIES[c]&&/^[a-z0-9]{6,32}$/.test(pid)) want.push({uid:r.user_id, city:c, pid}); } });
+    const out={}; if(want.length){ const {data:su}=await b.createSignedUrls(want.flatMap(w=>[`${w.uid}/${w.pid}_t.jpg`,`${w.uid}/${w.pid}.jpg`]), 3600); const m={}; (su||[]).forEach(x=>{ if(x.signedUrl) m[x.path]=x.signedUrl; });
+      want.forEach(w=>{ const t=m[`${w.uid}/${w.pid}_t.jpg`]; if(t) (out[w.uid]=out[w.uid]||[]).push({city:w.city, thumb:t, full:m[`${w.uid}/${w.pid}.jpg`]||t}); }); }
+    for(const k in out) out[k].sort((a,b)=>{ const f=PEOPLE[k]&&PEOPLE[k].cities||{}; return String(f[b.city]||'').localeCompare(String(f[a.city]||'')); });
+    FRPH=out; if(!$('#friends').hidden) renderFriends(); }
+  catch(e){ console.warn('[friend photos]', e&&e.message); } }
+function frPhotosHTML(f){ const ps=FRPH[f.id]||[]; if(!ps.length) return '';
+  return `<div class="tsec"><h3>${esc(f.name)}’s stamp photos <span>${ps.length}</span></h3><div class="phgrid">${ps.map((x,i)=>`<button class="phg" data-frph="${f.id}:${i}" style="background-image:url(${x.thumb})" aria-label="${esc(f.name)}’s photo from ${esc(CITIES[x.city].name)}"><span>${esc(CITIES[x.city].short||CITIES[x.city].name)}${visited[x.city]?' ✓':''}</span></button>`).join('')}</div></div>`; }
+function frPhotoOpen(uid, i){ const x=(FRPH[uid]||[])[+i]; if(!x) return; const C=CITIES[x.city], f=realFriend(uid), d=PEOPLE[uid]&&PEOPLE[uid].cities&&PEOPLE[uid].cities[x.city];
+  let el=$('#phbox'); if(!el){ $('#phone').insertAdjacentHTML('beforeend','<div id="phbox" role="dialog" aria-label="Photo"></div>'); el=$('#phbox'); }
+  const list=FRPH[uid];
+  el.innerHTML=`<button class="xbtn" data-phbx aria-label="Close">${L(LU.x,20)}</button><div class="phimg"><img src="${x.full}" alt="${esc(f.name)}’s photo from ${esc(C.name)}">
+      ${+i>0?`<button class="phnav l" data-frph="${uid}:${+i-1}" aria-label="Previous photo">${L(LU.left,22,2.6)}</button>`:''}${+i<list.length-1?`<button class="phnav r" data-frph="${uid}:${+i+1}" aria-label="Next photo">${L(LU.left,22,2.6)}</button>`:''}</div>
+    <div class="phcap"><span class="fl">${ffaceSVG(f,34)}</span><div><b>${esc(C.name)}</b><small>${esc(f.name)}’s stamp photo${typeof d==='string'&&/^\d{4}-\d\d-\d\d$/.test(d)?' · stamped '+dLong(d):''}</small></div></div>
+    <div class="phacts"><button class="btn navy" data-fopen="${x.city}" data-phbx>${L(LU.map,18)}${visited[x.city]?'Open '+esc(C.name):'Add '+esc(C.name)+' to your map'}</button></div>`;
+  el.classList.add('on'); }
+document.addEventListener('click', e=>{ const t=e.target.closest('[data-frph]'); if(!t) return; e.stopPropagation(); const [u,i]=t.dataset.frph.split(':'); frPhotoOpen(u,i); }, true);
+document.addEventListener('click', e=>{ const t=e.target.closest('#phbox [data-fopen]'); if(!t) return; e.stopPropagation(); const id=t.dataset.fopen; const el=$('#phbox'); el.classList.remove('on'); el.innerHTML=''; tab('map'); setTimeout(()=>flyToCity(id),250); }, true);
 /* account backup: photos go to a private storage folder named after your account */
 const phCloud = () => AUTH.client && AUTH.user ? AUTH.client.storage.from('photos') : null;
 async function phSyncUp(){ const b=phCloud(); if(!b||phSyncing) return; phSyncing=true; let n=0;
@@ -5614,6 +5641,11 @@ function showTripAlerts(){ const a=tripEventAlerts(); if(!a.length) return; cons
   const msg = x.live ? `${evIcon(x.e)} ${x.e.name} is on now in ${CITIES[x.c].name}, on your trip “${x.tr.name}”. Stamp it for a shiny!` : `${evIcon(x.e)} Heads up! ${x.e.name} starts in ${x.days===0?'today':x.days===1?'1 day':x.days+' days'} in ${CITIES[x.c].name}, on your trip “${x.tr.name}”.`;
   setTimeout(()=>{ toast(msg); const t=$('#toast'); t.classList.add('wrap'); clearTimeout(toastT); toastT=setTimeout(()=>{ t.classList.remove('on'); setTimeout(()=>t.classList.remove('wrap'),300); },5200); }, 2500); }
 setTimeout(showTripAlerts, 4000);
+/* Pip's tip on the home map: shows briefly, fades as soon as you move the map, and the × hides it for the rest of the day */
+const sayHushed = () => { try{ return localStorage.getItem('pm-sayx')===today(); }catch(e){ return false; } };
+function hushPip(){ const w=$('#wPostie'); if(w) w.classList.add('hush'); }
+document.addEventListener('click', e=>{ const x=e.target.closest('[data-wsayx]'); if(!x) return; e.stopPropagation(); e.preventDefault(); try{ localStorage.setItem('pm-sayx', today()); }catch(err){} const s=x.closest('.wsay'); if(s) s.remove(); }, true);
+document.addEventListener('wheel', e=>{ if(e.target.closest&&e.target.closest('#art-world')) hushPip(); }, {passive:true});
 let pipT=0, handStamping=false, stampUses=0;
 try{ stampUses=+(localStorage.getItem('pm-inkuse')||0); }catch(e){}
 function letterDrop(bl){ if(reduced()) return; const ph=$('#phone'), r=bl.getBoundingClientRect(), pr=ph.getBoundingClientRect(), k=pr.width/390, x=(r.left-pr.left)/k+r.width/k/2, y=(r.top-pr.top)/k+r.height/k-6;
@@ -5655,7 +5687,7 @@ function worldUI(){
       <button class="mailbtn ${mailSeen()?'':'new'}" id="mailBtn" aria-label="Today’s postcard${mailSeen()?'':', unread'}">${L(LU.mail,20)}<i></i></button></div>
     <div class="search wsearch">${L(LU.search,20)}<span>Where to next?</span></div>
     ${(()=>{ const lv=EVENTS.filter(evLive); return lv.length?`<button class="wlive" id="wLive"><span class="wlg">${lv.slice(0,3).map(evIcon).join('')}</span><b>${lv.length} ${lv.length===1?'festival':'festivals'} on now</b><i>Shiny stamps</i></button>`:''; })()}
-    <button class="wpostie ${WSMIN?'lo':''} ${(new Date().getHours()>=22||new Date().getHours()<5)&&!(AWAY_DAYS>=2&&!awayShown)?'sleepy':''}" id="wPostie" aria-label="Pip: ${esc(postieLine())}">${POSTIE(84,'Pip',AWAY_DAYS>=2&&!awayShown?'wave':'')}<span class="zz" aria-hidden="true"><i>z</i><i>z</i><i>Z</i></span><span class="wsay">${esc(postieLine())}</span></button>
+    <button class="wpostie ${WSMIN?'lo':''} ${(new Date().getHours()>=22||new Date().getHours()<5)&&!(AWAY_DAYS>=2&&!awayShown)?'sleepy':''}" id="wPostie" aria-label="Pip: ${esc(postieLine())}">${POSTIE(64,'Pip',AWAY_DAYS>=2&&!awayShown?'wave':'')}<span class="zz" aria-hidden="true"><i>z</i><i>z</i><i>Z</i></span>${sayHushed()?'':`<span class="wsay">${esc(postieLine())}<span class="wsx" role="button" tabindex="0" data-wsayx aria-label="Hide Pip’s tip">${L(LU.x,11,3)}</span></span>`}</button>
     <div class="wsheet ${WSMIN?'min':''}" id="wSheet">
       <button class="grab" id="wGrab" aria-label="${WSMIN?'Show today’s cards':'Hide today’s cards'}" aria-expanded="${!WSMIN}"><i></i></button>
       <span class="wpeek" aria-hidden="true">${L(LU.left,14).replace('<svg','<svg style="transform:rotate(90deg)"')}<b>Today</b> · ${C.name} · quiz ${qn}/7 · week ${wdone}/${wk.length}</span>
@@ -7833,6 +7865,7 @@ function renderFriends(){ saveState();
     $('#friends').innerHTML=`<div id="fscroll"><div class="toprow" style="margin:6px 20px 12px"><button class="chip" id="fBack">${L(LU.left,18)}<span>Friends</span></button></div>
       <div class="fhero"><span class="face">${ffaceSVG(f,76)}</span><div><b>${esc(f.name)}’s passport</b><span>${f.home?'Lives in '+esc(f.home)+' · ':''}${st.n} stamps · ${st.countries} countries</span></div></div>
       <div class="cmp"><div class="both"><b>${st.both.length}</b><span>Both stamped</span></div><div><b>${st.mineOnly.length}</b><span>Only you</span></div><div><b>${st.theirs.length}</b><span>Only ${esc(f.name)}</span></div></div>
+      ${frPhotosHTML(f)}
       <div class="tsec"><h3>You’ve both been to</h3><div class="fchips both">${st.both.map(cityChip).join('')||'<span class="tmeta">No shared cities yet</span>'}</div></div>
       <div class="tsec"><h3>${esc(f.name)} recommends <span>cities you haven’t stamped</span></h3><div class="fchips theirs">${st.theirs.map(cityChip).join('')||'<span class="tmeta">You’ve been everywhere they have</span>'}</div></div>
       <div class="tsec">${sentToday(f.id)?`<button class="btn line big" style="width:100%" id="fSend">${L(LU.check,18,3)}Postcard sent today · send another tomorrow</button>`:`<button class="btn navy big" style="width:100%" id="fSend">${L(LU.mail,18)}Send ${esc(f.name)} a postcard</button>`}</div></div>`;
@@ -7850,7 +7883,7 @@ function renderFriends(){ saveState();
         <div class="bt"><button class="pri" data-fsend="${n.uid}">${L(LU.mail,15)}Send a postcard</button><button data-fnok="${n.uid}">Got it</button></div></div>`; }).join('')}
       ${inbox.length?'':'<span class="tmeta" style="padding:0 20px">No postcards yet</span>'}
       ${friendList().length?'':`<div class="fempty"><b>No friends yet</b>Share your code, or type a friend’s code above. Then compare passports and send each other postcards.</div>`}
-      ${friendList().map(fr=>{const st=friendStats(fr);return `<div class="fcard"><button class="ftop" data-friend="${fr.id}"><span class="face">${ffaceSVG(fr,58)}</span><span class="fmeta"><b>${esc(fr.name)}${fr.real?'':'<span class="ftag">SAMPLE</span>'}</b><span>${fr.missing?'Loading passport…':`${fr.home?esc(fr.home)+' · ':''}${st.n} stamps · ${st.countries} countries`}</span><em>You share ${st.both.length} ${st.both.length===1?'city':'cities'}</em></span>${L(LU.right,18)}</button>
+      ${friendList().map(fr=>{const st=friendStats(fr);return `<div class="fcard"><button class="ftop" data-friend="${fr.id}"><span class="face">${ffaceSVG(fr,58)}</span><span class="fmeta"><b>${esc(fr.name)}${fr.real?'':'<span class="ftag">SAMPLE</span>'}</b><span>${fr.missing?'Loading passport…':`${fr.home?esc(fr.home)+' · ':''}${st.n} stamps · ${st.countries} countries`}</span><em>You share ${st.both.length} ${st.both.length===1?'city':'cities'}</em></span>${L(LU.right,18)}</button>${(FRPH[fr.id]||[]).length?`<div class="fphs" data-friend="${fr.id}">${FRPH[fr.id].slice(0,5).map(x=>`<span style="background-image:url(${x.thumb})" title="${esc(CITIES[x.city].name)}"></span>`).join('')}${FRPH[fr.id].length>5?`<b>+${FRPH[fr.id].length-5}</b>`:''}<small>${L(LU.camera,12,2.4)}Stamp photos</small></div>`:''}
         <div class="fbtns"><button data-friend="${fr.id}">${L(LU.stamp,16)}Passport</button>${sentToday(fr.id)?`<button class="pri done" data-fsend="${fr.id}">${L(LU.check,16,3)}Sent today</button>`:`<button class="pri" data-fsend="${fr.id}">${L(LU.mail,16)}Postcard</button>`}</div>${fr.real?`<button class="rm" data-frm="${fr.id}" aria-label="Remove ${esc(fr.name)}">${L(LU.x,14)}</button>`:''}</div>`}).join('')}</div>`;
   }
   if(!friendView && document.documentElement.classList.contains('fresh')){ const fs=$('#fscroll'); if(fs) fs.insertAdjacentHTML('beforeend', pipTip('friends')); }
@@ -7943,7 +7976,8 @@ function supaSocial(c, uid){
   return {
     doc(path){ const i=path.indexOf('/'), col=path.slice(0,i), id=path.slice(i+1);
       if(col==='people') return {
-        set:async d=>{ const {error}=await c.from('profiles').upsert({user_id:id, code:d.code, given:d.given, home:d.home, av:d.av, cities:d.cities, updated_at:new Date().toISOString()}); if(error) throw error; },
+        set:async d=>{ const row={user_id:id, code:d.code, given:d.given, home:d.home, av:d.av, cities:d.cities, updated_at:new Date().toISOString()}; let {error}=await c.from('profiles').upsert(d.covers?{...row, covers:d.covers}:row);
+          if(error&&d.covers) ({error}=await c.from('profiles').upsert(row)); if(error) throw error; },
         get:async()=>{ const {data,error}=await c.rpc('profiles_by_ids',{p_ids:[id]}); if(error) throw error; const r=(data||[])[0]; return snap(id, r&&card(r)); } };
       return { delete:async()=>{ const {error}=await c.from('postcards').delete().eq('id',id); if(error) throw error; } };
     },
@@ -8083,7 +8117,8 @@ async function initSync(){
   }catch(e){ SYNC.status=navigator.onLine?'error':'offline'; SYNC.dirty=true; renderSync(); }
 }
 /* ---------- friends: public cards, friend codes and the shared postbox ---------- */
-function myCard(){ const {bio, no, ...av}=AVA; return {code:myCode(), given:String((AVA.bio&&AVA.bio.given)||'').slice(0,24), home:String((AVA.bio&&AVA.bio.home)||'').slice(0,40), av, cities:{...visited}}; }
+function myCard(){ const {bio, no, ...av}=AVA; const card={code:myCode(), given:String((AVA.bio&&AVA.bio.given)||'').slice(0,24), home:String((AVA.bio&&AVA.bio.home)||'').slice(0,40), av, cities:{...visited}};
+  if(AUTH.configured){ const cv={}; for(const c in phCover){ const p=photos.find(x=>x.id===phCover[c]); if(p&&p.cloud&&!p.priv&&visited[c]) cv[c]=p.id; } card.covers=cv; } return card; }
 async function publishCard(){
   if(!SOC.db || !SOC.uid) return; const card=myCard(), str=JSON.stringify(card); if(str===SOC.lastCard) return;
   try{ await SOC.db.doc('people/'+SOC.uid).set({...card, at:new Date().toISOString()}); SOC.lastCard=str; }catch(e){}
@@ -8091,7 +8126,7 @@ async function publishCard(){
 async function loadFriends(force){
   if(!SOC.db || !friendIds.length) return; if(!force && Date.now()-SOC.loadedAt<30000) return; SOC.loadedAt=Date.now();
   await Promise.all(friendIds.map(async id=>{ try{ const sn=await SOC.db.doc('people/'+id).get(); if(sn.exists) PEOPLE[id]=sn.data(); }catch(e){} }));
-  if(!$('#friends').hidden) renderFriends();
+  if(!$('#friends').hidden) renderFriends(); frCovers();
 }
 async function addFriendByCode(raw){
   let code=String(raw||'').toUpperCase().replace(/[^A-Z0-9]/g,''); if(code.startsWith('PM')) code=code.slice(2); code='PM-'+code;
