@@ -23,3 +23,52 @@ create policy "photos: change own" on storage.objects for update to authenticate
 drop policy if exists "photos: delete own" on storage.objects;
 create policy "photos: delete own" on storage.objects for delete to authenticated
   using (bucket_id = 'photos' and (storage.foldername(name))[1] = auth.uid()::text);
+
+-- ---------------------------------------------------------------------------
+-- Part 2 (run after together.sql): share photos with friends on trips you plan together,
+-- and put your own photo on the front of a postcard.
+
+-- Which of your photos you share with a trip. The app adds and removes rows for you:
+-- photos taken in the trip's cities during its dates, unless you mark a photo private.
+create table if not exists public.trip_photos (
+  trip_id    uuid not null references public.shared_trips (id) on delete cascade,
+  user_id    uuid not null references auth.users (id) on delete cascade,
+  photo_id   text not null check (photo_id ~ '^[a-z0-9]{6,32}$'),
+  city       text not null,
+  taken      text,
+  created_at timestamptz default now(),
+  primary key (trip_id, user_id, photo_id)
+);
+alter table public.trip_photos enable row level security;
+
+drop policy if exists "people on the trip see its photos" on public.trip_photos;
+create policy "people on the trip see its photos" on public.trip_photos for select
+  using (public.trip_status(trip_id) in ('owner', 'joined'));
+drop policy if exists "share your own photos with your trips" on public.trip_photos;
+create policy "share your own photos with your trips" on public.trip_photos for insert
+  with check (user_id = auth.uid() and public.trip_status(trip_id) in ('owner', 'joined'));
+drop policy if exists "unshare your own photos" on public.trip_photos;
+create policy "unshare your own photos" on public.trip_photos for delete using (user_id = auth.uid());
+
+-- Can the person asking open this photo file because it is shared with a trip they are on?
+create or replace function public.trip_photo_visible(object_name text)
+returns boolean language sql stable security definer set search_path = public as $$
+  select exists (
+    select 1 from trip_photos tp
+    where tp.user_id::text = split_part(object_name, '/', 1)
+      and object_name in (tp.user_id::text || '/' || tp.photo_id || '.jpg', tp.user_id::text || '/' || tp.photo_id || '_t.jpg')
+      and public.trip_status(tp.trip_id) in ('owner', 'joined')
+  )
+$$;
+revoke all on function public.trip_photo_visible(text) from public, anon;
+grant execute on function public.trip_photo_visible(text) to authenticated;
+
+drop policy if exists "photos: friends on the trip" on storage.objects;
+create policy "photos: friends on the trip" on storage.objects for select to authenticated
+  using (bucket_id = 'photos' and public.trip_photo_visible(name));
+
+-- Postcard photos: the sender uploads a copy to <sender>/pc/<recipient>/<photo>.jpg, which only the recipient can open.
+alter table public.postcards add column if not exists photo text;
+drop policy if exists "photos: postcards sent to you" on storage.objects;
+create policy "photos: postcards sent to you" on storage.objects for select to authenticated
+  using (bucket_id = 'photos' and (storage.foldername(name))[2] = 'pc' and (storage.foldername(name))[3] = auth.uid()::text);

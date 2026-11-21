@@ -356,6 +356,16 @@ html.fresh .evrow.got{border:0!important;background:linear-gradient(120deg,#FFE9
 .phbars{position:absolute;top:10px;left:10px;right:10px;display:flex;gap:3px;z-index:2}.phbars i{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.35);overflow:hidden}.phbars i b{display:block;height:100%;width:0;background:#fff}.phbars i.done b{width:100%}.phbars i.on b{animation:phbar 3.2s linear both}@keyframes phbar{to{width:100%}}
 .phsc{position:absolute;left:0;right:0;bottom:0;z-index:2;display:flex;align-items:center;gap:9px;padding:40px 16px 16px;background:linear-gradient(transparent,rgba(0,0,0,.6));color:#fff}.phsc .miniflag{width:26px;height:26px}.phsc b{display:block;font:700 20px var(--font-display)}.phsc small{font-size:12px;opacity:.85}
 @media (prefers-reduced-motion:reduce){.phsl.in{animation:none}}
+.wph{display:none;pointer-events:auto;cursor:pointer}#art-world.zin2 .wph{display:inline}.wph .wpr{fill:#E8382A;stroke:#fff;stroke-width:2.4}.wph.mem .wpr{fill:#3D7BFF}.wph .wpt{fill:#fff}
+#art-world.zin2 .wph{animation:wphin .35s cubic-bezier(.3,1.6,.5,1) both;transform-box:fill-box;transform-origin:50% 100%}@keyframes wphin{from{opacity:0;scale:.4}}
+.wphd{display:flex;flex-shrink:0;align-items:flex-end;width:100%;height:var(--wcdh,88px);margin-top:4px;padding:0;border:0;border-radius:22px;background:#DDE9E2 center/cover;overflow:hidden;box-shadow:0 6px 18px rgba(30,43,51,.14);text-align:left}
+.wphd>span{display:flex;flex-direction:column;width:100%;padding:18px 14px 9px;background:linear-gradient(transparent,rgba(0,0,0,.6));color:#fff}.wphd small{display:flex;align-items:center;gap:4px;font:800 10px var(--font-body);letter-spacing:.06em;text-transform:uppercase;color:#FFE38A}.wphd b{display:flex;align-items:center;gap:5px;font:700 16px var(--font-display)}.wphd b .miniflag{width:16px;height:16px}.wphd em{font-style:normal;font-size:11px;opacity:.85}
+.wsheet.min .wphd{display:none}
+.pcphs{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none}.pcphs button{flex:0 0 64px;height:64px;border:0;border-radius:14px;background:#DDE9E2 center/cover;box-shadow:0 0 0 2px #fff,0 3px 8px rgba(30,43,51,.12)}
+.pcphs button.on{box-shadow:0 0 0 3px #00C56E,0 3px 8px rgba(30,43,51,.12)}.pcphs .pcdrawn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}.pcphs .pcdrawn small{font:700 9.5px var(--font-display);color:var(--ink-navy)}
+.pcfront.phf,html.fresh .pcfront.phf{background-image:var(--pcph)!important;background-size:cover!important;background-position:center!important;color:#fff!important}.pcfront.phf .big{display:none}.pcfront.phf::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(transparent 40%,rgba(0,0,0,.55));pointer-events:none}.pcfront.phf>*{position:relative;z-index:1}.pcfront.phf h2,.pcfront.phf .gf,.pcfront.phf .ct{color:#fff!important;text-shadow:0 2px 6px rgba(0,0,0,.4)}
+.phth .who{position:absolute;left:4px;bottom:4px;width:24px;height:24px;border-radius:50%;overflow:hidden;background:#fff;box-shadow:0 0 0 2px #fff}.phth .who svg{width:24px;height:24px}.phth i.lk{background:#1E2B33;color:#fff}
+.phpriv{display:flex;align-items:center;gap:7px;width:100%;margin:0 0 10px;padding:9px 12px;border:0;border-radius:14px;background:rgba(255,255,255,.1);color:#DCEBEF;font:600 12.5px var(--font-body);text-align:left}.phpriv em{margin-left:auto;font-style:normal;font-weight:800;color:#8EE6B5}.phpriv.on{color:#FFE38A}
 /* springy taps */
 html.fresh :is(button,.wcard,.wcd,.tcard,.fcard,.setc,.anic,.chip,.tile,.kt,.sr,.step){transition:transform .18s cubic-bezier(.3,1.6,.5,1),box-shadow .18s}
 html.fresh :is(button,.wcard,.tcard,.fcard,.sr,.step):active:not(:disabled){transform:scale(.955)}
@@ -4245,7 +4255,10 @@ const countryCount = region => Object.keys(COUNTRIES).filter(c => COUNTRIES[c].r
 const setGot = st => st.cities.filter(vst);
 const doneSets = () => SETS.filter(st => setGot(st).length === st.cities.length);
 /* Past visits keep a generic blue postmark until the city is stamped on the spot. */
-const pastStamp = (id, size) => { const y=(visited[id]||'').slice(0,4); return `<svg viewBox="0 0 64 64" width="${size}" height="${size}" aria-hidden="true"><path d="M1 22 q4 -3 8 0 t8 0 M1 30 q4 -3 8 0 t8 0 M1 38 q4 -3 8 0 t8 0" fill="none" stroke="#3D7BFF" stroke-width="2.2" stroke-linecap="round"/><circle cx="36" cy="32" r="25" fill="none" stroke="#3D7BFF" stroke-width="3.4"/><circle cx="36" cy="32" r="19" fill="none" stroke="#3D7BFF" stroke-width="1.4" stroke-dasharray="2.4 2.4"/><text x="36" y="27" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="6.6" font-weight="800" letter-spacing=".5" fill="#3D7BFF">BEEN</text><text x="36" y="35" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="6.6" font-weight="800" letter-spacing=".5" fill="#3D7BFF">THERE</text><text x="36" y="45" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="7.5" font-weight="800" fill="#3D7BFF">${y}</text></svg>`; };
+var PSN=0;
+const pastStamp = (id, size) => { const y=(visited[id]||'').slice(0,4), pid=(typeof phCover==='object'&&phCover)?phCover[id]:null, ph=pid&&typeof PHU==='object'&&PHU?PHU[pid]:'';
+  if(ph){ const cid='psc'+(++PSN); return `<svg class="pphoto" viewBox="0 0 64 64" width="${size}" height="${size}" aria-hidden="true"><defs><clipPath id="${cid}"><circle cx="36" cy="32" r="22.6"/></clipPath></defs><path d="M1 22 q4 -3 8 0 t8 0 M1 30 q4 -3 8 0 t8 0 M1 38 q4 -3 8 0 t8 0" fill="none" stroke="#3D7BFF" stroke-width="2.2" stroke-linecap="round"/><circle cx="36" cy="32" r="23" fill="#fff"/><image href="${ph}" x="13.4" y="9.4" width="45.2" height="45.2" preserveAspectRatio="xMidYMid slice" clip-path="url(#${cid})"/><circle cx="36" cy="32" r="25" fill="none" stroke="#3D7BFF" stroke-width="3.4"/><circle cx="36" cy="32" r="22.6" fill="none" stroke="#fff" stroke-width="1.2" stroke-dasharray="2.4 2.4"/><rect x="22" y="45.5" width="28" height="11" rx="5.5" fill="#3D7BFF" stroke="#fff" stroke-width="1.2"/><text x="36" y="53.6" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="7.6" font-weight="800" fill="#fff">${y}</text></svg>`; }
+  return `<svg viewBox="0 0 64 64" width="${size}" height="${size}" aria-hidden="true"><path d="M1 22 q4 -3 8 0 t8 0 M1 30 q4 -3 8 0 t8 0 M1 38 q4 -3 8 0 t8 0" fill="none" stroke="#3D7BFF" stroke-width="2.2" stroke-linecap="round"/><circle cx="36" cy="32" r="25" fill="none" stroke="#3D7BFF" stroke-width="3.4"/><circle cx="36" cy="32" r="19" fill="none" stroke="#3D7BFF" stroke-width="1.4" stroke-dasharray="2.4 2.4"/><text x="36" y="27" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="6.6" font-weight="800" letter-spacing=".5" fill="#3D7BFF">BEEN</text><text x="36" y="35" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="6.6" font-weight="800" letter-spacing=".5" fill="#3D7BFF">THERE</text><text x="36" y="45" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="7.5" font-weight="800" fill="#3D7BFF">${y}</text></svg>`; };
 const isPast = id => !!visited[id] && !verified[id];
 const pastLabel = iso => iso ? dMonth(iso) : '';
 /* Country outline for postcards: the country's own shape from its map, fitted to a box, with the city marked. */
@@ -4855,11 +4868,14 @@ function nightInner(g){ const S=sunNow(), south=S.dec>=0; let out='';  /* drawn 
 /* stamped cities, gold countries and the routes between them */
 function stampsInner(g){ const ids=Object.keys(visited).filter(id=>CITIES[id]&&CITY_LL[id]).sort((a,b)=>(visited[a]+((verified[a]&&verified[a].at)||'')).localeCompare(visited[b]+((verified[b]&&verified[b].at)||'')));
   let dots='', gold='';
-  ids.forEach((id,i)=>{ const [x,y]=wLL(g,...CITY_LL[id]); dots+=`<circle class="wdot ${verified[id]?'':'mem'}" style="--i:${i}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.6"/>`; });
+  let phs='';
+  ids.forEach((id,i)=>{ const [x,y]=wLL(g,...CITY_LL[id]); dots+=`<circle class="wdot ${verified[id]?'':'mem'}" style="--i:${i}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.6"/>`;
+    const u=typeof phCover==='object'&&phCover&&phCover[id]&&PHU&&PHU[phCover[id]]; if(u) phs+=`<g class="wph ${verified[id]?'':'mem'}" data-wph="${id}" transform="translate(${x.toFixed(1)} ${(y-16).toFixed(1)})"><title>${esc(CITIES[id].name)}</title><path d="M-5 9 L0 15 L5 9Z" class="wpt"/><circle r="12.5" class="wpr"/><image href="${u}" x="-10.5" y="-10.5" width="21" height="21" preserveAspectRatio="xMidYMid slice" clip-path="url(#wphc)"/></g>`; });
+  if(phs) dots+=`<defs><clipPath id="wphc" clipPathUnits="objectBoundingBox"><circle cx=".5" cy=".5" r=".5"/></clipPath></defs>`;
   Object.keys(COUNTRIES).filter(done).forEach(c=>{ const ll=COUNTRIES[c].cities.map(k=>CITY_LL[k]).filter(Boolean); if(!ll.length) return;
     const [x,y]=wLL(g, ll.reduce((s,p)=>s+p[0],0)/ll.length, ll.reduce((s,p)=>s+p[1],0)/ll.length);
     gold+=`<g class="wgold" transform="translate(${x.toFixed(1)} ${(y-10).toFixed(1)})"><path d="M0 -8 L2.4 -2.5 L8.4 -2.4 L3.7 1.5 L5.3 7.4 L0 4 L-5.3 7.4 L-3.7 1.5 L-8.4 -2.4 L-2.4 -2.5Z" fill="#FFC21F" stroke="#1B1F4B" stroke-width="1.6" stroke-linejoin="round"/></g>`; });
-  return dots+gold; }
+  return dots+gold+phs; }
 /* small moving things: a paper plane on a route, drifting clouds, two boats */
 function ambientInner(g){ if(reduced()) return ''; let out='';
   const route=(pts,dur,beg)=>{ const P=pts.map(([la,lo])=>wLL(g,la,lo)); let d=`M${P[0][0].toFixed(1)} ${P[0][1].toFixed(1)}`; for(let i=1;i<P.length;i++){ const [x1,y1]=P[i-1], [x2,y2]=P[i]; d+=` Q${((x1+x2)/2).toFixed(1)} ${(Math.min(y1,y2)-26).toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`; }
@@ -5456,11 +5472,59 @@ async function phSave(){ if(!PHREV) return; const go=PHREV.rows.filter(r=>r.st==
     if(stampNew && !visited[r.city]){ const d=r.info.date&&r.info.date<=today()?r.info.date:today(); visited[r.city]=d; delete verified[r.city]; stamped.push(r.city); }
     else if(stampNew && isPast(r.city) && r.info.date && r.info.date<visited[r.city]) visited[r.city]=r.info.date; }
   cities.forEach(c=>{ if(!phCover[c]||!photos.some(p=>p.id===phCover[c])) phCover[c]=phSorted(c).find(p=>p.gps)?.id||phSorted(c)[0].id; });
-  phRevClose(); saveState(); renderAll(); refreshCard(); if(!$('#passport').hidden) renderPassport();
+  phRevClose(); saveState(); renderAll(); refreshCard(); TOG.tphAt={}; if(!$('#passport').hidden) renderPassport();
   try{ SFX.sparkle(); }catch(e){}
   toast(`${saved} photo${saved===1?'':'s'} added to ${cities.size} cit${cities.size===1?'y':'ies'}${stamped.length?` · ${stamped.length} new memory stamp${stamped.length>1?'s':''}`:''}`);
   if(stamped.length) setTimeout(checkUnlocks,600);
   phSyncUp(); }
+
+/* ---------- photos, part 2: photo of the day, postcards, trips shared with friends ---------- */
+const blobData = b => new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(b); });
+const pcFrontURL = () => !pc ? '' : pc.view ? (pc.phURL||'') : pc.ph ? (PHFULL[pc.ph]||PHU[pc.ph]||'') : '';
+function pcPhotoPickHTML(id){ const ps=phSorted(id).filter(p=>PHU[p.id]); if(!ps.length) return '';
+  return `<div class="pcform"><label>Front of the card</label><div class="pcphs"><button class="pcdrawn ${pc.ph?'':'on'}" data-pcph="" style="background:${COUNTRIES[CITIES[id].c].color}">${lm(CITIES[id].icon,'on').replace('<svg','<svg width="26" height="26"')}<small>Drawn</small></button>${ps.map(p=>`<button class="${pc.ph===p.id?'on':''}" data-pcph="${p.id}" style="background-image:url(${PHU[p.id]})" aria-label="Use your photo${p.date?' from '+dLong(p.date):''}"></button>`).join('')}</div></div>`; }
+/* a friend can only open the copy made for them: <you>/pc/<them>/<photo>.jpg */
+async function pcUploadFor(to){ const b=phCloud(); if(!pc.ph||!b) return ''; try{ const r=await PHDB.get(pc.ph); if(!r||!r.full) return '';
+    const path=`${AUTH.user.id}/pc/${to}/${pc.ph}.jpg`; const {error}=await b.upload(path, r.full, {contentType:'image/jpeg', upsert:true}); return error?'':path; }catch(e){ return ''; } }
+async function pcRemotePhoto(path){ const key='r:'+path; const hit=await PHDB.get(key).catch(()=>null); if(hit&&hit.full) return URL.createObjectURL(hit.full);
+  const b=phCloud(); if(!b) return ''; try{ const {data}=await b.download(path); if(!data) return ''; PHDB.put({id:key, full:data}).catch(()=>{}); return URL.createObjectURL(data); }catch(e){ return ''; } }
+function phDayHTML(){ if(!Array.isArray(photos)) return ''; const T0=today(), Y=T0.slice(0,4), md=T0.slice(5), have=photos.filter(p=>PHU[p.id]&&p.date&&p.date.slice(0,4)<Y); let p=null, lab='';
+  const exact=have.filter(p=>p.date.slice(5)===md); if(exact.length){ p=exact[0]; const n=+Y-+p.date.slice(0,4); lab=`On this day · ${n} year${n>1?'s':''} ago`; }
+  if(!p){ const dd=x=>{ const a=new Date('2001-'+x+'T12:00'), b=new Date('2001-'+md+'T12:00'); return Math.abs(a-b)/864e5; }; const wk=have.filter(p=>dd(p.date.slice(5))<=3).sort((a,b)=>dd(a.date.slice(5))-dd(b.date.slice(5)));
+    if(wk.length){ p=wk[0]; lab=`This week in ${p.date.slice(0,4)}`; } }
+  if(!p) return '';
+  const C=CITIES[p.city];
+  return `<button class="wphd" data-ph="${p.id}" style="background-image:url(${PHU[p.id]})" aria-label="${esc(lab)}: your photo from ${esc(C.name)}"><span><small>${L(LU.camera,11,2.6)}${esc(lab)}</small><b>${miniFlag(C.c)}${esc(C.name)}</b>${p.date?`<em>${dLong(p.date)}</em>`:''}</span></button>`; }
+/* photos that belong to a trip: taken in one of its cities between its start and end */
+const inTripPhoto = (t,p) => t.cities.includes(p.city) && p.date && (!t.start||p.date>=t.start) && (!t.end||p.date<=t.end);
+async function tphFetch(t){ const sid=t.sid; if(!sid||!TOG.sb||!phCloud()) return; TOG.tphAt[sid]=Date.now(); const me=AUTH.user.id;
+  try{ let {data,error}=await TOG.sb.from('trip_photos').select('user_id,photo_id,city,taken').eq('trip_id',sid); if(error) throw error; data=data||[];
+    const want=photos.filter(p=>p.cloud&&!p.priv&&inTripPhoto(t,p)), mine=data.filter(r=>r.user_id===me), add=want.filter(p=>!mine.some(r=>r.photo_id===p.id)), drop=mine.filter(r=>!want.some(p=>p.id===r.photo_id));
+    if(add.length){ const r=await TOG.sb.from('trip_photos').upsert(add.map(p=>({trip_id:sid, user_id:me, photo_id:p.id, city:p.city, taken:p.date}))); if(!r.error) add.forEach(p=>data.push({user_id:me, photo_id:p.id, city:p.city, taken:p.date})); }
+    if(drop.length){ await TOG.sb.from('trip_photos').delete().eq('trip_id',sid).eq('user_id',me).in('photo_id',drop.map(r=>r.photo_id)); data=data.filter(r=>!drop.includes(r)); }
+    const theirs=data.filter(r=>r.user_id!==me&&CITIES[r.city]);
+    if(theirs.length){ const {data:su}=await phCloud().createSignedUrls(theirs.flatMap(r=>[`${r.user_id}/${r.photo_id}_t.jpg`,`${r.user_id}/${r.photo_id}.jpg`]), 3600); const m={}; (su||[]).forEach(x=>{ if(x.signedUrl) m[x.path]=x.signedUrl; });
+      theirs.forEach(r=>{ r.thumb=m[`${r.user_id}/${r.photo_id}_t.jpg`]; r.full=m[`${r.user_id}/${r.photo_id}.jpg`]; }); }
+    TOG.tph[sid]=theirs.filter(r=>r.thumb);
+  }catch(e){ TOG.tph[sid]=TOG.tph[sid]||[]; console.warn('[trip photos]', e&&e.message); }
+  if(!$('#trips').hidden && tripView===t.id) renderTrips(); }
+function tripPhotosHTML(t){ const mine=photos.filter(p=>inTripPhoto(t,p)).sort((a,b)=>a.date<b.date?-1:1), theirs=(t.sid&&TOG.tph[t.sid])||[];
+  if(t.sid&&TOG.sb&&phCloud()&&(!TOG.tphAt[t.sid]||Date.now()-TOG.tphAt[t.sid]>60000)) setTimeout(()=>tphFetch(t),0);
+  if(!mine.length&&!theirs.length&&!started(t)) return '';
+  const items=[...mine.map(p=>({k:'m', p, d:p.date})), ...theirs.map((r,i)=>({k:'f', r, i, d:r.taken||''}))].sort((a,b)=>a.d<b.d?-1:1);
+  const shared=t.sid&&AUTH.configured;
+  return `<div class="tsec"><h3>Trip photos <span>${items.length?items.length:''}</span></h3>
+    <div class="phstrip">${items.map(x=>x.k==='m'?`<button class="phth ${PHU[x.p.id]?'':'off'}" data-ph="${x.p.id}" ${PHU[x.p.id]?`style="background-image:url(${PHU[x.p.id]})"`:''}>${PHU[x.p.id]?'':L(LU.cloudoff,18)}${x.p.priv&&shared?`<i class="lk">${L(LU.lock,10,2.6)}</i>`:''}</button>`
+      :`<button class="phth" data-tph="${t.sid}:${x.i}" style="background-image:url(${x.r.thumb})" aria-label="${esc(realFriend(x.r.user_id)?.name||'A friend')}’s photo from ${esc(CITIES[x.r.city].name)}"><span class="who">${personFace(x.r.user_id,22)}</span></button>`).join('')}<button class="phadd" data-phadd="${t.cities[0]||''}">${L(LU.plus,20,2.4)}<small>Add</small></button></div>
+    <p class="phnote">${items.length?'':'Photos you take in these cities during the trip show up here. '}${shared?'Everyone on this trip can see your trip photos. Make one private from its photo view.':''}</p></div>`; }
+function phOpenFriend(sid, i){ const r=(TOG.tph[sid]||[])[+i]; if(!r) return; const C=CITIES[r.city], f=realFriend(r.user_id);
+  let el=$('#phbox'); if(!el){ $('#phone').insertAdjacentHTML('beforeend','<div id="phbox" role="dialog" aria-label="Photo"></div>'); el=$('#phbox'); }
+  el.innerHTML=`<button class="xbtn" data-phbx aria-label="Close">${L(LU.x,20)}</button><div class="phimg"><img src="${r.full||r.thumb}" alt="Photo from ${esc(C.name)}"></div>
+    <div class="phcap"><span class="fl">${personFace(r.user_id,34)}</span><div><b>${esc(C.name)}</b><small>${esc(f?f.name:'A friend')}’s photo${r.taken?' · '+dLong(r.taken):''}</small></div></div>`;
+  el.classList.add('on'); }
+document.addEventListener('click', e=>{ const f=e.target.closest('[data-tph]'); if(f){ e.stopPropagation(); const [sid,i]=f.dataset.tph.split(':'); return phOpenFriend(sid,i); }
+  const w=e.target.closest('[data-wph]'); if(w){ e.stopPropagation(); return flyToCity(w.dataset.wph); }
+  const pv=e.target.closest('[data-phpriv]'); if(pv){ e.stopPropagation(); const p=photos.find(x=>x.id===pv.dataset.phpriv); if(!p) return; p.priv=!p.priv; saveState(); TOG.tphAt={}; toast(p.priv?'Private: only you can see this photo':'Friends on your trips can see this photo'); return phOpen(p.id); } }, true);
 /* account backup: photos go to a private storage folder named after your account */
 const phCloud = () => AUTH.client && AUTH.user ? AUTH.client.storage.from('photos') : null;
 async function phSyncUp(){ const b=phCloud(); if(!b||phSyncing) return; phSyncing=true; let n=0;
@@ -5473,7 +5537,7 @@ async function phLoadThumbs(){ let got=0; for(const p of photos){ if(PHU[p.id]) 
     let r=await PHDB.get(p.id).catch(()=>null);
     if(!r && p.cloud && phCloud()){ try{ const base=`${AUTH.user.id}/${p.id}`; const t=await phCloud().download(base+'_t.jpg'); if(t.data){ r={id:p.id, thumb:t.data}; const f=await phCloud().download(base+'.jpg'); if(f.data) r.full=f.data; await PHDB.put(r).catch(()=>{}); } }catch(e){} }
     if(r&&r.thumb){ PHU[p.id]=URL.createObjectURL(r.thumb); got++; } }
-  if(got){ refreshCard(); if(!$('#passport').hidden) renderPassport(); } }
+  if(got){ refreshCard(); if(!$('#passport').hidden) renderPassport(); if(typeof level!=='undefined'&&level==='world'&&!busy) renderAll(); } }
 async function phFullURL(id){ if(PHFULL[id]) return PHFULL[id]; const r=await PHDB.get(id).catch(()=>null); if(r&&(r.full||r.thumb)) return PHFULL[id]=URL.createObjectURL(r.full||r.thumb); return PHU[id]||''; }
 function cityPhotosHTML(id){ const ps=phSorted(id);
   return `<div class="phsec"><div class="phh"><b>${L(LU.camera,18)}Your photos</b>${ps.length?`<span>${ps.length}</span>`:''}</div>
@@ -5493,6 +5557,7 @@ async function phOpen(pid){ const p=photos.find(x=>x.id===pid); if(!p) return; c
     <div class="phimg">${url?`<img src="${url}" alt="Photo from ${esc(C.name)}">`:`<div class="phoff">${L(LU.cloudoff,34)}<b>This photo is on another device</b><span>Sign in on that device to back it up.</span></div>`}
       ${i>0?`<button class="phnav l" data-phgo="${list[i-1].id}" aria-label="Previous photo">${L(LU.left,22,2.6)}</button>`:''}${i<list.length-1?`<button class="phnav r" data-phgo="${list[i+1].id}" aria-label="Next photo">${L(LU.left,22,2.6)}</button>`:''}</div>
     <div class="phcap"><span class="fl">${miniFlag(C.c)}</span><div><b>${esc(C.name)}</b><small>${p.date?dLong(p.date):'Date unknown'}${p.gps?` · ${L(LU.pin,11,2.6)}matched by location`:''} · ${i+1} of ${list.length}</small></div></div>
+    ${AUTH.configured?`<button class="phpriv ${p.priv?'on':''}" data-phpriv="${pid}">${L(p.priv?LU.lock:LU.users,15,2.4)}${p.priv?'Private · only you can see it':'Friends on shared trips can see it'}<em>${p.priv?'Share':'Make private'}</em></button>`:''}
     <div class="phacts"><button class="btn ${cov?'line':'navy'}" data-phcov="${pid}" ${cov?'disabled':''}>${L(LU.stamp,18)}${cov?'Stamp photo':'Use as stamp photo'}</button><button class="btn line" data-phcity="${pid}">${L(LU.pin,18)}Move</button><button class="btn line phdel" data-phdel="${pid}" aria-label="Delete photo">${L(LU.trash,18)}</button></div>`;
   el.classList.add('on'); }
 function phClose(){ const el=$('#phbox'); if(el){ el.classList.remove('on'); el.innerHTML=''; } }
@@ -5594,9 +5659,9 @@ function worldUI(){
     <div class="wsheet ${WSMIN?'min':''}" id="wSheet">
       <button class="grab" id="wGrab" aria-label="${WSMIN?'Show today’s cards':'Hide today’s cards'}" aria-expanded="${!WSMIN}"><i></i></button>
       <span class="wpeek" aria-hidden="true">${L(LU.left,14).replace('<svg','<svg style="transform:rotate(90deg)"')}<b>Today</b> · ${C.name} · quiz ${qn}/7 · week ${wdone}/${wk.length}</span>
-      <div class="wcd ${rw?'rw':''}"><span class="wcdi">${lm(C.icon,'on').replace('<svg','<svg width="40" height="40"')}</span>
+      ${phDayHTML()||`<div class="wcd ${rw?'rw':''}"><span class="wcdi">${lm(C.icon,'on').replace('<svg','<svg width="40" height="40"')}</span>
         <span class="wcdt"><small>${rw?'Remember when':'City of the day'}</small><b>${miniFlag(C.c)}${C.name}</b><em>${rw?`You stamped it ${agoText(visited[id])}`:`${cotdTimeText(id)} · try ${esc(C.eat.split(',')[0])}`}</em></span>
-        <button class="wgo" data-cotd="${id}">Go</button></div>
+        <button class="wgo" data-cotd="${id}">Go</button></div>`}
       <div class="wgrid">
         <button class="wcard wq" data-wball><span class="wch"><b>Daily quiz</b><i>${qn}/7</i></span><span class="wbar"><u style="width:${Math.max(6,qn/7*100).toFixed(0)}%"></u></span><span class="wsub">${qn>=7?'All done. New questions at midnight':'New questions at midnight'}</span></button>
         <button class="wcard ww" id="wWeek"><span class="wch"><b>This week</b><i>${wdone}/${wk.length}</i></span><span class="wsegs">${wk.map(c=>`<u class="${c.cur>=c.target?'on':''}"></u>`).join('')}</span><span class="wsub">${next?esc(next.text):'All done. Rewards claimed!'}</span></button>
@@ -6543,8 +6608,9 @@ const cv = v => v.startsWith('var(') ? getComputedStyle(document.documentElement
 function presets(C){ const dish=C.eat.split(/[,.]/)[0]; return ['Wish you were here!', `${C.name} is ${C.tags[0]} and I love it.`, `Guess what I tried: ${dish}.`]; }
 const sentToday = fid => !!fid && sent.some(p=>p.to===fid && p.date===today());
 const oneADay = fid => toast(`You’ve sent ${friendById(fid).name} a postcard today. You can send another tomorrow.`);
-function openPostcard(id, msg, flip=false, to=null){ if(to && sentToday(to)) to=null; pc={id, msg: msg ?? presets(CITIES[id])[0], flip, to}; renderPost(); $('#post').classList.add('on'); }
-function viewPostcard(m){ pc={id:m.id, msg:m.msg, flip:true, view:m.from}; renderPost(); $('#post').classList.add('on'); if(!reduced()) mailArrive(); }
+function openPostcard(id, msg, flip=false, to=null){ if(to && sentToday(to)) to=null; pc={id, msg: msg ?? presets(CITIES[id])[0], flip, to, ph:phCover[id]&&PHU[phCover[id]]?phCover[id]:''}; renderPost(); $('#post').classList.add('on'); }
+function viewPostcard(m){ pc={id:m.id, msg:m.msg, flip:true, view:m.from, phPath:m.ph||''}; renderPost(); $('#post').classList.add('on'); if(!reduced()) mailArrive();
+  if(m.ph) pcRemotePhoto(m.ph).then(u=>{ if(u&&pc&&pc.phPath===m.ph){ pc.phURL=u; const f=$('#pc .pcfront'); if(f){ f.classList.add('phf'); f.style.setProperty('--pcph',`url(${u})`); } } }); }
 function mailArrive(){
   ENVT=envTheme(CITIES[pc.id].c);
   const st=$('#post .pcstage'), card=$('#pc'), bk=document.createElement('div'), e=document.createElement('div');
@@ -6580,7 +6646,7 @@ function renderPost(){
   const {id,msg,flip}=pc, C=CITIES[id], K=COUNTRIES[C.c], vf=pc.view&&friendById(pc.view), date=vf?(vf.visited[id]||today()):(visited[id]||today()), toF=pc.to&&friendById(pc.to);
   $('#post').innerHTML = `<div class="mhead"><div><div class="eyebrow">Postcard</div><h1>${vf?'From '+vf.name:'Send a postcard'}</h1></div><button class="xbtn" id="pcClose" aria-label="Close">${L(LU.x,20)}</button></div>
   <div class="pcstage"><div class="pc ${flip?'flip':''}" id="pc">
-    <div class="pcf pcfront" style="background-color:${K.color};color:${K.ink};--pcbg:${K.color}"><span class="big">${bigOutline(C.c, id, {dark:isDarkInk(K)})}</span><div class="stp"><div class="in">${lm(C.icon,'navy').replace('<svg','<svg width="54" height="54"')}</div><b>${C.lmName}</b></div>
+    <div class="pcf pcfront ${pcFrontURL()?'phf':''}" style="background-color:${K.color};color:${K.ink};--pcbg:${K.color};${pcFrontURL()?`--pcph:url(${pcFrontURL()})`:''}"><span class="big">${bigOutline(C.c, id, {dark:isDarkInk(K)})}</span><div class="stp"><div class="in">${lm(C.icon,'navy').replace('<svg','<svg width="54" height="54"')}</div><b>${C.lmName}</b></div>
       <span class="gf">Greetings from</span><h2 class="${C.name.length>8?'long':''}">${C.name}</h2><span class="ct">${miniFlag(C.c)}${K.name}</span></div>
     <div class="pcf pcback"><div class="pcmsg"><p id="pcOut">${esc(msg)}</p>${routeDoodle(vf?vf.home:myRouteFrom(id), id)}<span class="pcsig">${vf?`<span class="face">${ffaceSVG(vf,26)}</span><span>Love, ${vf.name} · Sent from ${C.name}</span>`:`${face(26)}<span>${AVA.bio.given?`Love, ${esc(AVA.bio.given)} · `:''}Sent from ${C.name} with Postmark</span>`}</span></div>
       <div class="pcr"><div class="pcst" style="background:${K.color}">${lm(C.icon,'on').replace('<svg','<svg width="38" height="38"')}</div>
@@ -6589,6 +6655,7 @@ function renderPost(){
   <button class="flipbtn" id="pcFlip">${L(LU.flip,16)}Flip it over</button>
   ${vf?`<div class="mbtns" style="margin-top:auto"><button class="btn navy big" id="pcReply">${L(LU.mail,18)}Send ${vf.name} one back</button><button class="ghost" id="pcClose2">Close</button></div>`:`
   <div class="pcform"><label>Send to</label><div class="sendto"><button class="txt ${toF?'':'on'}" data-to="">Share outside the app</button>${friendList().map(f=>`<button class="${pc.to===f.id?'on':''} ${sentToday(f.id)?'done':''}" data-to="${f.id}"><span class="face">${ffaceSVG(f,24)}</span>${f.name}${sentToday(f.id)?'<small>Sent today</small>':''}</button>`).join('')}</div></div>
+  ${pcPhotoPickHTML(id)}
   ${envPickHTML(C.c)}
   <div class="pcform"><label for="pcMsg">Your message</label>
     <div class="pchips">${presets(C).map((p,i)=>`<button data-preset="${i}" class="${p===msg?'on':''}">${esc(p)}</button>`).join('')}</div>
@@ -6607,27 +6674,29 @@ $('#post').addEventListener('click', e=>{
   const tb=e.target.closest('[data-to]'); if(tb && tb.dataset.to && sentToday(tb.dataset.to)) return oneADay(tb.dataset.to); if(tb){ pc.to=tb.dataset.to||null; pc.msg=$('#pcMsg').value; return renderPost(); }
   if(e.target.closest('#pcShare')){ if(pc.to && sentToday(pc.to)) return oneADay(pc.to); if(pc.to){ const f=friendById(pc.to);
       if(f.real){ if(!SOC.db) return toast('Sign in to send postcards to friends'); const b=$('#pcShare'); b.disabled=true;
-        return SOC.db.collection('postbox').add({to:pc.to, from:SOC.uid, city:pc.id, msg:String(pc.msg||'').slice(0,140), date:today(), env:envStyle, at:new Date().toISOString()})
+        return pcUploadFor(pc.to).then(ph=>SOC.db.collection('postbox').add({to:pc.to, from:SOC.uid, city:pc.id, msg:String(pc.msg||'').slice(0,140), date:today(), env:envStyle, at:new Date().toISOString(), ...(ph?{ph}:{})}))
           .then(()=>{ sent.unshift({id:pc.id, msg:pc.msg, date:today(), to:pc.to}); keepPC(`Postcard sent to ${f.name}`); })
           .catch(()=>{ b.disabled=false; toast('Couldn’t send just now. Check your connection and try again.'); }); }
       sent.unshift({id:pc.id, msg:pc.msg, date:today(), to:pc.to}); friendReply(pc.to); return keepPC(`Postcard sent to ${f.name}`); } return sharePC(); }
   if(e.target.closest('#pcSave')) return savePC();
+  const pp=e.target.closest('[data-pcph]'); if(pp){ pc.ph=pp.dataset.pcph; pc.msg=$('#pcMsg').value; renderPost(); if(pc.ph) phFullURL(pc.ph).then(u=>{ const f=$('#pc .pcfront'); if(f&&pc.ph&&u) f.style.setProperty('--pcph',`url(${u})`); }); return setFlip(false); }
   const eb=e.target.closest('[data-env]'); if(eb){ const id=eb.dataset.env; if(!envOwned(id)) return toast('Win a weekly challenge to unlock this envelope');
     envStyle=id; try{ localStorage.setItem('pm-env', id); }catch(err){} pc.msg=$('#pcMsg').value; renderPost(); return toast(`${ENV_STYLES.find(x=>x.id===id).name} envelope selected`); }
 });
 $('#post').addEventListener('input', e=>{ if(e.target.id!=='pcMsg') return; pc.msg=e.target.value; $('#pcOut').textContent=pc.msg;
   $('#post').querySelectorAll('[data-preset]').forEach(b=>b.classList.remove('on')); if(!pc.flip) setFlip(true); });
 function lines(t, w){ const out=[]; let cur=''; t.split(/\s+/).forEach(word=>{ if((cur+' '+word).trim().length>w){ out.push(cur); cur=word; } else cur=(cur+' '+word).trim(); }); if(cur) out.push(cur); return out.slice(0,6); }
-function pcSVG(id, msg){
-  const C=CITIES[id], K=COUNTRIES[C.c], col=cv(K.color), ink=cv(K.ink), date=isPast(id)?pastLabel(visited[id]):dUp(visited[id]||today());
+function pcSVG(id, msg, phData){
+  const C=CITIES[id], K=COUNTRIES[C.c], col=cv(K.color), ink=phData?'#FFFFFF':cv(K.ink), date=isPast(id)?pastLabel(visited[id]):dUp(visited[id]||today());
   const tsp=lines(msg,24).map((l,i)=>`<tspan x="40" dy="${i?44:0}">${esc(l)}</tspan>`).join('');
   return `<svg xmlns="http://www.w3.org/2000/svg" width="680" height="900" viewBox="0 0 680 900"><rect width="680" height="900" fill="#F6EBD3"/>
   <rect x="4" y="4" width="672" height="432" rx="18" fill="${col}" stroke="#1F2A44" stroke-width="4"/>
   <g transform="rotate(4 540 140)"><rect x="450" y="34" width="180" height="214" fill="#F6EBD3" stroke="#1F2A44" stroke-width="3" stroke-dasharray="9 6"/><rect x="470" y="52" width="140" height="146" fill="#1F2A44"/>
   ${lm(C.icon,'navy').replace('<svg',`<svg x="490" y="75" width="100" height="100"`)}<text x="540" y="230" text-anchor="middle" font-family="Georgia,serif" font-weight="900" font-size="17" fill="#1F2A44">${esc(C.lmName)}</text></g>
-  ${bigOutline(C.c, id, {dark:isDarkInk(K), pulse:false}).replace('<svg','<svg x="24" y="12" width="400" height="410"').replace(/ class="(shape|pin)"/g,'')}
-  <text x="40" y="318" font-family="Helvetica,Arial,sans-serif" font-weight="700" font-size="20" letter-spacing="3" fill="${ink}" stroke="${col}" stroke-width="6" paint-order="stroke">GREETINGS FROM</text>
-  <text x="36" y="396" font-family="Georgia,serif" font-weight="900" font-size="${C.name.length>9?60:80}" fill="${ink}" stroke="${col}" stroke-width="8" paint-order="stroke">${esc(C.name)}</text>
+  ${phData?`<defs><clipPath id="pcfc"><rect x="6" y="6" width="668" height="428" rx="16"/></clipPath><linearGradient id="pcfg" x1="0" y1="0" x2="0" y2="1"><stop offset=".45" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></linearGradient></defs><image href="${phData}" x="6" y="6" width="668" height="428" preserveAspectRatio="xMidYMid slice" clip-path="url(#pcfc)"/><rect x="6" y="6" width="668" height="428" rx="16" fill="url(#pcfg)"/>`
+    :bigOutline(C.c, id, {dark:isDarkInk(K), pulse:false}).replace('<svg','<svg x="24" y="12" width="400" height="410"').replace(/ class="(shape|pin)"/g,'')}
+  <text x="40" y="318" font-family="Helvetica,Arial,sans-serif" font-weight="700" font-size="20" letter-spacing="3" fill="${ink}" stroke="${phData?'rgba(0,0,0,.35)':col}" stroke-width="${phData?3:6}" paint-order="stroke">GREETINGS FROM</text>
+  <text x="36" y="396" font-family="Georgia,serif" font-weight="900" font-size="${C.name.length>9?60:80}" fill="${ink}" stroke="${phData?'rgba(0,0,0,.35)':col}" stroke-width="${phData?4:8}" paint-order="stroke">${esc(C.name)}</text>
   <g transform="translate(0 460)"><rect x="4" y="4" width="672" height="432" rx="18" fill="#FFF8E7" stroke="#1F2A44" stroke-width="4"/><line x1="420" y1="40" x2="420" y2="400" stroke="#C9B07A" stroke-width="3"/>
   <text x="40" y="96" font-family="Georgia,serif" font-weight="700" font-size="32" fill="#1F2A44">${tsp}</text>
   ${routeDoodle(myRouteFrom(id), id).replace(/<svg class="pcroute"/,'<svg x="30" y="318" width="380" height="64"').replace(/ class="plane" style="[^"]*"/,' transform="translate(120 5)"')}
@@ -6638,7 +6707,8 @@ function pcSVG(id, msg){
   <g stroke="#C9B07A" stroke-width="3"><line x1="450" y1="290" x2="640" y2="290"/><line x1="450" y1="335" x2="640" y2="335"/><line x1="450" y1="380" x2="640" y2="380"/></g></g></svg>`;
 }
 async function pcPNG(){
-  const img=new Image(); img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(pcSVG(pc.id, pc.msg)); await img.decode();
+  let phData=''; if(pc.ph){ const r=await PHDB.get(pc.ph).catch(()=>null); if(r&&(r.full||r.thumb)) phData=await blobData(r.full||r.thumb); }
+  const img=new Image(); img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(pcSVG(pc.id, pc.msg, phData)); await img.decode();
   const c=document.createElement('canvas'); c.width=1360; c.height=1800; const g=c.getContext('2d'); g.scale(2,2); g.drawImage(img,0,0);
   return new Promise(r=>c.toBlob(r,'image/png'));
 }
@@ -7014,7 +7084,7 @@ function beenHTML(){
   return `<section class="beenpage" id="pMem" aria-label="Places I've been">
     <div class="bh">${seal}<div><small>MEMORY PAGE</small><h2>Places I’ve been</h2><p>Past visits and unverified stamps, in blue</p></div></div>
     ${ids.length?`<div class="bstats"><div><b>${ids.length}</b><span>${ids.length===1?'City':'Cities'}</span></div><div><b>${cs.length}</b><span>${cs.length===1?'Country':'Countries'}</span></div><div><b>${ids.map(id=>visited[id].slice(0,4)).sort()[0]}</b><span>Earliest</span></div></div>
-      ${cs.map(c=>{ const K=COUNTRIES[c], mine=ids.filter(id=>CITIES[id].c===c); return `<div class="beenc"><h3>${miniFlag(c)}${K.name}<span>${phCount(c)?`<em class="phn">${L(LU.camera,11,2.4)}${phCount(c)}</em> `:''}${mine.length} of ${K.cities.length} key cities</span></h3><div class="beenrow">${mine.map(id=>`<button data-popen="${id}" aria-label="${CITIES[id].name}, past visit">${phCoverURL(id)?`<span class="phpast" style="background-image:url(${phCoverURL(id)})">${pastStamp(id,30)}</span>`:pastStamp(id,58)}<b>${CITIES[id].short||CITIES[id].name}</b><span>${pastLabel(visited[id])}</span></button>`).join('')}</div></div>`; }).join('')}
+      ${cs.map(c=>{ const K=COUNTRIES[c], mine=ids.filter(id=>CITIES[id].c===c); return `<div class="beenc"><h3>${miniFlag(c)}${K.name}<span>${phCount(c)?`<em class="phn">${L(LU.camera,11,2.4)}${phCount(c)}</em> `:''}${mine.length} of ${K.cities.length} key cities</span></h3><div class="beenrow">${mine.map(id=>`<button data-popen="${id}" aria-label="${CITIES[id].name}, past visit">${pastStamp(id,58)}<b>${CITIES[id].short||CITIES[id].name}</b><span>${pastLabel(visited[id])}</span></button>`).join('')}</div></div>`; }).join('')}
       <p class="tip">${L(LU.pin,14)}<span>Back in one of these cities? Stamp it on the spot to verify it. It moves to your stamp pages with the full landmark stamp.</span></p>`
     :`<div class="beenempty"><i></i><i style="transform:rotate(8deg)"></i><p>Been travelling before Postmark? Add those places and they’ll show up here with a blue memory stamp.</p></div>`}
     <button class="addpast" id="addPast">${L(LU.plus,16)}Add places you’ve been</button></section>`;
@@ -7388,7 +7458,7 @@ const saveTrips = () => { try{ localStorage.setItem('pm-trips2', JSON.stringify(
 /* ---------- together: shared trips, trip invites and friend links (standalone app, signed in) ----------
    A shared trip lives in the database; each member keeps a local copy marked with its shared id (sid).
    Edits are pushed field by field, so two people changing different parts of a trip both keep their changes. */
-const TOG={sb:null, uid:null, invites:[], members:{}, base:{}, at:{}, by:{}, pushT:{}, timer:null, polling:false, ready:{}, pick:null, form:new Set()};
+const TOG={tph:{}, tphAt:{}, sb:null, uid:null, invites:[], members:{}, base:{}, at:{}, by:{}, pushT:{}, timer:null, polling:false, ready:{}, pick:null, form:new Set()};
 const togFields = t => ({name:t.name, start:t.start, end:t.end, color:t.color, cities:t.cities, pack:t.pack});
 const sameJ = (a,b) => JSON.stringify(a)===JSON.stringify(b);
 const tsOf = v => v ? Date.parse(v) : 0;
@@ -7597,6 +7667,7 @@ function tripDetail(t){
     <div class="bar"><i style="width:${t.cities.length?n/t.cities.length*100:0}%"></i></div><p style="margin-top:6px">${n} of ${t.cities.length} stops stamped</p>
     ${started(t)&&tripStamps(t).length?`<button class="recapbtn" id="tRecap">${L(LU.play,16)}${daysTo(t.end)<0?'Watch your trip recap':'Play the recap so far'}</button>`:''}</div>
   ${started(t)?memoHTML(t):''}
+  ${tripPhotosHTML(t)}
   <div class="tsec"><h3>Route <span>${t.cities.length} stops${t.cities.length>1?' · '+fmtKm(tripKm(t)):''}</span></h3>
   ${t.cities.length>2||(smartUndo&&smartUndo.id===t.id)?`<div class="rtools">${t.cities.length>2?`<button class="pri" id="tSmart">${L(LU.spark,15)}Smart order</button>`:''}${smartUndo&&smartUndo.id===t.id?`<button id="tUndo">${L(LU.left,15)}Undo</button><span>Saved ${fmtKm(smartUndo.saved)}</span>`:`<span>Shortest route from ${CITIES[t.cities[0]].name}</span>`}</div>`:''}
   ${t.cities.length?`<div class="rmap">${routeMapSVG(t.cities, t.color)}</div>`:''}
@@ -7880,11 +7951,13 @@ function supaSocial(c, uid){
       if(col==='people') return { where(f,o,v){ return { limit(){ return this; },
         get:async()=>{ const {data,error}=await c.rpc('profile_by_code',{p_code:v}); if(error) throw error; const docs=(data||[]).map(r=>snap(r.user_id, card(r))); return {docs, empty:!docs.length, size:docs.length}; } }; } };
       return {
-        add:async d=>{ const {error}=await c.from('postcards').insert({to_user:d.to, from_user:d.from, city:d.city, msg:d.msg, sent_on:d.date, env:d.env}); if(error) throw error; },
+        add:async d=>{ const row={to_user:d.to, from_user:d.from, city:d.city, msg:d.msg, sent_on:d.date, env:d.env}; let {error}=await c.from('postcards').insert(d.ph?{...row, photo:d.ph}:row);
+          if(error&&d.ph) ({error}=await c.from('postcards').insert(row)); if(error) throw error; },
         where(f,o,v){ return { onSnapshot(next){
           const pull=()=>{ if(document.visibilityState!=='visible') return;
-            c.from('postcards').select('id,from_user,city,msg,sent_on').eq('to_user',v).then(({data,error})=>{ if(error) return; const rows=data||[];
-              next({docs:rows.map(r=>snap(String(r.id),{from:r.from_user, city:r.city, msg:r.msg, date:r.sent_on})), empty:!rows.length}); }); };
+            const got=({data,error})=>{ if(error) return false; const rows=data||[];
+              next({docs:rows.map(r=>snap(String(r.id),{from:r.from_user, city:r.city, msg:r.msg, date:r.sent_on, ph:r.photo||''})), empty:!rows.length}); return true; };
+            c.from('postcards').select('id,from_user,city,msg,sent_on,photo').eq('to_user',v).then(r=>{ if(!got(r)) c.from('postcards').select('id,from_user,city,msg,sent_on').eq('to_user',v).then(got); }); };
           pull(); const iv=setInterval(pull,30000); document.addEventListener('visibilitychange',pull);
           return ()=>{ clearInterval(iv); document.removeEventListener('visibilitychange',pull); }; } }; } };
     } };
@@ -8040,7 +8113,7 @@ function startPostbox(){
       mailSeen2.push(d.id);
       const mdate=/^\d{4}-\d\d-\d\d$/.test(m.date)?m.date:today();
       if(typeof m.from==='string' && CITIES[m.city] && !inbox.some(x=>x.from===m.from && x.date===mdate)){
-        inbox.unshift({from:m.from, id:m.city, msg:String(m.msg||'').slice(0,140), date:mdate, read:false, pid:d.id});
+        inbox.unshift({from:m.from, id:m.city, msg:String(m.msg||'').slice(0,140), date:mdate, read:false, pid:d.id, ...(typeof m.ph==='string'&&/^[0-9a-f-]{36}\/pc\/[0-9a-f-]{36}\/[a-z0-9]+\.jpg$/.test(m.ph)?{ph:m.ph}:{})});
         if(!friendIds.includes(m.from)) friendIds.unshift(m.from);
         fresh++; who=m.from; }
       SOC.db.doc('postbox/'+d.id).delete().catch(()=>{});      /* delivered: take it out of the shared box */
@@ -8151,7 +8224,7 @@ function renderPassport(){ saveState();
           <div class="bar ${g?'gold':''}"><i style="width:${Math.min(1,n/goldNeed(c))*100}%"></i></div></div></div>
       <div class="tiles">${shown.map(k=>verified[k]&&visited[k]
         ? `<button class="tile re ${eventStamps[k]?'evst':''}" data-restamp="${k}" aria-label="Stamp ${CITIES[k].name} again"><span class="vdot" title="Verified">${L(LU.check,11,3)}</span>${eventStamps[k]?`<span class="evb">${document.documentElement.classList.contains('fresh')?`<i class="evemo2">${evIcon(EVENTS.find(x=>x.id===eventStamps[k].ev))}</i>`:L(LU.spark,12,2.4)}</span>`:''}${phCoverURL(k)?`<div class="sq phsq" style="background:${K.color} url(${phCoverURL(k)}) center/cover"><span class="phmini">${lm(CITIES[k].icon,'on').replace('<svg','<svg width="20" height="20"')}</span></div>`:`<div class="sq" style="background:${K.color}">${lm(CITIES[k].icon,'on').replace('<svg','<svg width="36" height="36"')}</div>`}<b>${CITIES[k].short||CITIES[k].name}</b></button>`
-        : visited[k] ? `<button class="tile mem" data-popen="${k}" aria-label="${CITIES[k].name}: on your memory page. Stamp it on the spot to verify">${phCoverURL(k)?`<span class="phmem" style="background-image:url(${phCoverURL(k)})"></span>`:L(LU.cal,18,2.2)}<b>${CITIES[k].short||CITIES[k].name}</b><small>Memory</small></button>`
+        : visited[k] ? `<button class="tile mem" data-popen="${k}" aria-label="${CITIES[k].name}: on your memory page. Stamp it on the spot to verify">${phCoverURL(k)?pastStamp(k,44):L(LU.cal,18,2.2)}<b>${CITIES[k].short||CITIES[k].name}</b><small>Memory</small></button>`
         : `<div class="tile lock">${L(LU.lock,18)}<b>${CITIES[k].short||CITIES[k].name}</b></div>`).join('')}${more>0?`<button class="tile more" data-pexp="${c}" aria-label="Show ${more} more cities"><b>+${more}</b><small>more</small></button>`:''}</div></section>`;}).join('')}</div>
   ${phPassHTML()}
   ${beenHTML()}

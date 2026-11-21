@@ -30,3 +30,7 @@ Outside the Claude page it was prototyped on, the app saves to the browser only.
 Travellers can add photos from their device. Postmark reads each photo's saved location and date and files it under the nearest city (within 60 km), falling back to the dates of their trips, or lets them pick a city. Photos are resized (1600 px, plus a 420 px thumbnail) and kept on the device in IndexedDB.
 
 When signed in on the live site, photos also back up to a private Supabase Storage bucket. Run `supabase/photos.sql` once in the Supabase SQL Editor to create the bucket and its access rules. Until then, photos stay on the device and upload automatically once the bucket exists.
+
+Part 2 of the same file (run it after `together.sql`) lets friends on a shared trip see each other's trip photos (any photo can be marked private) and lets postcards carry your own photo on the front. Without it, trips show only your own photos and postcards are sent with the drawn front.
+
+Every "been there" memory stamp shows the city's chosen stamp photo, and stamp photos appear as pins on the world map when you zoom in.
