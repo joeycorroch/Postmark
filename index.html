@@ -270,7 +270,7 @@ html.fresh .anic:not(.on) .ai{background:#EEF2F0;box-shadow:0 0 0 2px #B8C4BE}
 .gfoot{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:center}.gfoot .btn{width:100%}
 .gfoot .ghost{flex:1;height:44px;border-radius:14px;border:0;background:#fff;box-shadow:0 4px 12px rgba(30,43,51,.1);font:700 14px var(--font-display);color:var(--ink-navy)}
 .gres{text-align:center;padding:4px 0 4px}.gpip{display:flex;align-items:flex-end;justify-content:center;gap:4px;margin-bottom:8px}.gpip>span:not(.pip){margin-bottom:40px;padding:8px 12px;border-radius:14px 14px 14px 4px;background:#fff;box-shadow:0 6px 16px rgba(30,43,51,.12);font:700 13px var(--font-display);color:var(--ink-navy)}
-#phone:has(#gamez.on) :is(#pipPop,.wpostie,.piptip .pz){opacity:0;visibility:hidden}.gres .gsc{font:800 46px/1 var(--font-display);color:var(--ink-navy)}.gres.good .gsc{color:#00A35A}
+#phone:has(#gamez.on) :is(#pipPop,.wpostie,.piptip .pz){opacity:0;visibility:hidden}#phone:has(:is(#phbox.on,#phrev.on,#livez.on,#yir.on)) #pipPop{opacity:0;visibility:hidden}.gres .gsc{font:800 46px/1 var(--font-display);color:var(--ink-navy)}.gres.good .gsc{color:#00A35A}
 .gres p{margin:10px 0 6px;font-size:15px;color:var(--ink-navy)}.gres small{display:block;font-size:12px;color:#7A8A92}
 .gnew{display:inline-block;margin:2px 0 6px;padding:4px 10px;border-radius:999px;background:#FFC531;font:800 12px var(--font-display);color:#1E2B33}
 .gmaze{background:#fff;border-radius:20px;padding:6px;box-shadow:0 6px 16px rgba(30,43,51,.08);touch-action:none;max-width:300px;margin:0 auto}
@@ -324,6 +324,38 @@ html.fresh .evrow.got{border:0!important;background:linear-gradient(120deg,#FFE9
 .lvc{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.lvc button{display:flex;align-items:center;gap:5px;height:28px;padding:0 10px 0 6px;border:0;border-radius:999px;background:#fff;box-shadow:0 2px 6px rgba(30,43,51,.1);font:700 12px var(--font-display);color:var(--ink-navy)}
 .lvc .miniflag{width:16px;height:16px}
 .lvh{margin:16px 0 0;font:700 14px var(--font-display);color:#56656D}
+.phsec{margin:14px 0 4px}.phh{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}.phh b{display:flex;align-items:center;gap:6px;font:700 16px var(--font-display);color:var(--ink-navy)}.phh span{font-size:12px;font-weight:700;color:#7A8A92}
+.phstrip{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none}.phstrip::-webkit-scrollbar{display:none}
+.phth,.phadd{flex:0 0 78px;height:78px;border:0;border-radius:16px;position:relative;background:#E7EFEA center/cover;box-shadow:0 3px 10px rgba(30,43,51,.12);color:#7A8A92;display:flex;align-items:center;justify-content:center}
+.phth i{position:absolute;top:5px;right:5px;width:20px;height:20px;border-radius:50%;background:var(--city-lisbon,#FFC531);color:var(--ink-navy);display:flex;align-items:center;justify-content:center;font-style:normal;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.phadd{flex-direction:column;gap:2px;background:#fff;border:2px dashed #B9D9C6;box-shadow:none;color:#00A55C}.phadd small{font:700 11px var(--font-display)}
+.phnote{margin:2px 0 0;font-size:12.5px;line-height:1.45;color:#5D6D75}
+.memn+.phn,.phn{display:inline-flex;align-items:center;gap:3px;margin-left:6px;padding:1px 7px;border-radius:999px;background:#E3F6FB;color:#1F7F99;font-style:normal;font-size:11px;font-weight:800}
+.tile .sq.phsq{position:relative;box-shadow:inset 0 0 0 2px rgba(255,255,255,.9)}.phmini{position:absolute;right:-5px;bottom:-5px;width:24px;height:24px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 5px rgba(0,0,0,.2)}
+.phpast{position:relative;display:block;width:58px;height:58px;border-radius:14px;background:center/cover;box-shadow:0 0 0 2.5px #fff,0 0 0 4px #3D7BFF;margin:0 auto}.phpast>svg{position:absolute;right:-8px;bottom:-8px}
+.phmem{width:34px;height:34px;border-radius:10px;background:center/cover;box-shadow:0 0 0 2px #fff,0 2px 6px rgba(0,0,0,.18)}
+.phgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.phg{aspect-ratio:1;border:0;border-radius:14px;background:#E7EFEA center/cover;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#7A8A92}
+.phg span{position:absolute;left:0;right:0;bottom:0;padding:10px 5px 4px;background:linear-gradient(transparent,rgba(0,0,0,.55));color:#fff;font:700 10px var(--font-display);text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.phbar{display:flex;align-items:center;gap:10px;margin-top:10px}.phbar .btn{flex:none}.phbar small{display:flex;align-items:center;gap:5px;font-size:11.5px;color:#5D6D75;font-weight:600}
+.phrc{overflow-y:auto}.phrow{display:flex;gap:10px;align-items:center;padding:8px;margin-top:8px;border-radius:16px;background:#fff;box-shadow:0 3px 10px rgba(30,43,51,.07)}
+.phrow img,.phsk{width:60px;height:60px;flex-shrink:0;border-radius:12px;object-fit:cover;background:#E7EFEA}.phrow.load .phsk{animation:pinglow 1.2s infinite}.phrow.bad .phsk{display:flex;align-items:center;justify-content:center;font:800 20px var(--font-display);color:#FF6B5B}
+.phrow>div{flex:1;min-width:0}.phrow small{display:flex;align-items:center;gap:4px;flex-wrap:wrap;font-size:11.5px;font-weight:600;color:#7A8A92;margin-bottom:5px}.phrow small.gps{color:#00A55C}.phrow b{display:block;font:700 14px var(--font-display);color:var(--ink-navy)}
+.phrow select,.phmv{width:100%;height:36px;border:1.5px solid #D5E6DC;border-radius:12px;background:#F4FBF6;font:600 14px var(--font-body);color:var(--ink-navy);padding:0 8px}
+.phtip{display:flex;gap:7px;align-items:flex-start;margin:12px 2px 0;font-size:12px;line-height:1.45;color:#5D6D75}.phtip svg{flex-shrink:0;margin-top:1px}
+.phchk{display:flex;gap:9px;align-items:flex-start;margin:12px 2px 0;font-size:13px;line-height:1.4;color:var(--ink-navy)}.phchk input{width:18px;height:18px;margin:1px 0 0;accent-color:#00C56E}
+.phsave{width:100%;margin-top:14px}.phsave:disabled{opacity:.5}
+#phbox{position:absolute;inset:0;z-index:78;display:none;flex-direction:column;background:rgba(14,24,30,.96);padding:56px 16px 22px}#phbox.on{display:flex}
+#phbox .xbtn{position:absolute;top:14px;right:14px}.phimg{flex:1;min-height:0;position:relative;display:flex;align-items:center;justify-content:center}.phimg img{max-width:100%;max-height:100%;border-radius:18px;box-shadow:0 18px 40px rgba(0,0,0,.4);animation:ypop .35s both}
+.phoff{display:flex;flex-direction:column;align-items:center;gap:6px;color:#BFD3DA;text-align:center}.phoff b{font:700 16px var(--font-display);color:#fff}.phoff span{font-size:13px}
+.phnav{position:absolute;top:50%;width:40px;height:40px;margin-top:-20px;border:0;border-radius:50%;background:rgba(255,255,255,.9);color:var(--ink-navy);display:flex;align-items:center;justify-content:center}.phnav.l{left:-4px}.phnav.r{right:-4px}.phnav.r svg{transform:scaleX(-1)}
+.phcap{display:flex;align-items:center;gap:10px;margin:14px 2px 12px;color:#fff}.phcap .fl .miniflag{width:28px;height:28px}.phcap b{display:block;font:700 18px var(--font-display)}.phcap small{display:flex;align-items:center;gap:3px;flex-wrap:wrap;font-size:12px;color:#BFD3DA}
+.phacts{display:flex;gap:8px}.phacts .btn{flex:1;height:46px}.phacts .btn.line{background:#fff;color:var(--ink-navy)}.phacts .phdel{flex:none;padding:0 14px}.phacts .phdel.sure{background:#FF6B5B;color:#fff}.phacts .phmv{flex:1;height:46px}
+.phplay{display:flex;align-items:center;gap:7px;margin-top:14px;height:40px;padding:0 16px;border:0;border-radius:999px;background:#FFC531;color:var(--ink-navy);font:700 14px var(--font-display);box-shadow:0 6px 16px rgba(255,197,49,.35)}
+#yir .ycard.phshow{position:relative;background:#0E181E;cursor:pointer}.phst,.phsl{position:absolute;inset:0}.phsl{background:center/cover;opacity:0;transition:opacity .7s}.phsl.in{opacity:1}
+.phsl.a.in{animation:kbA 3.8s ease-out both}.phsl.b.in{animation:kbB 3.8s ease-out both}@keyframes kbA{from{transform:scale(1.02)}to{transform:scale(1.14) translate(-2%,-2%)}}@keyframes kbB{from{transform:scale(1.14) translate(2%,1%)}to{transform:scale(1.02)}}
+.phbars{position:absolute;top:10px;left:10px;right:10px;display:flex;gap:3px;z-index:2}.phbars i{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.35);overflow:hidden}.phbars i b{display:block;height:100%;width:0;background:#fff}.phbars i.done b{width:100%}.phbars i.on b{animation:phbar 3.2s linear both}@keyframes phbar{to{width:100%}}
+.phsc{position:absolute;left:0;right:0;bottom:0;z-index:2;display:flex;align-items:center;gap:9px;padding:40px 16px 16px;background:linear-gradient(transparent,rgba(0,0,0,.6));color:#fff}.phsc .miniflag{width:26px;height:26px}.phsc b{display:block;font:700 20px var(--font-display)}.phsc small{font-size:12px;opacity:.85}
+@media (prefers-reduced-motion:reduce){.phsl.in{animation:none}}
 /* springy taps */
 html.fresh :is(button,.wcard,.wcd,.tcard,.fcard,.setc,.anic,.chip,.tile,.kt,.sr,.step){transition:transform .18s cubic-bezier(.3,1.6,.5,1),box-shadow .18s}
 html.fresh :is(button,.wcard,.tcard,.fcard,.sr,.step):active:not(:disabled){transform:scale(.955)}
@@ -2226,6 +2258,9 @@ const POSE = {"point": "<g transform=\"translate(150 118) rotate(22)\"><rect x=\
 /* ---------- icons ---------- */
 const L = (d,s=24,sw=2) => `<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
 const LU = {
+  camera:'<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3.5"/>',
+  trash:'<path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/>',
+  img:'<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>',
   music:'<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
   waves:'<path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>',
   moon:'<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
@@ -5349,6 +5384,152 @@ function avWave(){ if(!document.documentElement.classList.contains('fresh')) ret
     const tgt=f.classList.contains('face')?f:f; tgt.classList.remove('hiwave'); void tgt.offsetWidth; tgt.classList.add('hiwave'); setTimeout(()=>tgt.classList.remove('hiwave'),1500);
     const r=f.getBoundingClientRect(), h=document.createElement('span'); h.className='wavehand'; h.innerHTML=hand; h.style.left=((r.right-pr.left)/k-14)+'px'; h.style.top=((r.top-pr.top)/k+r.height/k*.35-10)+'px'; ph.appendChild(h); setTimeout(()=>h.remove(),1600); });
   try{ tone(0,'sine',660,.08,.06,990); tone(.12,'sine',880,.08,.05,1320); }catch(e){} }
+
+/* ---------- photos: pick from the device, match to cities by GPS / date / trip, keep on the device, back up to the account ---------- */
+const PHDB=(()=>{ let p; const open=()=>p||(p=new Promise((res,rej)=>{ const r=indexedDB.open('postmark-photos',1); r.onupgradeneeded=()=>r.result.createObjectStore('ph',{keyPath:'id'}); r.onsuccess=()=>res(r.result); r.onerror=()=>{ p=null; rej(r.error); }; }));
+  const tx=async(mode,fn)=>{ const db=await open(); return new Promise((res,rej)=>{ const t=db.transaction('ph',mode), rq=fn(t.objectStore('ph')); t.oncomplete=()=>res(rq&&rq.result); t.onerror=()=>rej(t.error); t.onabort=()=>rej(t.error); }); };
+  return { put:o=>tx('readwrite',s=>s.put(o)), get:id=>tx('readonly',s=>s.get(id)), del:id=>tx('readwrite',s=>s.delete(id)) }; })();
+const phCount = c => photos.filter(p=>CITIES[p.city]&&CITIES[p.city].c===c).length;
+const phCoverURL = id => { const pid=phCover[id]; return pid&&PHU[pid]||''; };
+const phSorted = id => photos.filter(p=>p.city===id).sort((a,b)=>(a.date||'')<(b.date||'')?-1:1);
+const phNew = () => 'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+function exifInfo(buf){ try{ const v=new DataView(buf); if(v.byteLength<12||v.getUint16(0)!==0xFFD8) return {};
+  let o=2; while(o+10<v.byteLength){ const m=v.getUint16(o); if((m&0xFF00)!==0xFF00) break; const len=v.getUint16(o+2);
+    if(m===0xFFE1 && v.getUint32(o+4)===0x45786966) return exifTiff(v,o+10);
+    if(m===0xFFDA) break; o+=2+len; } }catch(e){} return {}; }
+function exifTiff(v,t){ const le=v.getUint16(t)===0x4949, u16=p=>v.getUint16(p,le), u32=p=>v.getUint32(p,le);
+  const ifd=off=>{ const out={}, p=t+off; if(!off||p+2>v.byteLength) return out; const n=u16(p); for(let i=0;i<n;i++){ const e=p+2+i*12; if(e+12>v.byteLength) break; out[u16(e)]={type:u16(e+2),count:u32(e+4),vo:e+8}; } return out; };
+  const asc=en=>{ if(!en) return ''; const at=en.count<=4?en.vo:t+u32(en.vo); let s=''; for(let i=0;i<en.count-1&&at+i<v.byteLength;i++) s+=String.fromCharCode(v.getUint8(at+i)); return s; };
+  const rat=en=>{ if(!en||en.type!==5) return null; const at=t+u32(en.vo), a=[]; for(let i=0;i<en.count;i++){ const d=u32(at+i*8+4); a.push(d?u32(at+i*8)/d:0); } return a; };
+  const i0=ifd(u32(t+4)), ex=i0[0x8769]?ifd(u32(i0[0x8769].vo)):{}, gp=i0[0x8825]?ifd(u32(i0[0x8825].vo)):{};
+  const out={}; const dt=asc(ex[0x9003])||asc(i0[0x0132]); const m=/^(\d{4}):(\d\d):(\d\d)/.exec(dt); if(m&&m[1]>'1990') out.date=`${m[1]}-${m[2]}-${m[3]}`;
+  const la=rat(gp[2]), lo=rat(gp[4]); if(la&&lo){ let lat=la[0]+(la[1]||0)/60+(la[2]||0)/3600, lon=lo[0]+(lo[1]||0)/60+(lo[2]||0)/3600;
+    if(asc(gp[1])==='S') lat=-lat; if(asc(gp[3])==='W') lon=-lon; if(isFinite(lat)&&isFinite(lon)&&(Math.abs(lat)>.01||Math.abs(lon)>.01)) out.ll=[lat,lon]; }
+  return out; }
+function phNearest(ll){ let best=null, bd=1e9; for(const id in CITY_LL){ if(!CITIES[id]) continue; const d=km(ll,CITY_LL[id]); if(d<bd){ bd=d; best=id; } } return {id:best, d:bd}; }
+async function phResize(file,max,q){ const url=URL.createObjectURL(file); try{ const img=new Image(); img.src=url; await img.decode();
+  const sc=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight)), c=document.createElement('canvas'); c.width=Math.max(1,Math.round(img.naturalWidth*sc)); c.height=Math.max(1,Math.round(img.naturalHeight*sc));
+  c.getContext('2d').drawImage(img,0,0,c.width,c.height); return await new Promise(r=>c.toBlob(r,'image/jpeg',q)); } finally{ URL.revokeObjectURL(url); } }
+/* match one photo to a city: location first, then the dates of your trips, then the city you added it from */
+function phMatch(info, def){
+  if(info.ll){ const n=phNearest(info.ll); if(n.id&&n.d<=60) return {city:n.id, why:`${L(LU.pin,12,2.4)}${n.d<2?'Taken in':Math.round(n.d)+' km from'} ${CITIES[n.id].name}`, gps:1, sugg:[n.id]};
+    if(n.id&&n.d<=250) return {city:def||n.id, why:`${L(LU.pin,12,2.4)}Taken ${Math.round(n.d)} km from ${CITIES[n.id].name}`, gps:0, sugg:[n.id]}; }
+  if(info.date){ const tr=(trips||[]).find(t=>t.start&&t.end&&t.start<=info.date&&info.date<=t.end&&t.cities.length);
+    if(tr){ const pick=def&&tr.cities.includes(def)?def:tr.cities.length===1?tr.cities[0]:def||''; return {city:pick, why:`${L(LU.plane,12,2.4)}During your trip “${esc(tr.name)}”${pick?'':' · pick a city'}`, gps:0, sugg:tr.cities.slice()}; } }
+  if(def) return {city:def, why:`${L(LU.img,12,2.4)}${info.ll?'Taken far from any Postmark city':'No location saved in this photo'}`, gps:0, sugg:[def]};
+  return {city:'', why:`${L(LU.img,12,2.4)}${info.ll?'Not near a Postmark city yet':'No location saved'} · pick a city`, gps:0, sugg:[]};
+}
+let PHREV=null, phSyncing=false;
+function phPick(def){ let inp=$('#phIn'); if(!inp){ document.body.insertAdjacentHTML('beforeend','<input type="file" id="phIn" accept="image/*" multiple hidden>'); inp=$('#phIn');
+    inp.addEventListener('change',()=>{ const fs=[...inp.files].slice(0,40); inp.value=''; if(fs.length) phReview(fs, inp.dataset.def||''); }); }
+  inp.dataset.def=def||''; inp.click(); }
+function phCityOptions(sel, sugg){ const o=id=>`<option value="${id}" ${id===sel?'selected':''}>${esc(CITIES[id].name)}</option>`;
+  const first=[...new Set([...(sugg||[]), sel].filter(Boolean))];
+  return `<option value="" ${sel?'':'selected'}>${sel===''?'Pick a city…':'Skip this photo'}</option>${first.length?`<optgroup label="Suggested">${first.map(o).join('')}</optgroup>`:''}`+
+    Object.keys(COUNTRIES).sort((a,b)=>COUNTRIES[a].name.localeCompare(COUNTRIES[b].name)).map(c=>`<optgroup label="${esc(COUNTRIES[c].name)}">${COUNTRIES[c].cities.filter(id=>CITIES[id]).map(o).join('')}</optgroup>`).join(''); }
+async function phReview(files, def){
+  PHREV={def, rows:files.map((f,i)=>({i, f, st:'load'})), stamp:true};
+  let el=$('#phrev'); if(!el){ $('#phone').insertAdjacentHTML('beforeend','<div id="phrev" class="bqz gmz" role="dialog" aria-label="Add photos"></div>'); el=$('#phrev'); }
+  phRevRender(); requestAnimationFrame(()=>el.classList.add('on'));
+  for(const r of PHREV.rows){ if(!PHREV) return;
+    try{ const info=exifInfo(await r.f.slice(0,262144).arrayBuffer()); if(!info.date&&r.f.lastModified){ const d=new Date(r.f.lastModified), iso=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; if(iso!==today()) info.date=iso, info.dsrc='file'; }
+      const [thumb, full]=await Promise.all([phResize(r.f,420,.8), phResize(r.f,1600,.84)]);
+      Object.assign(r, {info, thumb, full, url:URL.createObjectURL(thumb), st:'ok'}, phMatch(info, def)); }
+    catch(e){ r.st='bad'; }
+    phRevRender(); }
+}
+function phRevRender(){ const el=$('#phrev'); if(!el||!PHREV) return; const rows=PHREV.rows, ready=rows.filter(r=>r.st==='ok'), go=ready.filter(r=>r.city), busy=rows.some(r=>r.st==='load');
+  const newC=[...new Set(go.filter(r=>!visited[r.city]).map(r=>r.city))];
+  el.innerHTML=`<div class="bqc gmc phrc"><div class="gmh"><span class="gmi" style="background:linear-gradient(135deg,#C8F5D6,#BFEFF7)">${L(LU.camera,22)}</span><div><small>YOUR PHOTOS</small><b>${busy?`Reading ${rows.length} photo${rows.length>1?'s':''}…`:`Add ${go.length} photo${go.length===1?'':'s'}`}</b></div><button class="x" data-phx aria-label="Close">${L(LU.x,18)}</button></div>
+    <p class="gsub">Photos with a saved location are matched to the nearest city. Check each one, then save.</p>
+    ${rows.map(r=>`<div class="phrow ${r.st}">${r.st==='ok'?`<img src="${r.url}" alt="">`:`<span class="phsk">${r.st==='bad'?'!':''}</span>`}<div>${r.st==='ok'?`<small class="${r.gps?'gps':''}">${r.why}${r.info.date?` · ${dLong(r.info.date)}`:''}</small><select data-phsel="${r.i}" aria-label="City for this photo">${phCityOptions(r.city, r.sugg)}</select>`:r.st==='bad'?`<b>Can’t read this photo</b><small>Try a JPEG or a photo from your camera roll.</small>`:`<b>Reading…</b><small>${esc(r.f.name||'')}</small>`}</div></div>`).join('')}
+    ${!busy&&rows.some(r=>r.st==='ok'&&!r.info.ll)?`<p class="phtip">${L(LU.pin,14)}<span>Some photos have no location. On iPhone, tap <b>Options</b> in the photo picker and turn on <b>Location</b> to keep it.</span></p>`:''}
+    ${newC.length?`<label class="phchk"><input type="checkbox" id="phStampChk" ${PHREV.stamp?'checked':''}><span>Add ${newC.length} new memory stamp${newC.length>1?'s':''} (${newC.slice(0,3).map(id=>CITIES[id].name).join(', ')}${newC.length>3?'…':''}) on the dates the photos were taken</span></label>`:''}
+    <button class="btn navy phsave" id="phSave" ${busy||!go.length?'disabled':''}>${L(LU.check,18)}${busy?'Reading photos…':`Save ${go.length} photo${go.length===1?'':'s'}`}</button></div>`; }
+function phRevClose(){ const el=$('#phrev'); if(PHREV) PHREV.rows.forEach(r=>r.url&&URL.revokeObjectURL(r.url)); PHREV=null; if(!el) return; el.classList.remove('on'); setTimeout(()=>{ if(!el.classList.contains('on')) el.remove(); },300); }
+async function phSave(){ if(!PHREV) return; const go=PHREV.rows.filter(r=>r.st==='ok'&&r.city), stampNew=PHREV.stamp; let saved=0; const cities=new Set(), stamped=[];
+  $('#phSave').disabled=true;
+  for(const r of go){ const id=phNew();
+    try{ await PHDB.put({id, thumb:r.thumb, full:r.full}); }catch(e){ toast('Couldn’t save photos on this device'); break; }
+    const p={id, city:r.city, date:r.info.date||'', gps:r.gps?1:0, at:today()}; if(r.info.ll&&r.gps) p.ll=r.info.ll.map(x=>Math.round(x*1000)/1000);
+    photos.push(p); PHU[id]=URL.createObjectURL(r.thumb); saved++; cities.add(r.city);
+    if(stampNew && !visited[r.city]){ const d=r.info.date&&r.info.date<=today()?r.info.date:today(); visited[r.city]=d; delete verified[r.city]; stamped.push(r.city); }
+    else if(stampNew && isPast(r.city) && r.info.date && r.info.date<visited[r.city]) visited[r.city]=r.info.date; }
+  cities.forEach(c=>{ if(!phCover[c]||!photos.some(p=>p.id===phCover[c])) phCover[c]=phSorted(c).find(p=>p.gps)?.id||phSorted(c)[0].id; });
+  phRevClose(); saveState(); renderAll(); refreshCard(); if(!$('#passport').hidden) renderPassport();
+  try{ SFX.sparkle(); }catch(e){}
+  toast(`${saved} photo${saved===1?'':'s'} added to ${cities.size} cit${cities.size===1?'y':'ies'}${stamped.length?` · ${stamped.length} new memory stamp${stamped.length>1?'s':''}`:''}`);
+  if(stamped.length) setTimeout(checkUnlocks,600);
+  phSyncUp(); }
+/* account backup: photos go to a private storage folder named after your account */
+const phCloud = () => AUTH.client && AUTH.user ? AUTH.client.storage.from('photos') : null;
+async function phSyncUp(){ const b=phCloud(); if(!b||phSyncing) return; phSyncing=true; let n=0;
+  try{ for(const p of photos.filter(p=>!p.cloud)){ const r=await PHDB.get(p.id).catch(()=>null); if(!r) continue; const base=`${AUTH.user.id}/${p.id}`;
+      let {error}=await b.upload(base+'.jpg', r.full, {contentType:'image/jpeg', upsert:true}); if(error) throw error;
+      ({error}=await b.upload(base+'_t.jpg', r.thumb, {contentType:'image/jpeg', upsert:true})); if(error) throw error; p.cloud=1; n++; } }
+  catch(e){ console.warn('[photos] backup paused:', e&&e.message); }
+  phSyncing=false; if(n) saveState(); }
+async function phLoadThumbs(){ let got=0; for(const p of photos){ if(PHU[p.id]) continue;
+    let r=await PHDB.get(p.id).catch(()=>null);
+    if(!r && p.cloud && phCloud()){ try{ const base=`${AUTH.user.id}/${p.id}`; const t=await phCloud().download(base+'_t.jpg'); if(t.data){ r={id:p.id, thumb:t.data}; const f=await phCloud().download(base+'.jpg'); if(f.data) r.full=f.data; await PHDB.put(r).catch(()=>{}); } }catch(e){} }
+    if(r&&r.thumb){ PHU[p.id]=URL.createObjectURL(r.thumb); got++; } }
+  if(got){ refreshCard(); if(!$('#passport').hidden) renderPassport(); } }
+async function phFullURL(id){ if(PHFULL[id]) return PHFULL[id]; const r=await PHDB.get(id).catch(()=>null); if(r&&(r.full||r.thumb)) return PHFULL[id]=URL.createObjectURL(r.full||r.thumb); return PHU[id]||''; }
+function cityPhotosHTML(id){ const ps=phSorted(id);
+  return `<div class="phsec"><div class="phh"><b>${L(LU.camera,18)}Your photos</b>${ps.length?`<span>${ps.length}</span>`:''}</div>
+    <div class="phstrip">${ps.map(p=>`<button class="phth ${PHU[p.id]?'':'off'}" data-ph="${p.id}" aria-label="Photo from ${esc(CITIES[id].name)}${p.date?', '+dLong(p.date):''}" ${PHU[p.id]?`style="background-image:url(${PHU[p.id]})"`:''}>${PHU[p.id]?'':L(LU.cloudoff,18)}${phCover[id]===p.id?`<i title="Stamp photo">${L(LU.stamp,11,2.6)}</i>`:''}</button>`).join('')}<button class="phadd" data-phadd="${id}">${L(LU.plus,20,2.4)}<small>Add</small></button></div>
+    ${ps.length?'':`<p class="phnote">Add your photos from ${esc(CITIES[id].name)}. Photos with a saved location go to the right city automatically.</p>`}</div>`; }
+function phPassHTML(){ const ps=photos.slice().sort((a,b)=>(b.date||b.at||'')<(a.date||a.at||'')?-1:1), cs=new Set(ps.map(p=>p.city)).size;
+  const sync = AUTH.configured ? (AUTH.user ? (photos.some(p=>!p.cloud)?'Backing up to your account…':'Backed up to your account') : 'Saved on this device · sign in to back them up') : 'Saved on this device';
+  return `<div class="psec" id="pPh"><div class="psh"><h2>Your photos</h2><span>${ps.length?`${ps.length} photo${ps.length>1?'s':''} · ${cs} cit${cs===1?'y':'ies'}`:''}</span></div>
+    ${ps.length?`<div class="phgrid">${ps.slice(0,pPhAll?400:8).map(p=>`<button class="phg" data-ph="${p.id}" ${PHU[p.id]?`style="background-image:url(${PHU[p.id]})"`:''}>${PHU[p.id]?'':L(LU.cloudoff,18)}<span>${esc(CITIES[p.city].short||CITIES[p.city].name)}</span></button>`).join('')}</div>${ps.length>8&&!pPhAll?`<button class="lmore" id="phMore">Show all ${ps.length} photos</button>`:''}`
+      :`<p class="phnote">Add photos from your trips. Postmark reads where each one was taken and files it under the right city.</p>`}
+    <div class="phbar"><button class="btn navy" data-phadd="">${L(LU.camera,18)}Add photos</button><small>${L(AUTH.user?LU.cloudok:LU.shield,13)}${sync}</small></div></div>`; }
+let pPhAll=false;
+async function phOpen(pid){ const p=photos.find(x=>x.id===pid); if(!p) return; const list=phSorted(p.city), i=list.findIndex(x=>x.id===pid), C=CITIES[p.city];
+  let el=$('#phbox'); if(!el){ $('#phone').insertAdjacentHTML('beforeend','<div id="phbox" role="dialog" aria-label="Photo"></div>'); el=$('#phbox'); }
+  el.dataset.id=pid; const url=await phFullURL(pid); const cov=phCover[p.city]===pid;
+  el.innerHTML=`<button class="xbtn" data-phbx aria-label="Close">${L(LU.x,20)}</button>
+    <div class="phimg">${url?`<img src="${url}" alt="Photo from ${esc(C.name)}">`:`<div class="phoff">${L(LU.cloudoff,34)}<b>This photo is on another device</b><span>Sign in on that device to back it up.</span></div>`}
+      ${i>0?`<button class="phnav l" data-phgo="${list[i-1].id}" aria-label="Previous photo">${L(LU.left,22,2.6)}</button>`:''}${i<list.length-1?`<button class="phnav r" data-phgo="${list[i+1].id}" aria-label="Next photo">${L(LU.left,22,2.6)}</button>`:''}</div>
+    <div class="phcap"><span class="fl">${miniFlag(C.c)}</span><div><b>${esc(C.name)}</b><small>${p.date?dLong(p.date):'Date unknown'}${p.gps?` · ${L(LU.pin,11,2.6)}matched by location`:''} · ${i+1} of ${list.length}</small></div></div>
+    <div class="phacts"><button class="btn ${cov?'line':'navy'}" data-phcov="${pid}" ${cov?'disabled':''}>${L(LU.stamp,18)}${cov?'Stamp photo':'Use as stamp photo'}</button><button class="btn line" data-phcity="${pid}">${L(LU.pin,18)}Move</button><button class="btn line phdel" data-phdel="${pid}" aria-label="Delete photo">${L(LU.trash,18)}</button></div>`;
+  el.classList.add('on'); }
+function phClose(){ const el=$('#phbox'); if(el){ el.classList.remove('on'); el.innerHTML=''; } }
+async function phDelete(pid){ const p=photos.find(x=>x.id===pid); if(!p) return; photos=photos.filter(x=>x!==p); if(phCover[p.city]===pid){ const n=phSorted(p.city)[0]; if(n) phCover[p.city]=n.id; else delete phCover[p.city]; }
+  PHDB.del(pid).catch(()=>{}); if(p.cloud&&phCloud()) phCloud().remove([`${AUTH.user.id}/${pid}.jpg`,`${AUTH.user.id}/${pid}_t.jpg`]).catch(()=>{});
+  saveState(); phClose(); refreshCard(); if(!$('#passport').hidden) renderPassport(); renderAll(); toast('Photo deleted'); }
+/* year in review slideshow */
+const yirPhotos = d => photos.filter(p=>(d.label==='All time'||(p.date||p.at||'').startsWith(d.Y))&&(PHU[p.id]||p.cloud)).sort((a,b)=>(a.date||'')<(b.date||'')?-1:1).slice(0,40);
+let PHS=null;
+async function phShow(list){ if(!list.length) return; phShowStop(); const card=$('#yir .ycard'); if(!card) return;
+  PHS={list, i:-1, card, keep:card.innerHTML}; card.classList.add('phshow'); card.innerHTML=`<div class="phbars">${list.map(()=>'<i><b></b></i>').join('')}</div><div class="phst"></div><div class="phsc"></div>`; phShowNext(); }
+async function phShowNext(){ if(!PHS) return; clearTimeout(PHS.t); PHS.i++; const {list,card}=PHS; if(PHS.i>=list.length) return phShowStop(true);
+  const p=list[PHS.i], C=CITIES[p.city], url=await phFullURL(p.id); if(!PHS) return;
+  card.querySelectorAll('.phbars i').forEach((b,j)=>b.className=j<PHS.i?'done':j===PHS.i?'on':'');
+  const st=card.querySelector('.phst'); st.insertAdjacentHTML('beforeend',`<div class="phsl ${PHS.i%2?'b':'a'}" style="background-image:url(${url})"></div>`); const sl=st.lastElementChild; requestAnimationFrame(()=>sl.classList.add('in'));
+  [...st.children].slice(0,-2).forEach(x=>x.remove());
+  card.querySelector('.phsc').innerHTML=`<span>${miniFlag(C.c)}</span><div><b>${esc(C.name)}</b><small>${p.date?dLong(p.date):''}</small></div>`;
+  try{ if(PHS.i) thud(160,.05); }catch(e){}
+  PHS.t=setTimeout(phShowNext,3200); }
+function phShowStop(back){ if(!PHS) return; clearTimeout(PHS.t); const {card,keep}=PHS; PHS=null; if(back&&card.isConnected){ card.classList.remove('phshow'); card.innerHTML=keep; } }
+document.addEventListener('change', e=>{ const s=e.target.closest('[data-phsel]'); if(s&&PHREV){ const r=PHREV.rows[+s.dataset.phsel]; r.city=s.value; if(r.city&&!r.sugg.includes(r.city)) r.gps=0; phRevRender(); }
+  if(e.target.id==='phStampChk'&&PHREV) PHREV.stamp=e.target.checked; });
+document.addEventListener('click', e=>{ const a=e.target.closest('[data-phadd]'); if(a){ e.stopPropagation(); return phPick(a.dataset.phadd); }
+  if(e.target.closest('#phrev')){ if(e.target.id==='phrev'||e.target.closest('[data-phx]')) return phRevClose(); if(e.target.closest('#phSave')) return phSave(); return; }
+  if(e.target.closest('#phMore')){ pPhAll=true; return renderPassport(); }
+  const bx=e.target.closest('#phbox'); if(bx){ if(e.target.closest('[data-phbx]')||e.target===bx) return phClose();
+    const g=e.target.closest('[data-phgo]'); if(g) return phOpen(g.dataset.phgo);
+    const cv=e.target.closest('[data-phcov]'); if(cv){ const p=photos.find(x=>x.id===cv.dataset.phcov); phCover[p.city]=p.id; saveState(); refreshCard(); if(!$('#passport').hidden) renderPassport(); toast(`Stamp photo set for ${CITIES[p.city].name}`); return phOpen(p.id); }
+    const dl=e.target.closest('[data-phdel]'); if(dl){ if(dl.classList.contains('sure')) return phDelete(dl.dataset.phdel); dl.classList.add('sure'); dl.innerHTML=L(LU.trash,18)+'Delete?'; return; }
+    const mv=e.target.closest('[data-phcity]'); if(mv){ const p=photos.find(x=>x.id===mv.dataset.phcity); mv.outerHTML=`<select class="phmv" data-phmv="${p.id}" aria-label="Move to city">${phCityOptions(p.city,[p.city])}</select>`; return; }
+    return; }
+  const t=e.target.closest('[data-ph]'); if(t){ e.stopPropagation(); return phOpen(t.dataset.ph); } }, true);
+document.addEventListener('change', e=>{ const m=e.target.closest('[data-phmv]'); if(!m||!m.value) return; const p=photos.find(x=>x.id===m.dataset.phmv); if(!p||p.city===m.value) return;
+  const old=p.city; p.city=m.value; p.gps=0; if(phCover[old]===p.id){ const n=phSorted(old)[0]; if(n) phCover[old]=n.id; else delete phCover[old]; } if(!phCover[p.city]) phCover[p.city]=p.id;
+  saveState(); refreshCard(); if(!$('#passport').hidden) renderPassport(); toast(`Moved to ${CITIES[p.city].name}`); phOpen(p.id); });
+setTimeout(phLoadThumbs, 600);
+
 function openLive(){ const lv=EVENTS.filter(evLive), soon=EVENTS.filter(e=>!evLive(e)).sort((a,b)=>evNextStart(a)<evNextStart(b)?-1:1).slice(0,3);
   let el=$('#livez'); if(!el){ $('#phone').insertAdjacentHTML('beforeend','<div id="livez" class="bqz gmz" role="dialog" aria-label="Festivals on now"></div>'); el=$('#livez'); }
   const row=(e,on)=>`<div class="lvrow ${on?'on':''}"><span class="lvi">${evIcon(e)}</span><div><b>${esc(e.name)}</b><small>${on?'On now':esc(e.when)}</small><span class="lvc">${e.cities.map(c=>`<button data-lvgo="${c}">${miniFlag(CITIES[c].c)}${esc(CITIES[c].name)}${eventStamps[c]&&eventStamps[c].ev===e.id?' ✓':''}</button>`).join('')}</span></div></div>`;
@@ -5703,6 +5884,7 @@ function cardHTML(id){
       if(ev) return `<div class="evbanner live"><b><span class="evbi">${evIcon(ev)}</span>${ev.name} is on now</b>Stamp ${C.name} before it ends to get the rare shiny stamp.</div>`;
       if(nx) return `<div class="evbanner soon"><b><span class="evbi">${evIcon(nx)}</span>Shiny stamp: ${nx.name}</b>Be in ${C.name} in ${nx.when} to collect it.</div>`;
       return ''; })()}
+    ${cityPhotosHTML(id)}
     <div class="kpanel">
       <div class="hd"><b>${K.name} key cities</b><span>${n} of ${total}</span></div>
       <div class="ktiles">${K.cities.map(k=>visited[k]
@@ -6832,7 +7014,7 @@ function beenHTML(){
   return `<section class="beenpage" id="pMem" aria-label="Places I've been">
     <div class="bh">${seal}<div><small>MEMORY PAGE</small><h2>Places I’ve been</h2><p>Past visits and unverified stamps, in blue</p></div></div>
     ${ids.length?`<div class="bstats"><div><b>${ids.length}</b><span>${ids.length===1?'City':'Cities'}</span></div><div><b>${cs.length}</b><span>${cs.length===1?'Country':'Countries'}</span></div><div><b>${ids.map(id=>visited[id].slice(0,4)).sort()[0]}</b><span>Earliest</span></div></div>
-      ${cs.map(c=>{ const K=COUNTRIES[c], mine=ids.filter(id=>CITIES[id].c===c); return `<div class="beenc"><h3>${miniFlag(c)}${K.name}<span>${mine.length} of ${K.cities.length} key cities</span></h3><div class="beenrow">${mine.map(id=>`<button data-popen="${id}" aria-label="${CITIES[id].name}, past visit">${pastStamp(id,58)}<b>${CITIES[id].short||CITIES[id].name}</b><span>${pastLabel(visited[id])}</span></button>`).join('')}</div></div>`; }).join('')}
+      ${cs.map(c=>{ const K=COUNTRIES[c], mine=ids.filter(id=>CITIES[id].c===c); return `<div class="beenc"><h3>${miniFlag(c)}${K.name}<span>${phCount(c)?`<em class="phn">${L(LU.camera,11,2.4)}${phCount(c)}</em> `:''}${mine.length} of ${K.cities.length} key cities</span></h3><div class="beenrow">${mine.map(id=>`<button data-popen="${id}" aria-label="${CITIES[id].name}, past visit">${phCoverURL(id)?`<span class="phpast" style="background-image:url(${phCoverURL(id)})">${pastStamp(id,30)}</span>`:pastStamp(id,58)}<b>${CITIES[id].short||CITIES[id].name}</b><span>${pastLabel(visited[id])}</span></button>`).join('')}</div></div>`; }).join('')}
       <p class="tip">${L(LU.pin,14)}<span>Back in one of these cities? Stamp it on the spot to verify it. It moves to your stamp pages with the full landmark stamp.</span></p>`
     :`<div class="beenempty"><i></i><i style="transform:rotate(8deg)"></i><p>Been travelling before Postmark? Add those places and they’ll show up here with a blue memory stamp.</p></div>`}
     <button class="addpast" id="addPast">${L(LU.plus,16)}Add places you’ve been</button></section>`;
@@ -6880,12 +7062,14 @@ async function svgPNG(svg, w, h){
 }
 function openYir(){ const d=yirData(), el=$('#yir');
   el.innerHTML=`<button class="xbtn yx" id="yirX" aria-label="Close">${L(LU.x,20)}</button><div class="ycard">${yirSVG(d)}</div>
-    <div class="ybtns"><button class="btn line" id="yirShare" style="background:var(--paper-card)">${L(LU.share,18)}Share</button><button class="btn navy" id="yirSave" style="background:var(--city-lisbon);color:var(--ink-navy)" ${hasDL?'':'hidden'}>${L(LU.dl,18)}Save image</button></div>`;
+    ${yirPhotos(d).length?`<button class="phplay" id="yirPh">${L(LU.play,16)}Play your ${yirPhotos(d).length} photo${yirPhotos(d).length>1?'s':''}</button>`:''}<div class="ybtns"><button class="btn line" id="yirShare" style="background:var(--paper-card)">${L(LU.share,18)}Share</button><button class="btn navy" id="yirSave" style="background:var(--city-lisbon);color:var(--ink-navy)" ${hasDL?'':'hidden'}>${L(LU.dl,18)}Save image</button></div>`;
   el.classList.add('on'); setTimeout(chime,500);
   d.ids.slice(-8).forEach((_,i)=>setTimeout(()=>thud(140+i*8,.08), 500+i*120));
 }
 $('#yir').addEventListener('click', async e=>{
-  if(e.target.closest('#yirX')){ $('#yir').classList.remove('on'); $('#yir').innerHTML=''; return; }
+  if(e.target.closest('#yirX')){ phShowStop(); $('#yir').classList.remove('on'); $('#yir').innerHTML=''; return; }
+  if(e.target.closest('#yirPh')) return phShow(yirPhotos(yirData()));
+  if(e.target.closest('.phshow')) return phShowNext();
   const d=yirData(), name=`postmark-${d.label==='All time'?'so-far':d.Y}.png`;
   if(e.target.closest('#yirSave')){ const dl=await dlCap; if(!dl) return toast('Saving images isn’t available here');
     try{ await dl.save({filename:name, data:await svgPNG(yirSVG(d),360,640)}); toast('Year in review saved'); }catch(err){ if(err&&err.code!=='declined') toast('Saving images isn’t available here'); } }
@@ -7633,11 +7817,13 @@ let stateReady=false, lastStateStr='', saveT=null;
 const SYNC={ref:null, status:'local', saving:false, dirty:false, at:null, lastAt:'', unsub:null};
 const ACCT={name:'', signedIn:false};
 let DEVID=''; try{ DEVID=localStorage.getItem('pm-dev')||''; if(!DEVID){ DEVID='d'+Math.random().toString(36).slice(2,10); localStorage.setItem('pm-dev',DEVID); } }catch(e){ DEVID='d'+Math.random().toString(36).slice(2,10); }
+var photos=[], phCover={}, PHU={}, PHFULL={};
 function snapshotState(){
-  return {v:1, visited, unlocked, sent, verified, eventStamps, trips, activeTrip, AVA, outfit, cover, inbox, mailDays, tinStyle, balloon:factsRead.slice(-300), ani:animalsSeen, bq:BQ, bqt:bqTotal, bqs:bqStreak, bottles:notesRead.slice(-100), earned:[...earnedWeekly], mailEver, friends:friendIds, mailSeen:mailSeen2.slice(-200), fnotes:friendNotes.slice(0,20)};
+  return {v:1, photos, phCover, visited, unlocked, sent, verified, eventStamps, trips, activeTrip, AVA, outfit, cover, inbox, mailDays, tinStyle, balloon:factsRead.slice(-300), ani:animalsSeen, bq:BQ, bqt:bqTotal, bqs:bqStreak, bottles:notesRead.slice(-100), earned:[...earnedWeekly], mailEver, friends:friendIds, mailSeen:mailSeen2.slice(-200), fnotes:friendNotes.slice(0,20)};
 }
 function applyState(d){
   if(!d || d.v!==1) return;
+  if(Array.isArray(d.photos)) photos=d.photos.filter(p=>p&&typeof p.id==='string'&&CITIES[p.city]); if(d.phCover&&typeof d.phCover==='object') phCover=d.phCover;
   if(d.visited) visited=d.visited; if(d.unlocked) unlocked=d.unlocked; if(d.sent) sent=d.sent; if(d.verified) verified=d.verified; if(d.eventStamps) eventStamps=d.eventStamps;
   if(Array.isArray(d.trips)) trips=d.trips; if('activeTrip' in d) activeTrip=d.activeTrip; if(d.AVA) AVA={...AVA, ...d.AVA, bio:{...AVA.bio, ...(d.AVA.bio||{})}};
   if(d.outfit) outfit=d.outfit; if(d.cover) cover=d.cover; if(Array.isArray(d.inbox)) inbox=d.inbox; if(Array.isArray(d.mailDays)) mailDays=d.mailDays; if(Array.isArray(d.balloon)) factsRead=d.balloon.filter(k=>CITIES[k]); if(Array.isArray(d.ani)) animalsSeen=d.ani.filter(k=>typeof k==='string'); if(d.bq && typeof d.bq.d==='string' && Array.isArray(d.bq.picks)) BQ={d:d.bq.d, picks:d.bq.picks.filter(n=>Number.isInteger(n)).slice(0,7)}; if(Number.isFinite(d.bqt)) bqTotal=d.bqt; if(d.bqs && typeof d.bqs.last==='string') bqStreak={last:d.bqs.last, n:+d.bqs.n||0, best:+d.bqs.best||0}; if(Array.isArray(d.bottles)) notesRead=d.bottles.filter(k=>typeof k==='string'); if(typeof d.tinStyle==='string' && TIN_STYLES.some(x=>x.id===d.tinStyle)) tinStyle=d.tinStyle;
@@ -7735,7 +7921,7 @@ async function authChanged(session){
       if(n){ saveState(); renderAll(); if(!$('#passport').hidden) renderPassport(); await pushState(); toast(`Signed in. ${n} guest stamp${n===1?'':'s'} added to your passport.`); }
       else toast('Passport loaded from your account'); }
     else await pushState();
-    SYNC.unsub=SYNC.ref.onSnapshot(sn=>{ const d=sn.exists?sn.data():null; if(!d||!d.state||d.dev===DEVID||(d.savedAt||'')<=SYNC.lastAt||SYNC.saving||stamping) return; takeRemote(d); toast('Passport updated from your other device'); });
+    setTimeout(()=>{ phLoadThumbs(); phSyncUp(); },2500); SYNC.unsub=SYNC.ref.onSnapshot(sn=>{ const d=sn.exists?sn.data():null; if(!d||!d.state||d.dev===DEVID||(d.savedAt||'')<=SYNC.lastAt||SYNC.saving||stamping) return; takeRemote(d); toast('Passport updated from your other device'); });
   }catch(e){ SYNC.status=navigator.onLine?'error':'offline'; SYNC.dirty=true; renderSync(); }
   publishCard(); loadFriends(true); startPostbox(); togStart(AUTH.client, u.id);
   if(!$('#passport').hidden) renderPassport(); renderFriends();
@@ -7818,7 +8004,7 @@ async function initSync(){
     else { await pushState(); }
     publishCard(); loadFriends(true); startPostbox(); renderFriends(); if(!$('#passport').hidden) renderPassport();
     /* live: a stamp made on another device shows up here without a reload */
-    if(!SYNC.unsub) SYNC.unsub=SYNC.ref.onSnapshot(sn=>{ const d=sn.exists?sn.data():null;
+    if(!SYNC.unsub) setTimeout(()=>{ phLoadThumbs(); phSyncUp(); },2500); SYNC.unsub=SYNC.ref.onSnapshot(sn=>{ const d=sn.exists?sn.data():null;
       if(!d || !d.state || d.dev===DEVID || (d.savedAt||'')<=SYNC.lastAt || SYNC.saving || stamping) return;
       takeRemote(d); toast('Passport updated from your other device'); }, ()=>{ SYNC.unsub=null; });
   }catch(e){ SYNC.status=navigator.onLine?'error':'offline'; SYNC.dirty=true; renderSync(); }
@@ -7867,7 +8053,7 @@ function startPostbox(){
 function takeRemote(remote){
   applyState(remote.state); lastStateStr=JSON.stringify(snapshotState()); SYNC.lastAt=remote.savedAt||''; SYNC.status='synced'; SYNC.at=new Date(remote.savedAt||Date.now());
   try{ localStorage.setItem('pm-state', JSON.stringify({savedAt:remote.savedAt, state:remote.state})); }catch(e){}
-  renderAll(); if(!$('#passport').hidden) renderPassport(); renderFriends(); if(!$('#trips').hidden) renderTrips(); renderSync();
+  renderAll(); if(!$('#passport').hidden) renderPassport(); renderFriends(); if(!$('#trips').hidden) renderTrips(); renderSync(); setTimeout(phLoadThumbs,300);
 }
 let resetArm=false;
 function accountHTML(){
@@ -7961,12 +8147,13 @@ function renderPassport(){ saveState();
     const order=[...vs,...mem,...lock], open=pExp.has(c)||order.length<=6, shown=open?order:order.slice(0,5), more=order.length-shown.length;
     return `<section class="pcard ${g?'gold':''}">
       <div class="prow"><div class="ring ink"><div>${g?L(LU.star,12):'<span>ENTRY</span>'}<b>${K.name.toUpperCase()}</b><span>${g?'COMPLETE':dMonth(vs.map(k=>visited[k]).sort()[0])}</span></div></div>
-        <div class="pinfo"><b style="display:flex;align-items:center">${miniFlag(c)}${K.name}</b><span>${g?(n<K.cities.length?`Gold · ${n} of ${K.cities.length} cities stamped`:`All ${K.cities.length} cities stamped`):`${n} of ${K.cities.length} key cities`}${mem.length?`<em class="memn">${mem.length} in memories</em>`:''}</span>
+        <div class="pinfo"><b style="display:flex;align-items:center">${miniFlag(c)}${K.name}</b><span>${g?(n<K.cities.length?`Gold · ${n} of ${K.cities.length} cities stamped`:`All ${K.cities.length} cities stamped`):`${n} of ${K.cities.length} key cities`}${mem.length?`<em class="memn">${mem.length} in memories</em>`:''}${phCount(c)?`<em class="phn">${L(LU.camera,11,2.4)}${phCount(c)}</em>`:''}</span>
           <div class="bar ${g?'gold':''}"><i style="width:${Math.min(1,n/goldNeed(c))*100}%"></i></div></div></div>
       <div class="tiles">${shown.map(k=>verified[k]&&visited[k]
-        ? `<button class="tile re ${eventStamps[k]?'evst':''}" data-restamp="${k}" aria-label="Stamp ${CITIES[k].name} again"><span class="vdot" title="Verified">${L(LU.check,11,3)}</span>${eventStamps[k]?`<span class="evb">${document.documentElement.classList.contains('fresh')?`<i class="evemo2">${evIcon(EVENTS.find(x=>x.id===eventStamps[k].ev))}</i>`:L(LU.spark,12,2.4)}</span>`:''}<div class="sq" style="background:${K.color}">${lm(CITIES[k].icon,'on').replace('<svg','<svg width="36" height="36"')}</div><b>${CITIES[k].short||CITIES[k].name}</b></button>`
-        : visited[k] ? `<button class="tile mem" data-popen="${k}" aria-label="${CITIES[k].name}: on your memory page. Stamp it on the spot to verify">${L(LU.cal,18,2.2)}<b>${CITIES[k].short||CITIES[k].name}</b><small>Memory</small></button>`
+        ? `<button class="tile re ${eventStamps[k]?'evst':''}" data-restamp="${k}" aria-label="Stamp ${CITIES[k].name} again"><span class="vdot" title="Verified">${L(LU.check,11,3)}</span>${eventStamps[k]?`<span class="evb">${document.documentElement.classList.contains('fresh')?`<i class="evemo2">${evIcon(EVENTS.find(x=>x.id===eventStamps[k].ev))}</i>`:L(LU.spark,12,2.4)}</span>`:''}${phCoverURL(k)?`<div class="sq phsq" style="background:${K.color} url(${phCoverURL(k)}) center/cover"><span class="phmini">${lm(CITIES[k].icon,'on').replace('<svg','<svg width="20" height="20"')}</span></div>`:`<div class="sq" style="background:${K.color}">${lm(CITIES[k].icon,'on').replace('<svg','<svg width="36" height="36"')}</div>`}<b>${CITIES[k].short||CITIES[k].name}</b></button>`
+        : visited[k] ? `<button class="tile mem" data-popen="${k}" aria-label="${CITIES[k].name}: on your memory page. Stamp it on the spot to verify">${phCoverURL(k)?`<span class="phmem" style="background-image:url(${phCoverURL(k)})"></span>`:L(LU.cal,18,2.2)}<b>${CITIES[k].short||CITIES[k].name}</b><small>Memory</small></button>`
         : `<div class="tile lock">${L(LU.lock,18)}<b>${CITIES[k].short||CITIES[k].name}</b></div>`).join('')}${more>0?`<button class="tile more" data-pexp="${c}" aria-label="Show ${more} more cities"><b>+${more}</b><small>more</small></button>`:''}</div></section>`;}).join('')}</div>
+  ${phPassHTML()}
   ${beenHTML()}
   ${weekHTML()}
   ${yirCardHTML()}

@@ -24,3 +24,9 @@ Outside the Claude page it was prototyped on, the app saves to the browser only.
 4. Trusted, server-checked stamps
 5. Friends and postcards
 6. Polish and beta
+
+## Photos
+
+Travellers can add photos from their device. Postmark reads each photo's saved location and date and files it under the nearest city (within 60 km), falling back to the dates of their trips, or lets them pick a city. Photos are resized (1600 px, plus a 420 px thumbnail) and kept on the device in IndexedDB.
+
+When signed in on the live site, photos also back up to a private Supabase Storage bucket. Run `supabase/photos.sql` once in the Supabase SQL Editor to create the bucket and its access rules. Until then, photos stay on the device and upload automatically once the bucket exists.
