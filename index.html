@@ -371,6 +371,12 @@ html.fresh .evrow.got{border:0!important;background:linear-gradient(120deg,#FFE9
 .wsign .pill{position:relative}.wsev{position:absolute;top:-12px;right:-14px;display:flex;align-items:center;gap:1px;height:24px;min-width:24px;padding:0 5px;border-radius:999px;background:conic-gradient(from 0deg,#FFE38A,#FF9BC0,#B9A6FF,#8EE6F5,#FFE38A);box-shadow:0 0 0 2px #fff,0 4px 12px rgba(157,78,255,.45);font-size:13px;line-height:1;animation:pinglow 1.8s ease-in-out infinite}.wsev b{font:800 10px var(--font-display);color:#3A2A6B;margin-left:1px}
 .sq.phsq{position:relative;background-size:cover!important;background-position:center!important;box-shadow:inset 0 0 0 2px rgba(255,255,255,.9)}.sq.phsq .phmini{position:absolute;right:-5px;bottom:-5px;padding:2px;border-radius:30%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 5px rgba(0,0,0,.2);width:auto;height:auto}
 .discph{display:block;width:100%;height:100%;border-radius:50%;background:center/cover;box-shadow:inset 0 0 0 2px rgba(255,255,255,.85)}
+.thero .hfaces{position:absolute;right:14px;top:14px;display:flex;flex-direction:row-reverse;justify-content:flex-start;z-index:1}
+.thero .hfaces .face{position:relative;right:auto;top:auto;flex-shrink:0;width:var(--hs);height:var(--hs);margin-left:calc(var(--hs)*-.38);border-width:calc(max(2px,var(--hs)*.045))}
+.thero .hfaces .face:last-child{margin-left:0}
+.thero .hfaces .face svg{width:100%;height:100%;display:block}
+.thero .hfaces .face.inv{opacity:.82;border-style:dashed}
+.thero .hfaces .face.more{display:flex;align-items:center;justify-content:center;background:#1E2B33;color:#fff;font:800 calc(var(--hs)*.36) var(--font-display)}
 /* springy taps */
 html.fresh :is(button,.wcard,.wcd,.tcard,.fcard,.setc,.anic,.chip,.tile,.kt,.sr,.step){transition:transform .18s cubic-bezier(.3,1.6,.5,1),box-shadow .18s}
 html.fresh :is(button,.wcard,.tcard,.fcard,.sr,.step):active:not(:disabled){transform:scale(.955)}
@@ -7645,6 +7651,13 @@ function invitesHTML(){
 }
 const tripCrew = t => { if(!t.sid) return ''; const mem=(TOG.members[t.sid]||[]).filter(m=>m.status==='joined'), others=mem.filter(m=>m.user_id!==TOG.uid); if(!others.length) return '';
   return `<div class="tfaces"><span class="stack">${others.slice(0,4).map(m=>`<span class="face">${personFace(m.user_id,24)}</span>`).join('')}</span>With ${others.slice(0,2).map(m=>esc(personName(m.user_id))).join(' and ')}${others.length>2?` +${others.length-2}`:''}</div>`; };
+/* the trip banner shows everyone on the trip: you, then friends who joined, then people still invited. The more people, the smaller each passport photo, so they always fit */
+var HFW=64;
+function heroFaces(t){ HFW=64; const mem=t.sid?(TOG.members[t.sid]||[]):[], others=mem.filter(m=>m.user_id!==TOG.uid).sort((a,b)=>(a.user_id===t.owner?-1:b.user_id===t.owner?1:0)||(a.status==='joined'?-1:1)-(b.status==='joined'?-1:1));
+  if(!others.length) return `<span class="hfaces" style="--hs:64px;--hw:64px">${face(64)}</span>`;
+  const MAXW=150, MAX=8, list=others.slice(0, others.length+1>MAX?MAX-2:MAX-1), more=others.length-list.length, n=list.length+1+(more?1:0);
+  const sz=Math.max(26, Math.min(64, Math.floor(MAXW/(1+(n-1)*.62)))), w=Math.round(sz+(n-1)*sz*.62); HFW=w;
+  return `<span class="hfaces" style="--hs:${sz}px;--hw:${w}px" aria-label="On this trip: you${list.map(m=>', '+esc(personName(m.user_id))+(m.status==='joined'?'':' (invited)')).join('')}${more?`, and ${more} more`:''}">${face(sz)}${list.map(m=>`<span class="face ${m.status==='joined'?'':'inv'}" title="${esc(personName(m.user_id))}${m.status==='joined'?'':' · invited'}">${personFace(m.user_id,sz)}</span>`).join('')}${more?`<span class="face more">+${more}</span>`:''}</span>`; }
 const T = id => trips.find(t=>t.id===id);
 const inTrip = id => { const t=T(activeTrip); return !!(t && t.cities.includes(id)); };
 const daysTo = iso => Math.round((new Date(iso+'T00:00')-new Date(today()+'T00:00'))/864e5);
@@ -7733,7 +7746,7 @@ function paintAdd(){ const t=T(tripView), el=$('#addRes'); if(t&&el) el.innerHTM
 function tripDetail(t){
   const n=t.cities.filter(id=>visited[id]).length, cd=countdown(t), others=Object.keys(CITIES).filter(id=>!t.cities.includes(id)), packed=t.pack.filter(p=>p[1]).length;
   return `<div class="toprow" style="margin:6px 20px 12px"><button class="chip" id="tBack">${L(LU.left,18)}<span>All trips</span></button></div>
-  <div class="thero" style="background-color:${t.color};${inkOn(t.color)}">${face(64)}<small>${activeTrip===t.id?'Active trip':'Trip'}</small><h2>${esc(t.name)}</h2><p>${range(t)}</p>
+  <div class="thero" style="background-color:${t.color};${inkOn(t.color)}">${heroFaces(t)}<small>${activeTrip===t.id?'Active trip':'Trip'}</small><h2 style="margin-right:${HFW+18}px">${esc(t.name)}</h2><p>${range(t)}</p>
     <div class="big"><b>${cd.n}</b><span>${cd.l}</span></div>
     <div class="bar"><i style="width:${t.cities.length?n/t.cities.length*100:0}%"></i></div><p style="margin-top:6px">${n} of ${t.cities.length} stops stamped</p>
     ${started(t)&&tripStamps(t).length?`<button class="recapbtn" id="tRecap">${L(LU.play,16)}${daysTo(t.end)<0?'Watch your trip recap':'Play the recap so far'}</button>`:''}</div>
