@@ -1,0 +1,12 @@
+{
+  "appId": "com.postmark.travel",
+  "appName": "Postmark",
+  "webDir": "www",
+  "backgroundColor": "#C8F5D6",
+  "ios": { "contentInset": "never", "backgroundColor": "#C8F5D6" },
+  "android": { "backgroundColor": "#C8F5D6" },
+  "plugins": {
+    "SplashScreen": { "launchShowDuration": 900, "backgroundColor": "#C8F5D6", "showSpinner": false },
+    "StatusBar": { "style": "LIGHT", "overlaysWebView": true }
+  }
+}

@@ -36,3 +36,7 @@ Part 2 of the same file (run it after `together.sql`) lets friends on a shared t
 Part 3 lets friends see each other's stamp photos on their friend card and passport page (private photos are never shared).
 
 Every "been there" memory stamp shows the city's chosen stamp photo, and stamp photos appear as pins on the world map when you zoom in.
+
+## App Store and Google Play
+
+See `NATIVE.md`. The native apps are built with Capacitor from the `native/` folder. Run `supabase/account.sql` once so travellers can delete their account in the app, and replace the placeholder contact email in `privacy.html`.
