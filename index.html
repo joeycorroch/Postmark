@@ -5543,7 +5543,7 @@ async function frCovers(){ const b=typeof phCloud==='function'&&phCloud(); const
   catch(e){ console.warn('[friend photos]', e&&e.message); } }
 function frPhotosHTML(f){ const ps=FRPH[f.id]||[]; if(!ps.length) return '';
   return `<div class="tsec"><h3>${esc(f.name)}’s stamp photos <span>${ps.length}</span></h3><div class="phgrid">${ps.map((x,i)=>`<button class="phg" data-frph="${f.id}:${i}" style="background-image:url(${x.thumb})" aria-label="${esc(f.name)}’s photo from ${esc(CITIES[x.city].name)}"><span>${esc(CITIES[x.city].short||CITIES[x.city].name)}${visited[x.city]?' ✓':''}</span></button>`).join('')}</div></div>`; }
-function frPhotoOpen(uid, i){ const x=(FRPH[uid]||[])[+i]; if(!x) return; const C=CITIES[x.city], f=realFriend(uid), d=PEOPLE[uid]&&PEOPLE[uid].cities&&PEOPLE[uid].cities[x.city];
+function frPhotoOpen(uid, i){ const x=(FRPH[uid]||[])[+i]; if(!x) return; const C=CITIES[x.city], f=(typeof friendById==='function'&&friendById(uid))||realFriend(uid), d=(f.visited&&f.visited[x.city])||(PEOPLE[uid]&&PEOPLE[uid].cities&&PEOPLE[uid].cities[x.city]);
   let el=$('#phbox'); if(!el){ $('#phone').insertAdjacentHTML('beforeend','<div id="phbox" role="dialog" aria-label="Photo"></div>'); el=$('#phbox'); }
   const list=FRPH[uid];
   el.innerHTML=`<button class="xbtn" data-phbx aria-label="Close">${L(LU.x,20)}</button><div class="phimg"><img src="${x.full}" alt="${esc(f.name)}’s photo from ${esc(C.name)}">
