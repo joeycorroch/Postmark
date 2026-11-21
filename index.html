@@ -368,6 +368,7 @@ html.fresh .evrow.got{border:0!important;background:linear-gradient(120deg,#FFE9
 .phpriv{display:flex;align-items:center;gap:7px;width:100%;margin:0 0 10px;padding:9px 12px;border:0;border-radius:14px;background:rgba(255,255,255,.1);color:#DCEBEF;font:600 12.5px var(--font-body);text-align:left}.phpriv em{margin-left:auto;font-style:normal;font-weight:800;color:#8EE6B5}.phpriv.on{color:#FFE38A}
 .fphs{display:flex;align-items:center;gap:0;margin:-2px 14px 10px 14px;padding:6px 8px;border-radius:14px;background:#F2F8F4;cursor:pointer}.fphs span{width:30px;height:30px;margin-right:-6px;border-radius:50%;background:#DDE9E2 center/cover;box-shadow:0 0 0 2px #fff}.fphs b{margin-left:10px;font:700 11px var(--font-display);color:#5D6D75}.fphs small{display:flex;align-items:center;gap:4px;margin-left:auto;font:700 11px var(--font-body);color:#1F7F99}
 .fcard .fphs{position:relative}
+.wsign .pill{position:relative}.wsev{position:absolute;top:-12px;right:-14px;display:flex;align-items:center;gap:1px;height:24px;min-width:24px;padding:0 5px;border-radius:999px;background:conic-gradient(from 0deg,#FFE38A,#FF9BC0,#B9A6FF,#8EE6F5,#FFE38A);box-shadow:0 0 0 2px #fff,0 4px 12px rgba(157,78,255,.45);font-size:13px;line-height:1;animation:pinglow 1.8s ease-in-out infinite}.wsev b{font:800 10px var(--font-display);color:#3A2A6B;margin-left:1px}
 /* springy taps */
 html.fresh :is(button,.wcard,.wcd,.tcard,.fcard,.setc,.anic,.chip,.tile,.kt,.sr,.step){transition:transform .18s cubic-bezier(.3,1.6,.5,1),box-shadow .18s}
 html.fresh :is(button,.wcard,.tcard,.fcard,.sr,.step):active:not(:disabled){transform:scale(.955)}
@@ -5090,7 +5091,7 @@ function pinsHTML(g){ let out='';
     out+=`<button class="wani ${zz?'sleep':''}" data-wani="${a.k}" style="left:${(x-15).toFixed(1)}px;top:${(y-15).toFixed(1)}px;--d:${(i*.37).toFixed(2)}s" aria-label="${esc(a.name)}${zz?' (asleep)':''}: tap for a fact"><svg viewBox="-13 -13 26 26" width="30" height="30" aria-hidden="true">${a.svg}</svg>${zz?'<i class="zz" aria-hidden="true">z<b>z</b><u>z</u></i>':''}</button>`; });
   { BALG=g; const [x,y]=wLL(g,...balloonLL()); out+=`<button class="wball" data-wball style="left:${(x-17).toFixed(1)}px;top:${(y-70).toFixed(1)}px" aria-label="Hot air balloon: tap for today’s quiz">${BALLOON}</button>`; }
   const seen=new Set();
-  const seen2=new Set(); EVENTS.forEach(e=>e.cities.forEach(id=>{ const ev=activeEvent(id); if(!ev||ev.id!==e.id||seen.has(id)||!CITY_LL[id]) return; seen.add(id); const [x,y]=wLL(g,...CITY_LL[id]);
+  const seen2=new Set(); if(false) EVENTS.forEach(e=>e.cities.forEach(id=>{ const ev=activeEvent(id); if(!ev||ev.id!==e.id||seen.has(id)||!CITY_LL[id]) return; seen.add(id); const [x,y]=wLL(g,...CITY_LL[id]);
     const lead=!seen2.has(e.id); seen2.add(e.id); out+=`<button class="wev ${lead?'lead':''}" data-wev="${id}" style="left:${(x-13).toFixed(1)}px;top:${(y-32).toFixed(1)}px" aria-label="${esc(e.name)} is on now in ${CITIES[id].name}">${document.documentElement.classList.contains('fresh')?`<span class="evi">${evIcon(e)}</span>`:L(LU.spark,14,2.4)}</button>`; }));
   const cd=cityOfDay(); if(CITY_LL[cd]){ const [x,y]=wLL(g,...CITY_LL[cd]); const rw=cotdIsMemory(); out+=`<button class="wcotd ${rw?'rw':''}" data-cotd="${cd}" style="left:${(x-13).toFixed(1)}px;top:${(y-30).toFixed(1)}px" aria-label="${rw?'Remember when':'City of the day'}: ${CITIES[cd].name}">${rw?L(LU.cal,13,2.4):L(LU.star,13,2.6)}</button>`; }
   const spots={};
@@ -5107,7 +5108,7 @@ function worldArtHTML(){
   const at=(x,y)=>[x*g.z, y*g.z+g.oy];
   const pw=document.getElementById('pmSpeckW'); if(pw) pw.setAttribute('patternTransform', `scale(${(1.9/g.z).toFixed(4)})`);
   const bubs = REGIONS.map((r,i)=>{ const n=regionCount(r), [cx,cy]=at(r.x+15,r.y+15), cc=countryCount(r.id), tot=regionTotal(r.id)||1;
-    return `<button class="wsign mk ${n?'hot':''}" data-region="${r.id}" style="left:${cx.toFixed(1)}px;top:${(cy+14).toFixed(1)}px;--i:${i};--tilt:${[-4,3,-2,4,-3,2][i]}deg" aria-label="${r.name}: ${n} ${n===1?'city':'cities'} stamped, ${cc} of ${tot} countries"><span class="sg"><span class="pill"><b>${r.name}</b><i>${cc}/${tot}</i></span></span></button>`; }).join('');
+    return `<button class="wsign mk ${n?'hot':''}" data-region="${r.id}" style="left:${cx.toFixed(1)}px;top:${(cy+14).toFixed(1)}px;--i:${i};--tilt:${[-4,3,-2,4,-3,2][i]}deg" aria-label="${r.name}: ${n} ${n===1?'city':'cities'} stamped, ${cc} of ${tot} countries${regionLive(r.id).length?`, ${regionLive(r.id).length} shiny festival${regionLive(r.id).length>1?'s':''} on now`:''}"><span class="sg"><span class="pill"><b>${r.name}</b><i>${cc}/${tot}</i>${(()=>{ const lv=regionLive(r.id); return lv.length?`<span class="wsev" title="${lv.length} festival${lv.length>1?'s':''} on now">${evIcon(lv[0])}${lv.length>1?`<b>${lv.length}</b>`:''}</span>`:''; })()}</span></span></button>`; }).join('');
   let me='';
   if(LOC.on && LOC.pos){ const [ax,bx,ay,by]=lvAff('world'), [X,Y]=at(ax*LOC.pos[1]+bx, ay*LOC.pos[0]+by); me=`<div class="mering" style="left:${X.toFixed(1)}px;top:${Y.toFixed(1)}px"></div><div class="me here" style="left:${(X-24).toFixed(1)}px;top:${(Y-58).toFixed(1)}px" aria-hidden="true">${face(40)}<i>YOU</i><u></u></div>`;
     const near=Object.keys(CITIES).filter(id=>!vst(id)&&CITY_LL[id]&&kmTo(LOC.pos,CITY_LL[id])<350).sort((a,b)=>kmTo(LOC.pos,CITY_LL[a])-kmTo(LOC.pos,CITY_LL[b]));
@@ -5241,7 +5242,7 @@ function postieLine(){ if(AWAY_DAYS>=2 && !awayShown){ const nm=((AVA.bio&&AVA.b
     : h<17 ? [`Afternoon${hi}! Tap a continent to explore.`,'Psst… the balloon has today’s quiz.','Where shall we fly today? Tap me and I’ll pick.']
     : h<21 ? [`Evening${hi}! Perfect time for a postcard.`,`Sunset somewhere lovely. Fancy ${C.name}?`,'Zoom in to spot animals and message bottles.']
     : [`Getting late${hi}. One more city before bed?`,'Night owl? Tap me for a surprise city.','The planes are still flying. Zoom in!'];
-  return T[(new Date().getDate()+Object.keys(visited).length)%T.length]; }
+  const pool=[...pipNews(), ...T]; return pool[pipTurn()%pool.length]; }
 /* big inline pictures become short blob: links once, so re-rendering the map doesn't re-copy them */
 function blobURL(d){ try{ const i=d.indexOf(','), mime=d.slice(5,d.indexOf(';')), bin=atob(d.slice(i+1)), u=new Uint8Array(bin.length); for(let k=0;k<bin.length;k++) u[k]=bin.charCodeAt(k); return URL.createObjectURL(new Blob([u],{type:mime})); }catch(e){ return d; } }
 /* ================= mini games: started from planes, boats and clouds on the world map, or from Passport ================= */
@@ -5673,8 +5674,39 @@ const PIP_TIPS=[
   ['Daily quiz','Tap the balloon for seven quick questions. Ten right answers unlock the Balloonist cap.'],
   ['Postcards','Send a friend a postcard from any city you’ve stamped. I’ll fly it there myself.'],
   ['Plan a trip','Add cities to a trip and tap Smart order. I’ll find the shortest route.'],
-  ['Tuck the panel away','Swipe the panel on the map down to see more of the world.']];
-function pipTip(where){ const i=(new Date().getDate()+(where==='friends'?3:0))%PIP_TIPS.length, [t,d]=PIP_TIPS[i];
+  ['Tuck the panel away','Swipe the panel on the map down to see more of the world.'],
+  ['Shiny stamps','When a continent sparkles, a festival is on there. Stamp a festival city while it’s on for a rare shiny stamp.'],
+  ['Add your photos','Add photos from Passport. I read where each one was taken and file it under the right city.'],
+  ['Stamp photos','Pick a favourite photo for each city. It becomes the picture inside your blue “been there” stamp.'],
+  ['Mini games','Tap a paper plane, a boat or a cloud on the world map for a quick game.'],
+  ['Photo postcards','Writing a postcard? Pick one of your own photos for the front.'],
+  ['Keep a photo private','Open a photo and tap “Make private” and only you will ever see it.'],
+  ['Year in review','Tap Year in review in Passport, then play your photos as a slideshow.'],
+  ['Trip heads-up','Add a trip and I’ll warn you when a festival is about to start in one of its cities.'],
+  ['Gold borders','Stamp enough key cities in one country and its stamp page turns gold.'],
+  ['Friends’ photos','Open a friend’s passport to see the stamp photos from every city they’ve been to.'],
+  ['Messages in bottles','Zoom right in on the oceans. Some bottles have notes from travellers inside.'],
+  ['Weekly challenges','Check “This week” on the map panel. Finishing them unlocks new envelopes and outfits.']];
+/* Pip says something different each time: what's happening now first, then general tips */
+let PIP_SESSION=0; try{ PIP_SESSION=(+localStorage.getItem('pm-pips')||0)+1; localStorage.setItem('pm-pips', String(PIP_SESSION)); }catch(e){}
+let PIP_I=PIP_SESSION, PIP_T=Date.now();
+function pipTurn(){ if(Date.now()-PIP_T>45000){ PIP_I++; PIP_T=Date.now(); } return PIP_I; }
+function pipNews(){ const out=[];
+  try{ const lv=EVENTS.filter(evLive); if(lv.length){ const e=lv[PIP_I%lv.length], c=e.cities.find(k=>{ const a=activeEvent(k); return a&&a.id===e.id; }); out.push(`${evIcon(e)} ${e.name} is on now in ${CITIES[c].name}. Stamp it for a shiny!`); } }catch(e){}
+  try{ const nx=EVENTS.filter(e=>!evLive(e)).map(e=>({e, d:daysTo(evNextStart(e))})).filter(x=>x.d>0&&x.d<=14).sort((a,b)=>a.d-b.d)[0]; if(nx) out.push(`${evIcon(nx.e)} ${nx.e.name} starts in ${nx.d} day${nx.d>1?'s':''}. Get ready for a shiny!`); }catch(e){}
+  try{ const qn=BQ.d===today()?BQ.picks.length:0; if(qn<7) out.push(qn?`${7-qn} quiz questions left in the balloon today.`:'Seven fresh quiz questions are waiting in the balloon.'); }catch(e){}
+  try{ const s=streakNow(); if(s>1) out.push(`Day ${s} of your quiz streak. Keep it going!`); }catch(e){}
+  try{ const nx=weekly().find(c=>c.cur<c.target); if(nx) out.push(`This week: ${nx.text}`); }catch(e){}
+  try{ const c=Object.keys(COUNTRIES).find(c=>!done(c)&&got(c).length&&goldNeed(c)-got(c).length===1); if(c) out.push(`One more stamp in ${COUNTRIES[c].name} and it turns gold!`); }catch(e){}
+  try{ const left=ANIMALS.length-animalsSeen.filter(k=>ANIMALS.some(a=>a.k===k)).length; if(left>0) out.push(`${left} animal${left>1?'s are':' is'} still hiding. Zoom in and look!`); }catch(e){}
+  try{ const un=inbox.filter(m=>!m.read).length; if(un) out.push(`You’ve got post! ${un} postcard${un>1?'s':''} in Friends.`); }catch(e){}
+  try{ const t=trips.filter(t=>t.start&&daysTo(t.start)>0).sort((a,b)=>a.start<b.start?-1:1)[0]; if(t){ const d=daysTo(t.start); out.push(`${d} day${d>1?'s':''} until ${t.name}! Packed yet?`); } }catch(e){}
+  try{ if(!photos.length) out.push('Add your travel photos in Passport. I’ll sort them by city!'); else { const n=new Set(photos.map(p=>p.city)).size; out.push(`${photos.length} photo${photos.length>1?'s':''} from ${n} cit${n>1?'ies':'y'} so far. Lovely!`); } }catch(e){}
+  try{ const C=CITIES[cityOfDay()]; out.push(`Today’s city is ${C.name}. Try ${C.eat.split(',')[0].replace(/\.$/,'')}.`); }catch(e){}
+  out.push('Tap a plane, boat or cloud for a mini game.');
+  return out; }
+function regionLive(rid){ return EVENTS.filter(e=>e.cities.some(k=>{ const a=activeEvent(k); return a&&a.id===e.id&&COUNTRIES[CITIES[k].c].region===rid; })); }
+function pipTip(where){ const i=(PIP_SESSION*2+Math.floor(Date.now()/600000)+(where==='friends'?5:where==='trips'?9:0))%PIP_TIPS.length, [t,d]=PIP_TIPS[i];
   return `<div class="piptip"><span class="pz">${POSTIE(64,'Pip')}</span><div><small>Pip’s tip</small><b>${t}</b><p>${d}</p></div></div>`; }
 function worldUI(){
   if(!document.documentElement.classList.contains('fresh')) return classicWorldUI();
